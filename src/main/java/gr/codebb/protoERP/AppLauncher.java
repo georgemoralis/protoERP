@@ -1,3 +1,16 @@
+/*
+ * copyright 2013-2020
+ * codebb.gr
+ * ProtoERP - Open source invocing program
+ * info@codebb.gr
+ */
+/**
+ * <pre>
+ * Changelog
+ * =========
+ * 04/10/2020 - Initial commit
+ * </pre>
+ */
 /**
  * Launcher Class Upon closer inspection you will notice that the scripts are not creating packages
  * and executables for App (which extends the standard JavaFX Application class) but for

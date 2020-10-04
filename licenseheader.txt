@@ -1,0 +1,10 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}copyright 2013-2020
+${licensePrefix}codebb.gr
+${licensePrefix}ProtoERP - Open source invocing program
+${licensePrefix}info@codebb.gr
+<#if licenseLast??>
+${licenseLast}
+</#if>
