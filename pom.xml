@@ -17,6 +17,11 @@
         <versions-maven-plugin>2.8.1</versions-maven-plugin>
         <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
         <javafx-maven-plugin>0.0.4</javafx-maven-plugin>
+        <maven-site-plugin>3.9.1</maven-site-plugin>
+        <maven-project-info-reports-plugin>3.1.1</maven-project-info-reports-plugin>
+        <spotbugs-maven-plugin>4.1.3</spotbugs-maven-plugin>
+        <fmt-maven-plugin>2.10</fmt-maven-plugin>
+        <maven-checkstyle-plugin>3.1.1</maven-checkstyle-plugin>
         <!--depedencies !-->
         <lombok>1.18.12</lombok>
         <javafx-controls>16-ea+2</javafx-controls>
@@ -53,8 +58,49 @@
                     <mainClass>gr.codebb.protoERP.App</mainClass>
                 </configuration>
             </plugin>
+            <!-- Part of Maven - specified version explicitly for compatibility
+            with the maven-project-info-reports-plugin 3.0.0-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven-site-plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>com.coveo</groupId>
+                <artifactId>fmt-maven-plugin</artifactId>
+                <version>${fmt-maven-plugin}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-project-info-reports-plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${spotbugs-maven-plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin}</version>
+                <configuration>
+                    <configLocation>google_checks.xml</configLocation>
+                </configuration>
+            </plugin>             
+        </plugins>
+    </reporting>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>

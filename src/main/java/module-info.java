@@ -5,7 +5,8 @@ module codebb.protoERP {
   requires java.desktop;
   requires lombok;
 
-  opens gr.codebb.protoERP to javafx.fxml;
+  opens gr.codebb.protoERP to
+      javafx.fxml;
 
   exports gr.codebb.protoERP;
 }
