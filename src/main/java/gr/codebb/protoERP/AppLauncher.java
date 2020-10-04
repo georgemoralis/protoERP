@@ -17,7 +17,8 @@
  * application can not launch. As a work-around we are starting a standard Java class with a main
  * method in it. This prevents the module path check and the application will launch just fine.
  */
-package gr.codebb.protoERP;
+
+package gr.codebb.protoerp;
 
 public class AppLauncher {
 

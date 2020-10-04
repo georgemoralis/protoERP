@@ -9,7 +9,8 @@
  * =========
  * 04/10/2020 - Initial commit
  */
-package gr.codebb.protoERP;
+
+package gr.codebb.protoerp;
 
 import static javafx.application.Application.launch;
 
@@ -24,7 +25,8 @@ public class App extends Application {
   }
 
   @Override
-  public void start(Stage stage) throws Exception {}
+  public void start(Stage stage) throws Exception {
+  }
 
   public static void main(String[] args) {
     launch(args);

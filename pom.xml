@@ -2,8 +2,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>gr.codebb.protoERP</groupId>
-    <artifactId>protoERP</artifactId>
+    <groupId>gr.codebb.protoerp</groupId>
+    <artifactId>protoerp</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
@@ -55,7 +55,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>${javafx-maven-plugin}</version>
                 <configuration>
-                    <mainClass>gr.codebb.protoERP.App</mainClass>
+                    <mainClass>gr.codebb.protoerp.App</mainClass>
                 </configuration>
             </plugin>
             <!-- Part of Maven - specified version explicitly for compatibility
