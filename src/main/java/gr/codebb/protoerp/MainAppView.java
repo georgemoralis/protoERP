@@ -40,10 +40,16 @@ public class MainAppView implements Initializable {
     this.masterDetailPane = masterDetailPane;
   }
 
-  /** Initializes the controller class. */
+  /**
+   * Initializes the controller class.
+   *
+   * @param url
+   * @param rb
+   */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    // TODO
+    hammenu = new HamburgerNextArrowBasicTransition(hamburgermenu);
+    hammenu.setRate(-1);
   }
 
   @FXML
