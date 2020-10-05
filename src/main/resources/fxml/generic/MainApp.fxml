@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import gr.codebb.ctl.CbbDetachableTabPane?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="651.0" prefWidth="738.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.MainAppView">
+    <children>
+        
+        <ToolBar prefHeight="38.0" prefWidth="893.0" style="-fx-background-color: white;">
+              
+            <items>
+                <JFXHamburger fx:id="hamburgermenu" onMouseClicked="#hamburgerMenuMouseClicked" />
+            </items>
+        </ToolBar>
+        <StackPane fx:id="mainStackPane" prefHeight="712.0" prefWidth="899.0" VBox.vgrow="ALWAYS">
+            <children>
+                <CbbDetachableTabPane fx:id="mainDetachPane" prefHeight="508.0" prefWidth="893.0" />
+            </children>
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="10.0" />
+    </padding>
+</VBox>

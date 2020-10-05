@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+
+<VBox fx:id="mainVBox" alignment="TOP_CENTER" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.LeftSideMenuView">
+   <children>
+      <HBox fx:id="searchBox" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0">
+         <children>
+            <TextField fx:id="search" minHeight="-Infinity" prefHeight="38.0" prefWidth="358.0" promptText="Εύρεση..." />
+            <Button fx:id="clear" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" minHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#clearText" prefHeight="38.0" prefWidth="15.0" styleClass="btn-transparent" text="Button" HBox.hgrow="NEVER">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <SVGPath fx:id="searchIcon" content="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" styleClass="icon" />
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <ScrollPane fx:id="scroll" fitToWidth="true" prefHeight="324.0" prefWidth="239.0">
+         <content>
+            <VBox fx:id="views" alignment="TOP_CENTER" prefHeight="0.0" prefWidth="0.0">
+               <children>
+                  <Button fx:id="dashboard" graphicTextGap="15.0" mnemonicParsing="false" onAction="#dashBoardAction" prefHeight="32.0" prefWidth="366.0" text="DashBoard" VBox.vgrow="ALWAYS">
+                  </Button>
+                  <TitledPane fx:id="settings_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Ρυθμίσεις">
+                     <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#settingsAction" prefHeight="32.0" prefWidth="262.0" text="Ρυθμίσεις">
+                              </Button>
+                           </children>
+                        </VBox>
+                     </content>
+                  </TitledPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

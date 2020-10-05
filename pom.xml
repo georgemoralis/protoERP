@@ -24,8 +24,12 @@
         <maven-checkstyle-plugin>3.1.1</maven-checkstyle-plugin>
         <!--depedencies !-->
         <lombok>1.18.12</lombok>
+        <jfoenix>9.0.10</jfoenix>
+        <controlsfx>11.0.2</controlsfx>
         <javafx-controls>16-ea+2</javafx-controls>
         <javafx-fxml>16-ea+2</javafx-fxml>
+        <!-- own modules !-->
+        <cobebbfxctl>15.0.3</cobebbfxctl>
     </properties>
 
     <build>
@@ -101,6 +105,13 @@
             </plugin>             
         </plugins>
     </reporting>
+    <repositories>
+        <repository>
+            <id>maven-codebb</id>
+            <name>maven-codebb</name>
+            <url>http://maven.codebb.gr/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -117,6 +128,22 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx-fxml}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>${controlsfx}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>${jfoenix}</version>
+        </dependency>
+        <!-- own modules !-->
+        <dependency>
+            <groupId>gr.codebb</groupId>
+            <artifactId>cobebbfxctl</artifactId>
+            <version>${cobebbfxctl}</version>
         </dependency>
     </dependencies>
 </project>

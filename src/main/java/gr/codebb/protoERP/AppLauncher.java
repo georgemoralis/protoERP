@@ -7,7 +7,7 @@
 /*
  * Changelog
  * =========
- * 04/10/2020 - Initial commit
+ * 04/10/2020 (georgemoralis) - Initial commit
  */
 /**
  * Launcher Class Upon closer inspection you will notice that the scripts are not creating packages
@@ -17,7 +17,6 @@
  * application can not launch. As a work-around we are starting a standard Java class with a main
  * method in it. This prevents the module path check and the application will launch just fine.
  */
-
 package gr.codebb.protoerp;
 
 public class AppLauncher {
