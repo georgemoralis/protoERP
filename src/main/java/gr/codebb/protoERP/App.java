@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 06/10/2020 (georgemoralis) - Set application title
  * 05/10/2020 (georgemoralis) - Creation of main window
  * 04/10/2020 (georgemoralis) - Initial commit
  */
@@ -54,7 +55,7 @@ public class App extends Application {
 
     final Scene scene = new Scene(masterDetailPane);
 
-    // applicationStage.setTitle(MainSettings.getInstance().getAppNameWithVersion());
+    stage.setTitle(MainSettings.getInstance().getAppNameWithVersion());
     // Application icons
     Image image = new Image("/img/protoerp-logo.png");
     stage.getIcons().addAll(image);

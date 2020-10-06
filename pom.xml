@@ -22,6 +22,7 @@
         <spotbugs-maven-plugin>4.1.3</spotbugs-maven-plugin>
         <fmt-maven-plugin>2.10</fmt-maven-plugin>
         <maven-checkstyle-plugin>3.1.1</maven-checkstyle-plugin>
+        <git-commit-id-plugin>4.0.2</git-commit-id-plugin>
         <!--depedencies !-->
         <lombok>1.18.12</lombok>
         <jfoenix>9.0.10</jfoenix>
@@ -31,6 +32,7 @@
         <ikonli-fontawesome-pack>11.5.0</ikonli-fontawesome-pack>
         <!-- own modules !-->
         <cobebbfxctl>15.0.3</cobebbfxctl>
+        <codebbutil>15.0.2</codebbutil>
     </properties>
 
     <build>
@@ -82,6 +84,32 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>${git-commit-id-plugin}</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dateFormat>dd/MM/yyyy HH:mm:ss</dateFormat>
+                    <excludeProperties>
+                        <excludeProperty>git.build.user.*</excludeProperty>
+                        <excludeProperty>git.build.host</excludeProperty>
+                        <excludeProperty>git.remote.origin.url</excludeProperty>
+                        <excludeProperty>git.commit.user.name</excludeProperty>
+                    </excludeProperties>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <!-- The path for the properties file to be generated. See Super Pom for default variable reference https://maven.apache.org/guides/introduction/introduction-to-the-pom.html -->
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                </configuration>
+            </plugin>        
         </plugins>
     </build>
     <reporting>
@@ -103,7 +131,7 @@
                 <configuration>
                     <configLocation>google_checks.xml</configLocation>
                 </configuration>
-            </plugin>             
+            </plugin>      
         </plugins>
     </reporting>
     <repositories>
@@ -140,20 +168,21 @@
             <artifactId>jfoenix</artifactId>
             <version>${jfoenix}</version>
         </dependency>
-        
-
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-fontawesome-pack</artifactId>
             <version>${ikonli-fontawesome-pack}</version>
         </dependency>
-
-
         <!-- own modules !-->
         <dependency>
             <groupId>gr.codebb</groupId>
             <artifactId>cobebbfxctl</artifactId>
             <version>${cobebbfxctl}</version>
+        </dependency>
+        <dependency>
+            <groupId>gr.codebb</groupId>
+            <artifactId>codebbutil</artifactId>
+            <version>${codebbutil}</version>
         </dependency>
     </dependencies>
 </project>

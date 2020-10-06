@@ -7,6 +7,7 @@ module codebb.protoerp {
   requires org.controlsfx.controls;
   requires com.jfoenix;
   requires gr.codebb.ctl;
+  requires gr.codebb.util;
   requires org.kordamp.ikonli.fontawesome;
 
   opens gr.codebb.protoerp to
