@@ -8,8 +8,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="mainVBox" alignment="TOP_CENTER" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.LeftSideMenuView">
+<VBox fx:id="mainVBox" alignment="TOP_CENTER" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.LeftSideMenuView">
    <children>
       <HBox fx:id="searchBox" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0">
          <children>
@@ -29,16 +31,135 @@
             <VBox fx:id="views" alignment="TOP_CENTER" prefHeight="0.0" prefWidth="0.0">
                <children>
                   <Button fx:id="dashboard" graphicTextGap="15.0" mnemonicParsing="false" onAction="#dashBoardAction" prefHeight="32.0" prefWidth="366.0" text="DashBoard" VBox.vgrow="ALWAYS">
-                  </Button>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-dashboard" />
+                     </graphic></Button>
+                  <TitledPane fx:id="partners_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Συναλλασσόμενοι">
+                     <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#partnersAction" prefHeight="32.0" prefWidth="262.0" text="Συναλλασσόμενοι">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-users" />
+                                 </graphic></Button>
+                           </children>
+                        </VBox>
+                     </content>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-users" />
+                     </graphic>
+                  </TitledPane>
+                  <TitledPane fx:id="invoices_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Παραστατικά">
+                     <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#invoicesAction" prefHeight="32.0" prefWidth="262.0" text="Παραστατικά">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-tasks" />
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Button>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#cancelledAction" prefHeight="32.0" prefWidth="262.0" text="Έκδοση Ακυρωτικού">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-ban" />
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </content>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-tasks" />
+                     </graphic>
+                  </TitledPane>
+                  <TitledPane fx:id="cash_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Ταμείο">
+                     <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#casholdAction" prefHeight="32.0" prefWidth="262.0" text="Ταμείο">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-money" />
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Button>
+                              
+                           </children>
+                        </VBox>
+                     </content>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-money" />
+                     </graphic>
+                  </TitledPane>
+                  <TitledPane fx:id="items_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Είδη">
+                     <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#itemsAction" prefHeight="32.0" prefWidth="262.0" text="Είδη">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-shopping-cart" />
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></Button>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#storageAction" prefHeight="32.0" prefWidth="262.0" text="Απόθεμα">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-truck" />
+                                 </graphic></Button>
+                           </children>
+                        </VBox>
+                     </content>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-shopping-cart" />
+                     </graphic>
+                  </TitledPane>
                   <TitledPane fx:id="settings_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Ρυθμίσεις">
                      <content>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#settingsAction" prefHeight="32.0" prefWidth="262.0" text="Ρυθμίσεις">
-                              </Button>
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-gears" />
+                                 </graphic></Button>
                            </children>
                         </VBox>
                      </content>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-gears" />
+                     </graphic>
+                  </TitledPane>
+                  <TitledPane fx:id="reports_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Αναφορές">
+                     <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#reportsAction" prefHeight="32.0" prefWidth="262.0" text="Αναφορές">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-print" />
+                                 </graphic></Button>
+                           </children>
+                        </VBox>
+                     </content>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-print" />
+                     </graphic>
+                  </TitledPane>
+                  <TitledPane fx:id="util_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Βοηθητικά">
+                     <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#issuesAction" prefHeight="32.0" prefWidth="262.0" text="Αποστολή προβλημάτων">
+                                 <graphic>
+                                     <FontIcon iconLiteral="fa-envelope" />
+                                 </graphic></Button>
+                           </children>
+                        </VBox>
+                     </content>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-info" />
+                     </graphic>
                   </TitledPane>
                </children>
             </VBox>

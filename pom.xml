@@ -28,6 +28,7 @@
         <controlsfx>11.0.2</controlsfx>
         <javafx-controls>16-ea+2</javafx-controls>
         <javafx-fxml>16-ea+2</javafx-fxml>
+        <ikonli-fontawesome-pack>11.5.0</ikonli-fontawesome-pack>
         <!-- own modules !-->
         <cobebbfxctl>15.0.3</cobebbfxctl>
     </properties>
@@ -139,6 +140,15 @@
             <artifactId>jfoenix</artifactId>
             <version>${jfoenix}</version>
         </dependency>
+        
+
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-fontawesome-pack</artifactId>
+            <version>${ikonli-fontawesome-pack}</version>
+        </dependency>
+
+
         <!-- own modules !-->
         <dependency>
             <groupId>gr.codebb</groupId>
