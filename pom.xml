@@ -32,6 +32,8 @@
         <javafx-controls>16-ea+2</javafx-controls>
         <javafx-fxml>16-ea+2</javafx-fxml>
         <ikonli-fontawesome-pack>11.5.0</ikonli-fontawesome-pack>
+        <mysql-connector-java>8.0.21</mysql-connector-java>
+        <hibernate-core>5.4.22.Final</hibernate-core>
         <!-- own modules !-->
         <cobebbfxctl>15.0.3</cobebbfxctl>
         <codebbutil>15.0.2</codebbutil>
@@ -231,6 +233,23 @@
             <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-fontawesome-pack</artifactId>
             <version>${ikonli-fontawesome-pack}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java}</version>
+            <!-- exclude X DevAPI features !-->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-java</artifactId>
+                </exclusion>
+            </exclusions> 
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate-core}</version>
         </dependency>
         <!-- own modules !-->
         <dependency>

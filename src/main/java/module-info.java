@@ -9,6 +9,7 @@ module codebb.protoerp {
   requires gr.codebb.ctl;
   requires gr.codebb.util;
   requires org.kordamp.ikonli.fontawesome;
+  requires org.hibernate.orm.core;
 
   opens gr.codebb.protoerp to
       javafx.fxml;
