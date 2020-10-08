@@ -9,7 +9,7 @@
  * =========
  * 04/10/2020 (georgemoralis) - Initial commit
  */
-package gr.codebb.protoerp;
+package gr.codebb.protoerp1;
 
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
