@@ -11,7 +11,7 @@
  * 05/10/2020 (georgemoralis) - Creation of main window
  * 04/10/2020 (georgemoralis) - Initial commit
  */
-package gr.codebb.protoerp1;
+package gr.codebb.protoerp;
 
 import static javafx.application.Application.launch;
 

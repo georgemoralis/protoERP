@@ -9,7 +9,7 @@
  * =========
  * 04/10/2020 (georgemoralis) - Initial commit
  */
-package gr.codebb.protoerp1;
+package gr.codebb.protoerp;
 
 import gr.codebb.util.git.GitInfo;
 import java.io.IOException;

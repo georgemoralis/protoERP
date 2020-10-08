@@ -10,7 +10,7 @@
  * 06/10/2020 (georgemoralis) - Functional search and prototype menu
  * 04/10/2020 (georgemoralis) - Initial commit
  */
-package gr.codebb.protoerp1;
+package gr.codebb.protoerp;
 
 import gr.codebb.ctl.CbbDetachableTab;
 import gr.codebb.ctl.CbbDetachableTabPane;
