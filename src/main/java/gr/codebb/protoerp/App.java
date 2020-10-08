@@ -57,7 +57,7 @@ public class App extends Application {
 
     stage.setTitle(MainSettings.getInstance().getAppNameWithVersion());
     // Application icons
-    Image image = new Image("/img/protoerp-logo.png");
+    Image image = new Image("/img/protoerp.png");
     stage.getIcons().addAll(image);
     scene.getStylesheets().add("/styles/bootstrap3.css");
     stage.setScene(scene);
