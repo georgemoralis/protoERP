@@ -14,7 +14,6 @@ package gr.codebb.lib.database;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-
 public class PersistenceManager {
 
   private static EntityManagerFactory factory = null;

@@ -5,10 +5,10 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
     <persistence-unit name="jpaData" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
         
         <properties>
-
+            <property name="hibernate.connection.provider_class" value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/protoerp"/>
             <property name="javax.persistence.jdbc.user" value="protoerp"/>
@@ -20,6 +20,18 @@
             <property name="format_sql" value="true"/>
             
             <property name="hibernate.hbm2ddl.auto" value="update" />
+            
+            <!-- hikari configuration based on https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration !-->
+            <property name="hibernate.hikari.dataSource.cachePrepStmts" value="true"/> 
+            <property name="hibernate.hikari.dataSource..prepStmtCacheSize" value="250"/>
+            <property name="hibernate.hikari.dataSource.prepStmtCacheSqlLimit" value="2048"/> 
+            <property name="hibernate.hikari.dataSource.useServerPrepStmts" value="true"/>
+            <property name="hibernate.hikari.dataSource.useLocalSessionState" value="true"/>
+            <property name="hibernate.hikari.dataSource.rewriteBatchedStatements" value="true"/>
+            <property name="hibernate.hikari.dataSource.cacheResultSetMetadata" value="true"/>
+            <property name="hibernate.hikari.dataSource.cacheServerConfiguration" value="true"/>
+            <property name="hibernate.hikari.dataSource.elideSetAutoCommits" value="true"/>
+            <property name="hibernate.hikari.dataSource.maintainTimeStats" value="false"/>
         </properties>
             
         
