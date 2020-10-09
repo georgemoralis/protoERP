@@ -26,7 +26,7 @@
         <git-commit-id-plugin>4.0.2</git-commit-id-plugin>
         <maven-dependency-plugin>3.1.2</maven-dependency-plugin>
         <!--depedencies !-->
-        <lombok>1.18.12</lombok>
+        <lombok>1.18.14</lombok>
         <jfoenix>9.0.10</jfoenix>
         <controlsfx>11.0.2</controlsfx>
         <javafx-controls>16-ea+2</javafx-controls>
