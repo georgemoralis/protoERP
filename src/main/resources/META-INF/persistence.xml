@@ -9,11 +9,7 @@
         
         <properties>
             <property name="hibernate.connection.provider_class" value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider"/>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/protoerp"/>
-            <property name="javax.persistence.jdbc.user" value="protoerp"/>
-            <property name="javax.persistence.jdbc.password" value="protoerp"/>
-        	
+       	
             <property name="hibernate.dialect" value="gr.codebb.lib.database.CustomMysqlDialect"/>
 	    
             <property name="show_sql" value="true"/>
