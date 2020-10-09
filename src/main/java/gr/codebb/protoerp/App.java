@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 09/10/2020 (georgemoralis) - Calling createEntityManager at startup
  * 06/10/2020 (georgemoralis) - Set application title
  * 05/10/2020 (georgemoralis) - Creation of main window
  * 04/10/2020 (georgemoralis) - Initial commit
@@ -15,6 +16,7 @@ package gr.codebb.protoerp;
 
 import static javafx.application.Application.launch;
 
+import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.FxmlUtil;
 import javafx.application.Application;
 import javafx.geometry.Side;
@@ -29,6 +31,7 @@ public class App extends Application {
   @Override
   public void init() throws Exception {
     super.init();
+    PersistenceManager.createEntityManager();
   }
 
   @Override
