@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 11/10/2020 (georgemoralis) - Added about button action
  * 04/10/2020 (georgemoralis) - Initial commit
  */
 package gr.codebb.protoerp;
@@ -14,13 +15,19 @@ package gr.codebb.protoerp;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
 import gr.codebb.ctl.CbbDetachableTabPane;
+import gr.codebb.lib.util.FxmlUtil;
+import gr.codebb.lib.util.StageUtil;
+import gr.codebb.protoerp.about.AboutView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.controlsfx.control.MasterDetailPane;
 
 public class MainAppView implements Initializable {
@@ -74,5 +81,17 @@ public class MainAppView implements Initializable {
   private void onHelpButtonPressed(ActionEvent event) {}
 
   @FXML
-  private void onAboutButtonPressed(ActionEvent event) {}
+  private void onAboutButtonPressed(ActionEvent event) {
+    FxmlUtil.LoadResult<AboutView> aboutWindow = FxmlUtil.load("/fxml/about/About.fxml");
+    Stage stage =
+        StageUtil.setStageSettings(
+            "Άδεια Χρήσης",
+            new Scene(aboutWindow.getParent()),
+            Modality.APPLICATION_MODAL,
+            mainStackPane.getScene().getWindow(),
+            null,
+            "/img/protoerp.png");
+    stage.setResizable(false);
+    stage.show();
+  }
 }

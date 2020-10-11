@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane fx:id="vbox" alignment="CENTER" hgap="10" prefHeight="541.0" prefWidth="591.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" vgap="10" xmlns="http://javafx.com/javafx/16-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.about.AboutView">
+    <children>
+        <ImageView pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" VBox.vgrow="NEVER">
+            <image>
+                <Image url="@../../img/codebb.gr-logo.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="86.0" fitWidth="91.0" pickOnBounds="true" GridPane.columnIndex="0" VBox.vgrow="NEVER">
+            <image>
+                <Image url="@../../img/protoerp.png" />
+            </image>
+        </ImageView>
+        <TextArea fx:id="textArea" editable="false" focusTraversable="false" prefHeight="374.0" prefWidth="551.0" text="" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" VBox.vgrow="ALWAYS" />
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints minHeight="10.0" prefHeight="450.0" vgrow="ALWAYS" />
+    </rowConstraints>
+</GridPane>
