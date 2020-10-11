@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 10/10/2020 (georgemoralis) - Added preloader
  * 09/10/2020 (georgemoralis) - Loading database connection info from database.xml
  * 09/10/2020 (georgemoralis) - Calling createEntityManager at startup
  * 06/10/2020 (georgemoralis) - Set application title
@@ -16,11 +17,11 @@
 package gr.codebb.protoerp;
 
 import static gr.codebb.lib.util.ThreadUtil.runAndWait;
-import static javafx.application.Application.launch;
 
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.FxmlUtil;
+import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.util.database.DatabaseDefaultFile;
 import gr.codebb.util.database.DatabasesFileCont;
 import gr.codebb.util.database.Dbms;
@@ -155,6 +156,7 @@ public class App extends Application {
   }
 
   public static void main(String[] args) {
-    launch(args);
+    System.setProperty("javafx.preloader", PrototypePreloader.class.getCanonicalName());
+    Application.launch(App.class, args);
   }
 }
