@@ -16,6 +16,7 @@ import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
 import gr.codebb.ctl.CbbDetachableTabPane;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -62,4 +63,16 @@ public class MainAppView implements Initializable {
       masterDetailPane.setShowDetailNode(true);
     }
   }
+
+  @FXML
+  private void onBackupButtonPressed(ActionEvent event) {}
+
+  @FXML
+  private void onUpdateButtonPressed(ActionEvent event) {}
+
+  @FXML
+  private void onHelpButtonPressed(ActionEvent event) {}
+
+  @FXML
+  private void onAboutButtonPressed(ActionEvent event) {}
 }
