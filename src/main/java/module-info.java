@@ -1,6 +1,7 @@
 module codebb.protoerp {
   requires transitive javafx.controls;
   requires transitive javafx.fxml;
+  requires javafx.web;
   requires java.base;
   requires java.desktop;
   requires lombok;
@@ -8,6 +9,7 @@ module codebb.protoerp {
   requires com.jfoenix;
   requires gr.codebb.ctl;
   requires gr.codebb.util;
+  requires gr.codebb.webserv;
   requires org.kordamp.ikonli.fontawesome;
   requires org.hibernate.orm.core;
   requires java.persistence;

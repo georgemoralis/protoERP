@@ -29,17 +29,18 @@
         <lombok>1.18.14</lombok>
         <jfoenix>9.0.10</jfoenix>
         <controlsfx>11.0.2</controlsfx>
-        <javafx-controls>16-ea+2</javafx-controls>
-        <javafx-fxml>16-ea+2</javafx-fxml>
+        <javafx>16-ea+2</javafx>
         <ikonli-fontawesome-pack>11.5.0</ikonli-fontawesome-pack>
         <ikonli-materialdesign-pack>11.5.0</ikonli-materialdesign-pack>
         <mysql-connector-java>8.0.21</mysql-connector-java>
         <hibernate-hikaricp>5.4.22.Final</hibernate-hikaricp>
         <slf4j-api>2.0.0-alpha1</slf4j-api>
         <logback-classic>1.3.0-alpha5</logback-classic>
+        <commons-lang3>3.11</commons-lang3>
         <!-- own modules !-->
         <cobebbfxctl>15.0.4</cobebbfxctl>
         <codebbutil>15.0.3</codebbutil>
+        <codebbwebserv>15.0.4</codebbwebserv>
     </properties>
 
     <build>
@@ -215,12 +216,17 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${javafx-controls}</version>
+            <version>${javafx}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${javafx-fxml}</version>
+            <version>${javafx}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${javafx}</version>
         </dependency>
         <dependency>
             <groupId>org.controlsfx</groupId>
@@ -270,6 +276,11 @@
             <artifactId>hibernate-hikaricp</artifactId>
             <version>${hibernate-hikaricp}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3}</version>
+        </dependency>
         <!-- own modules !-->
         <dependency>
             <groupId>gr.codebb</groupId>
@@ -280,6 +291,11 @@
             <groupId>gr.codebb</groupId>
             <artifactId>codebbutil</artifactId>
             <version>${codebbutil}</version>
+        </dependency>
+        <dependency>
+            <groupId>gr.codebb</groupId>
+            <artifactId>codebbwebserv</artifactId>
+            <version>${codebbwebserv}</version>
         </dependency>
     </dependencies>
 </project>

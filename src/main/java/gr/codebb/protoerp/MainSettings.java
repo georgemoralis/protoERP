@@ -25,7 +25,7 @@ public class MainSettings {
   private String buildJavaVersion;
   private String buildDateTime;
   public Locale applocale = new Locale("el", "GR");
-  public String appName = "protoERP";
+  public String appName = "protoerp";
 
   protected MainSettings() {
     /** Intialize global variables */
