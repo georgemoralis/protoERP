@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 13/10/2020 (georgemoralis) - Added settings button call
  * 06/10/2020 (georgemoralis) - Functional search and prototype menu
  * 04/10/2020 (georgemoralis) - Initial commit
  */
@@ -14,6 +15,8 @@ package gr.codebb.protoerp;
 
 import gr.codebb.ctl.CbbDetachableTab;
 import gr.codebb.ctl.CbbDetachableTabPane;
+import gr.codebb.lib.util.FxmlUtil;
+import gr.codebb.protoerp.settings.SettingsMainView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -21,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
@@ -32,7 +36,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -186,20 +189,20 @@ public class LeftSideMenuView implements Initializable {
   @FXML
   private void dashBoardAction(ActionEvent event) {}
 
-  @FXML
-  private void settingsAction(ActionEvent event) {}
-
-  public void showAsTab(AnchorPane frm, String label) {
+  private void showAsTab(Node frm, String label) {
     final CbbDetachableTab tab = new CbbDetachableTab(label);
     tab.setClosable(true);
     tab.setContent(frm);
     mainDetachPane.getTabs().add(tab);
     mainDetachPane.getSelectionModel().select(tab);
-
     /** Workaround for TabPane memory leak */
     tab.setOnClosed(
-        (Event t) -> {
-          tab.setContent(null);
+        new EventHandler<Event>() {
+
+          @Override
+          public void handle(Event t) {
+            tab.setContent(null);
+          }
         });
     mainDetachPane.getSelectionModel().selectLast();
   }
@@ -227,4 +230,12 @@ public class LeftSideMenuView implements Initializable {
 
   @FXML
   private void issuesAction(ActionEvent event) {}
+
+  @FXML
+  private void settingsAction(ActionEvent event) {
+    FxmlUtil.LoadResult<SettingsMainView> getMainView =
+        FxmlUtil.load("/fxml/settings/SettingsMain.fxml");
+    Node settings = (Node) getMainView.getParent();
+    showAsTab(settings, "Ρυθμίσεις");
+  }
 }
