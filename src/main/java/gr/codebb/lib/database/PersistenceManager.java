@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 13/10/2020 (georgemoralis) - Added getEmf function
  * 09/10/2020 (georgemoralis) - Added databaseProperties
  * 09/10/2020 (georgemoralis) - Initial , added createEntityManager
  */
@@ -23,6 +24,10 @@ public class PersistenceManager {
   public static EntityManagerFactory createEntityManager(Map databaseProperties) {
     EntityManagerFactory factory =
         Persistence.createEntityManagerFactory("jpaData", databaseProperties);
+    return factory;
+  }
+
+  public static EntityManagerFactory getEmf() {
     return factory;
   }
 }
