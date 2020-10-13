@@ -7,12 +7,14 @@
 /*
  * Changelog
  * =========
+ * 13/10/2020 (georgemoralis) - Added UpdateSetting
  * 04/10/2020 (georgemoralis) - Initial commit
  */
 package gr.codebb.protoerp;
 
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.util.WebUtil;
+import gr.codebb.protoerp.settings.SettingsHelper;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -122,7 +124,7 @@ public class UpdateInfoView implements Initializable {
 
   @FXML
   private void noUpdatesButton(ActionEvent event) {
-    //    SettingsHelper.updateIntegerSetting("checkUpdates", 0);
+    SettingsHelper.updateIntegerSetting("checkUpdates", 0);
     Stage stage = (Stage) webViewEngine.getScene().getWindow();
     stage.close();
   }

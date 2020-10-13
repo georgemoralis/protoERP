@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 13/10/2020 (georgemoralis) - Added update functions
  * 13/10/2020 (georgemoralis) - Initial commit
  */
 package gr.codebb.lib.database;
@@ -55,5 +56,16 @@ public class GenericDao<T> implements Serializable {
 
   private void closeTransaction() {
     em.close();
+  }
+
+  public T updateEntity(T entity) {
+    beginTransaction();
+    update(entity);
+    commitAndCloseTransaction();
+    return entity;
+  }
+
+  private T update(T entity) {
+    return em.merge(entity);
   }
 }

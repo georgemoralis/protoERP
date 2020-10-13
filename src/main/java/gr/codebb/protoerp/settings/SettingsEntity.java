@@ -39,6 +39,8 @@ public class SettingsEntity implements Serializable {
 
   @PrePersist
   private void onCreate() {
-    companyId = -1; // -1 means that setting is for all companies
+    if (companyId == 0) {
+      companyId = -1; // -1 means that setting is for all companies
+    }
   }
 }

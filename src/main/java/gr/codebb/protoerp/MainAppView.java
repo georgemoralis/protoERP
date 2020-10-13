@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 13/10/2020 (georgemoralis) - Added checkforupdates option
  * 12/10/2020 (georgemoralis) - Added backup and update actions
  * 11/10/2020 (georgemoralis) - Added about button action
  * 04/10/2020 (georgemoralis) - Initial commit
@@ -23,6 +24,7 @@ import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
 import gr.codebb.lib.util.WebUtil;
 import gr.codebb.protoerp.about.AboutView;
+import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.util.version.VersionUtil;
 import gr.codebb.webserv.rest.Util.Calls;
 import java.awt.Desktop;
@@ -215,7 +217,7 @@ public class MainAppView implements Initializable {
       System.out.println("webserv seems reachable.");
     }
     if (startup) {
-      boolean checkforUpdates = true; // SettingsHelper.loadIntegerSetting("checkUpdates") != 0;
+      boolean checkforUpdates = SettingsHelper.loadIntegerSetting("checkUpdates") != 0;
       if (checkforUpdates) {
         String version_string = null;
         try {
