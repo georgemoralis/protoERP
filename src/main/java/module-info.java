@@ -15,6 +15,8 @@ module codebb.protoerp {
   requires java.persistence;
   requires java.sql;
   requires liquibase.core;
+  requires api;
+  requires jinq.jpa;
 
   opens gr.codebb.protoerp to
       javafx.fxml;

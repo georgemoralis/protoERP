@@ -37,6 +37,8 @@
         <slf4j-api>2.0.0-alpha1</slf4j-api>
         <logback-classic>1.3.0-alpha5</logback-classic>
         <commons-lang3>3.11</commons-lang3>
+        <jinq-jpa>1.8.31</jinq-jpa>
+        <liquibase-core>4.1.1</liquibase-core>
         <!-- own modules !-->
         <cobebbfxctl>15.0.4</cobebbfxctl>
         <codebbutil>15.0.4</codebbutil>
@@ -284,7 +286,12 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>4.1.1</version>
+            <version>${liquibase-core}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jinq</groupId>
+            <artifactId>jinq-jpa</artifactId>
+            <version>${jinq-jpa}</version>
         </dependency>
         <!-- own modules !-->
         <dependency>

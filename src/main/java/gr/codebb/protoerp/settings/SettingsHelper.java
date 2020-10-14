@@ -7,15 +7,16 @@
 /*
  * Changelog
  * =========
+ * 14/10/2020 (georgemoralis) - using jinq
  * 13/10/2020 (georgemoralis) - Initial commit
  */
 package gr.codebb.protoerp.settings;
 
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
-import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import org.jinq.jpa.JinqJPAStreamProvider;
 
 public class SettingsHelper {
 
@@ -37,30 +38,36 @@ public class SettingsHelper {
 
   public static void updateStringSetting(String settingName, String settingValue) {
     GenericDao gdaoi1 = new GenericDao(SettingsEntity.class, PersistenceManager.getEmf());
+    JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
-    Query result = em.createQuery("FROM SettingsEntity where settingName = : name");
-    result.setParameter("name", settingName);
-    result.setMaxResults(1);
-    List<SettingsEntity> results = result.getResultList();
+    Optional<SettingsEntity> result =
+        streams
+            .streamAll(em, SettingsEntity.class)
+            .where(c -> c.getSettingName().equals(settingName))
+            .findFirst();
     em.close();
-    if (!results.isEmpty()) {
-      SettingsEntity tmp3 = (SettingsEntity) results.get(0);
+
+    if (result.isPresent()) {
+      SettingsEntity tmp3 = (SettingsEntity) result.get();
       tmp3.setSettingValue(settingValue);
       gdaoi1.updateEntity(tmp3);
     }
   }
 
   public static String loadStringSetting(String settingName) {
+    JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
-    Query result = em.createQuery("FROM SettingsEntity where settingName = : name");
-    result.setParameter("name", settingName);
-    result.setMaxResults(1);
-    List<SettingsEntity> results = result.getResultList();
+    Optional<SettingsEntity> result =
+        streams
+            .streamAll(em, SettingsEntity.class)
+            .where(c -> c.getSettingName().equals(settingName))
+            .findFirst();
     em.close();
-    if (!results.isEmpty()) {
-      return results.get(0).getSettingValue();
+    if (result.isPresent()) {
+      return result.get().getSettingValue();
+    } else {
+      return null;
     }
-    return null;
   }
 
   public static int loadIntegerSetting(String settingName) {
