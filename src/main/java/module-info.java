@@ -13,6 +13,8 @@ module codebb.protoerp {
   requires org.kordamp.ikonli.fontawesome;
   requires org.hibernate.orm.core;
   requires java.persistence;
+  requires java.sql;
+  requires liquibase.core;
 
   opens gr.codebb.protoerp to
       javafx.fxml;

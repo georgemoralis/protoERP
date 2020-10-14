@@ -39,7 +39,7 @@
         <commons-lang3>3.11</commons-lang3>
         <!-- own modules !-->
         <cobebbfxctl>15.0.4</cobebbfxctl>
-        <codebbutil>15.0.3</codebbutil>
+        <codebbutil>15.0.4</codebbutil>
         <codebbwebserv>15.0.4</codebbwebserv>
     </properties>
 
@@ -280,6 +280,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.1.1</version>
         </dependency>
         <!-- own modules !-->
         <dependency>
