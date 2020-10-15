@@ -15,7 +15,7 @@
             <property name="show_sql" value="true"/>
             <property name="format_sql" value="true"/>
             
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <!-- <property name="hibernate.hbm2ddl.auto" value="update" /> !-->
             
             <!-- hikari configuration based on https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration !-->
             <property name="hibernate.hikari.dataSource.cachePrepStmts" value="true"/> 
