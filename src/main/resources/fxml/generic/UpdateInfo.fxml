@@ -13,7 +13,7 @@
 <?import javafx.scene.web.WebView?>
 
 
-<GridPane prefHeight="441.0" prefWidth="673.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.UpdateInfoView">
+<GridPane prefHeight="441.0" prefWidth="673.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.UpdateInfoView">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="313.0" minWidth="10.0" prefWidth="313.0" />

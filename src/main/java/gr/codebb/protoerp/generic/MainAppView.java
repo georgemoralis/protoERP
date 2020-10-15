@@ -12,7 +12,7 @@
  * 11/10/2020 (georgemoralis) - Added about button action
  * 04/10/2020 (georgemoralis) - Initial commit
  */
-package gr.codebb.protoerp;
+package gr.codebb.protoerp.generic;
 
 import static gr.codebb.lib.util.ThreadUtil.runAndWait;
 
@@ -23,6 +23,7 @@ import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
 import gr.codebb.lib.util.WebUtil;
+import gr.codebb.protoerp.MainSettings;
 import gr.codebb.protoerp.about.AboutView;
 import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.util.version.VersionUtil;

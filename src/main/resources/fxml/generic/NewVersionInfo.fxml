@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<GridPane prefHeight="441.0" prefWidth="673.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pr.codebb.protoerp.generic.NewVersionView">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="313.0" minWidth="10.0" prefWidth="313.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="139.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="77.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="4.0" prefWidth="26.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="79.0" minHeight="0.0" prefHeight="14.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="273.0" minHeight="10.0" prefHeight="273.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="55.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <Label alignment="CENTER" prefHeight="41.0" prefWidth="617.0" text="Μία νέα έκδοση έχει εγκατασταθεί" textFill="#0026ff" GridPane.columnSpan="3" GridPane.rowSpan="2">
+         <font>
+            <Font name="Calibri" size="36.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin>
+      </Label>
+      <VBox style="fx-border-style: solid inside; -fx-border-width: 2; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: blue;" GridPane.columnSpan="4" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="5.0" />
+         </GridPane.margin>
+         <children>
+            <WebView fx:id="webViewEngine" prefHeight="263.0" prefWidth="628.0" />
+         </children>
+      </VBox>
+      <Label prefHeight="41.0" prefWidth="420.0" text="Για πληροφορίες,βοήθεια,οδηγούς χρήσης επισκεφτείτε το forum μας" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="4">
+         <children>
+            <Button mnemonicParsing="false" onAction="#closeButton" styleClass="primary" text="Κλείσιμο">
+               <HBox.margin>
+                  <Insets left="10.0" right="15.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <Hyperlink alignment="CENTER_RIGHT" onAction="#visitForum" prefHeight="23.0" prefWidth="211.0" text="https://forum.codebb.gr/" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+   </children>
+</GridPane>

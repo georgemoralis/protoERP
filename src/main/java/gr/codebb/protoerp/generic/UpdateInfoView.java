@@ -10,10 +10,11 @@
  * 13/10/2020 (georgemoralis) - Added UpdateSetting
  * 04/10/2020 (georgemoralis) - Initial commit
  */
-package gr.codebb.protoerp;
+package gr.codebb.protoerp.generic;
 
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.util.WebUtil;
+import gr.codebb.protoerp.MainSettings;
 import gr.codebb.protoerp.settings.SettingsHelper;
 import java.awt.Desktop;
 import java.io.File;
