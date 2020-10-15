@@ -50,4 +50,18 @@
                 <goal>site</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-liquibase - initial changelog</actionName>
+            <displayName>liquibase - initial changelog</displayName>
+            <goals>
+                <goal>liquibase:generateChangeLog</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-liquibase - diff databases</actionName>
+            <displayName>liquibase - diff databases</displayName>
+            <goals>
+                <goal>liquibase:diff</goal>
+            </goals>
+        </action>
     </actions>

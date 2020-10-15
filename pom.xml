@@ -141,7 +141,16 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>      
+            </plugin>  
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase-core}</version>
+                <configuration>          
+                    <verbose>true</verbose>        
+                    <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+                </configuration>                                  
+            </plugin>     
         </plugins>
     </build>
     <reporting>
@@ -289,10 +298,29 @@
             <version>${liquibase-core}</version>
         </dependency>
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-maven-plugin</artifactId>
+            <version>${liquibase-core}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.maven</groupId>
+                    <artifactId>maven-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.maven</groupId>
+                    <artifactId>maven-artifact</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.maven</groupId>
+                    <artifactId>maven-model</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>org.jinq</groupId>
             <artifactId>jinq-jpa</artifactId>
             <version>${jinq-jpa}</version>
-        </dependency>
+        </dependency> 
         <!-- own modules !-->
         <dependency>
             <groupId>gr.codebb</groupId>
