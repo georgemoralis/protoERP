@@ -116,6 +116,24 @@ public class App extends Application {
       }
       System.exit(0);
     }
+    if (!InstallDatabaseUpdates.checkDatabaseForUpdates(database)) {
+      try {
+        runAndWait(
+            () -> {
+              AlertDlg.create()
+                  .type(AlertDlg.Type.ERROR)
+                  .message("Η σύνδεση με την βάση δεδομένων απέτυχε.\nΤο πρόγραμμα θα τερματιστεί.")
+                  .title("Πρόβλημα")
+                  .owner(null)
+                  .modality(Modality.APPLICATION_MODAL)
+                  .showAndWait();
+            });
+
+      } catch (InterruptedException | ExecutionException ex) {
+        ex.printStackTrace();
+      }
+      System.exit(0);
+    }
   }
 
   @Override
