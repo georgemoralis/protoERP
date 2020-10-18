@@ -7,11 +7,14 @@
 /*
  * Changelog
  * =========
+ * 17/10/2020 (georgemoralis) - Added isMysqlRunning
  * 14/10/2020 (georgemoralis) - Added checkDatabaseConnection,checkIfTableExists functions
  */
 package gr.codebb.lib.database;
 
 import gr.codebb.util.database.Dbms;
+import java.io.IOException;
+import java.net.Socket;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -83,5 +86,18 @@ public class MysqlUtil {
       ex.printStackTrace();
     }
     return false;
+  }
+
+  public static boolean isMysqlRunning(String host, int port) {
+    boolean isUp = false;
+    try {
+      try (Socket socket = new Socket("127.0.0.1", port)) {
+        // Server is up
+        isUp = true;
+      }
+    } catch (IOException e) {
+      // Server is down
+    }
+    return isUp;
   }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import gr.codebb.ctl.CbbClearableTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="392.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/16-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.DatabaseConnectionView">
+    <stylesheets>
+        <URL value="@/styles/bootstrap3.css" />
+    </stylesheets>
+   <children>
+      <StackPane layoutY="6.0">
+         <children>
+            <GridPane prefHeight="386.0" prefWidth="356.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.39996337890625" minWidth="8.79999675750733" prefWidth="11.20002117156983" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.39996337890625" minWidth="10.0" prefWidth="121.59997882843018" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.6000122070312" minWidth="10.0" prefWidth="268.0000366210937" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.80004119873047" minWidth="7.199987792968784" prefWidth="48.799963378906284" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="124.59998168945313" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="155.00000610351563" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="201.2" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="134.40001525878904" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="134.40001525878904" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="134.40001525878904" minHeight="10.0" prefHeight="134.40001525878904" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="230.0" text="Διακομιστής:" GridPane.columnIndex="1" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="230.0" text="Port:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="140.0" prefHeight="18.0" prefWidth="230.0" text="Όνομα Βάσης:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="217.0" prefHeight="18.0" prefWidth="230.0" text="Όνομα χρήστη:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <CbbClearableTextField fx:id="hostText" alignment="CENTER_RIGHT" GridPane.columnIndex="2" />
+                  <CbbClearableTextField fx:id="portText" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <CbbClearableTextField fx:id="databaseText" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <CbbClearableTextField fx:id="userText" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="231.0" prefHeight="18.0" prefWidth="230.0" text="Κωδικός:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <CbbClearableTextField fx:id="passText" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <children>
+                        <Button layoutX="64.0" layoutY="30.0" mnemonicParsing="false" onAction="#saveAction" styleClass="success" text="Αποθήκευση &amp;  Κλείσιμο" />
+                     </children>
+                  </AnchorPane>
+                  <Button mnemonicParsing="false" onAction="#checkAction" prefHeight="32.0" prefWidth="105.0" styleClass="primary" text=" Έλεγχος" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               </children>
+            </GridPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
