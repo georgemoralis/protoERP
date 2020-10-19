@@ -30,6 +30,8 @@
                   <RowConstraints maxHeight="201.2" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="134.40001525878904" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="134.40001525878904" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="134.40001525878904" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="134.40001525878904" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="134.40001525878904" minHeight="10.0" prefHeight="134.40001525878904" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
@@ -43,12 +45,16 @@
                   <CbbClearableTextField fx:id="userText" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                   <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="231.0" prefHeight="18.0" prefWidth="230.0" text="Κωδικός:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <CbbClearableTextField fx:id="passText" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
                      <children>
-                        <Button layoutX="64.0" layoutY="30.0" mnemonicParsing="false" onAction="#saveAction" styleClass="success" text="Αποθήκευση &amp;  Κλείσιμο" />
+                        <Button fx:id="saveButton" disable="true" layoutX="64.0" layoutY="22.0" mnemonicParsing="false" onAction="#saveAction" styleClass="success" text="Αποθήκευση &amp;  Κλείσιμο" />
                      </children>
                   </AnchorPane>
-                  <Button mnemonicParsing="false" onAction="#checkAction" prefHeight="32.0" prefWidth="105.0" styleClass="primary" text=" Έλεγχος" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button mnemonicParsing="false" onAction="#checkAction" prefHeight="32.0" prefWidth="105.0" styleClass="primary" text=" Έλεγχος" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="230.0" text="Όνομα root:" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="230.0" text="Κωδικός root:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <CbbClearableTextField fx:id="userRootText" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <CbbClearableTextField fx:id="passRootText" alignment="CENTER_RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                </children>
             </GridPane>
          </children>

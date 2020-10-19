@@ -4,7 +4,7 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
- /*
+/*
  * Changelog
  * =========
  * 15/10/2020 (georgemoralis) - Check if client is up to date
@@ -47,207 +47,208 @@ import org.controlsfx.control.MasterDetailPane;
 
 public class App extends Application {
 
-    public static DatabasesFileCont currentdatabase = null;
-    private Dbms database = null;
+  public static DatabasesFileCont currentdatabase = null;
+  private Dbms database = null;
 
-    @Override
-    public void init() throws Exception {
-        super.init();
-        currentdatabase = DatabaseDefaultFile.get_instance().readDatabaseFile("protoerp");
-        if (currentdatabase == null) {
-            try {
-                runAndWait(
-                        () -> {
-                            AlertDlg.create()
-                                    .type(AlertDlg.Type.ERROR)
-                                    .message("Δεν μπορεί να φορτωθεί το database.xml")
-                                    .title("Πρόβλημα")
-                                    .owner(null)
-                                    .modality(Modality.APPLICATION_MODAL)
-                                    .showAndWait();
-                        });
-            } catch (InterruptedException | ExecutionException ex) {
-                ex.printStackTrace();
-            }
-            System.exit(0);
-        }
-        switch (currentdatabase.getDbmsName()) {
-            case "mysql":
-                database
-                        = new Mysql(
-                                currentdatabase.getHost(),
-                                currentdatabase.getPort(),
-                                currentdatabase.getDbname(),
-                                currentdatabase.getUsername(),
-                                currentdatabase.getPassword());
-                break;
-            default: {
-                try {
-                    runAndWait(
-                            () -> {
-                                AlertDlg.create()
-                                        .type(AlertDlg.Type.ERROR)
-                                        .message("To DMBS που φορτώθηκε δεν υποστηρίζεται")
-                                        .title("Πρόβλημα")
-                                        .owner(null)
-                                        .modality(Modality.APPLICATION_MODAL)
-                                        .showAndWait();
-                            });
-
-                } catch (InterruptedException | ExecutionException ex) {
-                    ex.printStackTrace();
-                }
-                System.exit(0);
-            }
-            break;
-        }
-        Map databaseProperties = database.getDatabaseProperties();
-
-        try {
-            PersistenceManager.createEntityManager(databaseProperties);
-        } catch (Exception e) {
-            e.printStackTrace();
-            try {
-                runAndWait(
-                        () -> {
-                            FxmlUtil.LoadResult<DatabaseConnectionView> databaseWindow
-                            = FxmlUtil.load("/fxml/generic/DatabaseConnection.fxml");
-                            Stage stage
-                            = StageUtil.setStageSettings(
-                                    "Ρύθμισεις Βάσης Δεδομένων",
-                                    new Scene(databaseWindow.getParent()),
-                                    Modality.APPLICATION_MODAL,
-                                    null,
-                                    null,
-                                    "/img/protoerp.png");
-                            stage.setResizable(false);
-                            stage.showAndWait();
-                        });
-            } catch (InterruptedException | ExecutionException ex) {
-                ex.printStackTrace();
-            }
-        }
-        if (!InstallDatabaseUpdates.checkDatabaseForUpdates(database)) {
-            try {
-                runAndWait(
-                        () -> {
-                            AlertDlg.create()
-                                    .type(AlertDlg.Type.ERROR)
-                                    .message("Η σύνδεση με την βάση δεδομένων απέτυχε.\nΤο πρόγραμμα θα τερματιστεί.")
-                                    .title("Πρόβλημα")
-                                    .owner(null)
-                                    .modality(Modality.APPLICATION_MODAL)
-                                    .showAndWait();
-                        });
-
-            } catch (InterruptedException | ExecutionException ex) {
-                ex.printStackTrace();
-            }
-            System.exit(0);
-        }
-        checkClientUpToDate();
+  @Override
+  public void init() throws Exception {
+    super.init();
+    currentdatabase = DatabaseDefaultFile.get_instance().readDatabaseFile("protoerp");
+    if (currentdatabase == null) {
+      try {
+        runAndWait(
+            () -> {
+              AlertDlg.create()
+                  .type(AlertDlg.Type.ERROR)
+                  .message("Δεν μπορεί να φορτωθεί το database.xml")
+                  .title("Πρόβλημα")
+                  .owner(null)
+                  .modality(Modality.APPLICATION_MODAL)
+                  .showAndWait();
+            });
+      } catch (InterruptedException | ExecutionException ex) {
+        ex.printStackTrace();
+      }
+      System.exit(0);
     }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        FxmlUtil.LoadResult<MainAppView> getMainView = FxmlUtil.load("/fxml/generic/MainApp.fxml");
-        FxmlUtil.LoadResult<LeftSideMenuView> getSideMenuView
-                = FxmlUtil.load("/fxml/generic/LeftSideMenu.fxml");
-        BorderPane menu = new BorderPane();
-        menu.setCenter(getSideMenuView.getParent());
-        getSideMenuView
-                .getController()
-                .setMainDetachPane(getMainView.getController().getMainDetachPane());
-
-        MasterDetailPane masterDetailPane
-                = new MasterDetailPane(Side.LEFT, getMainView.getParent(), menu, true);
-        masterDetailPane.setDividerPosition(0.191);
-        masterDetailPane
-                .getStylesheets()
-                .add(App.class.getResource("/styles/bootstrap3.css").toExternalForm());
-
-        getMainView.getController().setMasterPane(masterDetailPane);
-
-        masterDetailPane.setMinSize(1168.0, 784.0);
-
-        final Scene scene = new Scene(masterDetailPane);
-
-        stage.setTitle(MainSettings.getInstance().getAppNameWithVersion());
-        // Application icons
-        Image image = new Image("/img/protoerp.png");
-        stage.getIcons().addAll(image);
-        scene.getStylesheets().add("/styles/bootstrap3.css");
-        stage.setScene(scene);
-        stage.sizeToScene();
-        stage.toFront();
-
-        stage.setFullScreenExitHint("Πατήστε ESC για να βγείτε από την κατάσταση πλήρης οθόνης");
-        stage.show();
-    }
-
-    public void checkClientUpToDate() {
-        String version = SettingsHelper.loadStringSetting("product_version");
-        if (version == null) // no version found add the existing one
+    switch (currentdatabase.getDbmsName()) {
+      case "mysql":
+        database =
+            new Mysql(
+                currentdatabase.getHost(),
+                currentdatabase.getPort(),
+                currentdatabase.getDbname(),
+                currentdatabase.getUsername(),
+                currentdatabase.getPassword());
+        break;
+      default:
         {
-            SettingsHelper.addStringSetting("product_version", MainSettings.getInstance().getVersion());
-            return;
-        }
-        // check if version is equal
-        if (VersionUtil.isVersionEquals(
-                MainSettings.getInstance().getVersion(),
-                SettingsHelper.loadStringSetting("product_version"))) {
-            System.out.println("Versions are equal");
-            return;
-        }
-        // database has newer version stored so client is old
-        if (VersionUtil.isComparedVersionNewer(
-                MainSettings.getInstance().getVersion(),
-                SettingsHelper.loadStringSetting("product_version"))) {
-            try {
-                runAndWait(
-                        () -> {
-                            AlertDlg.create()
-                                    .type(AlertDlg.Type.ERROR)
-                                    .message(
-                                            "O client χρειάζεται αναβάθμιση για να τρέξει με την υπάρχον βάση.\nΑναβαθμίστε τον client και επανεκκινήστε το πρόγραμμα.")
-                                    .title("Πρόβλημα")
-                                    .owner(null)
-                                    .modality(Modality.APPLICATION_MODAL)
-                                    .showAndWait();
-                            System.exit(0);
-                        });
-            } catch (InterruptedException | ExecutionException ex) {
-                ex.printStackTrace();
-            }
-        } // update to latest version
-        else {
-            SettingsHelper.updateStringSetting(
-                    "product_version", MainSettings.getInstance().getVersion());
-            try {
-                runAndWait(
-                        () -> {
-                            FxmlUtil.LoadResult<NewVersionView> versionWindow
-                            = FxmlUtil.load("/fxml/generic/NewVersionInfo.fxml");
-                            Stage stage
-                            = StageUtil.setStageSettings(
-                                    "Νέα έκδοση!",
-                                    new Scene(versionWindow.getParent()),
-                                    Modality.APPLICATION_MODAL,
-                                    null,
-                                    null,
-                                    "/img/Prototype-logo.png");
-                            stage.setResizable(false);
-                            stage.setAlwaysOnTop(true);
-                            stage.showAndWait();
-                        });
-            } catch (InterruptedException | ExecutionException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
+          try {
+            runAndWait(
+                () -> {
+                  AlertDlg.create()
+                      .type(AlertDlg.Type.ERROR)
+                      .message("To DMBS που φορτώθηκε δεν υποστηρίζεται")
+                      .title("Πρόβλημα")
+                      .owner(null)
+                      .modality(Modality.APPLICATION_MODAL)
+                      .showAndWait();
+                });
 
-    public static void main(String[] args) {
-        System.setProperty("javafx.preloader", PrototypePreloader.class.getCanonicalName());
-        Application.launch(App.class, args);
+          } catch (InterruptedException | ExecutionException ex) {
+            ex.printStackTrace();
+          }
+          System.exit(0);
+        }
+        break;
     }
+    Map databaseProperties = database.getDatabaseProperties();
+
+    try {
+      PersistenceManager.createEntityManager(databaseProperties);
+    } catch (Exception e) {
+      e.printStackTrace();
+      try {
+        runAndWait(
+            () -> {
+              FxmlUtil.LoadResult<DatabaseConnectionView> databaseWindow =
+                  FxmlUtil.load("/fxml/generic/DatabaseConnection.fxml");
+              Stage stage =
+                  StageUtil.setStageSettings(
+                      "Ρύθμισεις Βάσης Δεδομένων",
+                      new Scene(databaseWindow.getParent()),
+                      Modality.APPLICATION_MODAL,
+                      null,
+                      null,
+                      "/img/protoerp.png");
+              stage.setResizable(false);
+              stage.showAndWait();
+            });
+      } catch (InterruptedException | ExecutionException ex) {
+        ex.printStackTrace();
+      }
+    }
+    if (!InstallDatabaseUpdates.checkDatabaseForUpdates(database)) {
+      try {
+        runAndWait(
+            () -> {
+              AlertDlg.create()
+                  .type(AlertDlg.Type.ERROR)
+                  .message("Η σύνδεση με την βάση δεδομένων απέτυχε.\nΤο πρόγραμμα θα τερματιστεί.")
+                  .title("Πρόβλημα")
+                  .owner(null)
+                  .modality(Modality.APPLICATION_MODAL)
+                  .showAndWait();
+            });
+
+      } catch (InterruptedException | ExecutionException ex) {
+        ex.printStackTrace();
+      }
+      System.exit(0);
+    }
+    checkClientUpToDate();
+  }
+
+  @Override
+  public void start(Stage stage) throws Exception {
+    FxmlUtil.LoadResult<MainAppView> getMainView = FxmlUtil.load("/fxml/generic/MainApp.fxml");
+    FxmlUtil.LoadResult<LeftSideMenuView> getSideMenuView =
+        FxmlUtil.load("/fxml/generic/LeftSideMenu.fxml");
+    BorderPane menu = new BorderPane();
+    menu.setCenter(getSideMenuView.getParent());
+    getSideMenuView
+        .getController()
+        .setMainDetachPane(getMainView.getController().getMainDetachPane());
+
+    MasterDetailPane masterDetailPane =
+        new MasterDetailPane(Side.LEFT, getMainView.getParent(), menu, true);
+    masterDetailPane.setDividerPosition(0.191);
+    masterDetailPane
+        .getStylesheets()
+        .add(App.class.getResource("/styles/bootstrap3.css").toExternalForm());
+
+    getMainView.getController().setMasterPane(masterDetailPane);
+
+    masterDetailPane.setMinSize(1168.0, 784.0);
+
+    final Scene scene = new Scene(masterDetailPane);
+
+    stage.setTitle(MainSettings.getInstance().getAppNameWithVersion());
+    // Application icons
+    Image image = new Image("/img/protoerp.png");
+    stage.getIcons().addAll(image);
+    scene.getStylesheets().add("/styles/bootstrap3.css");
+    stage.setScene(scene);
+    stage.sizeToScene();
+    stage.toFront();
+
+    stage.setFullScreenExitHint("Πατήστε ESC για να βγείτε από την κατάσταση πλήρης οθόνης");
+    stage.show();
+  }
+
+  public void checkClientUpToDate() {
+    String version = SettingsHelper.loadStringSetting("product_version");
+    if (version == null) // no version found add the existing one
+    {
+      SettingsHelper.addStringSetting("product_version", MainSettings.getInstance().getVersion());
+      return;
+    }
+    // check if version is equal
+    if (VersionUtil.isVersionEquals(
+        MainSettings.getInstance().getVersion(),
+        SettingsHelper.loadStringSetting("product_version"))) {
+      System.out.println("Versions are equal");
+      return;
+    }
+    // database has newer version stored so client is old
+    if (VersionUtil.isComparedVersionNewer(
+        MainSettings.getInstance().getVersion(),
+        SettingsHelper.loadStringSetting("product_version"))) {
+      try {
+        runAndWait(
+            () -> {
+              AlertDlg.create()
+                  .type(AlertDlg.Type.ERROR)
+                  .message(
+                      "O client χρειάζεται αναβάθμιση για να τρέξει με την υπάρχον βάση.\nΑναβαθμίστε τον client και επανεκκινήστε το πρόγραμμα.")
+                  .title("Πρόβλημα")
+                  .owner(null)
+                  .modality(Modality.APPLICATION_MODAL)
+                  .showAndWait();
+              System.exit(0);
+            });
+      } catch (InterruptedException | ExecutionException ex) {
+        ex.printStackTrace();
+      }
+    } // update to latest version
+    else {
+      SettingsHelper.updateStringSetting(
+          "product_version", MainSettings.getInstance().getVersion());
+      try {
+        runAndWait(
+            () -> {
+              FxmlUtil.LoadResult<NewVersionView> versionWindow =
+                  FxmlUtil.load("/fxml/generic/NewVersionInfo.fxml");
+              Stage stage =
+                  StageUtil.setStageSettings(
+                      "Νέα έκδοση!",
+                      new Scene(versionWindow.getParent()),
+                      Modality.APPLICATION_MODAL,
+                      null,
+                      null,
+                      "/img/Prototype-logo.png");
+              stage.setResizable(false);
+              stage.setAlwaysOnTop(true);
+              stage.showAndWait();
+            });
+      } catch (InterruptedException | ExecutionException ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
+
+  public static void main(String[] args) {
+    System.setProperty("javafx.preloader", PrototypePreloader.class.getCanonicalName());
+    Application.launch(App.class, args);
+  }
 }
