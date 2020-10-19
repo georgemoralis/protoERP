@@ -236,7 +236,7 @@ public class App extends Application {
                       Modality.APPLICATION_MODAL,
                       null,
                       null,
-                      "/img/Prototype-logo.png");
+                      "/img/protoerp.png");
               stage.setResizable(false);
               stage.setAlwaysOnTop(true);
               stage.showAndWait();
