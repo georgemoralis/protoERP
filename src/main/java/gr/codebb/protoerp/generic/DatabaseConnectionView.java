@@ -4,12 +4,18 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
+/*
+ * Changelog
+ * =========
+ * 19/10/2020 (georgemoralis) - Initial working version
+ */
 package gr.codebb.protoerp.generic;
 
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.MysqlUtil;
 import gr.codebb.protoerp.App;
+import gr.codebb.util.database.DatabaseDefaultFile;
 import gr.codebb.util.database.Dbms;
 import gr.codebb.util.database.Mysql;
 import java.net.URL;
@@ -45,7 +51,23 @@ public class DatabaseConnectionView implements Initializable {
   }
 
   @FXML
-  private void saveAction(ActionEvent event) {}
+  private void saveAction(ActionEvent event) {
+    DatabaseDefaultFile.get_instance()
+        .writeDatabaseFile(
+            hostText.getText(),
+            portText.getText(),
+            databaseText.getText(),
+            userText.getText(),
+            passText.getText());
+    AlertDlg.create()
+        .type(AlertDlg.Type.INFORMATION)
+        .message("Οι ρυθμίσεις αποθηκεύτηκαν.\nΕπανεκκινήστε το πρόγραμμα")
+        .title("Επιτυχία")
+        .owner(null)
+        .modality(Modality.APPLICATION_MODAL)
+        .showAndWait();
+    System.exit(0);
+  }
 
   @FXML
   private void checkAction(ActionEvent event) {
@@ -129,7 +151,7 @@ public class DatabaseConnectionView implements Initializable {
               // everything went ok enable save button
               AlertDlg.create()
                   .type(AlertDlg.Type.INFORMATION)
-                  .message("Η βάση και ο χρήστης δημιουργήθηκαν")
+                  .message("Η βάση και ο χρήστης δημιουργήθηκαν\nΑποθηκεύστε τις ρυθμίσεις")
                   .title("Επιτυχία")
                   .owner(null)
                   .modality(Modality.APPLICATION_MODAL)
