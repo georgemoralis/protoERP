@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 20/10/2020 (georgemoralis) - Added issues action
  * 13/10/2020 (georgemoralis) - Added settings button call
  * 06/10/2020 (georgemoralis) - Functional search and prototype menu
  * 04/10/2020 (georgemoralis) - Initial commit
@@ -16,6 +17,8 @@ package gr.codebb.protoerp.generic;
 import gr.codebb.ctl.CbbDetachableTab;
 import gr.codebb.ctl.CbbDetachableTabPane;
 import gr.codebb.lib.util.FxmlUtil;
+import gr.codebb.lib.util.StageUtil;
+import gr.codebb.protoerp.issues.GenericIssueView;
 import gr.codebb.protoerp.settings.SettingsMainView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ScrollPane;
@@ -40,6 +44,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class LeftSideMenuView implements Initializable {
 
@@ -229,7 +235,20 @@ public class LeftSideMenuView implements Initializable {
   private void reportsAction(ActionEvent event) {}
 
   @FXML
-  private void issuesAction(ActionEvent event) {}
+  private void issuesAction(ActionEvent event) {
+    FxmlUtil.LoadResult<GenericIssueView> GenericIssue =
+        FxmlUtil.load("/fxml/issues/GenericIssue.fxml");
+    Stage stage =
+        StageUtil.setStageSettings(
+            "Αποστολή προτάσεων/προβλημάτων",
+            new Scene(GenericIssue.getParent()),
+            Modality.APPLICATION_MODAL,
+            mainDetachPane.getScene().getWindow(),
+            null,
+            "/img/protoerp.png");
+    stage.setResizable(false);
+    stage.show();
+  }
 
   @FXML
   private void settingsAction(ActionEvent event) {

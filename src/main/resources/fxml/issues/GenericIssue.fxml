@@ -32,11 +32,11 @@
             <Label text="E-mail:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Σύντομη περιγραφή:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="Αναλυτική περιγραφή:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <CbClearableTextField fx:id="titleTextField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <CbbClearableTextField fx:id="titleTextField" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <TextArea fx:id="detailsTextArea" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#sendAction" styleClass="success" text="Αποστολή" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-            <CbClearableTextField fx:id="nameTextField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <CbClearableTextField fx:id="emailTextField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <CbbClearableTextField fx:id="nameTextField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <CbbClearableTextField fx:id="emailTextField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
