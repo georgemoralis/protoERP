@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 20/10/2020 (georgemoralis) - Added webserver send for issues
  * 20/10/2020 (georgemoralis) - Validation support using validatorfx lib
  * 20/10/2020 (georgemoralis) - Window implementation
  * 19/10/2020 (georgemoralis) - Initial commit
@@ -17,6 +18,10 @@ import static gr.codebb.lib.util.ThreadUtil.runAndWait;
 
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
+import gr.codebb.protoerp.MainSettings;
+import gr.codebb.util.serial.Hardware;
+import gr.codebb.webserv.rest.Util.Calls;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
@@ -186,17 +191,23 @@ public class GenericIssueView implements Initializable {
       return new Task<String>() {
         @Override
         protected String call() throws Exception {
-
-          /* CodebbwebservicesPortType stub_send;
-
-          stub_send = new CodebbwebservicesLocator().getcodebbwebservicesPort();
-          String get_response = stub_send.sendIssue(nameTextField.getText(), emailTextField.getText(), titleTextField.getText(), detailsTextArea.getText());
-          if (get_response == null) {
-              return null;
-          } else {
-              return get_response;
-          }*/
-          return null;
+          String response = null;
+          try {
+            response =
+                Calls.CreateIssueRequest(
+                    "K8PBC-HTURS-BH5E9-2B039-56044",
+                    nameTextField.getText(),
+                    emailTextField.getText(),
+                    titleTextField.getText(),
+                    detailsTextArea.getText(),
+                    MainSettings.getInstance().getAppName(),
+                    MainSettings.getInstance().getVersion(),
+                    Hardware.getSerialNumber());
+          } catch (IOException | InterruptedException ex) {
+            ex.printStackTrace();
+            return null;
+          }
+          return response;
         }
       };
     }
