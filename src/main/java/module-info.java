@@ -17,6 +17,7 @@ module codebb.protoerp {
   requires liquibase.core;
   requires api;
   requires jinq.jpa;
+  requires validatorfx;
 
   opens gr.codebb.protoerp to
       javafx.fxml;

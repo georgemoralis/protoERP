@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 20/10/2020 (georgemoralis) - Validation support using validatorfx lib
  * 20/10/2020 (georgemoralis) - Window implementation
  * 19/10/2020 (georgemoralis) - Initial commit
  */
@@ -27,6 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
+import net.synedra.validatorfx.Validator;
 import org.controlsfx.control.MaskerPane;
 
 public class GenericIssueView implements Initializable {
@@ -39,12 +41,61 @@ public class GenericIssueView implements Initializable {
 
   private SendService runningservice;
   private MaskerPane masker = new MaskerPane();
+  private Validator validator = new Validator();
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     runningservice = new SendService();
     stackPaneMain.getChildren().add(masker);
     masker.setVisible(false);
+    validator
+        .createCheck()
+        .dependsOn("name", nameTextField.textProperty())
+        .withMethod(
+            c -> {
+              String name = c.get("name");
+              if (name.isEmpty()) {
+                c.error("Το όνομα δεν μπορεί να είναι κενό");
+              }
+            })
+        .decorates(nameTextField)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("title", titleTextField.textProperty())
+        .withMethod(
+            c -> {
+              String title = c.get("title");
+              if (title.isEmpty()) {
+                c.error("O Τίτλος δεν μπορεί να είναι κενός");
+              }
+            })
+        .decorates(titleTextField)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("email", emailTextField.textProperty())
+        .withMethod(
+            c -> {
+              String email = c.get("email");
+              if (email.isEmpty()) {
+                c.error("Το email δεν μπορεί να είναι κενό");
+              }
+            })
+        .decorates(emailTextField)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("detail", detailsTextArea.textProperty())
+        .withMethod(
+            c -> {
+              String detail = c.get("detail");
+              if (detail.isEmpty()) {
+                c.error("Η ανάλυση του προβλήματος δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(detailsTextArea)
+        .immediate();
   }
 
   public void setTitle(String title) {
@@ -57,27 +108,16 @@ public class GenericIssueView implements Initializable {
 
   @FXML
   private void sendAction(ActionEvent event) {
-    /*if (nameTextField.getText().isEmpty()) {
-        AlertHelper.errorDialog("Το όνομα δεν μπορεί να είναι κενό", "Πρόβλημα", Modality.APPLICATION_MODAL, nameTextField.getScene().getWindow()).showAndWait();
-        return;
+    if (validator.containsErrors()) {
+      AlertDlg.create()
+          .type(AlertDlg.Type.ERROR)
+          .message("Ελέξτε την φόρμα για λάθη")
+          .title("Πρόβλημα")
+          .owner(nameTextField.getScene().getWindow())
+          .modality(Modality.APPLICATION_MODAL)
+          .showAndWait();
+      return;
     }
-    if (emailTextField.getText().isEmpty()) {
-        AlertHelper.errorDialog("Το email δεν μπορεί να είναι κενό", "Πρόβλημα", Modality.APPLICATION_MODAL, nameTextField.getScene().getWindow()).showAndWait();
-        return;
-    }
-    if (titleTextField.getText().isEmpty()) {
-        AlertHelper.errorDialog("O Τίτλος δεν μπορεί να είναι κενός", "Πρόβλημα", Modality.APPLICATION_MODAL, nameTextField.getScene().getWindow()).showAndWait();
-        return;
-    }
-    if (detailsTextArea.getText().isEmpty()) {
-        AlertHelper.errorDialog("Η ανάλυση του προβλήματος δεν μπορεί να είναι κενή", "Πρόβλημα", Modality.APPLICATION_MODAL, nameTextField.getScene().getWindow()).showAndWait();
-        return;
-    }*/
-    /*if (validation.isInvalid()) {
-        Validators.showValidationResult(validation);
-        AlertHelper.errorDialog("Ελέξτε την φόρμα για λάθη", "Πρόβλημα", Modality.APPLICATION_MODAL, nameTextField.getScene().getWindow()).showAndWait();
-        return;
-    }*/
     masker.setText("Αποστολή μυνήματος\nΠαρακαλώ περιμένετε");
     masker.setVisible(true);
     runningservice.restart();

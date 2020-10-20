@@ -39,6 +39,7 @@
         <commons-lang3>3.11</commons-lang3>
         <jinq-jpa>1.8.31</jinq-jpa>
         <liquibase-core>4.1.1</liquibase-core>
+        <validatorfx>0.1.12</validatorfx>
         <!-- own modules !-->
         <cobebbfxctl>15.0.4</cobebbfxctl>
         <codebbutil>15.0.5</codebbutil>
@@ -321,6 +322,11 @@
             <artifactId>jinq-jpa</artifactId>
             <version>${jinq-jpa}</version>
         </dependency> 
+        <dependency>
+            <groupId>net.synedra</groupId>
+            <artifactId>validatorfx</artifactId>
+            <version>${validatorfx}</version>
+        </dependency>
         <!-- own modules !-->
         <dependency>
             <groupId>gr.codebb</groupId>
