@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 20/10/2020 (georgemoralis) - Added setDefaultUncaughtExceptionHandler
  * 15/10/2020 (georgemoralis) - Check if client is up to date
  * 10/10/2020 (georgemoralis) - Added preloader
  * 09/10/2020 (georgemoralis) - Loading database connection info from database.xml
@@ -21,6 +22,7 @@ import static gr.codebb.lib.util.ThreadUtil.runAndWait;
 
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.PersistenceManager;
+import gr.codebb.lib.util.DialogExceptionHandler;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
 import gr.codebb.protoerp.generic.DatabaseConnectionView;
@@ -248,6 +250,7 @@ public class App extends Application {
   }
 
   public static void main(String[] args) {
+    Thread.setDefaultUncaughtExceptionHandler(new DialogExceptionHandler());
     System.setProperty("javafx.preloader", PrototypePreloader.class.getCanonicalName());
     Application.launch(App.class, args);
   }
