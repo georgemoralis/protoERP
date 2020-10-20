@@ -196,10 +196,10 @@ public class GenericIssueView implements Initializable {
             response =
                 Calls.CreateIssueRequest(
                     "K8PBC-HTURS-BH5E9-2B039-56044",
-                    nameTextField.getText(),
-                    emailTextField.getText(),
                     titleTextField.getText(),
                     detailsTextArea.getText(),
+                    nameTextField.getText(),
+                    emailTextField.getText(),
                     MainSettings.getInstance().getAppName(),
                     MainSettings.getInstance().getVersion(),
                     Hardware.getSerialNumber());
