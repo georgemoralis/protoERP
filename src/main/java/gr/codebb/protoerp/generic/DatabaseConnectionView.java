@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 23/10/2020 (georgemoralis) - Προσθήκη validation
  * 19/10/2020 (georgemoralis) - Initial working version
  */
 package gr.codebb.protoerp.generic;
@@ -27,6 +28,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
+import net.synedra.validatorfx.Validator;
 
 public class DatabaseConnectionView implements Initializable {
 
@@ -39,6 +41,8 @@ public class DatabaseConnectionView implements Initializable {
   @FXML private CbbClearableTextField userRootText;
   @FXML private CbbClearableTextField passRootText;
 
+  private Validator validator = new Validator();
+
   /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -48,6 +52,79 @@ public class DatabaseConnectionView implements Initializable {
     userText.setText(App.currentdatabase.getUsername());
     passText.setText(App.currentdatabase.getPassword());
     userRootText.setText("root");
+
+    validator
+        .createCheck()
+        .dependsOn("host", hostText.textProperty())
+        .withMethod(
+            c -> {
+              String host = c.get("host");
+              if (host.isEmpty()) {
+                c.error("Ο διακομιστής δεν μπορεί να είναι κενός");
+              }
+            })
+        .decorates(hostText)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("port", portText.textProperty())
+        .withMethod(
+            c -> {
+              String port = c.get("port");
+              if (port.isEmpty()) {
+                c.error("Η πόρτα δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(portText)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("database", databaseText.textProperty())
+        .withMethod(
+            c -> {
+              String database = c.get("database");
+              if (database.isEmpty()) {
+                c.error("Η Βάση δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(databaseText)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("user", userText.textProperty())
+        .withMethod(
+            c -> {
+              String user = c.get("user");
+              if (user.isEmpty()) {
+                c.error("Το όνομα χρήστη δεν μπορεί να είναι κενό");
+              }
+            })
+        .decorates(userText)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("pass", passText.textProperty())
+        .withMethod(
+            c -> {
+              String pass = c.get("pass");
+              if (pass.isEmpty()) {
+                c.error("Ο Κωδικός δεν μπορεί να είναι κενός");
+              }
+            })
+        .decorates(passText)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("userRoot", userRootText.textProperty())
+        .withMethod(
+            c -> {
+              String userRoot = c.get("userRoot");
+              if (userRoot.isEmpty()) {
+                c.error("Το όνομα χρήστη δεν μπορεί να είναι κενό");
+              }
+            })
+        .decorates(userRootText)
+        .immediate();
   }
 
   @FXML
@@ -71,6 +148,16 @@ public class DatabaseConnectionView implements Initializable {
 
   @FXML
   private void checkAction(ActionEvent event) {
+    if (validator.containsErrors()) {
+      AlertDlg.create()
+          .type(AlertDlg.Type.ERROR)
+          .message("Ελέξτε την φόρμα για λάθη")
+          .title("Πρόβλημα")
+          .owner(hostText.getScene().getWindow())
+          .modality(Modality.APPLICATION_MODAL)
+          .showAndWait();
+      return;
+    }
     // check if mysql is up
     if (!MysqlUtil.isMysqlRunning(hostText.getText(), Integer.parseInt(portText.getText()))) {
       AlertDlg.create()
