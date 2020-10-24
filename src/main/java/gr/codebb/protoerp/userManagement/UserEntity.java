@@ -34,7 +34,7 @@ import lombok.Setter;
 @Table(name = "users")
 public class UserEntity implements Serializable {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
   @Setter
   private Long id;
