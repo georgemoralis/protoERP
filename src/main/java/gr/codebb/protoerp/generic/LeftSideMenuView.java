@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 25/10/2020 (georgemoralis) - Added transactor link
  * 20/10/2020 (georgemoralis) - Added issues action
  * 13/10/2020 (georgemoralis) - Added settings button call
  * 06/10/2020 (georgemoralis) - Functional search and prototype menu
@@ -20,6 +21,7 @@ import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
 import gr.codebb.protoerp.issues.GenericIssueView;
 import gr.codebb.protoerp.settings.SettingsMainView;
+import gr.codebb.protoerp.transactor.TransactorView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -214,7 +216,11 @@ public class LeftSideMenuView implements Initializable {
   }
 
   @FXML
-  private void partnersAction(ActionEvent event) {}
+  private void partnersAction(ActionEvent event) {
+    FxmlUtil.LoadResult<TransactorView> Transactor =
+        FxmlUtil.load("/fxml/transactor/Transactor.fxml");
+    showAsTab(Transactor.getParent(), "Συναλλασσόμενοι");
+  }
 
   @FXML
   private void invoicesAction(ActionEvent event) {}
