@@ -18,6 +18,7 @@ module codebb.protoerp {
   requires api;
   requires jinq.jpa;
   requires validatorfx;
+  requires shiro.core;
 
   opens gr.codebb.protoerp to
       javafx.fxml;

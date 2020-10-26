@@ -41,6 +41,7 @@
         <jinq-jpa>1.8.31</jinq-jpa>
         <liquibase-core>4.1.1</liquibase-core>
         <validatorfx>0.1.12</validatorfx>
+        <shiro-core>1.6.0</shiro-core>
         <!-- own modules !-->
         <cobebbfxctl>15.0.4</cobebbfxctl>
         <codebbutil>15.0.5</codebbutil>
@@ -332,6 +333,42 @@
             <groupId>net.synedra</groupId>
             <artifactId>validatorfx</artifactId>
             <version>${validatorfx}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${shiro-core}</version>
+            <!-- Excluding duplicates... -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-lang</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-cache</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-crypto-hash</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-crypto-cipher</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-config-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-config-ogdl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.shiro</groupId>
+                    <artifactId>shiro-event</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- own modules !-->
         <dependency>
