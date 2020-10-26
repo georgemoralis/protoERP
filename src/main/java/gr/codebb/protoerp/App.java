@@ -31,6 +31,7 @@ import gr.codebb.protoerp.generic.MainAppView;
 import gr.codebb.protoerp.generic.NewVersionView;
 import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
+import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
 import gr.codebb.util.database.DatabaseDefaultFile;
 import gr.codebb.util.database.DatabasesFileCont;
 import gr.codebb.util.database.Dbms;
@@ -45,6 +46,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.controlsfx.control.MasterDetailPane;
 
 public class App extends Application {
@@ -153,6 +156,11 @@ public class App extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
+    /** load apache shiro */
+    DefaultSecurityManager securityManager = new DefaultSecurityManager();
+    securityManager.setRealm(new CustomSecurityRealm());
+    SecurityUtils.setSecurityManager(securityManager);
+    /** Main stage loading */
     FxmlUtil.LoadResult<MainAppView> getMainView = FxmlUtil.load("/fxml/generic/MainApp.fxml");
     FxmlUtil.LoadResult<LeftSideMenuView> getSideMenuView =
         FxmlUtil.load("/fxml/generic/LeftSideMenu.fxml");

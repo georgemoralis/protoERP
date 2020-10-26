@@ -16,6 +16,7 @@ import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.protoerp.userManagement.PermissionEntity;
 import gr.codebb.protoerp.userManagement.RoleEntity;
 import gr.codebb.protoerp.userManagement.UserEntity;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
 
 public class UserManagementTests {
   public void testPermissions() {
@@ -36,9 +37,10 @@ public class UserManagementTests {
     gdaoi2.createEntity(roleAdmin);
     System.out.println("roleAdmin.getId() 2: " + roleAdmin.getId());
     // define user
+    DefaultPasswordService passwordService = new DefaultPasswordService();
     final UserEntity user = new UserEntity();
     user.setUsername("admin");
-    user.setPassword("pass");
+    user.setPassword(passwordService.encryptPassword("admin"));
     user.getRoleList().add(roleAdmin);
     GenericDao gdaoi3 = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
     gdaoi3.createEntity(user);
