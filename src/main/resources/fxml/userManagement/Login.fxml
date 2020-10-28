@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<GridPane prefHeight="357.0" prefWidth="384.0" style="-fx-background-color: white;" stylesheets="@../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/16-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.userManagement.LoginView">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="203.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.4000244140625" minWidth="10.0" prefWidth="62.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="71.79999389648438" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="174.8" minHeight="10.0" prefHeight="88.00001831054686" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="151.59998168945316" minHeight="10.0" prefHeight="151.59998168945316" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="151.59998168945316" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="151.59998168945316" minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="151.59998168945316" minHeight="10.0" prefHeight="151.59998168945316" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <FontIcon iconColor="#0044ff" iconLiteral="mdi-account" iconSize="128" wrappingWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets left="35.0" />
+         </GridPane.margin>
+      </FontIcon>
+      <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="162.0" text="Όνομα Χρήστη:" GridPane.rowIndex="3" />
+      <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="162.0" text="Κωδικός:" GridPane.rowIndex="4" />
+      <SearchableComboBox fx:id="userCombo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="203.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <PasswordField fx:id="passText" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+        <buttons>
+          <Button mnemonicParsing="false" onAction="#onLogin" styleClass="primary" text="Σύνδεση" />
+            <Button mnemonicParsing="false" onAction="#onCancel" styleClass="danger" text="Άκυρο" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</GridPane>
