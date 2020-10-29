@@ -26,9 +26,7 @@ public class LoginView implements Initializable {
 
   /** Initializes the controller class. */
   @Override
-  public void initialize(URL url, ResourceBundle rb) {
-    // TODO
-  }
+  public void initialize(URL url, ResourceBundle rb) {}
 
   @FXML
   private void onLogin(ActionEvent event) {}

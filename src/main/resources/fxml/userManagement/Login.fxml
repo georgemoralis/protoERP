@@ -11,7 +11,7 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<GridPane prefHeight="357.0" prefWidth="384.0" style="-fx-background-color: white;" stylesheets="@../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/16-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.userManagement.LoginView">
+<GridPane prefHeight="357.0" prefWidth="384.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/16-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.userManagement.LoginView">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="203.0" />

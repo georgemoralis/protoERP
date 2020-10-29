@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 29/10/2020 (georgemoralis) - Added login window
  * 20/10/2020 (georgemoralis) - Added setDefaultUncaughtExceptionHandler
  * 15/10/2020 (georgemoralis) - Check if client is up to date
  * 10/10/2020 (georgemoralis) - Added preloader
@@ -32,6 +33,7 @@ import gr.codebb.protoerp.generic.NewVersionView;
 import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
+import gr.codebb.protoerp.userManagement.LoginView;
 import gr.codebb.util.database.DatabaseDefaultFile;
 import gr.codebb.util.database.DatabasesFileCont;
 import gr.codebb.util.database.Dbms;
@@ -40,12 +42,14 @@ import gr.codebb.util.version.VersionUtil;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.controlsfx.control.MasterDetailPane;
@@ -160,6 +164,29 @@ public class App extends Application {
     DefaultSecurityManager securityManager = new DefaultSecurityManager();
     securityManager.setRealm(new CustomSecurityRealm());
     SecurityUtils.setSecurityManager(securityManager);
+
+    FxmlUtil.LoadResult<LoginView> loginWindow = FxmlUtil.load("/fxml/userManagement/Login.fxml");
+    Stage loginstage =
+        StageUtil.setStageSettings(
+            MainSettings.getInstance().getAppNameWithVersion() +" Σύνδεση χρήστη",
+            new Scene(loginWindow.getParent()),
+            Modality.APPLICATION_MODAL,
+            null,
+            null,
+            "/img/protoerp.png");
+    loginstage.setResizable(false);
+    loginstage
+        .getScene()
+        .getWindow()
+        .setOnCloseRequest(
+            new EventHandler<WindowEvent>() {
+              @Override
+              public void handle(WindowEvent we) {
+                System.exit(0);
+              }
+            });
+    loginstage.showAndWait();
+
     /** Main stage loading */
     FxmlUtil.LoadResult<MainAppView> getMainView = FxmlUtil.load("/fxml/generic/MainApp.fxml");
     FxmlUtil.LoadResult<LeftSideMenuView> getSideMenuView =
