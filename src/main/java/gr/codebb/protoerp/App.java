@@ -168,7 +168,7 @@ public class App extends Application {
     FxmlUtil.LoadResult<LoginView> loginWindow = FxmlUtil.load("/fxml/userManagement/Login.fxml");
     Stage loginstage =
         StageUtil.setStageSettings(
-            MainSettings.getInstance().getAppNameWithVersion() +" Σύνδεση χρήστη",
+            MainSettings.getInstance().getAppNameWithVersion() + " Σύνδεση χρήστη",
             new Scene(loginWindow.getParent()),
             Modality.APPLICATION_MODAL,
             null,

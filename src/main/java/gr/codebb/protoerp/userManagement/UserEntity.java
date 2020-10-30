@@ -7,10 +7,12 @@
 /*
  * Changelog
  * =========
+ * 30/10/2020 (georgemoralis) - Implements displayable
  * 24/10/2020 (georgemoralis) - Initial commit
  */
 package gr.codebb.protoerp.userManagement;
 
+import gr.codebb.lib.crud.intf.Displayable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,7 +34,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-public class UserEntity implements Serializable {
+public class UserEntity implements Serializable, Displayable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
@@ -66,5 +68,10 @@ public class UserEntity implements Serializable {
 
   public void setRoleList(List<RoleEntity> roleList) {
     this.roleList = roleList;
+  }
+
+  @Override
+  public String getComboDisplayValue() {
+    return username;
   }
 }
