@@ -72,7 +72,7 @@ public class CustomSecurityRealm extends AuthorizingRealm {
     if (user != null && passwordService.passwordsMatch(upat.getPassword(), user.getPassword())) {
       return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
     } else {
-      throw new AuthenticationException("Invalid username/password combination!");
+      throw new AuthenticationException("Μη έγκυρος συνδυασμός ονόματος/κωδικού χρήστη");
     }
   }
 }
