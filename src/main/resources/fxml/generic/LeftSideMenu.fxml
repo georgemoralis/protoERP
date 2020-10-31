@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
@@ -8,10 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
-<?import javafx.geometry.Insets?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="mainVBox" alignment="TOP_CENTER" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.LeftSideMenuView">
+<VBox fx:id="mainVBox" alignment="TOP_CENTER" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.LeftSideMenuView">
    <children>
       <HBox fx:id="searchBox" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0">
          <children>
@@ -51,25 +51,7 @@
                   </TitledPane>
                   <TitledPane fx:id="invoices_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Παραστατικά">
                      <content>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#invoicesAction" prefHeight="32.0" prefWidth="262.0" text="Παραστατικά">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-tasks" />
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" />
-                                 </VBox.margin></Button>
-                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#cancelledAction" prefHeight="32.0" prefWidth="262.0" text="Έκδοση Ακυρωτικού">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-ban" />
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
                      </content>
                      <graphic>
                         <FontIcon iconLiteral="fa-tasks" />
@@ -77,18 +59,7 @@
                   </TitledPane>
                   <TitledPane fx:id="cash_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Ταμείο">
                      <content>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#casholdAction" prefHeight="32.0" prefWidth="262.0" text="Ταμείο">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-money" />
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" />
-                                 </VBox.margin></Button>
-                              
-                           </children>
-                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
                      </content>
                      <graphic>
                         <FontIcon iconLiteral="fa-money" />
@@ -96,21 +67,7 @@
                   </TitledPane>
                   <TitledPane fx:id="items_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Είδη">
                      <content>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#itemsAction" prefHeight="32.0" prefWidth="262.0" text="Είδη">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-shopping-cart" />
-                                 </graphic>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" />
-                                 </VBox.margin></Button>
-                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#storageAction" prefHeight="32.0" prefWidth="262.0" text="Απόθεμα">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-truck" />
-                                 </graphic></Button>
-                           </children>
-                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
                      </content>
                      <graphic>
                         <FontIcon iconLiteral="fa-shopping-cart" />
@@ -133,14 +90,7 @@
                   </TitledPane>
                   <TitledPane fx:id="reports_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Αναφορές">
                      <content>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#reportsAction" prefHeight="32.0" prefWidth="262.0" text="Αναφορές">
-                                 <graphic>
-                                    <FontIcon iconLiteral="fa-print" />
-                                 </graphic></Button>
-                           </children>
-                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
                      </content>
                      <graphic>
                         <FontIcon iconLiteral="fa-print" />
@@ -166,4 +116,8 @@
          </content>
       </ScrollPane>
    </children>
+   <stylesheets>
+      <URL value="@../../styles/bootstrap3.css" />
+      <URL value="@../../styles/leftSideMenu.css" />
+   </stylesheets>
 </VBox>

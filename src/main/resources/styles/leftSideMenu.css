@@ -1,0 +1,13 @@
+/*
+copyright 2013-2020
+codebb.gr
+ProtoERP - Open source invocing program
+info@codebb.gr
+*/
+/* 
+    Created on : 31 Οκτ 2020, 9:07:10 π.μ.
+    Author     : georgemoralis
+*/
+.titled-pane > .content > * {
+    -fx-padding: 0px;
+}

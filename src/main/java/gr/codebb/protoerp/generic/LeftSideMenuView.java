@@ -223,24 +223,6 @@ public class LeftSideMenuView implements Initializable {
   }
 
   @FXML
-  private void invoicesAction(ActionEvent event) {}
-
-  @FXML
-  private void cancelledAction(ActionEvent event) {}
-
-  @FXML
-  private void casholdAction(ActionEvent event) {}
-
-  @FXML
-  private void itemsAction(ActionEvent event) {}
-
-  @FXML
-  private void storageAction(ActionEvent event) {}
-
-  @FXML
-  private void reportsAction(ActionEvent event) {}
-
-  @FXML
   private void issuesAction(ActionEvent event) {
     FxmlUtil.LoadResult<GenericIssueView> GenericIssue =
         FxmlUtil.load("/fxml/issues/GenericIssue.fxml");
