@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 01/11/2020 (georgemoralis) - Request focus to pass TextField
  * 30/10/2020 (georgemoralis) - Added authentication
  * 27/10/2020 (georgemoralis) - Initial
  */
@@ -18,6 +19,7 @@ import gr.codebb.lib.crud.services.ComboboxService;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,6 +50,10 @@ public class LoginView implements Initializable {
     if (users.size() == 1) {
       userCombo.getSelectionModel().select(users.get(0)); // select user if it's only one
     }
+    Platform.runLater(
+        () -> {
+          passText.requestFocus();
+        });
   }
 
   @FXML

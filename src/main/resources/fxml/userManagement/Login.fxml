@@ -37,8 +37,8 @@
       <PasswordField fx:id="passText" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
         <buttons>
-          <Button mnemonicParsing="false" onAction="#onLogin" styleClass="primary" text="Σύνδεση" />
-            <Button mnemonicParsing="false" onAction="#onCancel" styleClass="danger" text="Άκυρο" />
+          <Button defaultButton="true" mnemonicParsing="false" onAction="#onLogin" styleClass="primary" text="Σύνδεση" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#onCancel" styleClass="danger" text="Άκυρο" />
         </buttons>
       </ButtonBar>
    </children>
