@@ -15,8 +15,8 @@ module codebb.protoerp {
   requires java.persistence;
   requires java.sql;
   requires liquibase.core;
-  requires api;
-  requires jinq.jpa;
+  requires org.jinq.api;
+  requires org.jinq.jpa;
   requires validatorfx;
   requires shiro.core;
 
