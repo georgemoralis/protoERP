@@ -9,9 +9,8 @@
  * =========
  * 13/10/2020 (georgemoralis) - Initial
  */
-package gr.codebb.protoerp.settings;
+package gr.codebb.lib.util;
 
-import gr.codebb.lib.util.FxmlUtil;
 import javafx.scene.Parent;
 import lombok.Getter;
 

@@ -81,6 +81,11 @@
                                  <graphic>
                                     <FontIcon iconLiteral="fa-gears" />
                                  </graphic></Button>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#userManagementAction" prefHeight="32.0" prefWidth="262.0" text="Διαχείριση Χρηστών">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-users" />
+                                 </graphic>
+                              </Button>
                            </children>
                         </VBox>
                      </content>

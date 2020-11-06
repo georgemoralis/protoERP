@@ -9,7 +9,7 @@
  * =========
  * 06/11/2020 (georgemoralis) - Initial
  */
-package gr.codebb.protoerp.transactor;
+package gr.codebb.protoerp.userManagement;
 
 import gr.codebb.ctl.cbbTableView.CbbTableView;
 import java.net.URL;
@@ -19,15 +19,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-public class TransactorView implements Initializable {
+public class RolesView implements Initializable {
 
   @FXML private Button refreshButton;
   @FXML private Button newButton;
-  @FXML private Button deleteButton;
   @FXML private Button openButton;
-  @FXML private CbbTableView<TransactorEntity> transactorTable;
+  @FXML private Button deleteButton;
+  @FXML private CbbTableView<?> rolesTable;
 
-  /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     // TODO

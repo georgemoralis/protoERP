@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox xmlns="http://javafx.com/javafx/16-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.userManagement.UserManagementMainView">
+   <children>
+      <TreeView fx:id="CategoryTreeView" prefHeight="400.0" prefWidth="218.0" />
+      <BorderPane fx:id="UserManagementBorderPane" prefHeight="400.0" prefWidth="383.0" HBox.hgrow="ALWAYS" />
+   </children>
+</HBox>

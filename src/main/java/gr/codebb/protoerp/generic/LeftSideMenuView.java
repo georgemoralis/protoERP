@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 06/11/2020 (georgemoralis) - Added usermanagement link
  * 25/10/2020 (georgemoralis) - Added transactor link
  * 20/10/2020 (georgemoralis) - Added issues action
  * 13/10/2020 (georgemoralis) - Added settings button call
@@ -22,6 +23,7 @@ import gr.codebb.lib.util.StageUtil;
 import gr.codebb.protoerp.issues.GenericIssueView;
 import gr.codebb.protoerp.settings.SettingsMainView;
 import gr.codebb.protoerp.transactor.TransactorView;
+import gr.codebb.protoerp.userManagement.UserManagementMainView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -244,5 +246,14 @@ public class LeftSideMenuView implements Initializable {
         FxmlUtil.load("/fxml/settings/SettingsMain.fxml");
     Node settings = (Node) getMainView.getParent();
     showAsTab(settings, "Ρυθμίσεις");
+  }
+
+  @FXML
+  private void userManagementAction(ActionEvent event) 
+  {
+      FxmlUtil.LoadResult<UserManagementMainView> getMainView =
+        FxmlUtil.load("/fxml/userManagement/UserManagementMain.fxml");
+    Node settings = (Node) getMainView.getParent();
+    showAsTab(settings, "Διαχείριση Χρηστών");
   }
 }

@@ -7,12 +7,11 @@
 /*
  * Changelog
  * =========
- * 13/10/2020 (georgemoralis) - Initial
+ * 06/11/2020 (georgemoralis) - Initial
  */
-package gr.codebb.protoerp.settings;
+package gr.codebb.protoerp.userManagement;
 
 import gr.codebb.lib.util.TreeCategoryModel;
-import gr.codebb.protoerp.settings.appSettings.appSettingsView;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -23,26 +22,28 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 
-public class SettingsMainView implements Initializable {
+public class UserManagementMainView implements Initializable {
 
   @FXML private TreeView<TreeCategoryModel> CategoryTreeView;
-  @FXML private BorderPane SettingsBorderPane;
+  @FXML private BorderPane UserManagementBorderPane;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     TreeCategoryModel root = new TreeCategoryModel("root", null, null);
-    TreeCategoryModel generic = new TreeCategoryModel("Γενικές ρυθμίσεις", null, null);
-    TreeCategoryModel genApp =
+    TreeCategoryModel generic = new TreeCategoryModel("Ρυθμίσεις χρηστών", null, null);
+    TreeCategoryModel users =
+        new TreeCategoryModel("Χρήστες", UsersView.class, "/fxml/userManagement/Users.fxml");
+    TreeCategoryModel roles =
         new TreeCategoryModel(
-            "Ρυθμίσεις εφαρμογής",
-            appSettingsView.class,
-            "/fxml/settings/appSettings/AppSettings.fxml");
+            "Ρόλοι & δικαιώματα", RolesView.class, "/fxml/userManagement/Roles.fxml");
 
     TreeItem<TreeCategoryModel> root_item = new TreeItem<>(root);
 
     TreeItem<TreeCategoryModel> gen_item = new TreeItem<>(generic);
-    TreeItem<TreeCategoryModel> gen_app_item = new TreeItem<>(genApp);
-    gen_item.getChildren().add(gen_app_item);
+    TreeItem<TreeCategoryModel> users_item = new TreeItem<>(users);
+    TreeItem<TreeCategoryModel> roles_item = new TreeItem<>(roles);
+    gen_item.getChildren().add(users_item);
+    gen_item.getChildren().add(roles_item);
 
     root_item.getChildren().addAll(gen_item);
     CategoryTreeView.setRoot(root_item);
@@ -58,10 +59,10 @@ public class SettingsMainView implements Initializable {
                   TreeItem<TreeCategoryModel> oldValue,
                   TreeItem<TreeCategoryModel> newValue) {
                 if (newValue.getValue().getFxmlPath() != null) {
-                  if (!SettingsBorderPane.getChildren().isEmpty()) {
-                    SettingsBorderPane.getChildren().remove(0);
+                  if (!UserManagementBorderPane.getChildren().isEmpty()) {
+                    UserManagementBorderPane.getChildren().remove(0);
                   }
-                  SettingsBorderPane.setCenter(newValue.getValue().loadFxml());
+                  UserManagementBorderPane.setCenter(newValue.getValue().loadFxml());
                 }
               }
             });
