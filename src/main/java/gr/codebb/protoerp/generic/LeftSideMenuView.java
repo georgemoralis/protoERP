@@ -249,9 +249,8 @@ public class LeftSideMenuView implements Initializable {
   }
 
   @FXML
-  private void userManagementAction(ActionEvent event) 
-  {
-      FxmlUtil.LoadResult<UserManagementMainView> getMainView =
+  private void userManagementAction(ActionEvent event) {
+    FxmlUtil.LoadResult<UserManagementMainView> getMainView =
         FxmlUtil.load("/fxml/userManagement/UserManagementMain.fxml");
     Node settings = (Node) getMainView.getParent();
     showAsTab(settings, "Διαχείριση Χρηστών");
