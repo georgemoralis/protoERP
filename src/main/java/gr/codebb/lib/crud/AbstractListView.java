@@ -7,11 +7,13 @@
 /*
  * Changelog
  * =========
+ * 10/11/2020 (georgemoralis) - Content menu for making columns visible/hide
  * 09/11/2020 (georgemoralis) - Initial
  */
 package gr.codebb.lib.crud;
 
 import gr.codebb.ctl.cbbTableView.CbbTableView;
+import gr.codebb.ctl.cbbTableView.utils.CbbTableMenuUtils;
 import gr.codebb.lib.crud.annotation.ColumnProperty;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -63,6 +65,7 @@ public abstract class AbstractListView<T> {
         () -> {
           listData = FXCollections.observableArrayList();
           setTableModel();
+          CbbTableMenuUtils.addCustomTableViewMenu(getTableView());
         });
     // disables the Button when the user has selected nothing or cleared his selection and becomes
     // enabled as soon as at least one row is being selected.

@@ -43,7 +43,7 @@
         <validatorfx>0.1.12</validatorfx>
         <shiro-core>1.7.0</shiro-core>
         <!-- own modules !-->
-        <cobebbfxctl>15.0.6</cobebbfxctl>
+        <cobebbfxctl>15.0.7</cobebbfxctl>
         <codebbutil>15.0.5</codebbutil>
         <codebbwebserv>15.0.5</codebbwebserv>
     </properties>
