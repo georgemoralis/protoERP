@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 12/11/2020 (georgemoralis) - Initial work in Add detail view
  * 09/11/2020 (georgemoralis) - More work on listview
  * 06/11/2020 (georgemoralis) - Initial
  */
@@ -18,13 +19,18 @@ import gr.codebb.ctl.cbbTableView.columns.CbbStringTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbTableColumn;
 import gr.codebb.lib.crud.AbstractListView;
 import gr.codebb.lib.crud.annotation.ColumnProperty;
+import gr.codebb.lib.util.AlertDlgHelper;
+import gr.codebb.lib.util.FxmlUtil;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 
@@ -65,7 +71,22 @@ public class RolesView extends AbstractListView implements Initializable {
   }
 
   @FXML
-  private void newAction(ActionEvent event) {}
+  private void newAction(ActionEvent event) {
+    FxmlUtil.LoadResult<RolesDetailView> getDetailView =
+        FxmlUtil.load("/fxml/userManagement/RolesDetail.fxml");
+    Alert alert =
+        AlertDlgHelper.saveDialog(
+            "Προσθήκη ρόλου - δικαιωμάτων",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        // save data
+        selectWithService();
+      }
+    }
+  }
 
   @FXML
   protected void openAction(ActionEvent event) {}

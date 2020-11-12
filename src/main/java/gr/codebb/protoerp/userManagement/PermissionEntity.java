@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 12/11/2020 (georgemoralis) - Added eyes friendly permissionDisplayName variable
  * 24/10/2020 (georgemoralis) - Initial commit
  */
 package gr.codebb.protoerp.userManagement;
@@ -30,4 +31,5 @@ public class PermissionEntity implements Serializable {
   private Long id;
 
   @Getter @Setter private String permissionName;
+  @Getter @Setter private String permissionDisplayName;
 }

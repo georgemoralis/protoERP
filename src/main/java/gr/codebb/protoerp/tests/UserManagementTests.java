@@ -26,7 +26,8 @@ public class UserManagementTests {
     GenericDao gdaoi1 = new GenericDao(PermissionEntity.class, PersistenceManager.getEmf());
     gdaoi1.createEntity(p1);
     final PermissionEntity p2 = new PermissionEntity();
-    p2.setPermissionName("DO_SOMETHING");
+    p2.setPermissionName("USER_MANAGEMENT");
+    p2.setPermissionDisplayName("Διαχείριση Χρηστών");
     gdaoi1.createEntity(p2);
     // define roles
     final RoleEntity roleAdmin = new RoleEntity();
