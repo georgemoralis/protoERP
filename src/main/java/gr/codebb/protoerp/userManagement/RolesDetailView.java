@@ -34,18 +34,20 @@ public class RolesDetailView implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     permCheckList.getItems().addAll(PersimssionQueries.getPermissions());
-    permCheckList.setCellFactory((ListView<PermissionEntity> listView) -> new CheckBoxListCell<PermissionEntity>(
-            item -> permCheckList.getItemBooleanProperty(item),
-            new StringConverter<PermissionEntity>() {
-                @Override
-                public PermissionEntity fromString(String arg0) {
+    permCheckList.setCellFactory(
+        (ListView<PermissionEntity> listView) ->
+            new CheckBoxListCell<PermissionEntity>(
+                item -> permCheckList.getItemBooleanProperty(item),
+                new StringConverter<PermissionEntity>() {
+                  @Override
+                  public PermissionEntity fromString(String arg0) {
                     return null;
-                }
-                
-                @Override
-                public String toString(PermissionEntity per) {
+                  }
+
+                  @Override
+                  public String toString(PermissionEntity per) {
                     return per.getPermissionDisplayName();
-                }
-            }));
+                  }
+                }));
   }
 }

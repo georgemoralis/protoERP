@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 13/11/2020 (georgemoralis) - Added permission access to user management
  * 06/11/2020 (georgemoralis) - Added usermanagement link
  * 25/10/2020 (georgemoralis) - Added transactor link
  * 20/10/2020 (georgemoralis) - Added issues action
@@ -18,6 +19,7 @@ package gr.codebb.protoerp.generic;
 
 import gr.codebb.ctl.CbbDetachableTab;
 import gr.codebb.ctl.CbbDetachableTabPane;
+import gr.codebb.lib.util.AuthUtil;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
 import gr.codebb.protoerp.issues.GenericIssueView;
@@ -50,8 +52,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 
 public class LeftSideMenuView implements Initializable {
 
@@ -252,8 +252,8 @@ public class LeftSideMenuView implements Initializable {
 
   @FXML
   private void userManagementAction(ActionEvent event) {
-    Subject currentUser = SecurityUtils.getSubject();
-    if (currentUser.isPermitted("USER_MANAGEMENT")) {
+    if (AuthUtil.isPermitted(
+        "USER_MANAGEMENT", "Ο χρήστης δεν έχει πρόσβαση", mainDetachPane.getScene().getWindow())) {
       FxmlUtil.LoadResult<UserManagementMainView> getMainView =
           FxmlUtil.load("/fxml/userManagement/UserManagementMain.fxml");
       Node settings = (Node) getMainView.getParent();
