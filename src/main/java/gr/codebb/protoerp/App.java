@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 13/11/2020 (georgemoralis) - Enabled hibernate.enable_lazy_load_no_trans
  * 29/10/2020 (georgemoralis) - Added login window
  * 20/10/2020 (georgemoralis) - Added setDefaultUncaughtExceptionHandler
  * 15/10/2020 (georgemoralis) - Check if client is up to date
@@ -32,6 +33,7 @@ import gr.codebb.protoerp.generic.MainAppView;
 import gr.codebb.protoerp.generic.NewVersionView;
 import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
+import gr.codebb.protoerp.tests.UserManagementTests;
 import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
 import gr.codebb.protoerp.userManagement.LoginView;
 import gr.codebb.util.database.DatabaseDefaultFile;
@@ -112,7 +114,8 @@ public class App extends Application {
         break;
     }
     Map databaseProperties = database.getDatabaseProperties();
-
+    // custom databaseproperties
+    databaseProperties.put("hibernate.enable_lazy_load_no_trans", "true");
     try {
       PersistenceManager.createEntityManager(databaseProperties);
     } catch (Exception e) {
@@ -156,6 +159,7 @@ public class App extends Application {
       System.exit(0);
     }
     checkClientUpToDate();
+    new UserManagementTests().testPermissions();
   }
 
   @Override

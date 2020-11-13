@@ -50,6 +50,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 
 public class LeftSideMenuView implements Initializable {
 
@@ -250,9 +252,12 @@ public class LeftSideMenuView implements Initializable {
 
   @FXML
   private void userManagementAction(ActionEvent event) {
-    FxmlUtil.LoadResult<UserManagementMainView> getMainView =
-        FxmlUtil.load("/fxml/userManagement/UserManagementMain.fxml");
-    Node settings = (Node) getMainView.getParent();
-    showAsTab(settings, "Διαχείριση Χρηστών");
+    Subject currentUser = SecurityUtils.getSubject();
+    if (currentUser.isPermitted("USER_MANAGEMENT")) {
+      FxmlUtil.LoadResult<UserManagementMainView> getMainView =
+          FxmlUtil.load("/fxml/userManagement/UserManagementMain.fxml");
+      Node settings = (Node) getMainView.getParent();
+      showAsTab(settings, "Διαχείριση Χρηστών");
+    }
   }
 }
