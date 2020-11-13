@@ -17,11 +17,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
-import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.controlsfx.control.CheckListView;
 
@@ -36,23 +34,18 @@ public class RolesDetailView implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     permCheckList.getItems().addAll(PersimssionQueries.getPermissions());
-    permCheckList.setCellFactory(
-        new Callback<ListView<PermissionEntity>, ListCell<PermissionEntity>>() {
-          public ListCell<PermissionEntity> call(ListView<PermissionEntity> listView) {
-            return new CheckBoxListCell<PermissionEntity>(
-                item -> permCheckList.getItemBooleanProperty(item),
-                new StringConverter<PermissionEntity>() {
-                  @Override
-                  public PermissionEntity fromString(String arg0) {
+    permCheckList.setCellFactory((ListView<PermissionEntity> listView) -> new CheckBoxListCell<PermissionEntity>(
+            item -> permCheckList.getItemBooleanProperty(item),
+            new StringConverter<PermissionEntity>() {
+                @Override
+                public PermissionEntity fromString(String arg0) {
                     return null;
-                  }
-
-                  @Override
-                  public String toString(PermissionEntity per) {
+                }
+                
+                @Override
+                public String toString(PermissionEntity per) {
                     return per.getPermissionDisplayName();
-                  }
-                });
-          }
-        });
+                }
+            }));
   }
 }
