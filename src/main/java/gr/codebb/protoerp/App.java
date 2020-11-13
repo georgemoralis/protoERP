@@ -33,7 +33,6 @@ import gr.codebb.protoerp.generic.MainAppView;
 import gr.codebb.protoerp.generic.NewVersionView;
 import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
-import gr.codebb.protoerp.tests.UserManagementTests;
 import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
 import gr.codebb.protoerp.userManagement.LoginView;
 import gr.codebb.util.database.DatabaseDefaultFile;
