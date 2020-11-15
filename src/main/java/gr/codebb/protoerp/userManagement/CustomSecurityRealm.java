@@ -49,9 +49,9 @@ public class CustomSecurityRealm extends AuthorizingRealm {
     Collection<UserEntity> principalsList = principals.byType(UserEntity.class);
     for (UserEntity user : principalsList) {
       roles.addAll(user.getRolesName());
-      for (RoleEntity role : user.getRoleList()) {
+      for (RolesEntity role : user.getRoleList()) {
         for (Iterator iterator = role.getPermissionList().iterator(); iterator.hasNext(); ) {
-          PermissionEntity permission = (PermissionEntity) iterator.next();
+          PermissionsEntity permission = (PermissionsEntity) iterator.next();
           permissions.add(new WildcardPermission(permission.getPermissionName()));
         }
       }

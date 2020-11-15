@@ -28,24 +28,24 @@ public class RolesDetailView implements Initializable {
   @FXML private TextField textId;
   @FXML private CbbClearableTextField textRolename;
   @FXML private CheckBox checkBoxActive;
-  @FXML private CheckListView<PermissionEntity> permCheckList;
+  @FXML private CheckListView<PermissionsEntity> permCheckList;
 
   /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    permCheckList.getItems().addAll(PersimssionQueries.getPermissions());
+    permCheckList.getItems().addAll(PersimssionsQueries.getPermissions());
     permCheckList.setCellFactory(
-        (ListView<PermissionEntity> listView) ->
-            new CheckBoxListCell<PermissionEntity>(
+        (ListView<PermissionsEntity> listView) ->
+            new CheckBoxListCell<PermissionsEntity>(
                 item -> permCheckList.getItemBooleanProperty(item),
-                new StringConverter<PermissionEntity>() {
+                new StringConverter<PermissionsEntity>() {
                   @Override
-                  public PermissionEntity fromString(String arg0) {
+                  public PermissionsEntity fromString(String arg0) {
                     return null;
                   }
 
                   @Override
-                  public String toString(PermissionEntity per) {
+                  public String toString(PermissionsEntity per) {
                     return per.getPermissionDisplayName();
                   }
                 }));

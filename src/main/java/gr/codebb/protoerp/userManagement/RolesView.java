@@ -41,13 +41,13 @@ public class RolesView extends AbstractListView implements Initializable {
   @FXML private Button newButton;
   @FXML private Button openButton;
   @FXML private Button deleteButton;
-  @FXML private CbbTableView<RoleEntity> rolesTable;
+  @FXML private CbbTableView<RolesEntity> rolesTable;
 
   @ColumnProperty(prefWidth = "100.0d")
-  CbbTableColumn<RoleEntity, Long> columnId;
+  CbbTableColumn<RolesEntity, Long> columnId;
 
   @ColumnProperty(prefWidth = "150.0d")
-  CbbTableColumn<RoleEntity, String> columnRoleName;
+  CbbTableColumn<RolesEntity, String> columnRoleName;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {

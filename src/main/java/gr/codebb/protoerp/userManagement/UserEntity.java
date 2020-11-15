@@ -49,24 +49,24 @@ public class UserEntity implements Serializable, Displayable {
       name = "user_role",
       joinColumns = {@JoinColumn(name = "user_id")},
       inverseJoinColumns = {@JoinColumn(name = "role_id")})
-  private List<RoleEntity> roleList = new ArrayList<>();
+  private List<RolesEntity> roleList = new ArrayList<>();
 
   @Transient private Set<String> rolesName;
 
   public Set<String> getRolesName() {
-    List<RoleEntity> roles = getRoleList();
+    List<RolesEntity> roles = getRoleList();
     rolesName = new HashSet<>();
-    for (RoleEntity role : roles) {
+    for (RolesEntity role : roles) {
       rolesName.add(role.getRoleName());
     }
     return rolesName;
   }
 
-  public List<RoleEntity> getRoleList() {
+  public List<RolesEntity> getRoleList() {
     return roleList;
   }
 
-  public void setRoleList(List<RoleEntity> roleList) {
+  public void setRoleList(List<RolesEntity> roleList) {
     this.roleList = roleList;
   }
 

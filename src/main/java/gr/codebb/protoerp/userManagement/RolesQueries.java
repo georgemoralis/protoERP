@@ -18,10 +18,10 @@ import org.jinq.jpa.JinqJPAStreamProvider;
 
 public class RolesQueries {
 
-  public static List<RoleEntity> getRoles() {
+  public static List<RolesEntity> getRoles() {
     JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
-    List<RoleEntity> results = streams.streamAll(em, RoleEntity.class).toList();
+    List<RolesEntity> results = streams.streamAll(em, RolesEntity.class).toList();
 
     em.close();
     return results;

@@ -32,7 +32,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "roles")
-public class RoleEntity implements Serializable {
+public class RolesEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
@@ -46,7 +46,7 @@ public class RoleEntity implements Serializable {
       name = "role_permission",
       joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
-  private List<PermissionEntity> permissionList = new ArrayList<>();
+  private List<PermissionsEntity> permissionList = new ArrayList<>();
 
   @ManyToMany(cascade = CascadeType.ALL, mappedBy = "roleList")
   private List<UserEntity> userList = new ArrayList<>();
@@ -55,18 +55,18 @@ public class RoleEntity implements Serializable {
 
   public Set<String> getPermissionsName() {
     permissionsName = new HashSet<>();
-    List<PermissionEntity> perlist = getPermissionList();
-    for (PermissionEntity per : perlist) {
+    List<PermissionsEntity> perlist = getPermissionList();
+    for (PermissionsEntity per : perlist) {
       permissionsName.add(per.getPermissionName());
     }
     return permissionsName;
   }
 
-  public List<PermissionEntity> getPermissionList() {
+  public List<PermissionsEntity> getPermissionList() {
     return permissionList;
   }
 
-  public void setPermissionList(List<PermissionEntity> permissionList) {
+  public void setPermissionList(List<PermissionsEntity> permissionList) {
     this.permissionList = permissionList;
   }
 

@@ -16,11 +16,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import org.jinq.jpa.JinqJPAStreamProvider;
 
-public class PersimssionQueries {
-  public static List<PermissionEntity> getPermissions() {
+public class PersimssionsQueries {
+  public static List<PermissionsEntity> getPermissions() {
     JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
-    List<PermissionEntity> results = streams.streamAll(em, PermissionEntity.class).toList();
+    List<PermissionsEntity> results = streams.streamAll(em, PermissionsEntity.class).toList();
     em.close();
     return results;
   }
