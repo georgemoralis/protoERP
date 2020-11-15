@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 15/11/2020 (georgemoralis) - Added edit action
  * 12/11/2020 (georgemoralis) - Initial work in Add detail view
  * 09/11/2020 (georgemoralis) - More work on listview
  * 06/11/2020 (georgemoralis) - Initial
@@ -89,7 +90,23 @@ public class RolesView extends AbstractListView implements Initializable {
   }
 
   @FXML
-  protected void openAction(ActionEvent event) {}
+  protected void openAction(ActionEvent event) {
+    FxmlUtil.LoadResult<RolesDetailView> getDetailView =
+        FxmlUtil.load("/fxml/userManagement/RolesDetail.fxml");
+    Alert alert =
+        AlertDlgHelper.editDialog(
+            "Άνοιγμα/Επεξεργασία ρόλου - δικαιωμάτων",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    getDetailView.getController().fillData(rolesTable.getSelectionModel().getSelectedItem());
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        // save data
+        selectWithService();
+      }
+    }
+  }
 
   @Override
   protected CbbTableView getTableView() {

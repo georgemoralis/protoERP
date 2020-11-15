@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 15/11/2020 (georgemoralis) - Progress in loading/saving form
  * 12/11/2020 (georgemoralis) - Initial work
  */
 package gr.codebb.protoerp.userManagement;
@@ -16,7 +17,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
@@ -26,8 +26,7 @@ import org.controlsfx.control.CheckListView;
 public class RolesDetailView implements Initializable {
 
   @FXML private TextField textId;
-  @FXML private CbbClearableTextField textRolename;
-  @FXML private CheckBox checkBoxActive;
+  @FXML private CbbClearableTextField textRoleΝame;
   @FXML private CheckListView<PermissionsEntity> permCheckList;
 
   /** Initializes the controller class. */
@@ -49,5 +48,17 @@ public class RolesDetailView implements Initializable {
                     return per.getPermissionDisplayName();
                   }
                 }));
+  }
+
+  public void fillData(RolesEntity role) {
+    textId.setText(role.getId().toString());
+    textRoleΝame.setText(role.getRoleName());
+    for (PermissionsEntity perm : permCheckList.getItems()) {
+      for (PermissionsEntity permExist : role.getPermissionList()) {
+        if (permExist.getPermissionName().matches(perm.getPermissionName())) {
+          permCheckList.getCheckModel().check(perm);
+        }
+      }
+    }
   }
 }
