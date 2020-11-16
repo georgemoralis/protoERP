@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 15/10/2020 (georgemoralis) - Added find functions
  * 13/10/2020 (georgemoralis) - Added update functions
  * 13/10/2020 (georgemoralis) - Initial commit
  */
@@ -67,5 +68,16 @@ public class GenericDao<T> implements Serializable {
 
   private T update(T entity) {
     return em.merge(entity);
+  }
+
+  private T find(long entityID) {
+    return em.find(entityClass, entityID);
+  }
+
+  public T findEntity(long entityId) {
+    beginTransaction();
+    T user = find(entityId);
+    commitAndCloseTransaction();
+    return user;
   }
 }

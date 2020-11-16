@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 16/11/2020 (georgemoralis) - Editing now working ok as well
  * 16/11/2020 (georgemoralis) - More progress in loading/saving
  * 15/11/2020 (georgemoralis) - Progress in loading/saving form
  * 12/11/2020 (georgemoralis) - Initial work
@@ -51,6 +52,27 @@ public class RolesDetailView implements Initializable {
                     return per.getPermissionDisplayName();
                   }
                 }));
+    /*permCheckList
+    .getCheckModel()
+    .getCheckedItems()
+    .addListener(
+        new ListChangeListener<PermissionsEntity>() {
+          @Override
+          public void onChanged(ListChangeListener.Change<? extends PermissionsEntity> change) {
+            while (change.next()) {
+              if (change.wasAdded()) {
+                for (PermissionsEntity perm : change.getAddedSubList()) {
+                  System.out.println(perm.getPermissionName());
+                }
+              }
+              if (change.wasRemoved()) {
+                for (PermissionsEntity perm : change.getRemoved()) {
+                  System.out.println(perm.getPermissionName());
+                }
+              }
+            }
+          }
+        });*/
   }
 
   public void fillData(RolesEntity role) {
@@ -73,6 +95,18 @@ public class RolesDetailView implements Initializable {
       role.getPermissionList().add(perm);
     }
     gdao.createEntity(role);
+    return true;
+  }
+
+  public boolean saveEdit() {
+    GenericDao gdao = new GenericDao(RolesEntity.class, PersistenceManager.getEmf());
+    RolesEntity role = (RolesEntity) gdao.findEntity(Long.valueOf(textId.getText()));
+    role.setRoleName(textRoleΝame.getText());
+    role.getPermissionList().clear();
+    for (PermissionsEntity perm : permCheckList.getCheckModel().getCheckedItems()) {
+      role.getPermissionList().add(perm);
+    }
+    gdao.updateEntity(role);
     return true;
   }
 }
