@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 16/11/2020 (georgemoralis) - More in saving
  * 15/11/2020 (georgemoralis) - Added edit action
  * 12/11/2020 (georgemoralis) - Initial work in Add detail view
  * 09/11/2020 (georgemoralis) - More work on listview
@@ -83,7 +84,7 @@ public class RolesView extends AbstractListView implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
-        // save data
+        getDetailView.getController().save();
         selectWithService();
       }
     }
@@ -102,7 +103,6 @@ public class RolesView extends AbstractListView implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
-        // save data
         selectWithService();
       }
     }

@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 16/11/2020 (georgemoralis) - Changed role_permission table to ManyToMany for permissions
  * 24/10/2020 (georgemoralis) - Initial commit
  */
 package gr.codebb.protoerp.userManagement;
@@ -24,7 +25,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.Getter;
@@ -41,7 +41,7 @@ public class RolesEntity implements Serializable {
 
   @Getter @Setter private String roleName;
 
-  @OneToMany
+  @ManyToMany
   @JoinTable(
       name = "role_permission",
       joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),

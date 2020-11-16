@@ -7,12 +7,15 @@
 /*
  * Changelog
  * =========
+ * 16/11/2020 (georgemoralis) - More progress in loading/saving
  * 15/11/2020 (georgemoralis) - Progress in loading/saving form
  * 12/11/2020 (georgemoralis) - Initial work
  */
 package gr.codebb.protoerp.userManagement;
 
 import gr.codebb.ctl.CbbClearableTextField;
+import gr.codebb.lib.database.GenericDao;
+import gr.codebb.lib.database.PersistenceManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -60,5 +63,16 @@ public class RolesDetailView implements Initializable {
         }
       }
     }
+  }
+
+  public boolean save() {
+    GenericDao gdao = new GenericDao(RolesEntity.class, PersistenceManager.getEmf());
+    RolesEntity role = new RolesEntity();
+    role.setRoleName(textRoleΝame.getText());
+    for (PermissionsEntity perm : permCheckList.getCheckModel().getCheckedItems()) {
+      role.getPermissionList().add(perm);
+    }
+    gdao.createEntity(role);
+    return true;
   }
 }
