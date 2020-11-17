@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 17/11/2020 (georgemoralis) - Added name and active variables
  * 30/10/2020 (georgemoralis) - Implements displayable
  * 24/10/2020 (georgemoralis) - Initial commit
  */
@@ -43,6 +44,8 @@ public class UserEntity implements Serializable, Displayable {
 
   @Getter @Setter private String username;
   @Getter @Setter private String password;
+  @Getter @Setter private Boolean active;
+  @Getter @Setter private String name;
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
   @JoinTable(
