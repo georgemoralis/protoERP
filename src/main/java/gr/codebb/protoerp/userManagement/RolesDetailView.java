@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 17/11/2020 (georgemoralis) - Validation works
  * 16/11/2020 (georgemoralis) - Editing now working ok as well
  * 16/11/2020 (georgemoralis) - More progress in loading/saving
  * 15/11/2020 (georgemoralis) - Progress in loading/saving form
@@ -15,6 +16,7 @@
 package gr.codebb.protoerp.userManagement;
 
 import gr.codebb.ctl.CbbClearableTextField;
+import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import java.net.URL;
@@ -24,7 +26,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.stage.Modality;
 import javafx.util.StringConverter;
+import net.synedra.validatorfx.Validator;
 import org.controlsfx.control.CheckListView;
 
 public class RolesDetailView implements Initializable {
@@ -32,6 +36,8 @@ public class RolesDetailView implements Initializable {
   @FXML private TextField textId;
   @FXML private CbbClearableTextField textRoleΝame;
   @FXML private CheckListView<PermissionsEntity> permCheckList;
+
+  private Validator validator = new Validator();
 
   /** Initializes the controller class. */
   @Override
@@ -52,6 +58,40 @@ public class RolesDetailView implements Initializable {
                     return per.getPermissionDisplayName();
                   }
                 }));
+    validator
+        .createCheck()
+        .dependsOn("rolename", textRoleΝame.textProperty())
+        .withMethod(
+            c -> {
+              String rolename = c.get("rolename");
+              if (rolename.isEmpty()) {
+                c.error("Το όνομα του ρόλου δεν μπορεί να είναι κενό");
+              }
+            })
+        .decorates(textRoleΝame)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("rolename", textRoleΝame.textProperty())
+        .withMethod(
+            c -> {
+              String rolename = c.get("rolename");
+              RolesEntity rolef = RolesQueries.findRoleName(rolename);
+              if (rolef != null) // if exists
+              {
+                if (!textId.getText().isEmpty()) { // if it is not a new entry
+                  if (rolef.getId()
+                      != Long.parseLong(textId.getText())) // check if found id is the same
+                  {
+                    c.error("Υπάρχει ήδη ρόλος με όνομα " + rolename);
+                  }
+                } else {
+                  c.error("Υπάρχει ήδη ρόλος με όνομα " + rolename);
+                }
+              }
+            })
+        .decorates(textRoleΝame);
     /*permCheckList
     .getCheckModel()
     .getCheckedItems()
@@ -95,6 +135,21 @@ public class RolesDetailView implements Initializable {
       role.getPermissionList().add(perm);
     }
     gdao.createEntity(role);
+    return true;
+  }
+
+  public boolean validateControls() {
+    validator.validate();
+    if (validator.containsErrors()) {
+      AlertDlg.create()
+          .type(AlertDlg.Type.ERROR)
+          .message("Ελέξτε την φόρμα για λάθη")
+          .title("Πρόβλημα")
+          .owner(textRoleΝame.getScene().getWindow())
+          .modality(Modality.APPLICATION_MODAL)
+          .showAndWait();
+      return false;
+    }
     return true;
   }
 

@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 17/11/2020 (georgemoralis) - Validation works
  * 16/11/2020 (georgemoralis) - More in saving
  * 15/11/2020 (georgemoralis) - Added edit action
  * 12/11/2020 (georgemoralis) - Initial work in Add detail view
@@ -81,6 +82,14 @@ public class RolesView extends AbstractListView implements Initializable {
             "Προσθήκη ρόλου - δικαιωμάτων",
             getDetailView.getParent(),
             mainStackPane.getScene().getWindow());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
+        });
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
@@ -100,6 +109,14 @@ public class RolesView extends AbstractListView implements Initializable {
             getDetailView.getParent(),
             mainStackPane.getScene().getWindow());
     getDetailView.getController().fillData(rolesTable.getSelectionModel().getSelectedItem());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
+        });
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
