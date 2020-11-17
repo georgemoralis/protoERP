@@ -4,7 +4,7 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
- /*
+/*
  * Changelog
  * =========
  * 17/11/2020 (georgemoralis) - Added delete action
@@ -44,140 +44,136 @@ import javafx.stage.Modality;
 
 public class RolesView extends AbstractListView implements Initializable {
 
-    @FXML
-    private StackPane mainStackPane;
-    @FXML
-    private Button refreshButton;
-    @FXML
-    private Button newButton;
-    @FXML
-    private Button openButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private CbbTableView<RolesEntity> rolesTable;
+  @FXML private StackPane mainStackPane;
+  @FXML private Button refreshButton;
+  @FXML private Button newButton;
+  @FXML private Button openButton;
+  @FXML private Button deleteButton;
+  @FXML private CbbTableView<RolesEntity> rolesTable;
 
-    @ColumnProperty(prefWidth = "100.0d")
-    CbbTableColumn<RolesEntity, Long> columnId;
+  @ColumnProperty(prefWidth = "100.0d")
+  CbbTableColumn<RolesEntity, Long> columnId;
 
-    @ColumnProperty(prefWidth = "150.0d")
-    CbbTableColumn<RolesEntity, String> columnRoleName;
+  @ColumnProperty(prefWidth = "150.0d")
+  CbbTableColumn<RolesEntity, String> columnRoleName;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        columnId = new CbbLongTableColumn<>("Id");
-        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnRoleName = new CbbStringTableColumn<>("Ρόλος");
-        columnRoleName.setCellValueFactory(new PropertyValueFactory<>("roleName"));
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    columnId = new CbbLongTableColumn<>("Id");
+    columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+    columnRoleName = new CbbStringTableColumn<>("Ρόλος");
+    columnRoleName.setCellValueFactory(new PropertyValueFactory<>("roleName"));
 
-        rolesTable.getColumns().addAll(columnId, columnRoleName);
+    rolesTable.getColumns().addAll(columnId, columnRoleName);
 
-        init(this);
+    init(this);
+    selectWithService();
+  }
+
+  @FXML
+  private void deleteAction(ActionEvent event) {
+    int row = rolesTable.getSelectionModel().getSelectedIndex();
+    rolesTable.getSelectionModel().select(row);
+    ButtonType response =
+        AlertDlg.create()
+            .message(
+                "Είστε σιγουροι ότι θέλετε να διαγράψετε τον ρόλο : "
+                    + rolesTable.getSelectionModel().getSelectedItem().getRoleName())
+            .title("Διαγραφή")
+            .modality(Modality.APPLICATION_MODAL)
+            .owner(rolesTable.getScene().getWindow())
+            .showAndWaitConfirm();
+    if (response == ButtonType.OK) {
+      GenericDao gdao = new GenericDao(RolesEntity.class, PersistenceManager.getEmf());
+      try {
+        gdao.deleteEntity(rolesTable.getSelectionModel().getSelectedItem().getId());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      selectWithService();
+    }
+  }
+
+  @FXML
+  private void refreshAction(ActionEvent event) {
+    selectWithService();
+  }
+
+  @FXML
+  private void newAction(ActionEvent event) {
+    FxmlUtil.LoadResult<RolesDetailView> getDetailView =
+        FxmlUtil.load("/fxml/userManagement/RolesDetail.fxml");
+    Alert alert =
+        AlertDlgHelper.saveDialog(
+            "Προσθήκη ρόλου - δικαιωμάτων",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
+        });
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        getDetailView.getController().save();
         selectWithService();
+      }
     }
+  }
 
-    @FXML
-    private void deleteAction(ActionEvent event) {
-        int row = rolesTable.getSelectionModel().getSelectedIndex();
-        rolesTable.getSelectionModel().select(row);
-        ButtonType response
-                = AlertDlg.create()
-                        .message("Είστε σιγουροι ότι θέλετε να διαγράψετε τον ρόλο : " + rolesTable.getSelectionModel().getSelectedItem().getRoleName())
-                        .title("Διαγραφή")
-                        .modality(Modality.APPLICATION_MODAL)
-                        .owner(rolesTable.getScene().getWindow())
-                        .showAndWaitConfirm();
-        if (response == ButtonType.OK) {
-            GenericDao gdao = new GenericDao(RolesEntity.class, PersistenceManager.getEmf());
-            try {
-                gdao.deleteEntity(rolesTable.getSelectionModel().getSelectedItem().getId());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            selectWithService();
-        }
-    }
-
-    @FXML
-    private void refreshAction(ActionEvent event) {
+  @FXML
+  protected void openAction(ActionEvent event) {
+    FxmlUtil.LoadResult<RolesDetailView> getDetailView =
+        FxmlUtil.load("/fxml/userManagement/RolesDetail.fxml");
+    Alert alert =
+        AlertDlgHelper.editDialog(
+            "Άνοιγμα/Επεξεργασία ρόλου - δικαιωμάτων",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    getDetailView.getController().fillData(rolesTable.getSelectionModel().getSelectedItem());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
+        });
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        getDetailView.getController().saveEdit();
         selectWithService();
+      }
     }
+  }
 
-    @FXML
-    private void newAction(ActionEvent event) {
-        FxmlUtil.LoadResult<RolesDetailView> getDetailView
-                = FxmlUtil.load("/fxml/userManagement/RolesDetail.fxml");
-        Alert alert
-                = AlertDlgHelper.saveDialog(
-                        "Προσθήκη ρόλου - δικαιωμάτων",
-                        getDetailView.getParent(),
-                        mainStackPane.getScene().getWindow());
-        Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-        okbutton.addEventFilter(
-                ActionEvent.ACTION,
-                (event1) -> {
-                    if (!getDetailView.getController().validateControls()) {
-                        event1.consume();
-                    }
-                });
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            if (getDetailView.getController() != null) {
-                getDetailView.getController().save();
-                selectWithService();
-            }
-        }
-    }
+  @Override
+  protected CbbTableView getTableView() {
+    return rolesTable;
+  }
 
-    @FXML
-    protected void openAction(ActionEvent event) {
-        FxmlUtil.LoadResult<RolesDetailView> getDetailView
-                = FxmlUtil.load("/fxml/userManagement/RolesDetail.fxml");
-        Alert alert
-                = AlertDlgHelper.editDialog(
-                        "Άνοιγμα/Επεξεργασία ρόλου - δικαιωμάτων",
-                        getDetailView.getParent(),
-                        mainStackPane.getScene().getWindow());
-        getDetailView.getController().fillData(rolesTable.getSelectionModel().getSelectedItem());
-        Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-        okbutton.addEventFilter(
-                ActionEvent.ACTION,
-                (event1) -> {
-                    if (!getDetailView.getController().validateControls()) {
-                        event1.consume();
-                    }
-                });
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            if (getDetailView.getController() != null) {
-                getDetailView.getController().saveEdit();
-                selectWithService();
-            }
-        }
-    }
+  @Override
+  protected List getMainQuery() {
+    return RolesQueries.getRoles();
+  }
 
-    @Override
-    protected CbbTableView getTableView() {
-        return rolesTable;
-    }
+  @Override
+  protected StackPane getMainStackPane() {
+    return mainStackPane;
+  }
 
-    @Override
-    protected List getMainQuery() {
-        return RolesQueries.getRoles();
-    }
+  @Override
+  protected Button getDeleteButton() {
+    return deleteButton;
+  }
 
-    @Override
-    protected StackPane getMainStackPane() {
-        return mainStackPane;
-    }
-
-    @Override
-    protected Button getDeleteButton() {
-        return deleteButton;
-    }
-
-    @Override
-    protected Button getOpenButton() {
-        return openButton;
-    }
+  @Override
+  protected Button getOpenButton() {
+    return openButton;
+  }
 }
