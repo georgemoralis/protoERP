@@ -9,7 +9,7 @@
  * =========
  * 06/11/2020 (georgemoralis) - Initial
  */
-package gr.codebb.protoerp.transactor;
+package gr.codebb.protoerp.trader;
 
 import gr.codebb.ctl.cbbTableView.CbbTableView;
 import java.net.URL;
@@ -19,13 +19,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-public class TransactorView implements Initializable {
+public class TraderView implements Initializable {
 
   @FXML private Button refreshButton;
   @FXML private Button newButton;
   @FXML private Button deleteButton;
   @FXML private Button openButton;
-  @FXML private CbbTableView<TransactorEntity> transactorTable;
+  @FXML private CbbTableView<TraderEntity> transactorTable;
 
   /** Initializes the controller class. */
   @Override

@@ -4,6 +4,6 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
-package gr.codebb.protoerp.transactor;
+package gr.codebb.protoerp.trader;
 
-public class TransactorEntity {}
+public class TraderEntity {}
