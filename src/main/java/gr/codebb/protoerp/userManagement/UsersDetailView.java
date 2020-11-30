@@ -4,6 +4,11 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
+/*
+ * Changelog
+ * =========
+ * 29/11/2020 (georgemoralis) - Initial
+ */
 package gr.codebb.protoerp.userManagement;
 
 import gr.codebb.ctl.CbbClearableTextField;
@@ -19,11 +24,6 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.util.StringConverter;
 import org.controlsfx.control.CheckListView;
 
-/**
- * FXML Controller class
- *
- * @author giorg
- */
 public class UsersDetailView implements Initializable {
 
   @FXML private TextField textId;
