@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 01/12/2020 (georgemoralis) - Implemented openAction
  * 29/11/2020 (georgemoralis) - More WIP
  * 06/11/2020 (georgemoralis) - Initial
  */
@@ -101,7 +102,31 @@ public class UsersView extends AbstractListView implements Initializable {
   }
 
   @FXML
-  protected void openAction(ActionEvent event) {}
+  protected void openAction(ActionEvent event) {
+    FxmlUtil.LoadResult<UsersDetailView> getDetailView =
+        FxmlUtil.load("/fxml/userManagement/UsersDetail.fxml");
+    Alert alert =
+        AlertDlgHelper.editDialog(
+            "Άνοιγμα/Επεξεργασία χρήστη",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    getDetailView.getController().fillData(usersTable.getSelectionModel().getSelectedItem());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
+        });
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        getDetailView.getController().saveEdit();
+        selectWithService();
+      }
+    }
+  }
 
   @FXML
   private void deleteAction(ActionEvent event) {}
