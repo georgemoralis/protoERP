@@ -7,12 +7,14 @@
 /*
  * Changelog
  * =========
+ * 04/12/2020 (georgemoralis) - save-edit works . Validation should be ok
  * 01/12/2020 (georgemoralis) - More WIP work
  * 29/11/2020 (georgemoralis) - Initial
  */
 package gr.codebb.protoerp.userManagement;
 
 import gr.codebb.ctl.CbbClearableTextField;
+import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import java.net.URL;
@@ -24,8 +26,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.stage.Modality;
 import javafx.util.StringConverter;
 import net.synedra.validatorfx.Validator;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.controlsfx.control.CheckListView;
 
 public class UsersDetailView implements Initializable {
@@ -59,6 +63,56 @@ public class UsersDetailView implements Initializable {
                     return rol.getRoleName();
                   }
                 }));
+    checkActive.setSelected(true); // user is active by default on new entry
+
+    validator
+        .createCheck()
+        .dependsOn("username", textUsername.textProperty())
+        .withMethod(
+            c -> {
+              String username = c.get("username");
+              if (username.isEmpty()) {
+                c.error("Το username δεν μπορεί να είναι κενό");
+              }
+            })
+        .decorates(textUsername)
+        .immediate();
+
+    validator
+        .createCheck()
+        .withMethod(
+            c -> {
+              if (!c.get("password").equals(c.get("passwordConfirmation"))) {
+                c.error("Οι κωδικοί δεν είναι ίδιοι");
+              }
+            })
+        .dependsOn("password", textPassword.textProperty())
+        .dependsOn("passwordConfirmation", textRepeatPassword.textProperty())
+        .decorates(textPassword)
+        .decorates(textRepeatPassword)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("username", textUsername.textProperty())
+        .withMethod(
+            c -> {
+              String username = c.get("username");
+              UserEntity user = UserQueries.findUserByUsername(username);
+              if (user != null) // if exists
+              {
+                if (!textId.getText().isEmpty()) { // if it is not a new entry
+                  if (user.getId()
+                      != Long.parseLong(textId.getText())) // check if found id is the same
+                  {
+                    c.error("Υπάρχει ήδη χρήστης με όνομα " + username);
+                  }
+                } else {
+                  c.error("Υπάρχει ήδη χρήστης με όνομα " + username);
+                }
+              }
+            })
+        .decorates(textUsername);
   }
 
   public void fillData(UserEntity user) {
@@ -78,14 +132,56 @@ public class UsersDetailView implements Initializable {
 
   public boolean save() {
     GenericDao gdao = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
+    UserEntity user = new UserEntity();
+    user.setActive(checkActive.isSelected());
+    user.setName(textName.getText());
+    user.setUsername(textUsername.getText());
+    if (textPassword.getText().isEmpty()) {
+      user.setPassword("");
+    } else {
+      DefaultPasswordService passwordService = new DefaultPasswordService();
+      user.setPassword(passwordService.encryptPassword(textPassword.getText()));
+    }
+
+    for (RolesEntity role : roleCheckList.getCheckModel().getCheckedItems()) {
+      user.getRoleList().add(role);
+    }
+    gdao.createEntity(user);
     return true;
   }
 
   public boolean saveEdit() {
+    GenericDao gdao = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
+    UserEntity user = (UserEntity) gdao.findEntity(Long.valueOf(textId.getText()));
+    user.setActive(checkActive.isSelected());
+    user.setName(textName.getText());
+    user.setUsername(textUsername.getText());
+    if (textPassword.getText().isEmpty()) {
+      user.setPassword("");
+    } else {
+      DefaultPasswordService passwordService = new DefaultPasswordService();
+      user.setPassword(passwordService.encryptPassword(textPassword.getText()));
+    }
+    user.getRoleList().clear();
+    for (RolesEntity role : roleCheckList.getCheckModel().getCheckedItems()) {
+      user.getRoleList().add(role);
+    }
+    gdao.updateEntity(user);
     return true;
   }
 
   public boolean validateControls() {
+    validator.validate();
+    if (validator.containsErrors()) {
+      AlertDlg.create()
+          .type(AlertDlg.Type.ERROR)
+          .message("Ελέξτε την φόρμα για λάθη")
+          .title("Πρόβλημα")
+          .owner(textName.getScene().getWindow())
+          .modality(Modality.APPLICATION_MODAL)
+          .showAndWait();
+      return false;
+    }
     return true;
   }
 }

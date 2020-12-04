@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 04/12/2020 (georgemoralis) - Added refresh and delete actions
  * 01/12/2020 (georgemoralis) - Implemented openAction
  * 29/11/2020 (georgemoralis) - More WIP
  * 06/11/2020 (georgemoralis) - Initial
@@ -18,8 +19,11 @@ import gr.codebb.ctl.cbbTableView.columns.CbbBooleanTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbLongTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbStringTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbTableColumn;
+import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.AbstractListView;
 import gr.codebb.lib.crud.annotation.ColumnProperty;
+import gr.codebb.lib.database.GenericDao;
+import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import java.net.URL;
@@ -34,6 +38,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 
 public class UsersView extends AbstractListView implements Initializable {
 
@@ -75,7 +80,9 @@ public class UsersView extends AbstractListView implements Initializable {
   }
 
   @FXML
-  private void refreshAction(ActionEvent event) {}
+  private void refreshAction(ActionEvent event) {
+    selectWithService();
+  }
 
   @FXML
   private void newAction(ActionEvent event) {
@@ -129,7 +136,28 @@ public class UsersView extends AbstractListView implements Initializable {
   }
 
   @FXML
-  private void deleteAction(ActionEvent event) {}
+  private void deleteAction(ActionEvent event) {
+    int row = usersTable.getSelectionModel().getSelectedIndex();
+    usersTable.getSelectionModel().select(row);
+    ButtonType response =
+        AlertDlg.create()
+            .message(
+                "Είστε σιγουροι ότι θέλετε να διαγράψετε τον χρήστη : "
+                    + usersTable.getSelectionModel().getSelectedItem().getUsername())
+            .title("Διαγραφή")
+            .modality(Modality.APPLICATION_MODAL)
+            .owner(usersTable.getScene().getWindow())
+            .showAndWaitConfirm();
+    if (response == ButtonType.OK) {
+      GenericDao gdao = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
+      try {
+        gdao.deleteEntity(usersTable.getSelectionModel().getSelectedItem().getId());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      selectWithService();
+    }
+  }
 
   @Override
   protected CbbTableView getTableView() {
