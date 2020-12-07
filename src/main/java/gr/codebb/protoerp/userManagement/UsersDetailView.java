@@ -129,8 +129,8 @@ public class UsersDetailView implements Initializable {
     }
     if (!user.getPassword().isEmpty()) {
       // just put a text for not being empty it's encrypted anyway
-      textPassword.setText("123");
-      textRepeatPassword.setText("123");
+      textPassword.setText("adqe2132123");
+      textRepeatPassword.setText("adqe2132123");
     }
   }
 
@@ -166,7 +166,9 @@ public class UsersDetailView implements Initializable {
     } else {
       // if stored password is not the same than entered password
       if (!passwordService.passwordsMatch(textPassword.getText(), user.getPassword())) {
-        user.setPassword(passwordService.encryptPassword(textPassword.getText()));
+        if (!textPassword.getText().equals("adqe2132123")) {
+          user.setPassword(passwordService.encryptPassword(textPassword.getText()));
+        }
       }
     }
     user.getRoleList().clear();
