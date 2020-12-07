@@ -52,6 +52,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.controlsfx.control.MasterDetailPane;
@@ -64,6 +66,15 @@ public class App extends Application {
   @Override
   public void init() throws Exception {
     super.init();
+    if (!MainSettings.DEBUG) // disable logging in no debug mode
+    {
+      Logger.getLogger("com.zaxxer.hikari.pool.PoolBase").setLevel(Level.INFO);
+      Logger.getLogger("com.zaxxer.hikari.pool.HikariPool").setLevel(Level.INFO);
+      Logger.getLogger("com.zaxxer.hikari.HikariDataSource").setLevel(Level.INFO);
+      Logger.getLogger("com.zaxxer.hikari.HikariConfig").setLevel(Level.INFO);
+      Logger.getLogger("com.zaxxer.hikari.util.DriverDataSource").setLevel(Level.INFO);
+    }
+
     currentdatabase = DatabaseDefaultFile.get_instance().readDatabaseFile("protoerp");
     if (currentdatabase == null) {
       try {

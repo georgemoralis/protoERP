@@ -42,6 +42,7 @@
         <liquibase-core>4.2.0</liquibase-core>
         <validatorfx>0.1.12</validatorfx>
         <shiro-core>1.7.0</shiro-core>
+        <log4j2>2.14.0</log4j2>
         <!-- own modules !-->
         <cobebbfxctl>15.0.7</cobebbfxctl>
         <codebbutil>15.0.5</codebbutil>
@@ -369,6 +370,21 @@
                     <artifactId>shiro-event</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>${log4j2}</version>
         </dependency>
         <!-- own modules !-->
         <dependency>

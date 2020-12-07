@@ -19,6 +19,9 @@ module codebb.protoerp {
   requires org.jinq.jpa;
   requires validatorfx;
   requires shiro.core;
+  requires org.apache.logging.log4j;
+  requires org.apache.logging.log4j.core;
+  requires org.apache.log4j;
 
   opens gr.codebb.protoerp to
       javafx.fxml;
