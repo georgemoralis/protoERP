@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 06/12/2020 (georgemoralis) - Use DEBUG variable to show debug messages
  * 13/11/2020 (georgemoralis) - Enabled hibernate.enable_lazy_load_no_trans
  * 29/10/2020 (georgemoralis) - Added login window
  * 20/10/2020 (georgemoralis) - Added setDefaultUncaughtExceptionHandler
@@ -115,6 +116,10 @@ public class App extends Application {
     Map databaseProperties = database.getDatabaseProperties();
     // custom databaseproperties
     databaseProperties.put("hibernate.enable_lazy_load_no_trans", "true");
+    if (MainSettings.DEBUG) {
+      databaseProperties.put("hibernate.show_sql", "true");
+      databaseProperties.put("hibernate.format_sql", "true");
+    }
     try {
       PersistenceManager.createEntityManager(databaseProperties);
     } catch (Exception e) {

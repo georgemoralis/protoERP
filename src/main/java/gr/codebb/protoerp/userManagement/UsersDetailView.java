@@ -89,8 +89,7 @@ public class UsersDetailView implements Initializable {
         .dependsOn("password", textPassword.textProperty())
         .dependsOn("passwordConfirmation", textRepeatPassword.textProperty())
         .decorates(textPassword)
-        .decorates(textRepeatPassword)
-        .immediate();
+        .decorates(textRepeatPassword);
 
     validator
         .createCheck()
@@ -128,6 +127,11 @@ public class UsersDetailView implements Initializable {
         }
       }
     }
+    if (!user.getPassword().isEmpty()) {
+      // just put a text for not being empty it's encrypted anyway
+      textPassword.setText("123");
+      textRepeatPassword.setText("123");
+    }
   }
 
   public boolean save() {
@@ -156,11 +160,14 @@ public class UsersDetailView implements Initializable {
     user.setActive(checkActive.isSelected());
     user.setName(textName.getText());
     user.setUsername(textUsername.getText());
+    DefaultPasswordService passwordService = new DefaultPasswordService();
     if (textPassword.getText().isEmpty()) {
       user.setPassword("");
     } else {
-      DefaultPasswordService passwordService = new DefaultPasswordService();
-      user.setPassword(passwordService.encryptPassword(textPassword.getText()));
+      // if stored password is not the same than entered password
+      if (!passwordService.passwordsMatch(textPassword.getText(), user.getPassword())) {
+        user.setPassword(passwordService.encryptPassword(textPassword.getText()));
+      }
     }
     user.getRoleList().clear();
     for (RolesEntity role : roleCheckList.getCheckModel().getCheckedItems()) {

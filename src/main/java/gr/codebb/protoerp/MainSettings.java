@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 06/12/2020 (georgemoralis) - Added DEBUG variable to enable debug messages
  * 04/10/2020 (georgemoralis) - Initial commit
  */
 package gr.codebb.protoerp;
@@ -26,6 +27,7 @@ public class MainSettings {
   private String buildDateTime;
   public Locale applocale = new Locale("el", "GR");
   public String appName = "protoerp";
+  public static boolean DEBUG = false; // enables debug Messages
 
   protected MainSettings() {
     /** Intialize global variables */
