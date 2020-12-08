@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 08/12/2020 (georgemoralis) - Improved change password method
  * 04/12/2020 (georgemoralis) - save-edit works . Validation should be ok
  * 01/12/2020 (georgemoralis) - More WIP work
  * 29/11/2020 (georgemoralis) - Initial
@@ -19,6 +20,8 @@ import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -41,6 +44,7 @@ public class UsersDetailView implements Initializable {
   @FXML private PasswordField textPassword;
   @FXML private PasswordField textRepeatPassword;
   @FXML private CheckListView<RolesEntity> roleCheckList;
+  @FXML private CheckBox checkNoPass;
 
   private Validator validator = new Validator();
 
@@ -112,6 +116,29 @@ public class UsersDetailView implements Initializable {
               }
             })
         .decorates(textUsername);
+
+    checkNoPass
+        .selectedProperty()
+        .addListener(
+            new ChangeListener<Boolean>() {
+              @Override
+              public void changed(
+                  ObservableValue<? extends Boolean> observable,
+                  Boolean oldValue,
+                  Boolean newValue) {
+                if (newValue) {
+                  textPassword.setText("");
+                  textRepeatPassword.setText("");
+                  textPassword.setPromptText("");
+                  textRepeatPassword.setPromptText("");
+                  textPassword.setDisable(true);
+                  textRepeatPassword.setDisable(true);
+                } else {
+                  textPassword.setDisable(false);
+                  textRepeatPassword.setDisable(false);
+                }
+              }
+            });
   }
 
   public void fillData(UserEntity user) {
@@ -128,9 +155,10 @@ public class UsersDetailView implements Initializable {
       }
     }
     if (!user.getPassword().isEmpty()) {
-      // just put a text for not being empty it's encrypted anyway
-      textPassword.setText("adqe2132123");
-      textRepeatPassword.setText("adqe2132123");
+      textPassword.setPromptText("Ο κωδικός δεν εμφανίζεται");
+      textRepeatPassword.setPromptText("Ο κωδικός δεν εμφανίζεται");
+    } else {
+      checkNoPass.setSelected(true);
     }
   }
 
@@ -140,7 +168,7 @@ public class UsersDetailView implements Initializable {
     user.setActive(checkActive.isSelected());
     user.setName(textName.getText());
     user.setUsername(textUsername.getText());
-    if (textPassword.getText().isEmpty()) {
+    if (checkNoPass.isSelected()) {
       user.setPassword("");
     } else {
       DefaultPasswordService passwordService = new DefaultPasswordService();
@@ -161,12 +189,12 @@ public class UsersDetailView implements Initializable {
     user.setName(textName.getText());
     user.setUsername(textUsername.getText());
     DefaultPasswordService passwordService = new DefaultPasswordService();
-    if (textPassword.getText().isEmpty()) {
+    if (checkNoPass.isSelected()) {
       user.setPassword("");
     } else {
-      // if stored password is not the same than entered password
-      if (!passwordService.passwordsMatch(textPassword.getText(), user.getPassword())) {
-        if (!textPassword.getText().equals("adqe2132123")) {
+      if (!textPassword.getText().isEmpty()) {
+        // if stored password is not the same than entered password
+        if (!passwordService.passwordsMatch(textPassword.getText(), user.getPassword())) {
           user.setPassword(passwordService.encryptPassword(textPassword.getText()));
         }
       }

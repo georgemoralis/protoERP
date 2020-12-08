@@ -36,7 +36,7 @@
                         <Insets right="10.0" />
                      </GridPane.margin>
                   </TextField>
-            <CheckBox fx:id="checkActive" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="128.0" text="Ενεργός" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <CheckBox fx:id="checkActive" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="26.0" prefWidth="128.0" text="Ενεργός" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                       <CbbClearableTextField fx:id="textName" prefHeight="27.0" prefWidth="282.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets right="10.0" />
@@ -45,6 +45,7 @@
             <CbbClearableTextField fx:id="textUsername" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <PasswordField fx:id="textPassword" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <PasswordField fx:id="textRepeatPassword" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <CheckBox fx:id="checkNoPass" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="26.0" prefWidth="128.0" text="Χωρίς Κωδικό" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                       <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="210.0" text="ID:" GridPane.rowIndex="1">
                      <padding>
                         <Insets right="5.0" />
