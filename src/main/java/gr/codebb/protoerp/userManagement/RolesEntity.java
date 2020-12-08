@@ -48,7 +48,9 @@ public class RolesEntity implements Serializable {
       inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
   private List<PermissionsEntity> permissionList = new ArrayList<>();
 
-  @ManyToMany(cascade = CascadeType.ALL, mappedBy = "roleList")
+  @ManyToMany(
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+      mappedBy = "roleList")
   private List<UserEntity> userList = new ArrayList<>();
 
   @Transient private Set<String> permissionsName;

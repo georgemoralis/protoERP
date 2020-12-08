@@ -47,7 +47,9 @@ public class UserEntity implements Serializable, Displayable {
   @Getter @Setter private Boolean active;
   @Getter @Setter private String name;
 
-  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+  @ManyToMany(
+      cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+      fetch = FetchType.EAGER)
   @JoinTable(
       name = "user_role",
       joinColumns = {@JoinColumn(name = "user_id")},

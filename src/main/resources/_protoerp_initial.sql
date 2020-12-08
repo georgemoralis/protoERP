@@ -112,7 +112,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `companyId`, `settingName`, `settingValue`) VALUES
-(1, -1, 'product_version', '0.0.114');
+(1, -1, 'product_version', '0.0.115');
 
 -- --------------------------------------------------------
 
