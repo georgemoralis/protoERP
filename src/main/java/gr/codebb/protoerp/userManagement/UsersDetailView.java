@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 09/12/2020 (georgemoralis) - Don't encrypt password if textPassword is empty
  * 08/12/2020 (georgemoralis) - Improved change password method
  * 04/12/2020 (georgemoralis) - save-edit works . Validation should be ok
  * 01/12/2020 (georgemoralis) - More WIP work
@@ -171,8 +172,12 @@ public class UsersDetailView implements Initializable {
     if (checkNoPass.isSelected()) {
       user.setPassword("");
     } else {
-      DefaultPasswordService passwordService = new DefaultPasswordService();
-      user.setPassword(passwordService.encryptPassword(textPassword.getText()));
+      if (!textPassword.getText().isBlank()) {
+        DefaultPasswordService passwordService = new DefaultPasswordService();
+        user.setPassword(passwordService.encryptPassword(textPassword.getText()));
+      } else {
+        user.setPassword("");
+      }
     }
 
     for (RolesEntity role : roleCheckList.getCheckModel().getCheckedItems()) {
