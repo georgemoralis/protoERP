@@ -30,9 +30,9 @@
         <jfoenix>9.0.10</jfoenix>
         <controlsfx>11.0.3</controlsfx>
         <javafx>16-ea+5</javafx>
-        <ikonli-fontawesome-pack>11.5.0</ikonli-fontawesome-pack>
-        <ikonli-materialdesign-pack>11.5.0</ikonli-materialdesign-pack>
-        <ikonli-material-pack>11.5.0</ikonli-material-pack>
+        <ikonli-fontawesome-pack>12.1.0</ikonli-fontawesome-pack>
+        <ikonli-materialdesign-pack>12.1.0</ikonli-materialdesign-pack>
+        <ikonli-material-pack>12.1.0</ikonli-material-pack>
         <mysql-connector-java>8.0.22</mysql-connector-java>
         <hibernate-hikaricp>5.4.27.Final</hibernate-hikaricp>
         <slf4j-api>2.0.0-alpha1</slf4j-api>
@@ -44,9 +44,9 @@
         <shiro-core>1.7.0</shiro-core>
         <log4j2>2.14.0</log4j2>
         <!-- own modules !-->
-        <cobebbfxctl>15.0.7</cobebbfxctl>
-        <codebbutil>15.0.5</codebbutil>
-        <codebbwebserv>15.0.5</codebbwebserv>
+        <cobebbfxctl>15.0.9</cobebbfxctl>
+        <codebbutil>15.0.7</codebbutil>
+        <codebbwebserv>15.0.7</codebbwebserv>
     </properties>
 
     <build>
