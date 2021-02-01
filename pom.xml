@@ -22,7 +22,7 @@
         <maven-project-info-reports-plugin>3.1.1</maven-project-info-reports-plugin>
         <spotbugs-maven-plugin>4.2.0</spotbugs-maven-plugin>
         <fmt-maven-plugin>2.10</fmt-maven-plugin>
-        <maven-checkstyle-plugin>3.1.1</maven-checkstyle-plugin>
+        <maven-checkstyle-plugin>3.1.2</maven-checkstyle-plugin>
         <git-commit-id-plugin>4.0.3</git-commit-id-plugin>
         <maven-dependency-plugin>3.1.2</maven-dependency-plugin>
         <!--depedencies !-->
