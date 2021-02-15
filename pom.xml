@@ -30,7 +30,7 @@
         <jfoenix>9.0.10</jfoenix>
         <controlsfx>11.0.3</controlsfx>
         <javafx>16-ea+5</javafx>
-        <ikonli-fontawesome-pack>12.1.0</ikonli-fontawesome-pack>
+        <ikonli-fontawesome-pack>12.2.0</ikonli-fontawesome-pack>
         <ikonli-materialdesign-pack>12.2.0</ikonli-materialdesign-pack>
         <ikonli-material-pack>12.2.0</ikonli-material-pack>
         <mysql-connector-java>8.0.23</mysql-connector-java>
