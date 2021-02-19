@@ -13,8 +13,8 @@
 package gr.codebb.lib.crud;
 
 import gr.codebb.ctl.cbbTableView.CbbTableView;
-import gr.codebb.ctl.cbbTableView.utils.CbbTableMenuUtils;
 import gr.codebb.lib.crud.annotation.ColumnProperty;
+import gr.codebb.lib.util.TableMenuUtils;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -65,7 +65,7 @@ public abstract class AbstractListView<T> {
         () -> {
           listData = FXCollections.observableArrayList();
           setTableModel();
-          CbbTableMenuUtils.addCustomTableViewMenu(getTableView());
+          TableMenuUtils.addCustomTableViewMenu(getTableView());
         });
     // disables the Button when the user has selected nothing or cleared his selection and becomes
     // enabled as soon as at least one row is being selected.
@@ -84,6 +84,7 @@ public abstract class AbstractListView<T> {
             }
           }
         };
+
     getTableView().addEventHandler(MouseEvent.MOUSE_PRESSED, doubleMouseClick);
   }
 

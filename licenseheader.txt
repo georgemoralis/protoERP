@@ -1,7 +1,7 @@
 <#if licenseFirst??>
 ${licenseFirst}
 </#if>
-${licensePrefix}copyright 2013-2020
+${licensePrefix}copyright 2013-2021
 ${licensePrefix}codebb.gr
 ${licensePrefix}ProtoERP - Open source invocing program
 ${licensePrefix}info@codebb.gr

@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 19/02/2021 (georgemoralis) - Added userData for use with saveTableSettings
  * 04/12/2020 (georgemoralis) - Added refresh and delete actions
  * 01/12/2020 (georgemoralis) - Implemented openAction
  * 29/11/2020 (georgemoralis) - More WIP
@@ -77,6 +78,7 @@ public class UsersView extends AbstractListView implements Initializable {
 
     init(this);
     selectWithService();
+    usersTable.setUserData("usersTable"); // for use with savesettings
   }
 
   @FXML

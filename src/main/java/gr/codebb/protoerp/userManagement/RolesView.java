@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 19/02/2021 (georgemoralis) - Added userData for use with saveTableSettings
  * 17/11/2020 (georgemoralis) - Added delete action
  * 17/11/2020 (georgemoralis) - Validation works
  * 16/11/2020 (georgemoralis) - More in saving
@@ -68,6 +69,7 @@ public class RolesView extends AbstractListView implements Initializable {
 
     init(this);
     selectWithService();
+    rolesTable.setUserData("rolesTable"); // for use with savesettings
   }
 
   @FXML
