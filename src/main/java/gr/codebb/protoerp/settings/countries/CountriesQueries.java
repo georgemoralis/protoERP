@@ -4,9 +4,12 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
-/**
- * changelog ========= 25/02/2021 (gmoralis) - Ported from prototype 26/12/2019 (gmoralis) - Added
- * getCountryByCode 26/12/2019 (gmoralis) - Added getCountriesDatabase
+/*
+ * changelog
+ * =========
+ * 25/02/2021 (gmoralis) - Ported from prototype
+ * 26/12/2019 (gmoralis) - Added getCountryByCode
+ * 26/12/2019 (gmoralis) - Added getCountriesDatabase
  */
 package gr.codebb.protoerp.settings.countries;
 

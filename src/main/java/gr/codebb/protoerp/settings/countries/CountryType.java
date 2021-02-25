@@ -4,9 +4,11 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
-/**
- * changelog ========= 25/02/2021 (gmoralis) - Ported from prototype 05/01/2020 (gmoralis) - Initial
- * commit
+/*
+ * changelog
+ * =========
+ * 25/02/2021 (gmoralis) - Ported from prototype
+ * 05/01/2020 (gmoralis) - Initial commit
  */
 package gr.codebb.protoerp.settings.countries;
 

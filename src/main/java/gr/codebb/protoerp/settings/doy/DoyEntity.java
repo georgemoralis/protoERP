@@ -7,17 +7,13 @@
 /*
  * changelog
  * =========
- * 25/02/2021 (gmoralis) - Ported from prototype
- * 05/01/2020 (gmoralis) - Added countryType (to seperate countries of E.E. and others
- * 26/12/2019 (gmoralis) - Initial
+ * 25/02/2021 (gmoralis) - Initial commit
  */
-package gr.codebb.protoerp.settings.countries;
+package gr.codebb.protoerp.settings.doy;
 
 import gr.codebb.lib.crud.intf.Displayable;
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,8 +22,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "countries")
-public class CountriesEntity implements Serializable, Displayable {
+@Table(name = "doy")
+public class DoyEntity implements Serializable, Displayable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,17 +32,12 @@ public class CountriesEntity implements Serializable, Displayable {
   private Long id;
 
   @Getter @Setter private String code;
-  @Getter @Setter private String description;
-
-  @Enumerated(EnumType.ORDINAL)
-  @Getter
-  @Setter
-  private CountryType countryType;
+  @Getter @Setter private String name;
 
   @Getter @Setter private Boolean active;
 
   @Override
   public String getComboDisplayValue() {
-    return getCode() + " - " + getDescription();
+    return getCode() + " - " + getName();
   }
 }
