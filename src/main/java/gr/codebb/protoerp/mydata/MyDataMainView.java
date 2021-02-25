@@ -19,15 +19,12 @@ import javafx.fxml.Initializable;
  */
 public class MyDataMainView implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
+  /** Initializes the controller class. */
+  @Override
+  public void initialize(URL url, ResourceBundle rb) {
+    // TODO
+  }
 
-    @FXML
-    private void ownMyDataRetrieveAction(ActionEvent event) {
-    }
+  @FXML
+  private void ownMyDataRetrieveAction(ActionEvent event) {}
 }
