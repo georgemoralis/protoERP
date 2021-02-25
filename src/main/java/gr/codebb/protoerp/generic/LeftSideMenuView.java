@@ -23,6 +23,7 @@ import gr.codebb.lib.util.AuthUtil;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
 import gr.codebb.protoerp.issues.GenericIssueView;
+import gr.codebb.protoerp.mydata.MyDataMainView;
 import gr.codebb.protoerp.settings.SettingsMainView;
 import gr.codebb.protoerp.trader.TraderView;
 import gr.codebb.protoerp.userManagement.UserManagementMainView;
@@ -258,5 +259,12 @@ public class LeftSideMenuView implements Initializable {
       Node settings = (Node) getMainView.getParent();
       showAsTab(settings, "Διαχείριση Χρηστών");
     }
+  }
+
+  @FXML
+  private void myDataAction(ActionEvent event) {
+    FxmlUtil.LoadResult<MyDataMainView> getMainView = FxmlUtil.load("/fxml/mydata/MyDataMain.fxml");
+    Node mydata = (Node) getMainView.getParent();
+    showAsTab(mydata, "My Data");
   }
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="mainVBox" alignment="TOP_CENTER" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.LeftSideMenuView">
+<VBox fx:id="mainVBox" alignment="TOP_CENTER" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.LeftSideMenuView">
    <children>
       <HBox fx:id="searchBox" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="38.0" prefWidth="239.0">
          <children>
@@ -51,7 +51,14 @@
                   </TitledPane>
                   <TitledPane fx:id="invoices_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Παραστατικά">
                      <content>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#myDataAction" prefHeight="32.0" prefWidth="262.0" text="MyData">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-cubes" />
+                                 </graphic>
+                              </Button>
+                           </children></VBox>
                      </content>
                      <graphic>
                         <FontIcon iconLiteral="fa-tasks" />
