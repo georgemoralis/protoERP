@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import gr.codebb.ctl.CbbSearchableTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
@@ -8,62 +9,69 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<GridPane prefHeight="327.0" prefWidth="649.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.UpdateInfoView">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.4000244140625" minWidth="10.0" prefWidth="30.4" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="562.4" minWidth="10.0" prefWidth="562.4" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="0.0" prefWidth="35.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="6.000030517578125" prefWidth="6.000030517578125" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="4.0" prefWidth="8.399999999999977" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints maxHeight="60.0" minHeight="5.600001430511476" prefHeight="27.99999580383301" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="310.3999985694885" minHeight="10.0" prefHeight="230.3999755859375" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="88.00002441406252" minHeight="5.599987792968761" prefHeight="18.399987792968744" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="147.7999816894531" minHeight="10.0" prefHeight="69.20001220703122" vgrow="SOMETIMES" />
-   </rowConstraints>
+
+<StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.CompanySelectView">
    <children>
-      <TableView prefHeight="226.0" prefWidth="536.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Id" />
-          <TableColumn prefWidth="75.0" text="ΑΦΜ" />
-            <TableColumn prefWidth="355.199951171875" text="Επωνυμία" />
-        </columns>
-      </TableView>
-      <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <GridPane prefHeight="327.0" prefWidth="649.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.4000244140625" minWidth="10.0" prefWidth="30.4" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="562.4" minWidth="10.0" prefWidth="562.4" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="0.0" prefWidth="35.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="6.000030517578125" prefWidth="6.000030517578125" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="4.0" prefWidth="8.399999999999977" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="60.0" minHeight="5.600001430511476" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="310.3999985694885" minHeight="10.0" prefHeight="205.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="88.00002441406252" minHeight="5.599987792968761" prefHeight="18.399987792968744" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="147.7999816894531" minHeight="10.0" prefHeight="69.20001220703122" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Button contentDisplay="TOP" mnemonicParsing="false" prefWidth="102.0" styleClass="primary" text="Επιλογή">
-               <graphic>
-                  <FontIcon iconLiteral="fa-check" iconSize="24" />
-               </graphic>
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button contentDisplay="TOP" mnemonicParsing="false" prefWidth="102.0" styleClass="info" text="Δημιουργία">
-               <graphic>
-                  <FontIcon iconLiteral="gmi-add" iconSize="24" />
-               </graphic>
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button contentDisplay="TOP" mnemonicParsing="false" prefWidth="102.0" styleClass="warning" text="Επεξεργασία">
-               <graphic>
-                  <FontIcon iconLiteral="mdi-file-document" iconSize="24" />
-               </graphic>
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button contentDisplay="TOP" mnemonicParsing="false" prefWidth="102.0" styleClass="danger" text="Διαγραφή">
-               <graphic>
-                  <FontIcon iconLiteral="gmi-delete" iconSize="24" />
-               </graphic>
-            </Button>
+            <TableView fx:id="selectTable" prefHeight="226.0" prefWidth="536.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Id" />
+                <TableColumn fx:id="vatColumn" prefWidth="75.0" text="ΑΦΜ" />
+                  <TableColumn fx:id="nameColumn" prefWidth="355.199951171875" text="Επωνυμία" />
+              </columns>
+            </TableView>
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <Button fx:id="selectButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#onSelect" prefWidth="102.0" styleClass="primary" text="Επιλογή">
+                     <graphic>
+                        <FontIcon iconLiteral="fa-check" iconSize="24" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="createButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#onCreate" prefWidth="102.0" styleClass="info" text="Δημιουργία">
+                     <graphic>
+                        <FontIcon iconLiteral="gmi-add" iconSize="24" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="EditButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#onEdit" prefWidth="102.0" styleClass="warning" text="Επεξεργασία">
+                     <graphic>
+                        <FontIcon iconLiteral="mdi-file-document" iconSize="24" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="DeleteButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#onDelete" prefWidth="102.0" styleClass="danger" text="Διαγραφή">
+                     <graphic>
+                        <FontIcon iconLiteral="gmi-delete" iconSize="24" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <CbbSearchableTextField fx:id="searchTextField" GridPane.columnIndex="1" />
          </children>
-      </HBox>
+      </GridPane>
    </children>
-</GridPane>
+</StackPane>

@@ -28,6 +28,7 @@ import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.DialogExceptionHandler;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
+import gr.codebb.protoerp.generic.CompanySelectView;
 import gr.codebb.protoerp.generic.DatabaseConnectionView;
 import gr.codebb.protoerp.generic.LeftSideMenuView;
 import gr.codebb.protoerp.generic.MainAppView;
@@ -204,6 +205,20 @@ public class App extends Application {
               }
             });
     loginstage.showAndWait();
+
+    // Company Selector
+    FxmlUtil.LoadResult<CompanySelectView> CompanySelector =
+        FxmlUtil.load("/fxml/generic/CompanySelector.fxml");
+    Stage stagecompany =
+        StageUtil.setStageSettings(
+            "Επιλογή Εταιρίας",
+            new Scene(CompanySelector.getParent()),
+            Modality.APPLICATION_MODAL,
+            null,
+            null,
+            "/img/protoerp.png");
+    stagecompany.setResizable(false);
+    stagecompany.showAndWait();
 
     /** Main stage loading */
     FxmlUtil.LoadResult<MainAppView> getMainView = FxmlUtil.load("/fxml/generic/MainApp.fxml");
