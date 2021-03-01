@@ -46,7 +46,7 @@
         <!-- own modules !-->
         <cobebbfxctl>15.0.10</cobebbfxctl>
         <codebbutil>15.0.7</codebbutil>
-        <codebbwebserv>15.0.7</codebbwebserv>
+        <codebbwebserv>15.0.8</codebbwebserv>
     </properties>
 
     <build>

@@ -4,13 +4,22 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
+/*
+ * changelog
+ * =========
+ * 26/02/2021 (gmoralis) - Initial commit
+ */
 package gr.codebb.protoerp.generic;
 
 import gr.codebb.ctl.CbbSearchableTextField;
+import gr.codebb.lib.util.AlertDlgHelper;
+import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.company.CompanyQueries;
+import gr.codebb.protoerp.settings.company.CompanyView;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -23,7 +32,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -96,7 +107,28 @@ public class CompanySelectView implements Initializable {
   private void onSelect(ActionEvent event) {}
 
   @FXML
-  private void onCreate(ActionEvent event) {}
+  private void onCreate(ActionEvent event) {
+    FxmlUtil.LoadResult<CompanyView> getDetailView =
+        FxmlUtil.load("/fxml/settings/company/Company.fxml");
+    Alert alert =
+        AlertDlgHelper.saveDialog(
+            "Προσθήκη Εταιρίας", getDetailView.getParent(), mainStackPane.getScene().getWindow());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          //          if (!getDetailView.getController().validateControls()) {
+          //            event1.consume();
+          //          }
+        });
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        //        getDetailView.getController().save();
+        //        selectWithService();
+      }
+    }
+  }
 
   @FXML
   private void onEdit(ActionEvent event) {}
