@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 02/02/2020 (georgemoralis) - Added menu and mitroo password specific menu
  * 06/12/2020 (georgemoralis) - Use DEBUG variable to show debug messages
  * 13/11/2020 (georgemoralis) - Enabled hibernate.enable_lazy_load_no_trans
  * 29/10/2020 (georgemoralis) - Added login window
@@ -25,6 +26,7 @@ import static gr.codebb.lib.util.ThreadUtil.runAndWait;
 
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.PersistenceManager;
+import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.DialogExceptionHandler;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
@@ -35,6 +37,7 @@ import gr.codebb.protoerp.generic.MainAppView;
 import gr.codebb.protoerp.generic.NewVersionView;
 import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
+import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
 import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
 import gr.codebb.protoerp.userManagement.LoginView;
 import gr.codebb.util.database.DatabaseDefaultFile;
@@ -43,13 +46,22 @@ import gr.codebb.util.database.Dbms;
 import gr.codebb.util.database.Mysql;
 import gr.codebb.util.version.VersionUtil;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -241,7 +253,12 @@ public class App extends Application {
 
     masterDetailPane.setMinSize(1168.0, 784.0);
 
-    final Scene scene = new Scene(masterDetailPane);
+    MenuBar menuBar = new MenuBar();
+    VBox vBox = new VBox(menuBar);
+    generateMenu(menuBar);
+    vBox.getChildren().add(masterDetailPane);
+
+    final Scene scene = new Scene(vBox);
 
     stage.setTitle(MainSettings.getInstance().getAppNameWithVersion());
     // Application icons
@@ -321,5 +338,46 @@ public class App extends Application {
     Thread.setDefaultUncaughtExceptionHandler(new DialogExceptionHandler());
     System.setProperty("javafx.preloader", PrototypePreloader.class.getCanonicalName());
     Application.launch(App.class, args);
+  }
+
+  public void generateMenu(MenuBar menuBar) {
+    Menu menu1 = new Menu("Επιλογές");
+
+    menuBar.getMenus().add(menu1);
+
+    // Menu menu2 = new Menu("Συντήρηση");
+    // MenuItem menuItem1 = new MenuItem("Κωδικοί υπηρεσιών");
+    // menu2.getItems().add(menuItem1);
+
+    Menu maintence_menu = new Menu("Συντήρηση");
+    Menu maintence_subMenu_codes = new Menu("Κωδικοί υπηρεσιών");
+    MenuItem common_mitroo_codes = new MenuItem("Κοινοί κωδικοί Μητρώου");
+    maintence_subMenu_codes.getItems().add(common_mitroo_codes);
+    maintence_menu.getItems().add(maintence_subMenu_codes);
+    menuBar.getMenus().add(maintence_menu);
+
+    common_mitroo_codes.setOnAction(
+        e -> {
+          FxmlUtil.LoadResult<MitrooPassView> getDetailView =
+              FxmlUtil.load("/fxml/settings/internetServices/MitrooPass.fxml");
+          Alert alert =
+              AlertDlgHelper.saveDialog(
+                  "Κωδικοί Μητρώου", getDetailView.getParent(), menuBar.getScene().getWindow());
+          Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+          okbutton.addEventFilter(
+              ActionEvent.ACTION,
+              (event1) -> {
+                //          if (!getDetailView.getController().validateControls()) {
+                //            event1.consume();
+                //          }
+              });
+          Optional<ButtonType> result = alert.showAndWait();
+          if (result.get() == ButtonType.OK) {
+            if (getDetailView.getController() != null) {
+              //        getDetailView.getController().save();
+              //        selectWithService();
+            }
+          }
+        });
   }
 }

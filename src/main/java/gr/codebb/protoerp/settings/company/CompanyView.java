@@ -7,18 +7,24 @@
 /*
  * Changelog
  * =========
+ * 02/03/2021 (georgemoralis) - Added doy combo and loading of it
  * 02/03/2021 (georgemoralis) - WIP Work on mitroo retrieve data
  */
 package gr.codebb.protoerp.settings.company;
 
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
+import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
+import gr.codebb.lib.crud.services.ComboboxService;
+import gr.codebb.protoerp.settings.doy.DoyEntity;
+import gr.codebb.protoerp.settings.doy.DoyQueries;
 import gr.codebb.webserv.mitroo.MitrooService;
 import gr.codebb.webserv.mitroo.ResponsedMitrooData;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -35,6 +41,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.controlsfx.control.MaskerPane;
+import org.controlsfx.control.SearchableComboBox;
 
 public class CompanyView implements Initializable {
 
@@ -44,21 +51,25 @@ public class CompanyView implements Initializable {
   @FXML private CbbClearableTextField textName;
   @FXML private CbbClearableTextField textJob;
   @FXML private CbbClearableTextField textVatNumber;
-  @FXML private CbbClearableTextField textDoy;
   @FXML private CbbClearableTextField textEmail;
   @FXML private CbbClearableTextField textMobilePhone;
 
   private MaskerPane masker = new MaskerPane();
+  @FXML private CbbClearableTextField textJobTitle;
+  @FXML private SearchableComboBox<DoyEntity> doyCombo;
 
   /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     mainStackPane.getChildren().add(masker);
     masker.setVisible(false);
+    new ComboboxService<>(DoyQueries.getDoyDatabase(true), doyCombo).start();
+    DisplayableListCellFactory.setComboBoxCellFactory(doyCombo);
   }
 
   @FXML
   private void onTaxisUpdate(ActionEvent event) {
+
     loadService();
   }
 
@@ -106,6 +117,13 @@ public class CompanyView implements Initializable {
                 sc.getData("", "", textVatNumber.getText(), "", new Date());
             if ((returnValue.getErrordescr() == null) || (returnValue.getErrordescr().isEmpty())) {
               textName.setText(returnValue.getName());
+              Platform.runLater(
+                  () -> {
+                    doyCombo
+                        .getSelectionModel()
+                        .select(DoyQueries.getDoyByCode(returnValue.getDoyCode()));
+                  });
+
             } else {
               return returnValue.getErrorcode() + ":" + returnValue.getErrordescr();
             }

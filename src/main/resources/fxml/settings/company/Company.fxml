@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.SearchableComboBox?>
 
 <StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.settings.company.CompanyView">
    <children>
@@ -43,6 +44,7 @@
                           <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -56,18 +58,20 @@
                           </rowConstraints>
                            <children>
                                         <CbbClearableTextField fx:id="textName" prefHeight="27.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-                                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="98.0" text="Επωνυμία:" GridPane.rowIndex="1" />
-                                        <CbbClearableTextField fx:id="textJob" prefHeight="27.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-                                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="98.0" text="Επάγγελμα:" GridPane.rowIndex="2" />
+                                        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="120.0" text="Επωνυμία:" GridPane.rowIndex="1" />
+                                        <CbbClearableTextField fx:id="textJob" prefHeight="27.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="98.0" text="Επάγγελμα:" GridPane.rowIndex="3" />
                                         <CbbClearableTextField fx:id="textVatNumber" prefHeight="27.0" prefWidth="122.0" GridPane.columnIndex="1" />
                                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="98.0" text="ΑΦΜ:" />
-                                        <CbbClearableTextField fx:id="textDoy" prefHeight="27.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="134.0" text="ΔΟΥ:" GridPane.rowIndex="3" />
-                                        <CbbClearableTextField fx:id="textEmail" prefHeight="27.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="114.0" text="E-mail:" GridPane.rowIndex="4" />
-                              <CbbClearableTextField fx:id="textMobilePhone" prefHeight="27.0" prefWidth="126.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="134.0" text="Κινητό: " GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="134.0" text="ΔΟΥ:" GridPane.rowIndex="4" />
+                                        <CbbClearableTextField fx:id="textEmail" prefHeight="27.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="114.0" text="E-mail:" GridPane.rowIndex="5" />
+                              <CbbClearableTextField fx:id="textMobilePhone" prefHeight="27.0" prefWidth="126.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="134.0" text="Κινητό: " GridPane.columnIndex="2" GridPane.rowIndex="5" />
                               <Button mnemonicParsing="false" onAction="#onTaxisUpdate" text="Ανάκτηση από gsis" GridPane.columnIndex="3" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="139.0" text="Διακρ.Τίτλος:" GridPane.rowIndex="2" />
+                              <CbbClearableTextField fx:id="textJobTitle" prefHeight="27.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                              <SearchableComboBox fx:id="doyCombo" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
                            </children>
                            <opaqueInsets>
                               <Insets />
