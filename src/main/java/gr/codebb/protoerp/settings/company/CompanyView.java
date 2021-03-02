@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 03/03/2021 (georgemoralis) - Loading of common passwords
  * 02/03/2021 (georgemoralis) - Added doy combo and loading of it
  * 02/03/2021 (georgemoralis) - WIP Work on mitroo retrieve data
  */
@@ -16,13 +17,18 @@ import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
+import gr.codebb.lib.util.AlertDlgHelper;
+import gr.codebb.lib.util.FxmlUtil;
+import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import gr.codebb.protoerp.settings.doy.DoyQueries;
+import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
 import gr.codebb.webserv.mitroo.MitrooService;
 import gr.codebb.webserv.mitroo.ResponsedMitrooData;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -31,6 +37,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -69,7 +78,34 @@ public class CompanyView implements Initializable {
 
   @FXML
   private void onTaxisUpdate(ActionEvent event) {
-
+    if (SettingsHelper.loadStringSetting("mitroo_username") == null
+        || SettingsHelper.loadStringSetting("mitroo_username").isEmpty()) {
+      ButtonType response =
+          AlertDlg.create()
+              .message(
+                  "Δεν βρέθηκαν κωδικοι για τη εφαρμογή του μητρώου\nΘέλετε να αποθηκεύσετε τώρα?")
+              .title("Αποθήκευση κωδικών")
+              .owner(masker.getScene().getWindow())
+              .modality(Modality.APPLICATION_MODAL)
+              .showAndWaitConfirm();
+      if (response == ButtonType.OK) {
+        FxmlUtil.LoadResult<MitrooPassView> getDetailView =
+            FxmlUtil.load("/fxml/settings/internetServices/MitrooPass.fxml");
+        Alert alert =
+            AlertDlgHelper.saveDialog(
+                "Κωδικοί Μητρώου", getDetailView.getParent(), masker.getScene().getWindow());
+        Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        getDetailView.getController().commonLoad();
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+          if (getDetailView.getController() != null) {
+            getDetailView.getController().save();
+          }
+        }
+      } else {
+        return;
+      }
+    }
     loadService();
   }
 
@@ -114,7 +150,12 @@ public class CompanyView implements Initializable {
             System.setProperty("https.protocols", "TLSv1.2");
             // call to web service
             ResponsedMitrooData returnValue =
-                sc.getData("", "", textVatNumber.getText(), "", new Date());
+                sc.getData(
+                    SettingsHelper.loadStringSetting("mitroo_username"),
+                    SettingsHelper.loadStringSetting("mitroo_password"),
+                    textVatNumber.getText(),
+                    SettingsHelper.loadStringSetting("mitroo_reprvat"),
+                    new Date());
             if ((returnValue.getErrordescr() == null) || (returnValue.getErrordescr().isEmpty())) {
               textName.setText(returnValue.getName());
               Platform.runLater(

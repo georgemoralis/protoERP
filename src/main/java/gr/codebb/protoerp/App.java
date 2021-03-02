@@ -351,12 +351,12 @@ public class App extends Application {
 
     Menu maintence_menu = new Menu("Συντήρηση");
     Menu maintence_subMenu_codes = new Menu("Κωδικοί υπηρεσιών");
-    MenuItem common_mitroo_codes = new MenuItem("Κοινοί κωδικοί Μητρώου");
-    maintence_subMenu_codes.getItems().add(common_mitroo_codes);
+    MenuItem mitroo_codes = new MenuItem("Κωδικοί Μητρώου");
+    maintence_subMenu_codes.getItems().add(mitroo_codes);
     maintence_menu.getItems().add(maintence_subMenu_codes);
     menuBar.getMenus().add(maintence_menu);
 
-    common_mitroo_codes.setOnAction(
+    mitroo_codes.setOnAction(
         e -> {
           FxmlUtil.LoadResult<MitrooPassView> getDetailView =
               FxmlUtil.load("/fxml/settings/internetServices/MitrooPass.fxml");
