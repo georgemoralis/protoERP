@@ -4,6 +4,11 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
+/*
+ * Changelog
+ * =========
+ * 02/03/2021 (georgemoralis) - WIP Work on mitroo retrieve data
+ */
 package gr.codebb.protoerp.settings.company;
 
 import gr.codebb.ctl.CbbClearableTextField;
@@ -98,15 +103,12 @@ public class CompanyView implements Initializable {
             System.setProperty("https.protocols", "TLSv1.2");
             // call to web service
             ResponsedMitrooData returnValue =
-                sc.getData("test", "test", "100159221", "", new Date());
-            System.out.println("ersssror");
+                sc.getData("", "", textVatNumber.getText(), "", new Date());
             if ((returnValue.getErrordescr() == null) || (returnValue.getErrordescr().isEmpty())) {
-              System.out.println(returnValue.getName());
+              textName.setText(returnValue.getName());
             } else {
-              System.out.println("error");
               return returnValue.getErrorcode() + ":" + returnValue.getErrordescr();
             }
-            System.out.println("SUccess");
             return null;
           }
         };
@@ -135,10 +137,11 @@ public class CompanyView implements Initializable {
             masker.setVisible(false);
             if (service.getValue() != null) // error occured
             {
+              String[] msg = service.getValue().split(":");
               AlertDlg.create()
                   .type(AlertDlg.Type.ERROR)
-                  .message(service.getValue())
-                  .title("Πρόβλημα")
+                  .message(msg[1])
+                  .title(msg[0])
                   .owner(masker.getScene().getWindow())
                   .modality(Modality.APPLICATION_MODAL)
                   .showAndWait();
