@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 04/03/2021 (georgemoralis) - Added saving of company plants as well
  * 04/03/2021 (georgemoralis) - Added saving of new company
  * 03/03/2021 (georgemoralis) - Loading of common passwords
  * 02/03/2021 (georgemoralis) - Added doy combo and loading of it
@@ -25,10 +26,14 @@ import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.SettingsHelper;
+import gr.codebb.protoerp.settings.company_plants.PlantsEntity;
+import gr.codebb.protoerp.settings.company_plants.PlantsListView;
+import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import gr.codebb.protoerp.settings.doy.DoyQueries;
 import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
 import gr.codebb.webserv.mitroo.MitrooService;
+import gr.codebb.webserv.mitroo.ResponsedCompanyKad;
 import gr.codebb.webserv.mitroo.ResponsedMitrooData;
 import java.net.URL;
 import java.security.cert.X509Certificate;
@@ -93,6 +98,7 @@ public class CompanyView implements Initializable {
 
   private ValidationSupport validation;
   private final DetailCrud<CompanyEntity> detailCrud = new DetailCrud<>(this);
+  PlantsEntity p = new PlantsEntity();
 
   /** Initializes the controller class. */
   @Override
@@ -101,6 +107,12 @@ public class CompanyView implements Initializable {
     masker.setVisible(false);
     new ComboboxService<>(DoyQueries.getDoyDatabase(true), doyCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(doyCombo);
+
+    // load plants
+    FxmlUtil.LoadResult<PlantsListView> plantsWindow =
+        FxmlUtil.load("/fxml/settings/company_plants/CompanyPlants.fxml");
+    // plantsWindow.getController().loadListView();
+    tabPane.getTabs().get(1).setContent(plantsWindow.getParent());
   }
 
   @FXML
@@ -192,6 +204,22 @@ public class CompanyView implements Initializable {
                         .select(DoyQueries.getDoyByCode(returnValue.getDoyCode()));
                   });
 
+              p.setCode(0);
+              p.setDescription("Ἐδρα");
+              p.setAddress(returnValue.getAddress());
+              p.setCity(returnValue.getAddressArea());
+              p.setTk(returnValue.getTk());
+              p.setActive(true);
+              p.setArea("");
+              p.setFax("");
+              p.setPhone("");
+              p.setCountry(CountriesQueries.getCountryByCode("GR"));
+              // kirios kadi
+              for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
+                if (kad.getEidosDescr().matches("ΚΥΡΙΑ")) {
+                  textJob.setText(kad.getPerigrafi());
+                }
+              }
             } else {
               return returnValue.getErrorcode() + ":" + returnValue.getErrordescr();
             }
@@ -243,6 +271,8 @@ public class CompanyView implements Initializable {
     detailCrud.saveModel(new CompanyEntity());
     CompanyEntity company = detailCrud.getModel();
     company.setDoy(doyCombo.getSelectionModel().getSelectedItem());
+    company.setActive(true); // when creating it is true!
+    company.addPlantLine(p);
     CompanyEntity saved = (CompanyEntity) gdao.createEntity(company);
   }
 }
