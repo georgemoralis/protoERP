@@ -11,43 +11,31 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- *
- * @author snow
- */
+/** @author snow */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 public @interface TextFieldProperty {
 
-    /**
-     * Type to INT, STRING, DATE
-     */
-    public enum Type {
-        INT {
+  /** Type to INT, STRING, DATE */
+  public enum Type {
+    INT {
 
-            @Override
-            public String toString() {
-                return "int";
-            }
+      @Override
+      public String toString() {
+        return "int";
+      }
+    },
+    STRING {
 
-        },
-        STRING {
-
-            @Override
-            public String toString() {
-                return "string";
-            }
-
-        }
+      @Override
+      public String toString() {
+        return "string";
+      }
     }
+  }
 
-    Type type() default Type.STRING;
+  Type type() default Type.STRING;
 
-    /**
-     *
-     *
-     * @return value default is text
-     */
-
-    public String value() default "text";
+  /** @return value default is text */
+  public String value() default "text";
 }

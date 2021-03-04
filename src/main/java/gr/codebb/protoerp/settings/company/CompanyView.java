@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 04/03/2021 (georgemoralis) - Added saving of new company
  * 03/03/2021 (georgemoralis) - Loading of common passwords
  * 02/03/2021 (georgemoralis) - Added doy combo and loading of it
  * 02/03/2021 (georgemoralis) - WIP Work on mitroo retrieve data
@@ -15,8 +16,12 @@ package gr.codebb.protoerp.settings.company;
 
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
+import gr.codebb.lib.crud.DetailCrud;
+import gr.codebb.lib.crud.annotation.TextFieldProperty;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
+import gr.codebb.lib.database.GenericDao;
+import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.SettingsHelper;
@@ -51,21 +56,43 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.validation.ValidationSupport;
 
 public class CompanyView implements Initializable {
 
   @FXML private StackPane mainStackPane;
   @FXML private VBox mainVBox;
   @FXML private TabPane tabPane;
-  @FXML private CbbClearableTextField textName;
-  @FXML private CbbClearableTextField textJob;
-  @FXML private CbbClearableTextField textVatNumber;
-  @FXML private CbbClearableTextField textEmail;
-  @FXML private CbbClearableTextField textMobilePhone;
+
+  @FXML
+  @TextFieldProperty(type = TextFieldProperty.Type.STRING)
+  private CbbClearableTextField textName;
+
+  @FXML
+  @TextFieldProperty(type = TextFieldProperty.Type.STRING)
+  private CbbClearableTextField textJob;
+
+  @FXML
+  @TextFieldProperty(type = TextFieldProperty.Type.STRING)
+  private CbbClearableTextField textVatNumber;
+
+  @FXML
+  @TextFieldProperty(type = TextFieldProperty.Type.STRING)
+  private CbbClearableTextField textEmail;
+
+  @FXML
+  @TextFieldProperty(type = TextFieldProperty.Type.STRING)
+  private CbbClearableTextField textMobilePhone;
+
+  @FXML
+  @TextFieldProperty(type = TextFieldProperty.Type.STRING)
+  private CbbClearableTextField textRegisteredName;
 
   private MaskerPane masker = new MaskerPane();
-  @FXML private CbbClearableTextField textJobTitle;
   @FXML private SearchableComboBox<DoyEntity> doyCombo;
+
+  private ValidationSupport validation;
+  private final DetailCrud<CompanyEntity> detailCrud = new DetailCrud<>(this);
 
   /** Initializes the controller class. */
   @Override
@@ -209,5 +236,13 @@ public class CompanyView implements Initializable {
         });
     Thread thread = new Thread(service);
     thread.start();
+  }
+
+  public void SaveNewCompany() {
+    GenericDao gdao = new GenericDao(CompanyEntity.class, PersistenceManager.getEmf());
+    detailCrud.saveModel(new CompanyEntity());
+    CompanyEntity company = detailCrud.getModel();
+    company.setDoy(doyCombo.getSelectionModel().getSelectedItem());
+    CompanyEntity saved = (CompanyEntity) gdao.createEntity(company);
   }
 }

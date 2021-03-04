@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 04/03/2021 (gmoralis) - Saving of company data
  * 26/02/2021 (gmoralis) - Initial commit
  */
 package gr.codebb.protoerp.generic;
@@ -124,8 +125,8 @@ public class CompanySelectView implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
-        //        getDetailView.getController().save();
-        //        selectWithService();
+        getDetailView.getController().SaveNewCompany();
+        loadService();
       }
     }
   }

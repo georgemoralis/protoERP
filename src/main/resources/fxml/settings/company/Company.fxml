@@ -70,7 +70,7 @@
                               <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="134.0" text="Κινητό: " GridPane.columnIndex="2" GridPane.rowIndex="5" />
                               <Button mnemonicParsing="false" onAction="#onTaxisUpdate" text="Ανάκτηση από gsis" GridPane.columnIndex="3" />
                               <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="139.0" text="Διακρ.Τίτλος:" GridPane.rowIndex="2" />
-                              <CbbClearableTextField fx:id="textJobTitle" prefHeight="27.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                              <CbbClearableTextField fx:id="textRegisteredName" prefHeight="27.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                               <SearchableComboBox fx:id="doyCombo" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
                            </children>
                            <opaqueInsets>

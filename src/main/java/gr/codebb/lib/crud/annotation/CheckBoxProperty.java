@@ -11,19 +11,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- *
- * @author snow
- */
+/** @author snow */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 public @interface CheckBoxProperty {
 
-    /**
-     *
-     *
-     * @return value default is checkBox
-     */
-
-    public String value() default "checkBox";
+  /** @return value default is checkBox */
+  public String value() default "checkBox";
 }

@@ -11,19 +11,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- *
- * @author snow
- */
+/** @author snow */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
 public @interface TextAreaProperty {
 
-    /**
-     *
-     *
-     * @return value default is text
-     */
-
-    public String value() default "text";
+  /** @return value default is text */
+  public String value() default "text";
 }
