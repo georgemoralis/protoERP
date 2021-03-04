@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 04/03/2021 (gmoralis) - Added interDescription
  * 25/02/2021 (gmoralis) - Ported from prototype
  * 05/01/2020 (gmoralis) - Added countryType (to seperate countries of E.E. and others
  * 26/12/2019 (gmoralis) - Initial
@@ -37,6 +38,7 @@ public class CountriesEntity implements Serializable, Displayable {
 
   @Getter @Setter private String code;
   @Getter @Setter private String description;
+  @Getter @Setter private String interDescription;
 
   @Enumerated(EnumType.ORDINAL)
   @Getter
