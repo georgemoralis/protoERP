@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 05/03/2021 (georgemoralis) - Merging plants here
  * 04/03/2021 (georgemoralis) - Added saving of company plants as well
  * 04/03/2021 (georgemoralis) - Added saving of new company
  * 03/03/2021 (georgemoralis) - Loading of common passwords

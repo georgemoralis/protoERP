@@ -7,12 +7,16 @@
 /*
  * changelog
  * =========
+ * 05/03/2021 (gmoralis) - Delete of company now works
  * 04/03/2021 (gmoralis) - Saving of company data
  * 26/02/2021 (gmoralis) - Initial commit
  */
 package gr.codebb.protoerp.generic;
 
 import gr.codebb.ctl.CbbSearchableTextField;
+import gr.codebb.dlg.AlertDlg;
+import gr.codebb.lib.database.GenericDao;
+import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
@@ -41,6 +45,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import org.controlsfx.control.MaskerPane;
 
 public class CompanySelectView implements Initializable {
@@ -113,7 +118,7 @@ public class CompanySelectView implements Initializable {
         FxmlUtil.load("/fxml/settings/company/Company.fxml");
     Alert alert =
         AlertDlgHelper.saveDialog(
-            "Προσθήκη Εταιρίας", getDetailView.getParent(), mainStackPane.getScene().getWindow());
+            "Προσθήκη Εταιρείας", getDetailView.getParent(), mainStackPane.getScene().getWindow());
     Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
     okbutton.addEventFilter(
         ActionEvent.ACTION,
@@ -136,11 +141,33 @@ public class CompanySelectView implements Initializable {
   private void onEdit(ActionEvent event) {}
 
   @FXML
-  private void onDelete(ActionEvent event) {}
+  private void onDelete(ActionEvent event) 
+  {
+      int row = selectTable.getSelectionModel().getSelectedIndex();
+    selectTable.getSelectionModel().select(row);
+    ButtonType response =
+        AlertDlg.create()
+            .message(
+                "Είστε σιγουροι ότι θέλετε να διαγράψετε την εταιρεία : \n"
+                    + selectTable.getSelectionModel().getSelectedItem().getName())
+            .title("Διαγραφή")
+            .modality(Modality.APPLICATION_MODAL)
+            .owner(selectTable.getScene().getWindow())
+            .showAndWaitConfirm();
+    if (response == ButtonType.OK) {
+      GenericDao gdao = new GenericDao(CompanyEntity.class, PersistenceManager.getEmf());
+      try {
+        gdao.deleteEntity(selectTable.getSelectionModel().getSelectedItem().getId());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      loadService();
+    }
+  }
 
   private void loadService() {
     masker.setVisible(true);
-    masker.setText("Φόρτωση εταιριών\nΠαρακαλώ περιμένετε");
+    masker.setText("Φόρτωση εταιρειών\nΠαρακαλώ περιμένετε");
     Task<String> service =
         new Task<String>() {
           @Override
