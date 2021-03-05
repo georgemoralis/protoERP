@@ -6,14 +6,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import org.controlsfx.control.SearchableComboBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.settings.company.CompanyView">
    <children>
@@ -82,7 +89,74 @@
                         </GridPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Εγκαταστάσεις" />
+                  <Tab closable="false" text="Εγκαταστάσεις">
+                     <content>
+                        <StackPane fx:id="mainStackPane1" stylesheets="@../../../styles/bootstrap3.css">
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="310.0">
+                                 <children>
+                                    <ToolBar prefHeight="40.0" prefWidth="501.0">
+                                       <items>
+                                          <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshAction" prefHeight="29.0" prefWidth="30.0" styleClass="primary">
+                                             <tooltip>
+                                                <Tooltip text="Ανανέωση" />
+                                             </tooltip>
+                                             <graphic>
+                                                <FontIcon iconLiteral="gmi-autorenew" iconSize="16" />
+                                             </graphic>
+                                          </Button>
+                                          <Pane prefHeight="30.0" prefWidth="160.0" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="newButton" mnemonicParsing="false" onAction="#newAction" prefHeight="29.0" prefWidth="30.0" styleClass="info">
+                                             <tooltip>
+                                                <Tooltip text="Νέα" />
+                                             </tooltip>
+                                             <graphic>
+                                                <FontIcon iconLiteral="gmi-add" iconSize="16" />
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="openButton" mnemonicParsing="false" onAction="#openAction" prefHeight="29.0" prefWidth="30.0" styleClass="warning">
+                                             <tooltip>
+                                                <Tooltip text="Άνοιγμα" />
+                                             </tooltip>
+                                             <graphic>
+                                                <FontIcon iconLiteral="mdi-file-document" iconSize="16" />
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAction" prefHeight="29.0" prefWidth="30.0" styleClass="danger">
+                                             <tooltip>
+                                                <Tooltip text="Διαγραφή" />
+                                             </tooltip>
+                                             <graphic>
+                                                <FontIcon iconLiteral="gmi-delete" iconSize="16" />
+                                             </graphic>
+                                          </Button>
+                                       </items>
+                                    </ToolBar>
+                                    <TableView fx:id="tablePlants" onMouseClicked="#onTableMouseClicked" VBox.vgrow="ALWAYS">
+                          <columns>
+                              <TableColumn fx:id="columnId" prefWidth="79.0" text="Id">
+                                  <graphic>
+                                  </graphic>
+                              </TableColumn>
+                              <TableColumn fx:id="columnActive" prefWidth="117.0" text="Ενεργή">
+                                  <graphic>
+                                  </graphic>
+                              </TableColumn>
+                              <TableColumn fx:id="columnCode" prefWidth="120.0" text="Αρ. Εγκατάστασης">
+                                  <graphic>
+                                  </graphic>
+                              </TableColumn>
+                              <TableColumn fx:id="columnDescription" prefWidth="249.0" text="Περιγραφή">
+                                  <graphic>
+                                  </graphic>
+                              </TableColumn>
+                          </columns>
+                      </TableView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </StackPane>
+                     </content></Tab>
                </tabs>
             </TabPane>
          </children>

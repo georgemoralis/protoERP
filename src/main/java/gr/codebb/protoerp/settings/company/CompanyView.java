@@ -27,7 +27,6 @@ import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.protoerp.settings.company_plants.PlantsEntity;
-import gr.codebb.protoerp.settings.company_plants.PlantsListView;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import gr.codebb.protoerp.settings.doy.DoyQueries;
@@ -41,6 +40,9 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -51,6 +53,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -98,7 +104,20 @@ public class CompanyView implements Initializable {
 
   private ValidationSupport validation;
   private final DetailCrud<CompanyEntity> detailCrud = new DetailCrud<>(this);
-  PlantsEntity p = new PlantsEntity();
+
+  @FXML private StackPane mainStackPane1;
+  @FXML private Button refreshButton;
+  @FXML private Button newButton;
+  @FXML private Button openButton;
+  @FXML private Button deleteButton;
+  @FXML private TableView<PlantsEntity> tablePlants;
+  @FXML private TableColumn<PlantsEntity, Long> columnId;
+  @FXML private TableColumn<PlantsEntity, Boolean> columnActive;
+  @FXML private TableColumn<PlantsEntity, Integer> columnCode;
+  @FXML private TableColumn<PlantsEntity, String> columnDescription;
+
+  private ObservableList<PlantsEntity> plantrow;
+  CompanyEntity company;
 
   /** Initializes the controller class. */
   @Override
@@ -108,11 +127,27 @@ public class CompanyView implements Initializable {
     new ComboboxService<>(DoyQueries.getDoyDatabase(true), doyCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(doyCombo);
 
-    // load plants
-    FxmlUtil.LoadResult<PlantsListView> plantsWindow =
-        FxmlUtil.load("/fxml/settings/company_plants/CompanyPlants.fxml");
-    // plantsWindow.getController().loadListView();
-    tabPane.getTabs().get(1).setContent(plantsWindow.getParent());
+    // plants table
+    columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+    columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+    columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+    columnActive.setCellValueFactory(new PropertyValueFactory<>("active"));
+  }
+
+  public void initNewCompany() {
+    company = new CompanyEntity();
+    plantrow = FXCollections.observableArrayList(company.getPlantLines());
+    plantrow.addListener(
+        new ListChangeListener<PlantsEntity>() {
+          @Override
+          public void onChanged(
+              javafx.collections.ListChangeListener.Change<? extends PlantsEntity> c) {
+            // System.out.println("Changed on " + c);//c.getFrom -> line that did the change
+            if (c.next()) {
+              tablePlants.setItems(plantrow);
+            }
+          }
+        });
   }
 
   @FXML
@@ -203,7 +238,7 @@ public class CompanyView implements Initializable {
                         .getSelectionModel()
                         .select(DoyQueries.getDoyByCode(returnValue.getDoyCode()));
                   });
-
+              PlantsEntity p = new PlantsEntity();
               p.setCode(0);
               p.setDescription("Ἐδρα");
               p.setAddress(returnValue.getAddress());
@@ -218,6 +253,7 @@ public class CompanyView implements Initializable {
               for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
                 if (kad.getEidosDescr().matches("ΚΥΡΙΑ")) {
                   textJob.setText(kad.getPerigrafi());
+                  plantrow.add(p);
                 }
               }
             } else {
@@ -272,7 +308,25 @@ public class CompanyView implements Initializable {
     CompanyEntity company = detailCrud.getModel();
     company.setDoy(doyCombo.getSelectionModel().getSelectedItem());
     company.setActive(true); // when creating it is true!
-    company.addPlantLine(p);
+    plantrow.forEach(
+        (plantpos) -> {
+          company.addPlantLine(plantpos);
+        });
     CompanyEntity saved = (CompanyEntity) gdao.createEntity(company);
   }
+
+  @FXML
+  private void refreshAction(ActionEvent event) {}
+
+  @FXML
+  private void newAction(ActionEvent event) {}
+
+  @FXML
+  private void openAction(ActionEvent event) {}
+
+  @FXML
+  private void deleteAction(ActionEvent event) {}
+
+  @FXML
+  private void onTableMouseClicked(MouseEvent event) {}
 }

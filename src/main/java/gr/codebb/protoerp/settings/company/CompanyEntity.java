@@ -56,6 +56,7 @@ public class CompanyEntity implements Serializable {
   @Getter @Setter private Boolean active;
 
   @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+  @Getter
   private List<PlantsEntity> plantLines = new ArrayList<>();
 
   public void addPlantLine(PlantsEntity line) {
