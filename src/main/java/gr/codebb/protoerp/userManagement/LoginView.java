@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 06/03/2020 (georgemoralis) - Check if username is empty validation
  * 01/11/2020 (georgemoralis) - Request focus to pass TextField
  * 30/10/2020 (georgemoralis) - Added authentication
  * 27/10/2020 (georgemoralis) - Initial
@@ -26,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.synedra.validatorfx.Validator;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -39,6 +41,8 @@ public class LoginView implements Initializable {
 
   @FXML private SearchableComboBox<UserEntity> userCombo;
   @FXML private PasswordField passText;
+
+  private Validator validator = new Validator();
 
   /** Initializes the controller class. */
   @Override
@@ -54,10 +58,26 @@ public class LoginView implements Initializable {
         () -> {
           passText.requestFocus();
         });
+    validator
+        .createCheck()
+        .dependsOn("username", userCombo.valueProperty())
+        .withMethod(
+            c -> {
+              UserEntity username = c.get("username");
+              if (username == null) {
+                c.error("Το όνομα χρήστη δεν μπορεί να είναι κενό");
+              }
+            })
+        .decorates(userCombo)
+        .immediate();
   }
 
   @FXML
   private void onLogin(ActionEvent event) {
+    validator.validate();
+    if (validator.containsErrors()) {
+      return;
+    }
     Subject currentUser = SecurityUtils.getSubject();
     UsernamePasswordToken token =
         new UsernamePasswordToken(

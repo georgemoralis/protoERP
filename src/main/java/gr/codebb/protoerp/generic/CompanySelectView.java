@@ -141,9 +141,8 @@ public class CompanySelectView implements Initializable {
   private void onEdit(ActionEvent event) {}
 
   @FXML
-  private void onDelete(ActionEvent event) 
-  {
-      int row = selectTable.getSelectionModel().getSelectedIndex();
+  private void onDelete(ActionEvent event) {
+    int row = selectTable.getSelectionModel().getSelectedIndex();
     selectTable.getSelectionModel().select(row);
     ButtonType response =
         AlertDlg.create()
