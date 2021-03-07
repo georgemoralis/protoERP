@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 07/03/2021 (georgemoralis) - Added plant button works . Improvements
  * 05/03/2021 (georgemoralis) - Merging plants here
  * 04/03/2021 (georgemoralis) - Added saving of company plants as well
  * 04/03/2021 (georgemoralis) - Added saving of new company
@@ -20,6 +21,7 @@ import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.DetailCrud;
 import gr.codebb.lib.crud.annotation.TextFieldProperty;
+import gr.codebb.lib.crud.cellFactory.CheckBoxFactory;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.lib.database.GenericDao;
@@ -27,7 +29,6 @@ import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.SettingsHelper;
-import gr.codebb.protoerp.settings.company_plants.PlantsEntity;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import gr.codebb.protoerp.settings.doy.DoyQueries;
@@ -107,10 +108,9 @@ public class CompanyView implements Initializable {
   private final DetailCrud<CompanyEntity> detailCrud = new DetailCrud<>(this);
 
   @FXML private StackPane mainStackPane1;
-  @FXML private Button refreshButton;
-  @FXML private Button newButton;
-  @FXML private Button openButton;
-  @FXML private Button deleteButton;
+  @FXML private Button newPlantButton;
+  @FXML private Button openPlantButton;
+  @FXML private Button deletePlantButton;
   @FXML private TableView<PlantsEntity> tablePlants;
   @FXML private TableColumn<PlantsEntity, Long> columnId;
   @FXML private TableColumn<PlantsEntity, Boolean> columnActive;
@@ -133,6 +133,7 @@ public class CompanyView implements Initializable {
     columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
     columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
     columnActive.setCellValueFactory(new PropertyValueFactory<>("active"));
+    columnActive.setCellFactory(new CheckBoxFactory<PlantsEntity>().cellFactory);
   }
 
   public void initNewCompany() {
@@ -317,17 +318,43 @@ public class CompanyView implements Initializable {
   }
 
   @FXML
-  private void refreshAction(ActionEvent event) {}
+  private void newPlantAction(ActionEvent event) {
+    FxmlUtil.LoadResult<PlantsDetailView> getDetailView =
+        FxmlUtil.load("/fxml/settings/company/PlantsDetailView.fxml");
+    Alert alert =
+        AlertDlgHelper.saveDialog(
+            "Προσθήκη Κεντρικόυ-υποκαταστήματος",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          //          if (!getDetailView.getController().validateControls()) {
+          //            event1.consume();
+          //          }
+        });
+    if (plantrow.isEmpty()) { // if no rows create edra
+      getDetailView.getController().setNewPlant(true);
+    } else {
+      getDetailView.getController().setNewPlant(false);
+    }
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        PlantsEntity p = getDetailView.getController().saveNewPlant();
+        plantrow.add(p);
+      }
+    }
+  }
 
   @FXML
-  private void newAction(ActionEvent event) {}
+  private void openPlantAction(ActionEvent event) {}
 
   @FXML
-  private void openAction(ActionEvent event) {}
+  private void deletePlantAction(ActionEvent event) {}
 
   @FXML
-  private void deleteAction(ActionEvent event) {}
-
-  @FXML
-  private void onTableMouseClicked(MouseEvent event) {}
+  private void onTablePlantMouseClicked(MouseEvent event) {}
 }

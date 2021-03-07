@@ -13,7 +13,6 @@
  */
 package gr.codebb.protoerp.settings.company;
 
-import gr.codebb.protoerp.settings.company_plants.PlantsEntity;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -97,16 +97,8 @@
                                  <children>
                                     <ToolBar prefHeight="40.0" prefWidth="501.0">
                                        <items>
-                                          <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshAction" prefHeight="29.0" prefWidth="30.0" styleClass="primary">
-                                             <tooltip>
-                                                <Tooltip text="Ανανέωση" />
-                                             </tooltip>
-                                             <graphic>
-                                                <FontIcon iconLiteral="gmi-autorenew" iconSize="16" />
-                                             </graphic>
-                                          </Button>
                                           <Pane prefHeight="30.0" prefWidth="160.0" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="newButton" mnemonicParsing="false" onAction="#newAction" prefHeight="29.0" prefWidth="30.0" styleClass="info">
+                                          <Button fx:id="newPlantButton" mnemonicParsing="false" onAction="#newPlantAction" prefHeight="29.0" prefWidth="30.0" styleClass="info">
                                              <tooltip>
                                                 <Tooltip text="Νέα" />
                                              </tooltip>
@@ -114,7 +106,7 @@
                                                 <FontIcon iconLiteral="gmi-add" iconSize="16" />
                                              </graphic>
                                           </Button>
-                                          <Button fx:id="openButton" mnemonicParsing="false" onAction="#openAction" prefHeight="29.0" prefWidth="30.0" styleClass="warning">
+                                          <Button fx:id="openPlantButton" mnemonicParsing="false" onAction="#openPlantAction" prefHeight="29.0" prefWidth="30.0" styleClass="warning">
                                              <tooltip>
                                                 <Tooltip text="Άνοιγμα" />
                                              </tooltip>
@@ -122,7 +114,7 @@
                                                 <FontIcon iconLiteral="mdi-file-document" iconSize="16" />
                                              </graphic>
                                           </Button>
-                                          <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteAction" prefHeight="29.0" prefWidth="30.0" styleClass="danger">
+                                          <Button fx:id="deletePlantButton" mnemonicParsing="false" onAction="#deletePlantAction" prefHeight="29.0" prefWidth="30.0" styleClass="danger">
                                              <tooltip>
                                                 <Tooltip text="Διαγραφή" />
                                              </tooltip>
@@ -132,7 +124,7 @@
                                           </Button>
                                        </items>
                                     </ToolBar>
-                                    <TableView fx:id="tablePlants" onMouseClicked="#onTableMouseClicked" VBox.vgrow="ALWAYS">
+                                    <TableView fx:id="tablePlants" onMouseClicked="#onTablePlantMouseClicked" VBox.vgrow="ALWAYS">
                           <columns>
                               <TableColumn fx:id="columnId" prefWidth="79.0" text="Id">
                                   <graphic>

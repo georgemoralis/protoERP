@@ -12,10 +12,9 @@
  * 09/01/2020 (gmoralis) - Εγκαταστάσεις εταιρείας
  * 25/12/2019 (gmoralis) - Initial
  */
-package gr.codebb.protoerp.settings.company_plants;
+package gr.codebb.protoerp.settings.company;
 
 import gr.codebb.lib.crud.intf.Displayable;
-import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
