@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 08/03/3021 (georgemoralis) - Added save/load/edit actions
  * 07/03/2021 (georgemoralis) - Initial
  */
 package gr.codebb.protoerp.settings.company;
@@ -17,8 +18,6 @@ import gr.codebb.lib.crud.annotation.CheckBoxProperty;
 import gr.codebb.lib.crud.annotation.TextFieldProperty;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
-import gr.codebb.lib.database.GenericDao;
-import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import java.net.URL;
@@ -29,11 +28,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import org.controlsfx.control.SearchableComboBox;
 
-/**
- * FXML Controller class
- *
- * @author giorg
- */
 public class PlantsDetailView implements Initializable {
 
   @FXML private TextField textId;
@@ -92,9 +86,24 @@ public class PlantsDetailView implements Initializable {
     DisplayableListCellFactory.setComboBoxCellFactory(CountryCombo);
   }
 
+  public void fillData(PlantsEntity e) {
+    detailCrud.loadModel(e);
+    if (e.getId() != null) {
+      textId.setText(e.getId().toString());
+    }
+    CountryCombo.getSelectionModel().select(e.getCountry());
+  }
+
   public PlantsEntity saveNewPlant() {
-    GenericDao gdao = new GenericDao(PlantsEntity.class, PersistenceManager.getEmf());
     detailCrud.saveModel(new PlantsEntity());
+    PlantsEntity plant = detailCrud.getModel();
+    // non-support on detailCrud
+    plant.setCountry(CountryCombo.getSelectionModel().getSelectedItem());
+    return plant;
+  }
+
+  public PlantsEntity saveEdit(PlantsEntity splant) {
+    detailCrud.saveModel(splant);
     PlantsEntity plant = detailCrud.getModel();
     // non-support on detailCrud
     plant.setCountry(CountryCombo.getSelectionModel().getSelectedItem());

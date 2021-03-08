@@ -42,6 +42,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -134,6 +135,23 @@ public class CompanyView implements Initializable {
     columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
     columnActive.setCellValueFactory(new PropertyValueFactory<>("active"));
     columnActive.setCellFactory(new CheckBoxFactory<PlantsEntity>().cellFactory);
+    openPlantButton
+        .disableProperty()
+        .bind(Bindings.isEmpty(tablePlants.getSelectionModel().getSelectedItems()));
+    deletePlantButton
+        .disableProperty()
+        .bind(Bindings.isEmpty(tablePlants.getSelectionModel().getSelectedItems()));
+    EventHandler plantDoubleMouseClick =
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent e) {
+            if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+              openPlantAction(null);
+            }
+          }
+        };
+
+    tablePlants.addEventHandler(MouseEvent.MOUSE_PRESSED, plantDoubleMouseClick);
   }
 
   public void initNewCompany() {
@@ -350,11 +368,49 @@ public class CompanyView implements Initializable {
   }
 
   @FXML
-  private void openPlantAction(ActionEvent event) {}
+  private void openPlantAction(ActionEvent event) {
+    FxmlUtil.LoadResult<PlantsDetailView> getDetailView =
+        FxmlUtil.load("/fxml/settings/company/PlantsDetailView.fxml");
+    Alert alert =
+        AlertDlgHelper.editDialog(
+            "Άνοιγμα/Επεξεργασία Κεντρικόυ-υποκαταστήματος",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    getDetailView.getController().fillData(tablePlants.getSelectionModel().getSelectedItem());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    /*okbutton.addEventFilter(
+    ActionEvent.ACTION,
+    (event1) -> {
+      if (!getDetailView.getController().validateControls()) {
+        event1.consume();
+      }
+    });*/
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        int row = tablePlants.getSelectionModel().getSelectedIndex();
+        PlantsEntity selected = tablePlants.getSelectionModel().getSelectedItem();
+        PlantsEntity p = getDetailView.getController().saveEdit(plantrow.get(row));
+        plantrow.remove(selected);
+        plantrow.add(p);
+      }
+    }
+  }
 
   @FXML
-  private void deletePlantAction(ActionEvent event) {}
-
-  @FXML
-  private void onTablePlantMouseClicked(MouseEvent event) {}
+  private void deletePlantAction(ActionEvent event) {
+    ButtonType response =
+        AlertDlg.create()
+            .message(
+                "Είστε σιγουροι ότι θέλετε να διαγράψετε την εγκατάσταση : \n"
+                    + tablePlants.getSelectionModel().getSelectedItem().getDescription())
+            .title("Διαγραφή")
+            .modality(Modality.APPLICATION_MODAL)
+            .owner(tablePlants.getScene().getWindow())
+            .showAndWaitConfirm();
+    if (response == ButtonType.OK) {
+      PlantsEntity selected = tablePlants.getSelectionModel().getSelectedItem();
+      plantrow.remove(selected);
+    }
+  }
 }

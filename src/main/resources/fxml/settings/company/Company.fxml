@@ -124,7 +124,7 @@
                                           </Button>
                                        </items>
                                     </ToolBar>
-                                    <TableView fx:id="tablePlants" onMouseClicked="#onTablePlantMouseClicked" VBox.vgrow="ALWAYS">
+                                    <TableView fx:id="tablePlants" VBox.vgrow="ALWAYS">
                           <columns>
                               <TableColumn fx:id="columnId" prefWidth="79.0" text="Id">
                                   <graphic>
@@ -138,7 +138,7 @@
                                   <graphic>
                                   </graphic>
                               </TableColumn>
-                              <TableColumn fx:id="columnDescription" prefWidth="249.0" text="Περιγραφή">
+                              <TableColumn fx:id="columnDescription" prefWidth="225.0" text="Περιγραφή">
                                   <graphic>
                                   </graphic>
                               </TableColumn>
