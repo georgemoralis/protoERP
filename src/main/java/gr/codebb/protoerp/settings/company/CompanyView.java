@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 09/03/2021 (georgemoralis) - Added controlfx validation (todo change it with validatorFX sometime later)
  * 07/03/2021 (georgemoralis) - Added plant button works . Improvements
  * 05/03/2021 (georgemoralis) - Merging plants here
  * 04/03/2021 (georgemoralis) - Added saving of company plants as well
@@ -33,6 +34,9 @@ import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import gr.codebb.protoerp.settings.doy.DoyQueries;
 import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
+import gr.codebb.protoerp.util.validation.CustomValidationDecoration;
+import gr.codebb.protoerp.util.validation.Validators;
+import gr.codebb.protoerp.util.validation.VatValidator;
 import gr.codebb.webserv.mitroo.MitrooService;
 import gr.codebb.webserv.mitroo.ResponsedCompanyKad;
 import gr.codebb.webserv.mitroo.ResponsedMitrooData;
@@ -70,6 +74,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.SearchableComboBox;
+import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
 
 public class CompanyView implements Initializable {
@@ -152,6 +157,34 @@ public class CompanyView implements Initializable {
         };
 
     tablePlants.addEventHandler(MouseEvent.MOUSE_PRESSED, plantDoubleMouseClick);
+    Platform.runLater(
+        () -> {
+          this.validation = new ValidationSupport();
+          this.validation.setValidationDecorator(new CustomValidationDecoration());
+          Validators.createValidators();
+          registerValidators();
+        });
+  }
+
+  private void registerValidators() {
+    validation.registerValidator(
+        textName,
+        Validators.combine(
+            Validators.notEmptyValidator(), Validators.onlyLettersValidator(Severity.WARNING)));
+    validation.registerValidator(textJob, false, Validators.onlyLettersValidator(Severity.WARNING));
+    validation.registerValidator(
+        textMobilePhone, false, Validators.onlyNumbersValidator(Severity.WARNING));
+    validation.registerValidator(doyCombo, Validators.notEmptyValidator());
+    validation.registerValidator(
+        textEmail,
+        Validators.combine(
+            Validators.notEmptyValidator(), Validators.emailValidator(Severity.ERROR)));
+    validation.registerValidator(
+        textVatNumber,
+        Validators.combine(
+            Validators.notEmptyValidator(),
+            Validators.onlyNumbersValidator(Severity.ERROR),
+            new VatValidator()));
   }
 
   public void initNewCompany() {
@@ -322,6 +355,21 @@ public class CompanyView implements Initializable {
     thread.start();
   }
 
+  public boolean validateControls() {
+    if (validation.isInvalid()) {
+      Validators.showValidationResult(validation);
+      AlertDlg.create()
+          .type(AlertDlg.Type.ERROR)
+          .message("Ελέξτε την φόρμα για λάθη")
+          .title("Πρόβλημα")
+          .owner(doyCombo.getScene().getWindow())
+          .modality(Modality.APPLICATION_MODAL)
+          .showAndWait();
+      return false;
+    }
+    return true;
+  }
+
   public void SaveNewCompany() {
     GenericDao gdao = new GenericDao(CompanyEntity.class, PersistenceManager.getEmf());
     detailCrud.saveModel(new CompanyEntity());
@@ -348,9 +396,9 @@ public class CompanyView implements Initializable {
     okbutton.addEventFilter(
         ActionEvent.ACTION,
         (event1) -> {
-          //          if (!getDetailView.getController().validateControls()) {
-          //            event1.consume();
-          //          }
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
         });
     if (plantrow.isEmpty()) { // if no rows create edra
       getDetailView.getController().setNewPlant(true);
@@ -378,13 +426,13 @@ public class CompanyView implements Initializable {
             mainStackPane.getScene().getWindow());
     getDetailView.getController().fillData(tablePlants.getSelectionModel().getSelectedItem());
     Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-    /*okbutton.addEventFilter(
-    ActionEvent.ACTION,
-    (event1) -> {
-      if (!getDetailView.getController().validateControls()) {
-        event1.consume();
-      }
-    });*/
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
+        });
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {

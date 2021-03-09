@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 09/03/2021 (gmoralis) - Enable validation on createNewCompany
  * 05/03/2021 (gmoralis) - Delete of company now works
  * 04/03/2021 (gmoralis) - Saving of company data
  * 26/02/2021 (gmoralis) - Initial commit
@@ -123,9 +124,9 @@ public class CompanySelectView implements Initializable {
     okbutton.addEventFilter(
         ActionEvent.ACTION,
         (event1) -> {
-          //          if (!getDetailView.getController().validateControls()) {
-          //            event1.consume();
-          //          }
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
         });
     getDetailView.getController().initNewCompany();
     Optional<ButtonType> result = alert.showAndWait();
