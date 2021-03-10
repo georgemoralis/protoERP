@@ -139,9 +139,8 @@ public class CompanySelectView implements Initializable {
   }
 
   @FXML
-  private void onEdit(ActionEvent event) 
-  {
-  FxmlUtil.LoadResult<CompanyView> getDetailView =
+  private void onEdit(ActionEvent event) {
+    FxmlUtil.LoadResult<CompanyView> getDetailView =
         FxmlUtil.load("/fxml/settings/company/Company.fxml");
     Alert alert =
         AlertDlgHelper.editDialog(
