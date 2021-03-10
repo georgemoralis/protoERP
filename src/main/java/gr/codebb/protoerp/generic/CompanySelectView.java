@@ -139,7 +139,35 @@ public class CompanySelectView implements Initializable {
   }
 
   @FXML
-  private void onEdit(ActionEvent event) {}
+  private void onEdit(ActionEvent event) 
+  {
+  FxmlUtil.LoadResult<CompanyView> getDetailView =
+        FxmlUtil.load("/fxml/settings/company/Company.fxml");
+    Alert alert =
+        AlertDlgHelper.editDialog(
+            "Άνοιγμα/Επεξεργασία Εταιρείας",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    getDetailView.getController().fillData(selectTable.getSelectionModel().getSelectedItem());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
+        });
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        /*int row = tablePlants.getSelectionModel().getSelectedIndex();
+        PlantsEntity selected = tablePlants.getSelectionModel().getSelectedItem();
+        PlantsEntity p = getDetailView.getController().saveEdit(plantrow.get(row));
+        plantrow.remove(selected);
+        plantrow.add(p);*/
+      }
+    }
+  }
 
   @FXML
   private void onDelete(ActionEvent event) {
