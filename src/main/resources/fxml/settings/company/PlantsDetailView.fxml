@@ -2,17 +2,12 @@
 
 <?import gr.codebb.ctl.CbbClearableTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.SearchableComboBox?>
@@ -21,8 +16,8 @@
     <children>
         <GridPane hgap="12.0" style="-fx-background-color: white;" vgap="12.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="107.0" prefWidth="109.0" />
-                <ColumnConstraints hgrow="ALWAYS" maxWidth="312.0" minWidth="10.0" prefWidth="179.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="259.0" minWidth="107.0" prefWidth="123.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="312.0" minWidth="10.0" prefWidth="165.0" />
                 <ColumnConstraints hgrow="NEVER" maxWidth="248.0" minWidth="10.0" prefWidth="83.0" />
             <ColumnConstraints hgrow="NEVER" maxWidth="257.0" minWidth="10.0" prefWidth="195.0" />
             </columnConstraints>
@@ -39,8 +34,11 @@
                 <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="324.0" text="ID:" textFill="#b22121" />
                 <TextField fx:id="textId" disable="true" editable="false" prefHeight="27.0" prefWidth="300.0" promptText="Αυτόματο" GridPane.columnIndex="1" />
                 <CheckBox fx:id="checkBoxActive" mnemonicParsing="false" prefHeight="68.0" prefWidth="18.0" GridPane.columnIndex="3" />
-                <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="410.0" text="Αρ. Εγκατάστασης:" GridPane.rowIndex="1" />
-                <CbbClearableTextField fx:id="textCode" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="410.0" text="Κωδ. Εγκατάστασης:" GridPane.rowIndex="1" />
+                <CbbClearableTextField fx:id="textCode" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <tooltip>
+                  <Tooltip text="Κωδικός Εγκατάστασης απο μητρώο ΔΟΥ. Για έδρα επιχείρησης βάζουμε 0" />
+               </tooltip></CbbClearableTextField>
                 <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="328.0" text="Περιγραφή:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                 <CbbClearableTextField fx:id="textDescription" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                 <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="355.0" text="Ενεργή:" GridPane.columnIndex="2" />

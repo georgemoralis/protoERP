@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 11/03/2021 (gmoralis) - Fixed saving of edited company
  * 09/03/2021 (gmoralis) - Enable validation on createNewCompany
  * 05/03/2021 (gmoralis) - Delete of company now works
  * 04/03/2021 (gmoralis) - Saving of company data
@@ -159,11 +160,8 @@ public class CompanySelectView implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
-        /*int row = tablePlants.getSelectionModel().getSelectedIndex();
-        PlantsEntity selected = tablePlants.getSelectionModel().getSelectedItem();
-        PlantsEntity p = getDetailView.getController().saveEdit(plantrow.get(row));
-        plantrow.remove(selected);
-        plantrow.add(p);*/
+        getDetailView.getController().SaveEditCompany();
+        loadService();
       }
     }
   }

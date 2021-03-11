@@ -7,6 +7,8 @@
 /*
  * Changelog
  * =========
+ * 11/03/2021 (georgemoralis) - textRegisteredName wasn't setting in retrieve from taxis
+ * 11/03/2021 (georgemoralis) - Fixed save of edited company
  * 11/03/2021 (georgemoralis) - Added edit of company
  * 09/03/2021 (georgemoralis) - Added controlfx validation (todo change it with validatorFX sometime later)
  * 07/03/2021 (georgemoralis) - Added plant button works . Improvements
@@ -209,6 +211,7 @@ public class CompanyView implements Initializable {
 
   public void initNewCompany() {
     company = new CompanyEntity();
+    checkBoxActive.setSelected(true);
   }
 
   @FXML
@@ -293,6 +296,7 @@ public class CompanyView implements Initializable {
                     new Date());
             if ((returnValue.getErrordescr() == null) || (returnValue.getErrordescr().isEmpty())) {
               textName.setText(returnValue.getName());
+              textRegisteredName.setText(returnValue.getRegisteredTitle());
               Platform.runLater(
                   () -> {
                     doyCombo
@@ -404,13 +408,13 @@ public class CompanyView implements Initializable {
   public void SaveEditCompany() {
     GenericDao gdao = new GenericDao(CompanyEntity.class, PersistenceManager.getEmf());
     detailCrud.saveModel((CompanyEntity) gdao.findEntity(Long.valueOf(textId.getText())));
-    CompanyEntity company = detailCrud.getModel();
-    company.getPlantLines().clear();
+    CompanyEntity cp = detailCrud.getModel();
+    cp.getPlantLines().clear();
     plantrow.forEach(
         (plantpos) -> {
-          company.addPlantLine(plantpos);
+          cp.addPlantLine(plantpos);
         });
-    gdao.updateEntity(company);
+    gdao.updateEntity(cp);
   }
 
   @FXML
