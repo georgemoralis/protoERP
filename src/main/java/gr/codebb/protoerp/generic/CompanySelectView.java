@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 12/03/2020 (gmoralis) - Select Company works
  * 11/03/2021 (gmoralis) - Fixed saving of edited company
  * 09/03/2021 (gmoralis) - Enable validation on createNewCompany
  * 05/03/2021 (gmoralis) - Delete of company now works
@@ -46,8 +47,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.controlsfx.control.MaskerPane;
 
 public class CompanySelectView implements Initializable {
@@ -109,10 +115,26 @@ public class CompanySelectView implements Initializable {
                   });
             });
     loadService();
+    EventHandler plantDoubleMouseClick =
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent e) {
+            if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+              onSelect(null);
+            }
+          }
+        };
+
+    selectTable.addEventHandler(MouseEvent.MOUSE_PRESSED, plantDoubleMouseClick);
   }
 
   @FXML
-  private void onSelect(ActionEvent event) {}
+  private void onSelect(ActionEvent event) {
+    Subject currentUser = SecurityUtils.getSubject();
+    Session session = currentUser.getSession();
+    session.setAttribute("company", selectTable.getSelectionModel().getSelectedItem());
+    ((Stage) selectTable.getScene().getWindow()).hide();
+  }
 
   @FXML
   private void onCreate(ActionEvent event) {

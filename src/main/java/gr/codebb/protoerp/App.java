@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 12/03/2020 (georgemoralis) - CompanySelector closing window closes application
  * 02/02/2020 (georgemoralis) - Added menu and mitroo password specific menu
  * 06/12/2020 (georgemoralis) - Use DEBUG variable to show debug messages
  * 13/11/2020 (georgemoralis) - Enabled hibernate.enable_lazy_load_no_trans
@@ -230,6 +231,16 @@ public class App extends Application {
             null,
             "/img/protoerp.png");
     stagecompany.setResizable(false);
+    stagecompany
+        .getScene()
+        .getWindow()
+        .setOnCloseRequest(
+            new EventHandler<WindowEvent>() {
+              @Override
+              public void handle(WindowEvent we) {
+                System.exit(0);
+              }
+            });
     stagecompany.showAndWait();
 
     /** Main stage loading */
