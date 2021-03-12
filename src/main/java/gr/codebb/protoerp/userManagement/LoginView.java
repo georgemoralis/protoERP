@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 12/03/2020 (georgemoralis) - Added username as session variable
  * 06/03/2020 (georgemoralis) - Check if username is empty validation
  * 01/11/2020 (georgemoralis) - Request focus to pass TextField
  * 30/10/2020 (georgemoralis) - Added authentication
@@ -34,6 +35,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -89,6 +91,9 @@ public class LoginView implements Initializable {
         try {
           currentUser.login(token);
           System.out.println("Authenticated: " + currentUser.isAuthenticated());
+          Session session = currentUser.getSession();
+          session.setAttribute(
+              "username", userCombo.getSelectionModel().getSelectedItem().getUsername());
           ((Stage) passText.getScene().getWindow()).hide();
         } catch (UnknownAccountException uae) {
           System.out.println(uae.getMessage());

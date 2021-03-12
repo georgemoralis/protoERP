@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 12/03/2020 (georgemoralis) - Statusbar for switching companies and users
  * 12/03/2020 (georgemoralis) - CompanySelector closing window closes application
  * 02/02/2020 (georgemoralis) - Added menu and mitroo password specific menu
  * 06/12/2020 (georgemoralis) - Use DEBUG variable to show debug messages
@@ -24,6 +25,7 @@
 package gr.codebb.protoerp;
 
 import static gr.codebb.lib.util.ThreadUtil.runAndWait;
+import static javafx.geometry.Orientation.VERTICAL;
 
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.PersistenceManager;
@@ -38,6 +40,7 @@ import gr.codebb.protoerp.generic.MainAppView;
 import gr.codebb.protoerp.generic.NewVersionView;
 import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
+import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
 import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
 import gr.codebb.protoerp.userManagement.LoginView;
@@ -60,9 +63,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -70,12 +73,16 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.mgt.DefaultSecurityManager;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.controlsfx.control.MasterDetailPane;
+import org.controlsfx.control.StatusBar;
 
 public class App extends Application {
 
   public static DatabasesFileCont currentdatabase = null;
   private Dbms database = null;
+  private StatusBar statusBar;
 
   @Override
   public void init() throws Exception {
@@ -262,14 +269,17 @@ public class App extends Application {
 
     getMainView.getController().setMasterPane(masterDetailPane);
 
-    masterDetailPane.setMinSize(1168.0, 784.0);
-
     MenuBar menuBar = new MenuBar();
-    VBox vBox = new VBox(menuBar);
     generateMenu(menuBar);
-    vBox.getChildren().add(masterDetailPane);
+    statusBar = new StatusBar();
 
-    final Scene scene = new Scene(vBox);
+    BorderPane borderPane = new BorderPane();
+    borderPane.setTop(menuBar);
+    borderPane.setCenter(masterDetailPane);
+    borderPane.setBottom(statusBar);
+
+    generateStatusBar();
+    final Scene scene = new Scene(borderPane);
 
     stage.setTitle(MainSettings.getInstance().getAppNameWithVersion());
     // Application icons
@@ -359,7 +369,6 @@ public class App extends Application {
     // Menu menu2 = new Menu("Συντήρηση");
     // MenuItem menuItem1 = new MenuItem("Κωδικοί υπηρεσιών");
     // menu2.getItems().add(menuItem1);
-
     Menu maintence_menu = new Menu("Συντήρηση");
     Menu maintence_subMenu_codes = new Menu("Κωδικοί υπηρεσιών");
     MenuItem mitroo_codes = new MenuItem("Κωδικοί Μητρώου");
@@ -389,6 +398,98 @@ public class App extends Application {
               //        selectWithService();
             }
           }
+        });
+  }
+
+  public void generateStatusBar() {
+    statusBar.setText("");
+    Subject currentUser = SecurityUtils.getSubject();
+    Session session = currentUser.getSession();
+    CompanyEntity selected = (CompanyEntity) session.getAttribute("company");
+    Button companyButton =
+        new Button(selected.getName().substring(0, 10)); // get only 10 first letters
+    statusBar.getLeftItems().add(companyButton);
+    statusBar.getLeftItems().add(new Separator(VERTICAL));
+    // user
+    Button userButton = new Button((String) session.getAttribute("username"));
+    statusBar.getLeftItems().add(userButton);
+
+    companyButton.setOnAction(
+        e -> {
+          // Company Selector
+          FxmlUtil.LoadResult<CompanySelectView> CompanySelector =
+              FxmlUtil.load("/fxml/generic/CompanySelector.fxml");
+          Stage stagecompany =
+              StageUtil.setStageSettings(
+                  "Επιλογή Εταιρίας",
+                  new Scene(CompanySelector.getParent()),
+                  Modality.APPLICATION_MODAL,
+                  null,
+                  null,
+                  "/img/protoerp.png");
+          stagecompany.setResizable(false);
+          stagecompany
+              .getScene()
+              .getWindow()
+              .setOnCloseRequest(
+                  new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent we) {
+                      System.exit(0);
+                    }
+                  });
+          stagecompany
+              .getScene()
+              .getWindow()
+              .setOnHiding(
+                  new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent we) {
+                      Subject currentUser = SecurityUtils.getSubject();
+                      Session session = currentUser.getSession();
+                      CompanyEntity selected = (CompanyEntity) session.getAttribute("company");
+                      companyButton.setText(selected.getName().substring(0, 10));
+                    }
+                  });
+          stagecompany.showAndWait();
+        });
+    userButton.setOnAction(
+        e -> {
+          currentUser.logout();
+          FxmlUtil.LoadResult<LoginView> loginWindow =
+              FxmlUtil.load("/fxml/userManagement/Login.fxml");
+          Stage loginstage =
+              StageUtil.setStageSettings(
+                  MainSettings.getInstance().getAppNameWithVersion() + " Σύνδεση χρήστη",
+                  new Scene(loginWindow.getParent()),
+                  Modality.APPLICATION_MODAL,
+                  null,
+                  null,
+                  "/img/protoerp.png");
+          loginstage.setResizable(false);
+          loginstage
+              .getScene()
+              .getWindow()
+              .setOnCloseRequest(
+                  new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent we) {
+                      System.exit(0);
+                    }
+                  });
+          loginstage
+              .getScene()
+              .getWindow()
+              .setOnHiding(
+                  new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent we) {
+                      Subject currentUser = SecurityUtils.getSubject();
+                      Session session = currentUser.getSession();
+                      userButton.setText((String) session.getAttribute("username"));
+                    }
+                  });
+          loginstage.showAndWait();
         });
   }
 }
