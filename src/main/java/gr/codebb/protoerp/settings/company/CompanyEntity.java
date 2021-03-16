@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 16/03/2021 (gmoralis) - Προσθήκη κωδικών μητρώου για εταιρία
  * 04/03/2021 (gmoralis) - Added company plants
  * 04/03/2021 (gmoralis) - Added extra fields
  * 25/02/2021 (gmoralis) - Initial
@@ -57,6 +58,10 @@ public class CompanyEntity implements Serializable {
   @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
   @Getter
   private List<PlantsEntity> plantLines = new ArrayList<>();
+
+  @Getter @Setter private String mitroo_username;
+  @Getter @Setter private String mitroo_password;
+  @Getter @Setter private String mitroo_vatRepresentant;
 
   public void addPlantLine(PlantsEntity line) {
     plantLines.add(line);

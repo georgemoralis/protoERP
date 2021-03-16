@@ -53,7 +53,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -383,19 +382,11 @@ public class App extends Application {
           Alert alert =
               AlertDlgHelper.saveDialog(
                   "Κωδικοί Μητρώου", getDetailView.getParent(), menuBar.getScene().getWindow());
-          Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-          okbutton.addEventFilter(
-              ActionEvent.ACTION,
-              (event1) -> {
-                //          if (!getDetailView.getController().validateControls()) {
-                //            event1.consume();
-                //          }
-              });
+          getDetailView.getController().companyLoad();
           Optional<ButtonType> result = alert.showAndWait();
           if (result.get() == ButtonType.OK) {
             if (getDetailView.getController() != null) {
-              //        getDetailView.getController().save();
-              //        selectWithService();
+              getDetailView.getController().save();
             }
           }
         });
