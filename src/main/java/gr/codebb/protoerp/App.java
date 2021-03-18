@@ -7,20 +7,21 @@
 /*
  * Changelog
  * =========
- * 12/03/2020 (georgemoralis) - Statusbar for switching companies and users
- * 12/03/2020 (georgemoralis) - CompanySelector closing window closes application
- * 02/02/2020 (georgemoralis) - Added menu and mitroo password specific menu
- * 06/12/2020 (georgemoralis) - Use DEBUG variable to show debug messages
- * 13/11/2020 (georgemoralis) - Enabled hibernate.enable_lazy_load_no_trans
- * 29/10/2020 (georgemoralis) - Added login window
- * 20/10/2020 (georgemoralis) - Added setDefaultUncaughtExceptionHandler
- * 15/10/2020 (georgemoralis) - Check if client is up to date
- * 10/10/2020 (georgemoralis) - Added preloader
- * 09/10/2020 (georgemoralis) - Loading database connection info from database.xml
- * 09/10/2020 (georgemoralis) - Calling createEntityManager at startup
- * 06/10/2020 (georgemoralis) - Set application title
- * 05/10/2020 (georgemoralis) - Creation of main window
- * 04/10/2020 (georgemoralis) - Initial commit
+ * 18/03/2020 (gmoralis) - Προσθήκη μενού για την αποθήκευση των mydata κωδικών
+ * 12/03/2020 (gmoralis) - Statusbar for switching companies and users
+ * 12/03/2020 (gmoralis) - CompanySelector closing window closes application
+ * 02/02/2020 (gmoralis) - Added menu and mitroo password specific menu
+ * 06/12/2020 (gmoralis) - Use DEBUG variable to show debug messages
+ * 13/11/2020 (gmoralis) - Enabled hibernate.enable_lazy_load_no_trans
+ * 29/10/2020 (gmoralis) - Added login window
+ * 20/10/2020 (gmoralis) - Added setDefaultUncaughtExceptionHandler
+ * 15/10/2020 (gmoralis) - Check if client is up to date
+ * 10/10/2020 (gmoralis) - Added preloader
+ * 09/10/2020 (gmoralis) - Loading database connection info from database.xml
+ * 09/10/2020 (gmoralis) - Calling createEntityManager at startup
+ * 06/10/2020 (gmoralis) - Set application title
+ * 05/10/2020 (gmoralis) - Creation of main window
+ * 04/10/2020 (gmoralis) - Initial commit
  */
 package gr.codebb.protoerp;
 
@@ -372,6 +373,8 @@ public class App extends Application {
     Menu maintence_subMenu_codes = new Menu("Κωδικοί υπηρεσιών");
     MenuItem mitroo_codes = new MenuItem("Κωδικοί Μητρώου");
     maintence_subMenu_codes.getItems().add(mitroo_codes);
+    MenuItem mydata_codes = new MenuItem("Κωδικοί Mydata");
+    maintence_subMenu_codes.getItems().add(mydata_codes);
     maintence_menu.getItems().add(maintence_subMenu_codes);
     menuBar.getMenus().add(maintence_menu);
 
@@ -387,6 +390,21 @@ public class App extends Application {
           if (result.get() == ButtonType.OK) {
             if (getDetailView.getController() != null) {
               getDetailView.getController().save();
+            }
+          }
+        });
+    mydata_codes.setOnAction(
+        e -> {
+          FxmlUtil.LoadResult<MitrooPassView> getDetailView =
+              FxmlUtil.load("/fxml/settings/internetServices/MyDataPass.fxml");
+          Alert alert =
+              AlertDlgHelper.saveDialog(
+                  "Κωδικοί MyData", getDetailView.getParent(), menuBar.getScene().getWindow());
+          // getDetailView.getController().companyLoad();
+          Optional<ButtonType> result = alert.showAndWait();
+          if (result.get() == ButtonType.OK) {
+            if (getDetailView.getController() != null) {
+              // getDetailView.getController().save();
             }
           }
         });
