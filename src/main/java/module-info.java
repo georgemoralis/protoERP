@@ -4,6 +4,7 @@ module codebb.protoerp {
   requires javafx.web;
   requires java.base;
   requires java.desktop;
+  requires java.net.http;
   requires lombok;
   requires org.controlsfx.controls;
   requires com.jfoenix;

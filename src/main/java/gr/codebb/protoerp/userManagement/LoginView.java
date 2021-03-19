@@ -7,8 +7,8 @@
 /*
  * Changelog
  * =========
- * 12/03/2020 (georgemoralis) - Added username as session variable
- * 06/03/2020 (georgemoralis) - Check if username is empty validation
+ * 12/03/2021 (georgemoralis) - Added username as session variable
+ * 06/03/2021 (georgemoralis) - Check if username is empty validation
  * 01/11/2020 (georgemoralis) - Request focus to pass TextField
  * 30/10/2020 (georgemoralis) - Added authentication
  * 27/10/2020 (georgemoralis) - Initial
