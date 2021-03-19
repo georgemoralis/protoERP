@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 19/03/2021 (gmoralis) - Προσθήκη πεδίων για υπηρεσία mydata
  * 16/03/2021 (gmoralis) - Προσθήκη κωδικών μητρώου για εταιρία
  * 04/03/2021 (gmoralis) - Added company plants
  * 04/03/2021 (gmoralis) - Added extra fields
@@ -26,6 +27,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,10 +61,6 @@ public class CompanyEntity implements Serializable {
   @Getter
   private List<PlantsEntity> plantLines = new ArrayList<>();
 
-  @Getter @Setter private String mitroo_username;
-  @Getter @Setter private String mitroo_password;
-  @Getter @Setter private String mitroo_vatRepresentant;
-
   public void addPlantLine(PlantsEntity line) {
     plantLines.add(line);
     line.setCompany(this);
@@ -71,5 +69,30 @@ public class CompanyEntity implements Serializable {
   public void removePlantLine(PlantsEntity line) {
     plantLines.remove(line);
     line.setCompany(null);
+  }
+
+  // κωδικοί υπηρεσίας μητρώου
+  @Getter @Setter private String mitroo_username;
+  @Getter @Setter private String mitroo_password;
+  @Getter @Setter private String mitroo_vatRepresentant;
+
+  // κωδικοί για το mydata
+  @Getter @Setter private String userMyData;
+  @Getter @Setter private String passMyData;
+  @Getter @Setter private String demoUserMyData;
+  @Getter @Setter private String demoPassMyData;
+  @Getter @Setter private Boolean demoMyDataEnabled;
+
+  @PrePersist
+  private void onCreate() {
+    // Κενές τιμές κατα την δημιουργία της εταιριας (για να μην ειναι null στην βάση)
+    mitroo_username = "";
+    mitroo_password = "";
+    mitroo_vatRepresentant = "";
+    userMyData = "";
+    passMyData = "";
+    demoUserMyData = "";
+    demoPassMyData = "";
+    demoMyDataEnabled = false;
   }
 }

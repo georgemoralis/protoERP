@@ -7,10 +7,11 @@
 /*
  * Changelog
  * =========
- * 18/03/2020 (gmoralis) - Προσθήκη μενού για την αποθήκευση των mydata κωδικών
- * 12/03/2020 (gmoralis) - Statusbar for switching companies and users
- * 12/03/2020 (gmoralis) - CompanySelector closing window closes application
- * 02/02/2020 (gmoralis) - Added menu and mitroo password specific menu
+ * 19/03/2021 (gmoralis) - Ολοκλήρωση mydata κωδικών αποθήκευσης
+ * 18/03/2021 (gmoralis) - Προσθήκη μενού για την αποθήκευση των mydata κωδικών
+ * 12/03/2021 (gmoralis) - Statusbar for switching companies and users
+ * 12/03/2021 (gmoralis) - CompanySelector closing window closes application
+ * 02/02/2021 (gmoralis) - Added menu and mitroo password specific menu
  * 06/12/2020 (gmoralis) - Use DEBUG variable to show debug messages
  * 13/11/2020 (gmoralis) - Enabled hibernate.enable_lazy_load_no_trans
  * 29/10/2020 (gmoralis) - Added login window
@@ -43,6 +44,7 @@ import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
+import gr.codebb.protoerp.settings.internetSettings.MyDataPassView;
 import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
 import gr.codebb.protoerp.userManagement.LoginView;
 import gr.codebb.util.database.DatabaseDefaultFile;
@@ -395,16 +397,16 @@ public class App extends Application {
         });
     mydata_codes.setOnAction(
         e -> {
-          FxmlUtil.LoadResult<MitrooPassView> getDetailView =
+          FxmlUtil.LoadResult<MyDataPassView> getDetailView =
               FxmlUtil.load("/fxml/settings/internetServices/MyDataPass.fxml");
           Alert alert =
               AlertDlgHelper.saveDialog(
                   "Κωδικοί MyData", getDetailView.getParent(), menuBar.getScene().getWindow());
-          // getDetailView.getController().companyLoad();
+          getDetailView.getController().companyPassLoad();
           Optional<ButtonType> result = alert.showAndWait();
           if (result.get() == ButtonType.OK) {
             if (getDetailView.getController() != null) {
-              // getDetailView.getController().save();
+              getDetailView.getController().save();
             }
           }
         });
