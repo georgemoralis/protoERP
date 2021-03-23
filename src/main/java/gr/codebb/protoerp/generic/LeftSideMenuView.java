@@ -25,7 +25,7 @@ import gr.codebb.lib.util.StageUtil;
 import gr.codebb.protoerp.issues.GenericIssueView;
 import gr.codebb.protoerp.mydata.MyDataMainView;
 import gr.codebb.protoerp.settings.SettingsMainView;
-import gr.codebb.protoerp.trader.TraderView;
+import gr.codebb.protoerp.trader.TraderListView;
 import gr.codebb.protoerp.userManagement.UserManagementMainView;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -222,7 +222,8 @@ public class LeftSideMenuView implements Initializable {
 
   @FXML
   private void partnersAction(ActionEvent event) {
-    FxmlUtil.LoadResult<TraderView> Transactor = FxmlUtil.load("/fxml/trader/Trader.fxml");
+    FxmlUtil.LoadResult<TraderListView> Transactor =
+        FxmlUtil.load("/fxml/trader/TraderListView.fxml");
     showAsTab(Transactor.getParent(), "Συναλλασσόμενοι");
   }
 
