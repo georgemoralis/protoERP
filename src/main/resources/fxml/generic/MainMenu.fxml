@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+
+<MenuBar fx:id="menuBar" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.MainMenuView">
+  <menus>
+    <Menu mnemonicParsing="false" text="Επιλογές" />
+    <Menu mnemonicParsing="false" text="Συντήρηση">
+      <items>
+            <Menu mnemonicParsing="false" text="Κωδικοί υπηρεσιών">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onMitrooCodes" text="Κωδικοί Μητρώου" />
+              <MenuItem mnemonicParsing="false" onAction="#onMyDataCodes" text="Κωδικοί Mydata" />
+              </items>
+            </Menu>
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>

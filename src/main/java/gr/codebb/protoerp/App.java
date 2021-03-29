@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 29/03/2021 (gmoralis) - Μεταφορά μενού σε fxml στην MainMenuView class
  * 19/03/2021 (gmoralis) - Ολοκλήρωση mydata κωδικών αποθήκευσης
  * 18/03/2021 (gmoralis) - Προσθήκη μενού για την αποθήκευση των mydata κωδικών
  * 12/03/2021 (gmoralis) - Statusbar for switching companies and users
@@ -31,7 +32,6 @@ import static javafx.geometry.Orientation.VERTICAL;
 
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.PersistenceManager;
-import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.DialogExceptionHandler;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
@@ -39,12 +39,11 @@ import gr.codebb.protoerp.generic.CompanySelectView;
 import gr.codebb.protoerp.generic.DatabaseConnectionView;
 import gr.codebb.protoerp.generic.LeftSideMenuView;
 import gr.codebb.protoerp.generic.MainAppView;
+import gr.codebb.protoerp.generic.MainMenuView;
 import gr.codebb.protoerp.generic.NewVersionView;
 import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
-import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
-import gr.codebb.protoerp.settings.internetSettings.MyDataPassView;
 import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
 import gr.codebb.protoerp.userManagement.LoginView;
 import gr.codebb.util.database.DatabaseDefaultFile;
@@ -53,18 +52,13 @@ import gr.codebb.util.database.Dbms;
 import gr.codebb.util.database.Mysql;
 import gr.codebb.util.version.VersionUtil;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -271,12 +265,11 @@ public class App extends Application {
 
     getMainView.getController().setMasterPane(masterDetailPane);
 
-    MenuBar menuBar = new MenuBar();
-    generateMenu(menuBar);
-    statusBar = new StatusBar();
+    FxmlUtil.LoadResult<MainMenuView> getMenuBar = FxmlUtil.load("/fxml/generic/MainMenu.fxml");
 
+    statusBar = new StatusBar();
     BorderPane borderPane = new BorderPane();
-    borderPane.setTop(menuBar);
+    borderPane.setTop((MenuBar) getMenuBar.getParent());
     borderPane.setCenter(masterDetailPane);
     borderPane.setBottom(statusBar);
 
@@ -361,55 +354,6 @@ public class App extends Application {
     Thread.setDefaultUncaughtExceptionHandler(new DialogExceptionHandler());
     System.setProperty("javafx.preloader", PrototypePreloader.class.getCanonicalName());
     Application.launch(App.class, args);
-  }
-
-  public void generateMenu(MenuBar menuBar) {
-    Menu menu1 = new Menu("Επιλογές");
-
-    menuBar.getMenus().add(menu1);
-
-    // Menu menu2 = new Menu("Συντήρηση");
-    // MenuItem menuItem1 = new MenuItem("Κωδικοί υπηρεσιών");
-    // menu2.getItems().add(menuItem1);
-    Menu maintence_menu = new Menu("Συντήρηση");
-    Menu maintence_subMenu_codes = new Menu("Κωδικοί υπηρεσιών");
-    MenuItem mitroo_codes = new MenuItem("Κωδικοί Μητρώου");
-    maintence_subMenu_codes.getItems().add(mitroo_codes);
-    MenuItem mydata_codes = new MenuItem("Κωδικοί Mydata");
-    maintence_subMenu_codes.getItems().add(mydata_codes);
-    maintence_menu.getItems().add(maintence_subMenu_codes);
-    menuBar.getMenus().add(maintence_menu);
-
-    mitroo_codes.setOnAction(
-        e -> {
-          FxmlUtil.LoadResult<MitrooPassView> getDetailView =
-              FxmlUtil.load("/fxml/settings/internetServices/MitrooPass.fxml");
-          Alert alert =
-              AlertDlgHelper.saveDialog(
-                  "Κωδικοί Μητρώου", getDetailView.getParent(), menuBar.getScene().getWindow());
-          getDetailView.getController().companyLoad();
-          Optional<ButtonType> result = alert.showAndWait();
-          if (result.get() == ButtonType.OK) {
-            if (getDetailView.getController() != null) {
-              getDetailView.getController().save();
-            }
-          }
-        });
-    mydata_codes.setOnAction(
-        e -> {
-          FxmlUtil.LoadResult<MyDataPassView> getDetailView =
-              FxmlUtil.load("/fxml/settings/internetServices/MyDataPass.fxml");
-          Alert alert =
-              AlertDlgHelper.saveDialog(
-                  "Κωδικοί MyData", getDetailView.getParent(), menuBar.getScene().getWindow());
-          getDetailView.getController().companyPassLoad();
-          Optional<ButtonType> result = alert.showAndWait();
-          if (result.get() == ButtonType.OK) {
-            if (getDetailView.getController() != null) {
-              getDetailView.getController().save();
-            }
-          }
-        });
   }
 
   public void generateStatusBar() {
