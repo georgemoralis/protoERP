@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 30/03/2021 (gmoralis) - Προσθήκη mitrooCommonPassEnabled για χρήση ή μη κοινων κωδικών μητρώου
  * 19/03/2021 (gmoralis) - Προσθήκη πεδίων για υπηρεσία mydata
  * 16/03/2021 (gmoralis) - Προσθήκη κωδικών μητρώου για εταιρία
  * 04/03/2021 (gmoralis) - Added company plants
@@ -75,6 +76,7 @@ public class CompanyEntity implements Serializable {
   @Getter @Setter private String mitroo_username;
   @Getter @Setter private String mitroo_password;
   @Getter @Setter private String mitroo_vatRepresentant;
+  @Getter @Setter private Boolean mitrooCommonPassEnabled;
 
   // κωδικοί για το mydata
   @Getter @Setter private String userMyData;
@@ -94,5 +96,6 @@ public class CompanyEntity implements Serializable {
     demoUserMyData = "";
     demoPassMyData = "";
     demoMyDataEnabled = false;
+    mitrooCommonPassEnabled = true;
   }
 }
