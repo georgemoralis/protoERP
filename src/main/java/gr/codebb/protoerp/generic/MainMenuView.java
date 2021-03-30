@@ -68,4 +68,7 @@ public class MainMenuView implements Initializable {
       }
     }
   }
+
+  @FXML
+  private void onMeasureUnits(ActionEvent event) {}
 }

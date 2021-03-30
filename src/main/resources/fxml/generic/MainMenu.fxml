@@ -7,6 +7,10 @@
 <MenuBar fx:id="menuBar" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.MainMenuView">
   <menus>
     <Menu mnemonicParsing="false" text="Επιλογές" />
+      <Menu mnemonicParsing="false" text="Πίνακες">
+         <items>
+            <MenuItem mnemonicParsing="false" onAction="#onMeasureUnits" text="Μονάδες Μέτρησης" />
+         </items></Menu>
     <Menu mnemonicParsing="false" text="Συντήρηση">
       <items>
             <Menu mnemonicParsing="false" text="Κωδικοί υπηρεσιών">
