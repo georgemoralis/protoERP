@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.tables.measurementUnits.MeasurementUnitsListView">
+<StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.tables.measurementUnits.MeasurementUnitsDetailView">
    <children>
         <GridPane style="-fx-background-color: white;">
             <columnConstraints>

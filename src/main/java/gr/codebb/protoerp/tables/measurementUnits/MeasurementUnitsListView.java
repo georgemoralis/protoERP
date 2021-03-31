@@ -18,13 +18,18 @@ import gr.codebb.ctl.cbbTableView.columns.CbbStringTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbTableColumn;
 import gr.codebb.lib.crud.AbstractListView;
 import gr.codebb.lib.crud.annotation.ColumnProperty;
+import gr.codebb.lib.util.AlertDlgHelper;
+import gr.codebb.lib.util.FxmlUtil;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 
@@ -71,10 +76,35 @@ public class MeasurementUnitsListView extends AbstractListView implements Initia
   }
 
   @FXML
-  private void refreshAction(ActionEvent event) {}
+  private void refreshAction(ActionEvent event) {
+    selectWithService();
+  }
 
   @FXML
-  private void newAction(ActionEvent event) {}
+  private void newAction(ActionEvent event) {
+    FxmlUtil.LoadResult<MeasurementUnitsDetailView> getDetailView =
+        FxmlUtil.load("/fxml/tables/measurementUnits/MeasurementUnitsDetailView.fxml");
+    Alert alert =
+        AlertDlgHelper.saveDialog(
+            "Προσθήκη Μονάδας Μέτρησης",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
+        });
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        // getDetailView.getController().SaveNewTrader();
+        selectWithService();
+      }
+    }
+  }
 
   @FXML
   protected void openAction(ActionEvent event) {}
