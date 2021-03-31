@@ -266,6 +266,7 @@ public class App extends Application {
     getMainView.getController().setMasterPane(masterDetailPane);
 
     FxmlUtil.LoadResult<MainMenuView> getMenuBar = FxmlUtil.load("/fxml/generic/MainMenu.fxml");
+    getMenuBar.getController().setMainDetachPane(getMainView.getController().getMainDetachPane());
 
     statusBar = new StatusBar();
     BorderPane borderPane = new BorderPane();

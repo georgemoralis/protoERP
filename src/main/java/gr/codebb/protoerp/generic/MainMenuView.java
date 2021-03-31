@@ -7,20 +7,27 @@
 /*
  * Changelog
  * =========
+ * 31/03/2021 (gmoralis) - Προσθήκη μονάδων μέτρησης
  * 29/03/2021 (gmoralis) - Διαχωρισμός μενού απο το κεντρικό παράθυρο
  */
 package gr.codebb.protoerp.generic;
 
+import gr.codebb.ctl.CbbDetachableTab;
+import gr.codebb.ctl.CbbDetachableTabPane;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
 import gr.codebb.protoerp.settings.internetSettings.MyDataPassView;
+import gr.codebb.protoerp.tables.measurementUnits.MeasurementUnitsListView;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
@@ -33,6 +40,30 @@ import javafx.scene.control.MenuBar;
 public class MainMenuView implements Initializable {
 
   @FXML private MenuBar menuBar;
+
+  private CbbDetachableTabPane mainDetachPane;
+
+  public void setMainDetachPane(CbbDetachableTabPane mainDetachPane) {
+    this.mainDetachPane = mainDetachPane;
+  }
+
+  private void showAsTab(Node frm, String label) {
+    final CbbDetachableTab tab = new CbbDetachableTab(label);
+    tab.setClosable(true);
+    tab.setContent(frm);
+    mainDetachPane.getTabs().add(tab);
+    mainDetachPane.getSelectionModel().select(tab);
+    /** Workaround for TabPane memory leak */
+    tab.setOnClosed(
+        new EventHandler<Event>() {
+
+          @Override
+          public void handle(Event t) {
+            tab.setContent(null);
+          }
+        });
+    mainDetachPane.getSelectionModel().selectLast();
+  }
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {}
@@ -70,5 +101,10 @@ public class MainMenuView implements Initializable {
   }
 
   @FXML
-  private void onMeasureUnits(ActionEvent event) {}
+  private void onMeasureUnits(ActionEvent event) {
+    FxmlUtil.LoadResult<MeasurementUnitsListView> getListView =
+        FxmlUtil.load("/fxml/tables/measurementUnits/MeasurementUnitsListView.fxml");
+    Node measure = (Node) getListView.getParent();
+    showAsTab(measure, "Μονάδες Μέτρησης");
+  }
 }
