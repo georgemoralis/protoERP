@@ -7,7 +7,8 @@
 /*
  * Changelog
  * =========
- * 31/03/2021 (gmoralis) -Initial
+ * 01/04/2021 (gmoralis) - Added saving new entry
+ * 31/03/2021 (gmoralis) - Initial
  */
 package gr.codebb.protoerp.tables.measurementUnits;
 
@@ -18,8 +19,11 @@ import gr.codebb.lib.crud.annotation.CheckBoxProperty;
 import gr.codebb.lib.crud.annotation.TextFieldProperty;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
+import gr.codebb.lib.database.GenericDao;
+import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.protoerp.mydata.masterdata.MasterDataQueries;
 import gr.codebb.protoerp.mydata.masterdata.MeasureUnitmdEntity;
+import gr.codebb.protoerp.settings.company.CompanyUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -29,12 +33,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
+import lombok.Getter;
 import net.synedra.validatorfx.Validator;
 import org.controlsfx.control.MaskerPane;
 
 public class MeasurementUnitsDetailView implements Initializable {
 
-  @FXML private StackPane mainStackPane;
+  @FXML @Getter private StackPane mainStackPane;
   @FXML private TextField textId;
 
   @FXML
@@ -84,6 +89,8 @@ public class MeasurementUnitsDetailView implements Initializable {
             })
         .decorates(mydataCombo)
         .immediate();
+
+    checkBoxActive.setSelected(true); // if new then it is active
   }
 
   public boolean validateControls() {
@@ -98,6 +105,17 @@ public class MeasurementUnitsDetailView implements Initializable {
           .showAndWait();
       return false;
     }
+    return true;
+  }
+
+  public boolean save() {
+    GenericDao gdao = new GenericDao(MeasurementUnitsEntity.class, PersistenceManager.getEmf());
+    detailCrud.saveModel(new MeasurementUnitsEntity());
+    MeasurementUnitsEntity measure = detailCrud.getModel();
+    measure.setMydata_measureUnit(mydataCombo.getSelectionModel().getSelectedItem());
+    measure.setCompany(CompanyUtil.getCurrentCompany());
+    MeasurementUnitsEntity saved = (MeasurementUnitsEntity) gdao.createEntity(measure);
+    textId.setText(Long.toString(saved.getId()));
     return true;
   }
 }

@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 01/04/2021 (gmoralis) -Added save new entry and confirm dialog before save
  * 31/03/2021 (gmoralis) -Initial
  */
 package gr.codebb.protoerp.tables.measurementUnits;
@@ -19,6 +20,7 @@ import gr.codebb.ctl.cbbTableView.columns.CbbTableColumn;
 import gr.codebb.lib.crud.AbstractListView;
 import gr.codebb.lib.crud.annotation.ColumnProperty;
 import gr.codebb.lib.util.AlertDlgHelper;
+import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import java.net.URL;
 import java.util.List;
@@ -96,11 +98,17 @@ public class MeasurementUnitsListView extends AbstractListView implements Initia
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
           }
+          if (!(AlertHelper.SaveConfirm(
+                      getDetailView.getController().getMainStackPane().getScene().getWindow())
+                  .get()
+              == ButtonType.OK)) {
+            event1.consume();
+          }
         });
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
-        // getDetailView.getController().SaveNewTrader();
+        getDetailView.getController().save();
         selectWithService();
       }
     }

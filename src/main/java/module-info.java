@@ -11,6 +11,7 @@ module codebb.protoerp {
   requires gr.codebb.ctl;
   requires gr.codebb.util;
   requires gr.codebb.webserv;
+  requires gr.codebb.codebblib;
   requires org.kordamp.ikonli.fontawesome;
   requires org.hibernate.orm.core;
   requires java.persistence;

@@ -47,6 +47,7 @@
         <cobebbfxctl>15.0.11</cobebbfxctl>
         <codebbutil>15.0.7</codebbutil>
         <codebbwebserv>15.0.8</codebbwebserv>
+        <codebblib>15.0.1</codebblib>
     </properties>
 
     <build>
@@ -401,6 +402,11 @@
             <groupId>gr.codebb</groupId>
             <artifactId>codebbwebserv</artifactId>
             <version>${codebbwebserv}</version>
+        </dependency>
+        <dependency>
+            <groupId>gr.codebb</groupId>
+            <artifactId>codebblib</artifactId>
+            <version>${codebblib}</version>
         </dependency>
     </dependencies>
 </project>
