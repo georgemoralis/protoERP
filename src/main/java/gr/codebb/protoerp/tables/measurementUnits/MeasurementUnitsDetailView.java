@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 01/04/2021 (gmoralis) - Added edited entry
  * 01/04/2021 (gmoralis) - Added saving new entry
  * 31/03/2021 (gmoralis) - Initial
  */
@@ -108,6 +109,13 @@ public class MeasurementUnitsDetailView implements Initializable {
     return true;
   }
 
+  public void fillData(MeasurementUnitsEntity e) {
+
+    detailCrud.loadModel(e);
+    textId.setText(Long.toString(e.getId()));
+    mydataCombo.getSelectionModel().select(e.getMydata_measureUnit());
+  }
+
   public boolean save() {
     GenericDao gdao = new GenericDao(MeasurementUnitsEntity.class, PersistenceManager.getEmf());
     detailCrud.saveModel(new MeasurementUnitsEntity());
@@ -117,5 +125,12 @@ public class MeasurementUnitsDetailView implements Initializable {
     MeasurementUnitsEntity saved = (MeasurementUnitsEntity) gdao.createEntity(measure);
     textId.setText(Long.toString(saved.getId()));
     return true;
+  }
+
+  public void SaveEdit() {
+    GenericDao gdao = new GenericDao(MeasurementUnitsEntity.class, PersistenceManager.getEmf());
+    detailCrud.saveModel((MeasurementUnitsEntity) gdao.findEntity(Long.valueOf(textId.getText())));
+    MeasurementUnitsEntity ms = detailCrud.getModel();
+    gdao.updateEntity(ms);
   }
 }

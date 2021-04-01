@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 01/04/2021 (gmoralis) -Added edit
  * 01/04/2021 (gmoralis) -Added save new entry and confirm dialog before save
  * 31/03/2021 (gmoralis) -Initial
  */
@@ -115,7 +116,39 @@ public class MeasurementUnitsListView extends AbstractListView implements Initia
   }
 
   @FXML
-  protected void openAction(ActionEvent event) {}
+  protected void openAction(ActionEvent event) {
+    FxmlUtil.LoadResult<MeasurementUnitsDetailView> getDetailView =
+        FxmlUtil.load("/fxml/tables/measurementUnits/MeasurementUnitsDetailView.fxml");
+    Alert alert =
+        AlertDlgHelper.editDialog(
+            "Άνοιγμα/Επεξεργασία Μονάδας Μέτρησης",
+            getDetailView.getParent(),
+            mainStackPane.getScene().getWindow());
+    getDetailView
+        .getController()
+        .fillData(measurementUnitsTable.getSelectionModel().getSelectedItem());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          }
+          if (!(AlertHelper.EditConfirm(
+                      getDetailView.getController().getMainStackPane().getScene().getWindow())
+                  .get()
+              == ButtonType.OK)) {
+            event1.consume();
+          }
+        });
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {
+        getDetailView.getController().SaveEdit();
+        selectWithService();
+      }
+    }
+  }
 
   @FXML
   private void deleteAction(ActionEvent event) {}
