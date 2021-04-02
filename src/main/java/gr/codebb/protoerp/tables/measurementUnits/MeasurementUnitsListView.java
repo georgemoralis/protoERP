@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 02/04/2021 (gmoralis) -Added delete action
  * 01/04/2021 (gmoralis) -Added edit
  * 01/04/2021 (gmoralis) -Added save new entry and confirm dialog before save
  * 31/03/2021 (gmoralis) -Initial
@@ -20,6 +21,8 @@ import gr.codebb.ctl.cbbTableView.columns.CbbStringTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbTableColumn;
 import gr.codebb.lib.crud.AbstractListView;
 import gr.codebb.lib.crud.annotation.ColumnProperty;
+import gr.codebb.lib.database.GenericDao;
+import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.FxmlUtil;
@@ -151,7 +154,24 @@ public class MeasurementUnitsListView extends AbstractListView implements Initia
   }
 
   @FXML
-  private void deleteAction(ActionEvent event) {}
+  private void deleteAction(ActionEvent event) {
+    int row = measurementUnitsTable.getSelectionModel().getSelectedIndex();
+    measurementUnitsTable.getSelectionModel().select(row);
+    Optional<ButtonType> response =
+        AlertHelper.DeleteConfirm(
+            measurementUnitsTable.getScene().getWindow(),
+            "Είστε σιγουροι ότι θέλετε να διαγράψετε την Μονάδα Μέτρησης : "
+                + measurementUnitsTable.getSelectionModel().getSelectedItem().getDescription());
+    if (response.get() == ButtonType.OK) {
+      GenericDao gdao = new GenericDao(MeasurementUnitsEntity.class, PersistenceManager.getEmf());
+      try {
+        gdao.deleteEntity(measurementUnitsTable.getSelectionModel().getSelectedItem().getId());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      selectWithService();
+    }
+  }
 
   @Override
   protected CbbTableView getTableView() {

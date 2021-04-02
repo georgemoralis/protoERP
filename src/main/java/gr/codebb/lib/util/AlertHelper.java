@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 02/04/2021 (gmoralis) - Added DeleteConfirm
  * 01/04/2021 (gmoralis) - Added EditConfirm
  * 01/04/2021 (gmoralis) - Initial , added SaveConfirm
  */
@@ -48,6 +49,22 @@ public class AlertHelper {
             .withInitModality(Modality.APPLICATION_MODAL)
             .withStylesheet("/styles/bootstrap3.css")
             .withTitle("Αποθήκευση μεταβολής")
+            .withStyle("-fx-background-color: white;")
+            .showAndWait();
+    return result;
+  }
+
+  public static Optional<ButtonType> DeleteConfirm(Window window, String message) {
+    Optional<ButtonType> result =
+        FXAlert.confirm()
+            .withButtonTypes(ButtonType.OK, ButtonType.CANCEL)
+            .buttonModify(ButtonType.OK, "Ναι", "success")
+            .buttonModify(ButtonType.CANCEL, "'Οχι", "danger")
+            .withText(message)
+            .withInitOwner(window)
+            .withInitModality(Modality.APPLICATION_MODAL)
+            .withStylesheet("/styles/bootstrap3.css")
+            .withTitle("Διαγραφή εγγραφής")
             .withStyle("-fx-background-color: white;")
             .showAndWait();
     return result;
