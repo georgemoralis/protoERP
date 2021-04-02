@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 02/04/2021 (gmoralis) - Προσθήκη GR locale 
  * 29/03/2021 (gmoralis) - Μεταφορά μενού σε fxml στην MainMenuView class
  * 19/03/2021 (gmoralis) - Ολοκλήρωση mydata κωδικών αποθήκευσης
  * 18/03/2021 (gmoralis) - Προσθήκη μενού για την αποθήκευση των mydata κωδικών
@@ -51,6 +52,7 @@ import gr.codebb.util.database.DatabasesFileCont;
 import gr.codebb.util.database.Dbms;
 import gr.codebb.util.database.Mysql;
 import gr.codebb.util.version.VersionUtil;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import javafx.application.Application;
@@ -83,6 +85,7 @@ public class App extends Application {
   @Override
   public void init() throws Exception {
     super.init();
+    Locale.setDefault(MainSettings.getInstance().getApplocale());
     if (!MainSettings.DEBUG) // disable logging in no debug mode
     {
       Logger.getLogger("com.zaxxer.hikari.pool.PoolBase").setLevel(Level.INFO);
