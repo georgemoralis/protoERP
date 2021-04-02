@@ -58,8 +58,8 @@ public class AlertHelper {
     Optional<ButtonType> result =
         FXAlert.confirm()
             .withButtonTypes(ButtonType.OK, ButtonType.CANCEL)
-            .buttonModify(ButtonType.OK, "Ναι", "success")
-            .buttonModify(ButtonType.CANCEL, "'Οχι", "danger")
+            .buttonModify(ButtonType.OK, "Διαγραφή", "danger")
+            .buttonModify(ButtonType.CANCEL, "Άκυρο", "success")
             .withText(message)
             .withInitOwner(window)
             .withInitModality(Modality.APPLICATION_MODAL)

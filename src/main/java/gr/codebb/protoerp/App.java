@@ -7,7 +7,7 @@
 /*
  * Changelog
  * =========
- * 02/04/2021 (gmoralis) - Προσθήκη GR locale 
+ * 02/04/2021 (gmoralis) - Προσθήκη GR locale
  * 29/03/2021 (gmoralis) - Μεταφορά μενού σε fxml στην MainMenuView class
  * 19/03/2021 (gmoralis) - Ολοκλήρωση mydata κωδικών αποθήκευσης
  * 18/03/2021 (gmoralis) - Προσθήκη μενού για την αποθήκευση των mydata κωδικών
@@ -365,8 +365,7 @@ public class App extends Application {
     Subject currentUser = SecurityUtils.getSubject();
     Session session = currentUser.getSession();
     CompanyEntity selected = (CompanyEntity) session.getAttribute("company");
-    Button companyButton =
-        new Button(selected.getName().substring(0, 10)); // get only 10 first letters
+    Button companyButton = new Button(selected.getName());
     statusBar.getLeftItems().add(companyButton);
     statusBar.getLeftItems().add(new Separator(VERTICAL));
     // user
@@ -391,24 +390,18 @@ public class App extends Application {
               .getScene()
               .getWindow()
               .setOnCloseRequest(
-                  new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent we) {
-                      System.exit(0);
-                    }
+                  (WindowEvent we) -> {
+                    System.exit(0);
                   });
           stagecompany
               .getScene()
               .getWindow()
               .setOnHiding(
-                  new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent we) {
-                      Subject currentUser = SecurityUtils.getSubject();
-                      Session session = currentUser.getSession();
-                      CompanyEntity selected = (CompanyEntity) session.getAttribute("company");
-                      companyButton.setText(selected.getName().substring(0, 10));
-                    }
+                  (WindowEvent we) -> {
+                    Subject currentUser1 = SecurityUtils.getSubject();
+                    Session session1 = currentUser1.getSession();
+                    CompanyEntity selected1 = (CompanyEntity) session1.getAttribute("company");
+                    companyButton.setText(selected1.getName().substring(0, 10));
                   });
           stagecompany.showAndWait();
         });
@@ -430,23 +423,17 @@ public class App extends Application {
               .getScene()
               .getWindow()
               .setOnCloseRequest(
-                  new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent we) {
-                      System.exit(0);
-                    }
+                  (WindowEvent we) -> {
+                    System.exit(0);
                   });
           loginstage
               .getScene()
               .getWindow()
               .setOnHiding(
-                  new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent we) {
-                      Subject currentUser = SecurityUtils.getSubject();
-                      Session session = currentUser.getSession();
-                      userButton.setText((String) session.getAttribute("username"));
-                    }
+                  (WindowEvent we) -> {
+                    Subject currentUser1 = SecurityUtils.getSubject();
+                    Session session1 = currentUser1.getSession();
+                    userButton.setText((String) session1.getAttribute("username"));
                   });
           loginstage.showAndWait();
         });
