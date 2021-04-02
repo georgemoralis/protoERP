@@ -7,12 +7,14 @@
 /*
  * Changelog
  * =========
+ * 02/04/2021 (gmoralis) - Added company reference
  * 02/04/2021 (gmoralis) - Copied from prototype with minimal changes
  */
 package gr.codebb.protoerp.tables.vat;
 
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.mydata.masterdata.VatmdEntity;
+import gr.codebb.protoerp.settings.company.CompanyEntity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
@@ -44,6 +46,12 @@ public class VatEntity implements Serializable, Displayable {
   @Getter
   @Setter
   private VatmdEntity mydata_vat;
+
+  @ManyToOne
+  @JoinColumn(name = "company_id")
+  @Getter
+  @Setter
+  private CompanyEntity company;
 
   @Override
   public String getComboDisplayValue() {

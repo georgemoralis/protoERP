@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 02/04/2021 (gmoralis) - Προσθήκη συντελεστών Φ.Π.Α.
  * 31/03/2021 (gmoralis) - Προσθήκη μονάδων μέτρησης
  * 29/03/2021 (gmoralis) - Διαχωρισμός μενού απο το κεντρικό παράθυρο
  */
@@ -19,6 +20,7 @@ import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
 import gr.codebb.protoerp.settings.internetSettings.MyDataPassView;
 import gr.codebb.protoerp.tables.measurementUnits.MeasurementUnitsListView;
+import gr.codebb.protoerp.tables.vat.VatListView;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -106,5 +108,13 @@ public class MainMenuView implements Initializable {
         FxmlUtil.load("/fxml/tables/measurementUnits/MeasurementUnitsListView.fxml");
     Node measure = (Node) getListView.getParent();
     showAsTab(measure, "Μονάδες Μέτρησης");
+  }
+
+  @FXML
+  private void onVat(ActionEvent event) {
+    FxmlUtil.LoadResult<VatListView> getListView =
+        FxmlUtil.load("/fxml/tables/vat/VatListView.fxml");
+    Node measure = (Node) getListView.getParent();
+    showAsTab(measure, "Συντελεστές Φ.Π.Α.");
   }
 }

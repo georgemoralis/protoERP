@@ -44,7 +44,7 @@
         <shiro-core>1.7.1</shiro-core>
         <log4j2>2.14.1</log4j2>
         <!-- own modules !-->
-        <cobebbfxctl>15.0.11</cobebbfxctl>
+        <cobebbfxctl>15.0.12</cobebbfxctl>
         <codebbutil>15.0.7</codebbutil>
         <codebbwebserv>15.0.8</codebbwebserv>
         <codebblib>15.0.1</codebblib>

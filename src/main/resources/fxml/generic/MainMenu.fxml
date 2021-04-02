@@ -10,6 +10,7 @@
       <Menu mnemonicParsing="false" text="Πίνακες">
          <items>
             <MenuItem mnemonicParsing="false" onAction="#onMeasureUnits" text="Μονάδες Μέτρησης" />
+            <MenuItem mnemonicParsing="false" onAction="#onVat" text="Συντελεστές Φ.Π.Α." />
          </items></Menu>
     <Menu mnemonicParsing="false" text="Συντήρηση">
       <items>
