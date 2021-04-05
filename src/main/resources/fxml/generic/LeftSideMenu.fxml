@@ -74,7 +74,14 @@
                   </TitledPane>
                   <TitledPane fx:id="items_title" alignment="BASELINE_RIGHT" contentDisplay="RIGHT" expanded="false" graphicTextGap="20.0" nodeOrientation="RIGHT_TO_LEFT" text="Είδη">
                      <content>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#itemsAction" prefHeight="32.0" prefWidth="262.0" text="Είδη">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-shopping-cart" />
+                                 </graphic>
+                              </Button>
+                           </children></VBox>
                      </content>
                      <graphic>
                         <FontIcon iconLiteral="fa-shopping-cart" />

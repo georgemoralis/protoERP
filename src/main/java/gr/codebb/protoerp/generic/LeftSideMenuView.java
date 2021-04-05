@@ -7,13 +7,14 @@
 /*
  * Changelog
  * =========
- * 13/11/2020 (georgemoralis) - Added permission access to user management
- * 06/11/2020 (georgemoralis) - Added usermanagement link
- * 25/10/2020 (georgemoralis) - Added transactor link
- * 20/10/2020 (georgemoralis) - Added issues action
- * 13/10/2020 (georgemoralis) - Added settings button call
- * 06/10/2020 (georgemoralis) - Functional search and prototype menu
- * 04/10/2020 (georgemoralis) - Initial commit
+ * 05/04/2021 (gmoralis) - Προσθήκη Ειδών στο μενού
+ * 13/11/2020 (gmoralis) - Added permission access to user management
+ * 06/11/2020 (gmoralis) - Added usermanagement link
+ * 25/10/2020 (gmoralis) - Added transactor link
+ * 20/10/2020 (gmoralis) - Added issues action
+ * 13/10/2020 (gmoralis) - Added settings button call
+ * 06/10/2020 (gmoralis) - Functional search and prototype menu
+ * 04/10/2020 (gmoralis) - Initial commit
  */
 package gr.codebb.protoerp.generic;
 
@@ -23,6 +24,7 @@ import gr.codebb.lib.util.AuthUtil;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
 import gr.codebb.protoerp.issues.GenericIssueView;
+import gr.codebb.protoerp.items.ItemsListView;
 import gr.codebb.protoerp.mydata.MyDataMainView;
 import gr.codebb.protoerp.settings.SettingsMainView;
 import gr.codebb.protoerp.trader.TraderListView;
@@ -267,5 +269,13 @@ public class LeftSideMenuView implements Initializable {
     FxmlUtil.LoadResult<MyDataMainView> getMainView = FxmlUtil.load("/fxml/mydata/MyDataMain.fxml");
     Node mydata = (Node) getMainView.getParent();
     showAsTab(mydata, "My Data");
+  }
+
+  @FXML
+  private void itemsAction(ActionEvent event) {
+    FxmlUtil.LoadResult<ItemsListView> getMainView =
+        FxmlUtil.load("/fxml/items/ItemsListView.fxml");
+    Node mydata = (Node) getMainView.getParent();
+    showAsTab(mydata, "Είδη");
   }
 }
