@@ -45,4 +45,19 @@ public class MasterDataQueries {
     em.close();
     return results;
   }
+
+  public static List<VatmdExemptionEntity> getMdVatExemptionDatabase(boolean activeonly) {
+    JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
+    EntityManager em = PersistenceManager.getEmf().createEntityManager();
+    List<VatmdExemptionEntity> results;
+    if (activeonly) {
+      results =
+          streams.streamAll(em, VatmdExemptionEntity.class).where(c -> c.getActive()).toList();
+    } else {
+      results = streams.streamAll(em, VatmdExemptionEntity.class).toList();
+    }
+
+    em.close();
+    return results;
+  }
 }

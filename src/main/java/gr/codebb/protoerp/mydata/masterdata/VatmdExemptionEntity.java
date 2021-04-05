@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 05/04/2021 (gmoralis) - Added active variable
  * 05/04/2021 (gmoralis) - Initial
  */
 package gr.codebb.protoerp.mydata.masterdata;
@@ -33,6 +34,7 @@ public class VatmdExemptionEntity implements Serializable, Displayable {
 
   @Getter @Setter private Integer code;
   @Getter @Setter private String description;
+  @Getter @Setter private Boolean active;
 
   @Override
   public String getComboDisplayValue() {
