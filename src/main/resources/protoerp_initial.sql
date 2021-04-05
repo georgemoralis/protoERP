@@ -251,6 +251,99 @@ INSERT INTO `permissions` (`id`, `permissionDisplayName`, `permissionName`) VALU
 -- --------------------------------------------------------
 
 --
+-- Δομή πίνακα για τον πίνακα `protoerp_mydata_measureunit`
+--
+
+CREATE TABLE `protoerp_mydata_measureunit` (
+  `id` bigint(20) NOT NULL,
+  `active` bit(1) DEFAULT NULL,
+  `code` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `protoerp_mydata_measureunit`
+--
+
+INSERT INTO `protoerp_mydata_measureunit` (`id`, `active`, `code`, `description`) VALUES
+(1, b'1', -1, 'Χωρίς'),
+(2, b'1', 1, 'Τεμάχια'),
+(3, b'1', 2, 'Κιλά'),
+(4, b'1', 3, 'Λίτρα');
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `protoerp_mydata_vat`
+--
+
+CREATE TABLE `protoerp_mydata_vat` (
+  `id` bigint(20) NOT NULL,
+  `active` bit(1) DEFAULT NULL,
+  `code` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `vatRate` decimal(19,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `protoerp_mydata_vat`
+--
+
+INSERT INTO `protoerp_mydata_vat` (`id`, `active`, `code`, `description`, `vatRate`) VALUES
+(1, b'1', 1, 'ΦΠΑ συντελεστής 24%', '24.00'),
+(2, b'1', 2, 'ΦΠΑ συντελεστής 13%', '13.00'),
+(3, b'1', 3, 'ΦΠΑ συντελεστής 6%', '6.00'),
+(4, b'1', 4, 'ΦΠΑ συντελεστής 17%', '17.00'),
+(5, b'1', 5, 'ΦΠΑ συντελεστής 9%', '9.00'),
+(6, b'1', 6, 'ΦΠΑ συντελεστής 4%', '4.00'),
+(7, b'1', 7, 'Άνευ Φ.Π.Α.', '0.00'),
+(8, b'1', 8, 'Εγγραφές χωρίς ΦΠΑ', '-1.00');
+
+-- --------------------------------------------------------
+
+--
+-- Δομή πίνακα για τον πίνακα `protoerp_mydata_vatexemption`
+--
+
+CREATE TABLE `protoerp_mydata_vatexemption` (
+  `id` bigint(20) NOT NULL,
+  `code` int(11) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Άδειασμα δεδομένων του πίνακα `protoerp_mydata_vatexemption`
+--
+
+INSERT INTO `protoerp_mydata_vatexemption` (`id`, `code`, `description`) VALUES
+(1, 1, 'Χωρίς ΦΠΑ - άρθρο 2 και 3  του Κώδικα ΦΠΑ'),
+(2, 2, 'Χωρίς ΦΠΑ - άρθρο 5 του Κώδικα ΦΠΑ'),
+(3, 3, 'Χωρίς ΦΠΑ - άρθρο 13 του Κώδικα ΦΠΑ'),
+(4, 4, 'Χωρίς ΦΠΑ - άρθρο 14 του Κώδικα ΦΠΑ'),
+(5, 5, 'Χωρίς ΦΠΑ - άρθρο 16 του Κώδικα ΦΠΑ'),
+(6, 6, 'Χωρίς ΦΠΑ - άρθρο 19 του Κώδικα ΦΠΑ'),
+(7, 7, 'Χωρίς ΦΠΑ - άρθρο 22 του Κώδικα ΦΠΑ'),
+(8, 8, 'Χωρίς ΦΠΑ - άρθρο 24 του Κώδικα ΦΠΑ'),
+(9, 9, 'Χωρίς ΦΠΑ - άρθρο 25 του Κώδικα ΦΠΑ'),
+(10, 10, 'Χωρίς ΦΠΑ - άρθρο 26 του Κώδικα ΦΠΑ'),
+(11, 11, 'Χωρίς ΦΠΑ - άρθρο 27 του Κώδικα ΦΠΑ'),
+(12, 12, 'Χωρίς ΦΠΑ - άρθρο 27 - Πλοία Ανοικτής Θαλάσσης του Κώδικα ΦΠΑ'),
+(13, 13, 'Χωρίς ΦΠΑ - άρθρο 27.1.γ - Πλοία Ανοικτής Θαλάσσης του Κώδικα ΦΠΑ'),
+(14, 14, 'Χωρίς ΦΠΑ - άρθρο 28 του Κώδικα ΦΠΑ'),
+(15, 15, 'Χωρίς ΦΠΑ - άρθρο 39 του Κώδικα ΦΠΑ'),
+(16, 16, 'Χωρίς ΦΠΑ - άρθρο 39α του Κώδικα ΦΠΑ'),
+(17, 17, 'Χωρίς ΦΠΑ - άρθρο 40 του Κώδικα ΦΠΑ'),
+(18, 18, 'Χωρίς ΦΠΑ - άρθρο 41 του Κώδικα ΦΠΑ'),
+(19, 19, 'Χωρίς ΦΠΑ - άρθρο 47 του Κώδικα ΦΠΑ'),
+(20, 20, 'ΦΠΑ εμπεριεχόμενος - άρθρο 43 του Κώδικα ΦΠΑ'),
+(21, 21, 'ΦΠΑ εμπεριεχόμενος - άρθρο 44 του Κώδικα ΦΠΑ'),
+(22, 22, 'ΦΠΑ εμπεριεχόμενος - άρθρο 45 του Κώδικα ΦΠΑ'),
+(23, 23, 'ΦΠΑ εμπεριεχόμενος - άρθρο 46 του Κώδικα ΦΠΑ'),
+(24, 24, 'Χωρίς ΦΠΑ - άρθρο 6 του Κώδικα ΦΠΑ');
+
+-- --------------------------------------------------------
+
+--
 -- Δομή πίνακα για τον πίνακα `roles`
 --
 
@@ -302,7 +395,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `companyId`, `settingName`, `settingValue`) VALUES
-(1, -1, 'product_version', '0.0.170'),
+(1, -1, 'product_version', '0.0.223'),
 (2, -1, 'mitroo_username', ''),
 (3, -1, 'mitroo_password', ''),
 (4, -1, 'mitroo_reprvat', '');
@@ -387,6 +480,24 @@ ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Ευρετήρια για πίνακα `protoerp_mydata_measureunit`
+--
+ALTER TABLE `protoerp_mydata_measureunit`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Ευρετήρια για πίνακα `protoerp_mydata_vat`
+--
+ALTER TABLE `protoerp_mydata_vat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Ευρετήρια για πίνακα `protoerp_mydata_vatexemption`
+--
+ALTER TABLE `protoerp_mydata_vatexemption`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Ευρετήρια για πίνακα `roles`
 --
 ALTER TABLE `roles`
@@ -445,6 +556,24 @@ ALTER TABLE `doy`
 --
 ALTER TABLE `permissions`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT για πίνακα `protoerp_mydata_measureunit`
+--
+ALTER TABLE `protoerp_mydata_measureunit`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT για πίνακα `protoerp_mydata_vat`
+--
+ALTER TABLE `protoerp_mydata_vat`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT για πίνακα `protoerp_mydata_vatexemption`
+--
+ALTER TABLE `protoerp_mydata_vatexemption`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT για πίνακα `roles`
