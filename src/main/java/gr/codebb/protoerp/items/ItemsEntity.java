@@ -7,10 +7,13 @@
 /*
  * Changelog
  * =========
+ * 05/04/2021 - Added company and vatExemption variables
  * 04/04/2021 - Initial
  */
 package gr.codebb.protoerp.items;
 
+import gr.codebb.protoerp.mydata.masterdata.VatmdExemptionEntity;
+import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.tables.measurementUnits.MeasurementUnitsEntity;
 import gr.codebb.protoerp.tables.vat.VatEntity;
 import java.io.Serializable;
@@ -56,6 +59,12 @@ public class ItemsEntity implements Serializable {
   private VatEntity vatSell;
 
   @ManyToOne
+  @JoinColumn(name = "vatexemp_id")
+  @Getter
+  @Setter
+  private VatmdExemptionEntity vatExemp;
+
+  @ManyToOne
   @JoinColumn(name = "measunit_id")
   @Getter
   @Setter
@@ -65,6 +74,12 @@ public class ItemsEntity implements Serializable {
   @Getter
   @Setter
   private ItemsType itemType;
+
+  @ManyToOne
+  @JoinColumn(name = "company_id")
+  @Getter
+  @Setter
+  private CompanyEntity company;
 
   @Getter @Setter private BigDecimal sellPrice;
 }

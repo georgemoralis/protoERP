@@ -13,6 +13,7 @@ package gr.codebb.protoerp.items;
 
 import gr.codebb.ctl.cbbTableView.CbbTableView;
 import gr.codebb.lib.util.AlertDlgHelper;
+import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import java.net.URL;
 import java.util.Optional;
@@ -54,7 +55,7 @@ public class ItemsListView implements Initializable {
     okbutton.addEventFilter(
         ActionEvent.ACTION,
         (event1) -> {
-          /*if (!getDetailView.getController().validateControls()) {
+          if (!getDetailView.getController().validateControls()) {
             event1.consume();
           }
           if (!(AlertHelper.SaveConfirm(
@@ -62,13 +63,13 @@ public class ItemsListView implements Initializable {
                   .get()
               == ButtonType.OK)) {
             event1.consume();
-          }*/
+          }
         });
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
-        /*getDetailView.getController().save();
-        selectWithService();*/
+        getDetailView.getController().save();
+        // selectWithService();
       }
     }
   }

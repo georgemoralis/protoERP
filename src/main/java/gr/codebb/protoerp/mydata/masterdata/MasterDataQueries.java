@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 05/04/2021 (gmoralis) - Προσθήκη getMdVatExemptionDatabase
  * 30/03/2021 (gmoralis) - Copied from prototype with minimal changes
  */
 package gr.codebb.protoerp.mydata.masterdata;
