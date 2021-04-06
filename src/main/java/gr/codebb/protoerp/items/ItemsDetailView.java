@@ -7,9 +7,10 @@
 /*
  * Changelog
  * =========
- * 06/04/2021 - Validation for vatexempion
- * 06/04/2021 - Work on validation
- * 05/04/2021 - Initial
+ * 06/04/2021 (gmoralis) - Finished exist validation
+ * 06/04/2021 (gmoralis) - Validation for vatexempion
+ * 06/04/2021 (gmoralis) - Work on validation
+ * 05/04/2021 (gmoralis) - Initial
  */
 package gr.codebb.protoerp.items;
 
@@ -213,6 +214,50 @@ public class ItemsDetailView implements Initializable {
             })
         .decorates(comboVatExemp)
         .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("code", textCode.textProperty())
+        .withMethod(
+            c -> {
+              String code = c.get("code");
+              ItemsEntity codef = ItemsQueries.getItemByCode(code);
+              if (codef != null) // if exists
+              {
+                if (!textId.getText().isEmpty()) { // if it is not a new entry
+                  if (codef.getId()
+                      != Long.parseLong(textId.getText())) // check if found id is the same
+                  {
+                    c.error("Ο κωδικός " + code + " υπάρχει σε άλλο είδος");
+                  }
+                } else {
+                  c.error("Ο κωδικός " + code + " υπάρχει σε άλλο είδος");
+                }
+              }
+            })
+        .decorates(textCode);
+
+    validator
+        .createCheck()
+        .dependsOn("barcode", textBarcode.textProperty())
+        .withMethod(
+            c -> {
+              String barcode = c.get("barcode");
+              ItemsEntity barf = ItemsQueries.getItemByBarcode(barcode);
+              if (barf != null) // if exists
+              {
+                if (!textId.getText().isEmpty()) { // if it is not a new entry
+                  if (barf.getId()
+                      != Long.parseLong(textId.getText())) // check if found id is the same
+                  {
+                    c.error("To barcode " + barcode + " υπάρχει σε άλλο είδος");
+                  }
+                } else {
+                  c.error("To barcode " + barcode + " υπάρχει σε άλλο είδος");
+                }
+              }
+            })
+        .decorates(textBarcode);
 
     checkBoxActive.setSelected(true); // if new then it is active
   }
