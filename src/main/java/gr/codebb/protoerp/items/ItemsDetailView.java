@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 06/04/2021 - Validation for vatexempion
  * 06/04/2021 - Work on validation
  * 05/04/2021 - Initial
  */
@@ -16,6 +17,9 @@ import gr.codebb.ctl.CbbBigDecimal;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.DetailCrud;
+import gr.codebb.lib.crud.annotation.CheckBoxProperty;
+import gr.codebb.lib.crud.annotation.TextAreaProperty;
+import gr.codebb.lib.crud.annotation.TextFieldProperty;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.lib.database.GenericDao;
@@ -53,16 +57,26 @@ public class ItemsDetailView implements Initializable {
 
   @FXML @Getter private StackPane mainStackPane;
   @FXML private TextField textId;
-  @FXML private CbbClearableTextField textCode;
-  @FXML private CbbClearableTextField textBarcode;
-  @FXML private CbbClearableTextField textDescription;
-  @FXML private CheckBox checkBoxActive;
+
+  @FXML
+  @TextFieldProperty(type = TextFieldProperty.Type.STRING)
+  private CbbClearableTextField textCode;
+
+  @FXML
+  @TextFieldProperty(type = TextFieldProperty.Type.STRING)
+  private CbbClearableTextField textBarcode;
+
+  @FXML
+  @TextFieldProperty(type = TextFieldProperty.Type.STRING)
+  private CbbClearableTextField textDescription;
+
+  @FXML @CheckBoxProperty private CheckBox checkBoxActive;
   @FXML private ComboBox<ItemsType> comboItemType;
   @FXML private ComboBox<MeasurementUnitsEntity> comboMeasureUnit;
   @FXML private ComboBox<VatEntity> comboVatSell;
   @FXML private CbbBigDecimal bdecSellPrice;
   @FXML private CbbBigDecimal bdecSellPriceWithVat;
-  @FXML private TextArea textAreaNotes;
+  @FXML @TextAreaProperty private TextArea textAreaNotes;
   @FXML private Label stockLabel;
   @FXML private SearchableComboBox<VatmdExemptionEntity> comboVatExemp;
 
@@ -185,6 +199,19 @@ public class ItemsDetailView implements Initializable {
               }
             })
         .decorates(comboMeasureUnit)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("vatexemp", comboVatExemp.disabledProperty())
+        .withMethod(
+            c -> {
+              boolean vatex = c.get("vatexemp");
+              if (!vatex) {
+                c.error("Η Αιτία εξαίρεσης ειναι υποχρεωτικη");
+              }
+            })
+        .decorates(comboVatExemp)
         .immediate();
 
     checkBoxActive.setSelected(true); // if new then it is active
