@@ -58,7 +58,7 @@
                 </ToolBar>
             <StackPane prefHeight="174.0" prefWidth="310.0" VBox.vgrow="ALWAYS">
                <children>
-                  <CbbTableView fx:id="measurementUnitsTable" />
+                  <CbbTableView fx:id="itemsTable" />
                </children>
             </StackPane>        
             </children>
