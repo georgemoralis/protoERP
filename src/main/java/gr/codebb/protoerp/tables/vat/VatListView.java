@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 06/04/2021 (gmoralis) - Fixed confirm after validation
  * 02/04/2021 (gmoralis) - Initial full implementation
  */
 package gr.codebb.protoerp.tables.vat;
@@ -101,12 +102,13 @@ public class VatListView extends AbstractListView implements Initializable {
         (event1) -> {
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
-          }
-          if (!(AlertHelper.SaveConfirm(
-                      getDetailView.getController().getMainStackPane().getScene().getWindow())
-                  .get()
-              == ButtonType.OK)) {
-            event1.consume();
+          } else {
+            if (!(AlertHelper.SaveConfirm(
+                        getDetailView.getController().getMainStackPane().getScene().getWindow())
+                    .get()
+                == ButtonType.OK)) {
+              event1.consume();
+            }
           }
         });
     Optional<ButtonType> result = alert.showAndWait();
@@ -134,12 +136,13 @@ public class VatListView extends AbstractListView implements Initializable {
         (event1) -> {
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
-          }
-          if (!(AlertHelper.EditConfirm(
-                      getDetailView.getController().getMainStackPane().getScene().getWindow())
-                  .get()
-              == ButtonType.OK)) {
-            event1.consume();
+          } else {
+            if (!(AlertHelper.EditConfirm(
+                        getDetailView.getController().getMainStackPane().getScene().getWindow())
+                    .get()
+                == ButtonType.OK)) {
+              event1.consume();
+            }
           }
         });
     Optional<ButtonType> result = alert.showAndWait();
