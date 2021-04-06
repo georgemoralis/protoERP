@@ -7,27 +7,39 @@
 /*
  * Changelog
  * =========
+ * 06/04/2021 - Added company to query results
  * 04/04/2021 - Initial
  */
 package gr.codebb.protoerp.items;
 
 import gr.codebb.lib.database.PersistenceManager;
+import gr.codebb.protoerp.settings.company.CompanyEntity;
+import gr.codebb.protoerp.settings.company.CompanyUtil;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import org.jinq.jpa.JinqJPAStreamProvider;
 
-/** @author shadow */
 public class ItemsQueries {
 
   public static List<ItemsEntity> getItemsDatabase(boolean activeonly) {
+    CompanyEntity current = CompanyUtil.getCurrentCompany();
     JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
     List<ItemsEntity> results;
     if (activeonly) {
-      results = streams.streamAll(em, ItemsEntity.class).where(c -> c.getActive()).toList();
+      results =
+          streams
+              .streamAll(em, ItemsEntity.class)
+              .where(c -> c.getActive())
+              .where(p -> p.getCompany().equals(current))
+              .toList();
     } else {
-      results = streams.streamAll(em, ItemsEntity.class).toList();
+      results =
+          streams
+              .streamAll(em, ItemsEntity.class)
+              .where(p -> p.getCompany().equals(current))
+              .toList();
     }
 
     em.close();
@@ -35,17 +47,23 @@ public class ItemsQueries {
   }
 
   public static ItemsEntity getItemByCodeAndId(String code, long id) {
+    CompanyEntity current = CompanyUtil.getCurrentCompany();
     JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
     Optional<ItemsEntity> result;
     if (id == -1) {
       result =
-          streams.streamAll(em, ItemsEntity.class).where(p -> p.getCode().equals(code)).findFirst();
+          streams
+              .streamAll(em, ItemsEntity.class)
+              .where(p -> p.getCode().equals(code))
+              .where(p -> p.getCompany().equals(current))
+              .findFirst();
     } else {
       result =
           streams
               .streamAll(em, ItemsEntity.class)
               .where(p -> p.getCode().equals(code))
+              .where(p -> p.getCompany().equals(current))
               .where(p -> p.getId() != id)
               .findFirst();
     }
@@ -66,6 +84,7 @@ public class ItemsQueries {
    * @return the resulting first entry , null otherwise
    */
   public static ItemsEntity getItemByBarcodeAndId(String barcode, long id) {
+    CompanyEntity current = CompanyUtil.getCurrentCompany();
     JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
     Optional<ItemsEntity> result;
@@ -74,12 +93,14 @@ public class ItemsQueries {
           streams
               .streamAll(em, ItemsEntity.class)
               .where(p -> p.getBarcode().equals(barcode))
+              .where(p -> p.getCompany().equals(current))
               .findFirst();
     } else {
       result =
           streams
               .streamAll(em, ItemsEntity.class)
               .where(p -> p.getBarcode().equals(barcode))
+              .where(p -> p.getCompany().equals(current))
               .where(p -> p.getId() != id)
               .findFirst();
     }
