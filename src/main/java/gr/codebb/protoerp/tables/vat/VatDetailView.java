@@ -89,7 +89,7 @@ public class VatDetailView implements Initializable {
             c -> {
               VatmdEntity mydata = c.get("vatmydata");
               if (mydata == null) {
-                c.error("Η αντιστοίχηση με mydata είναι υποχρεωτική");
+                c.error("Η αντιστοίχιση με mydata είναι υποχρεωτική");
               }
             })
         .decorates(mydataCombo)

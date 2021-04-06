@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 06/04/2021 - Work on validation
  * 05/04/2021 - Initial
  */
 package gr.codebb.protoerp.items;
@@ -24,6 +25,7 @@ import gr.codebb.lib.util.NumberUtil;
 import gr.codebb.protoerp.mydata.masterdata.MasterDataQueries;
 import gr.codebb.protoerp.mydata.masterdata.VatmdExemptionEntity;
 import gr.codebb.protoerp.settings.SettingsHelper;
+import gr.codebb.protoerp.settings.company.CompanyUtil;
 import gr.codebb.protoerp.tables.measurementUnits.MeasurementUnitsEntity;
 import gr.codebb.protoerp.tables.measurementUnits.MeasurementUnitsQueries;
 import gr.codebb.protoerp.tables.vat.VatEntity;
@@ -122,6 +124,70 @@ public class ItemsDetailView implements Initializable {
                 comboVatExemp.getSelectionModel().select(null);
               }
             });
+    validator
+        .createCheck()
+        .dependsOn("code", textCode.textProperty())
+        .withMethod(
+            c -> {
+              String code = c.get("code");
+              if (code.isEmpty()) {
+                c.error("Ο Κωδικός δεν μπορεί να είναι κενός");
+              }
+            })
+        .decorates(textCode)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("description", textDescription.textProperty())
+        .withMethod(
+            c -> {
+              String description = c.get("description");
+              if (description.isEmpty()) {
+                c.error("Η περιγραφή δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(textDescription)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("itemtype", comboItemType.valueProperty())
+        .withMethod(
+            c -> {
+              ItemsType item = c.get("itemtype");
+              if (item == null) {
+                c.error("Ο τύπος δεν μπορεί να είναι κενός");
+              }
+            })
+        .decorates(comboItemType)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("vat", comboVatSell.valueProperty())
+        .withMethod(
+            c -> {
+              VatEntity vat = c.get("vat");
+              if (vat == null) {
+                c.error("Η κατηγορία φ.π.α. είναι υποχρεωτική");
+              }
+            })
+        .decorates(comboVatSell)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("measureunit", comboMeasureUnit.valueProperty())
+        .withMethod(
+            c -> {
+              MeasurementUnitsEntity measure = c.get("measureunit");
+              if (measure == null) {
+                c.error("Η μονάδα μέτρησης είναι υποχρεωτική");
+              }
+            })
+        .decorates(comboMeasureUnit)
+        .immediate();
+
+    checkBoxActive.setSelected(true); // if new then it is active
   }
 
   private void forologisiSell() {
@@ -187,6 +253,7 @@ public class ItemsDetailView implements Initializable {
     item.setVatSell(comboVatSell.getSelectionModel().getSelectedItem());
     item.setItemType(comboItemType.getSelectionModel().getSelectedItem());
     item.setSellPrice(bdecSellPrice.getNumber());
+    item.setCompany(CompanyUtil.getCurrentCompany());
     ItemsEntity saved = (ItemsEntity) gdao.createEntity(item);
     textId.setText(Long.toString(saved.getId()));
   }
@@ -200,6 +267,7 @@ public class ItemsDetailView implements Initializable {
     item.setVatSell(comboVatSell.getSelectionModel().getSelectedItem());
     item.setItemType(comboItemType.getSelectionModel().getSelectedItem());
     item.setSellPrice(bdecSellPrice.getNumber());
+    item.setCompany(CompanyUtil.getCurrentCompany());
     gdao.updateEntity(item);
   }
 }
