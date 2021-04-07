@@ -29,7 +29,7 @@
         <lombok>1.18.20</lombok>
         <jfoenix>9.0.10</jfoenix>
         <controlsfx>11.1.0</controlsfx>
-        <javafx>17-ea+5</javafx>
+        <javafx>17-ea+6</javafx>
         <ikonli-fontawesome-pack>12.2.0</ikonli-fontawesome-pack>
         <ikonli-materialdesign-pack>12.2.0</ikonli-materialdesign-pack>
         <ikonli-material-pack>12.2.0</ikonli-material-pack>
@@ -40,14 +40,14 @@
         <commons-lang3>3.12.0</commons-lang3>
         <jinq-jpa>1.8.33</jinq-jpa>
         <liquibase-core>4.3.2</liquibase-core>
-        <validatorfx>0.1.13</validatorfx>
         <shiro-core>1.7.1</shiro-core>
         <log4j2>2.14.1</log4j2>
         <!-- own modules !-->
         <cobebbfxctl>15.0.12</cobebbfxctl>
         <codebbutil>15.0.7</codebbutil>
         <codebbwebserv>15.0.8</codebbwebserv>
-        <codebblib>15.0.1</codebblib>
+        <codebblib>15.0.2</codebblib>
+        <jasperreports>6.16.0</jasperreports>
     </properties>
 
     <build>
@@ -332,11 +332,6 @@
             <version>${jinq-jpa}</version>
         </dependency> 
         <dependency>
-            <groupId>net.synedra</groupId>
-            <artifactId>validatorfx</artifactId>
-            <version>${validatorfx}</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-core</artifactId>
             <version>${shiro-core}</version>
@@ -386,6 +381,11 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-1.2-api</artifactId>
             <version>${log4j2}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${jasperreports}</version>
         </dependency>
         <!-- own modules !-->
         <dependency>

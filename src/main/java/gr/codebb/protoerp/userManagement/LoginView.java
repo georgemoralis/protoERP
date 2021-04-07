@@ -15,6 +15,7 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
@@ -28,7 +29,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import net.synedra.validatorfx.Validator;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;

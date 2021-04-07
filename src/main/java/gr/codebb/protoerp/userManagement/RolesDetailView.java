@@ -15,6 +15,7 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.GenericDao;
@@ -28,7 +29,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.stage.Modality;
 import javafx.util.StringConverter;
-import net.synedra.validatorfx.Validator;
 import org.controlsfx.control.CheckListView;
 
 public class RolesDetailView implements Initializable {

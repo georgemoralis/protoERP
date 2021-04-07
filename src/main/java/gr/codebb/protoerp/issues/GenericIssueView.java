@@ -16,6 +16,7 @@ package gr.codebb.protoerp.issues;
 
 import static gr.codebb.lib.util.ThreadUtil.runAndWait;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.protoerp.MainSettings;
@@ -33,7 +34,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
-import net.synedra.validatorfx.Validator;
 import org.controlsfx.control.MaskerPane;
 
 public class GenericIssueView implements Initializable {

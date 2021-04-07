@@ -19,11 +19,11 @@ module codebb.protoerp {
   requires liquibase.core;
   requires org.jinq.api;
   requires org.jinq.jpa;
-  requires validatorfx;
   requires shiro.core;
   requires org.apache.logging.log4j;
   requires org.apache.logging.log4j.core;
   requires org.apache.log4j;
+  requires jasperreports;
 
   opens gr.codebb.protoerp to
       javafx.fxml;

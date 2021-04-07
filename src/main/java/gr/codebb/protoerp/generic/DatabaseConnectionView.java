@@ -12,6 +12,7 @@
  */
 package gr.codebb.protoerp.generic;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.MysqlUtil;
@@ -28,7 +29,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
-import net.synedra.validatorfx.Validator;
 
 public class DatabaseConnectionView implements Initializable {
 

@@ -11,6 +11,7 @@
  */
 package gr.codebb.protoerp.tables.vat;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbBigDecimal;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
@@ -37,7 +38,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import lombok.Getter;
-import net.synedra.validatorfx.Validator;
 import org.controlsfx.control.MaskerPane;
 
 public class VatDetailView implements Initializable {

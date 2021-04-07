@@ -13,6 +13,7 @@
  */
 package gr.codebb.protoerp.tables.measurementUnits;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.DetailCrud;
@@ -35,7 +36,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import lombok.Getter;
-import net.synedra.validatorfx.Validator;
 import org.controlsfx.control.MaskerPane;
 
 public class MeasurementUnitsDetailView implements Initializable {

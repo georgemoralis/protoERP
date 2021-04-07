@@ -14,6 +14,7 @@
  */
 package gr.codebb.protoerp.items;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbBigDecimal;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
@@ -51,7 +52,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import lombok.Getter;
-import net.synedra.validatorfx.Validator;
 import org.controlsfx.control.SearchableComboBox;
 
 public class ItemsDetailView implements Initializable {
