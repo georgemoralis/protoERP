@@ -192,4 +192,7 @@ public class TraderListView extends AbstractListView implements Initializable {
   protected Button getOpenButton() {
     return openButton;
   }
+
+  @FXML
+  private void onPrintPartners(ActionEvent event) {}
 }
