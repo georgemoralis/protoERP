@@ -11,6 +11,7 @@
          <items>
             <MenuItem mnemonicParsing="false" onAction="#onMeasureUnits" text="Μονάδες Μέτρησης" />
             <MenuItem mnemonicParsing="false" onAction="#onVat" text="Συντελεστές Φ.Π.Α." />
+            <MenuItem mnemonicParsing="false" onAction="#onInvoiceSeries" text="Σειρές Παραστατικών" />
          </items></Menu>
     <Menu mnemonicParsing="false" text="Συντήρηση">
       <items>

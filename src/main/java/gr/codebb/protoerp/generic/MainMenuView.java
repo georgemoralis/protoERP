@@ -117,4 +117,7 @@ public class MainMenuView implements Initializable {
     Node measure = (Node) getListView.getParent();
     showAsTab(measure, "Συντελεστές Φ.Π.Α.");
   }
+
+  @FXML
+  private void onInvoiceSeries(ActionEvent event) {}
 }
