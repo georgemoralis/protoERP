@@ -397,14 +397,11 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `companyId`, `settingName`, `settingValue`) VALUES
 (1, -1, 'product_version', '0.0.224'),
-(2, -1, 'mitroo_username', ''),
-(3, -1, 'mitroo_password', ''),
-(4, -1, 'mitroo_reprvat', ''),
-(5, -1, 'valuesDecimal', '2'),
-(6, -1, 'unitDecimal', '2'),
-(7, -1, 'quantityDecimal', '2'),
-(8, -1, 'percentDiscountDecimal', '2'),
-(9, -1, 'percentVatDecimal', '2');
+(2, -1, 'valuesDecimal', '2'),
+(3, -1, 'unitDecimal', '2'),
+(4, -1, 'quantityDecimal', '2'),
+(5, -1, 'percentDiscountDecimal', '2'),
+(6, -1, 'percentVatDecimal', '2');
 
 -- --------------------------------------------------------
 
@@ -591,7 +588,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT για πίνακα `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT για πίνακα `tablesettings`

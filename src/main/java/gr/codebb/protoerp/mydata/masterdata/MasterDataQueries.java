@@ -13,7 +13,9 @@
 package gr.codebb.protoerp.mydata.masterdata;
 
 import gr.codebb.lib.database.PersistenceManager;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import org.jinq.jpa.JinqJPAStreamProvider;
 
@@ -60,5 +62,43 @@ public class MasterDataQueries {
 
     em.close();
     return results;
+  }
+
+  public static VatmdEntity getmdVatFromVatRate(BigDecimal vatRate) {
+    JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
+    EntityManager em = PersistenceManager.getEmf().createEntityManager();
+    Optional<VatmdEntity> result;
+    result =
+        streams
+            .streamAll(em, VatmdEntity.class)
+            .where(c -> c.getActive())
+            .where(p -> p.getVatRate().equals(vatRate))
+            .findFirst();
+
+    em.close();
+    if (result.isPresent()) {
+      return result.get();
+    } else {
+      return null;
+    }
+  }
+
+  public static MeasureUnitmdEntity getmdMeasureFromId(long id) {
+    JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
+    EntityManager em = PersistenceManager.getEmf().createEntityManager();
+    Optional<MeasureUnitmdEntity> result;
+    result =
+        streams
+            .streamAll(em, MeasureUnitmdEntity.class)
+            .where(c -> c.getActive())
+            .where(p -> p.getId() == id)
+            .findFirst();
+
+    em.close();
+    if (result.isPresent()) {
+      return result.get();
+    } else {
+      return null;
+    }
   }
 }
