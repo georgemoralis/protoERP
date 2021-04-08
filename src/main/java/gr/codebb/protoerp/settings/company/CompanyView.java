@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 08/04/2021 (gmoralis) - Disable updating on existing company (for now)
  * 11/03/2021 (georgemoralis) - textRegisteredName wasn't setting in retrieve from taxis
  * 11/03/2021 (georgemoralis) - Fixed save of edited company
  * 11/03/2021 (georgemoralis) - Added edit of company
@@ -32,8 +33,8 @@ import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
+import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.FxmlUtil;
-import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import gr.codebb.protoerp.settings.doy.DoyQueries;
@@ -135,6 +136,7 @@ public class CompanyView implements Initializable {
 
   private ObservableList<PlantsEntity> plantrow;
   CompanyEntity company;
+  String[] returndata = {null, null, null};
 
   /** Initializes the controller class. */
   @Override
@@ -216,8 +218,14 @@ public class CompanyView implements Initializable {
 
   @FXML
   private void onTaxisUpdate(ActionEvent event) {
-    if (SettingsHelper.loadStringSetting("mitroo_username") == null
-        || SettingsHelper.loadStringSetting("mitroo_username").isEmpty()) {
+    // don't let update on existing entries for now TODO
+    if (!textId.getText().isEmpty()) {
+      AlertHelper.errorDialog(
+          textId.getScene().getWindow(), "Η ενημέρωση υπάρχουσας εταιρίας δεν υποστηρίζεται ακόμα");
+      return;
+    }
+    if (textId.getText().isEmpty()) // new entry
+    {
       ButtonType response =
           AlertDlg.create()
               .message(
@@ -233,17 +241,47 @@ public class CompanyView implements Initializable {
             AlertDlgHelper.saveDialog(
                 "Κωδικοί Μητρώου", getDetailView.getParent(), masker.getScene().getWindow());
         Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-        getDetailView.getController().commonLoad();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
           if (getDetailView.getController() != null) {
-            getDetailView.getController().save();
+            getDetailView.getController().tempStore(returndata);
           }
         }
       } else {
         return;
       }
+    } else // old entry
+    {
+      CompanyEntity cmp = CompanyUtil.getCurrentCompany();
+      if (cmp.getMitroo_username() == null || cmp.getMitroo_username().isEmpty()) {
+        ButtonType response =
+            AlertDlg.create()
+                .message(
+                    "Δεν βρέθηκαν κωδικοι για τη εφαρμογή του μητρώου\nΘέλετε να αποθηκεύσετε τώρα?")
+                .title("Αποθήκευση κωδικών")
+                .owner(masker.getScene().getWindow())
+                .modality(Modality.APPLICATION_MODAL)
+                .showAndWaitConfirm();
+        if (response == ButtonType.OK) {
+          FxmlUtil.LoadResult<MitrooPassView> getDetailView =
+              FxmlUtil.load("/fxml/settings/internetServices/MitrooPass.fxml");
+          Alert alert =
+              AlertDlgHelper.saveDialog(
+                  "Κωδικοί Μητρώου", getDetailView.getParent(), masker.getScene().getWindow());
+          Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+          //        getDetailView.getController().commonLoad();
+          Optional<ButtonType> result = alert.showAndWait();
+          if (result.get() == ButtonType.OK) {
+            if (getDetailView.getController() != null) {
+              getDetailView.getController().save();
+            }
+          }
+        } else {
+          return;
+        }
+      }
     }
+
     loadService();
   }
 
@@ -287,12 +325,13 @@ public class CompanyView implements Initializable {
             // use the TLSv1.2 protocol
             System.setProperty("https.protocols", "TLSv1.2");
             // call to web service
+            CompanyEntity cmp = CompanyUtil.getCurrentCompany();
             ResponsedMitrooData returnValue =
                 sc.getData(
-                    SettingsHelper.loadStringSetting("mitroo_username"),
-                    SettingsHelper.loadStringSetting("mitroo_password"),
+                    returndata[0] != null ? returndata[0] : cmp.getMitroo_username(),
+                    returndata[0] != null ? returndata[1] : cmp.getMitroo_password(),
                     textVatNumber.getText(),
-                    SettingsHelper.loadStringSetting("mitroo_reprvat"),
+                    returndata[0] != null ? returndata[2] : cmp.getMitroo_vatRepresentant(),
                     new Date());
             if ((returnValue.getErrordescr() == null) || (returnValue.getErrordescr().isEmpty())) {
               textName.setText(returnValue.getName());
@@ -397,6 +436,9 @@ public class CompanyView implements Initializable {
     detailCrud.saveModel(new CompanyEntity());
     CompanyEntity company = detailCrud.getModel();
     company.setDoy(doyCombo.getSelectionModel().getSelectedItem());
+    company.setMitroo_username(returndata[0]);
+    company.setMitroo_password(returndata[1]);
+    company.setMitroo_vatRepresentant(returndata[2]);
     plantrow.forEach(
         (plantpos) -> {
           company.addPlantLine(plantpos);

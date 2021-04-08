@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 08/04/2021 (gmoralis) - Used stored company's mitroo codes
  * 25/03/2021 (gmoralis) - Copied from company  with minimal changes
  */
 package gr.codebb.protoerp.trader;
@@ -197,8 +198,8 @@ public class TraderDetailView implements Initializable {
 
   @FXML
   private void onTaxisUpdate(ActionEvent event) {
-    if (SettingsHelper.loadStringSetting("mitroo_username") == null
-        || SettingsHelper.loadStringSetting("mitroo_username").isEmpty()) {
+    if (CompanyUtil.getCurrentCompany().getMitroo_username() == null
+        || CompanyUtil.getCurrentCompany().getMitroo_username().isEmpty()) {
       ButtonType response =
           AlertDlg.create()
               .message(
@@ -214,7 +215,6 @@ public class TraderDetailView implements Initializable {
             AlertDlgHelper.saveDialog(
                 "Κωδικοί Μητρώου", getDetailView.getParent(), masker.getScene().getWindow());
         Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-        getDetailView.getController().commonLoad();
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
           if (getDetailView.getController() != null) {

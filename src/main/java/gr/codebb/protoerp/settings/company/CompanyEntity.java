@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 08/04/2021 (gmoralis) - Removed mitrooCommonPassEnabled will do it otherwise
  * 30/03/2021 (gmoralis) - Προσθήκη mitrooCommonPassEnabled για χρήση ή μη κοινων κωδικών μητρώου
  * 19/03/2021 (gmoralis) - Προσθήκη πεδίων για υπηρεσία mydata
  * 16/03/2021 (gmoralis) - Προσθήκη κωδικών μητρώου για εταιρία
@@ -16,6 +17,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
+import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "company")
-public class CompanyEntity implements Serializable {
+public class CompanyEntity implements Serializable, Displayable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,7 +78,6 @@ public class CompanyEntity implements Serializable {
   @Getter @Setter private String mitroo_username;
   @Getter @Setter private String mitroo_password;
   @Getter @Setter private String mitroo_vatRepresentant;
-  @Getter @Setter private Boolean mitrooCommonPassEnabled;
 
   // κωδικοί για το mydata
   @Getter @Setter private String userMyData;
@@ -88,14 +89,11 @@ public class CompanyEntity implements Serializable {
   @PrePersist
   private void onCreate() {
     // Κενές τιμές κατα την δημιουργία της εταιριας (για να μην ειναι null στην βάση)
-    mitroo_username = "";
-    mitroo_password = "";
-    mitroo_vatRepresentant = "";
-    userMyData = "";
-    passMyData = "";
-    demoUserMyData = "";
-    demoPassMyData = "";
     demoMyDataEnabled = false;
-    mitrooCommonPassEnabled = true;
+  }
+
+  @Override
+  public String getComboDisplayValue() {
+    return name;
   }
 }
