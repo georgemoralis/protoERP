@@ -7,11 +7,12 @@
 /*
  * Changelog
  * =========
+ * 08/04/2021 (gmoralis) - Can't delete measureunit if it has reference elsewhere. Stored it as inactive
  * 06/04/2021 (gmoralis) - Fixed confirm after validation
- * 02/04/2021 (gmoralis) -Added delete action
- * 01/04/2021 (gmoralis) -Added edit
- * 01/04/2021 (gmoralis) -Added save new entry and confirm dialog before save
- * 31/03/2021 (gmoralis) -Initial
+ * 02/04/2021 (gmoralis) - Added delete action
+ * 01/04/2021 (gmoralis) - Added edit
+ * 01/04/2021 (gmoralis) - Added save new entry and confirm dialog before save
+ * 31/03/2021 (gmoralis) - Initial
  */
 package gr.codebb.protoerp.tables.measurementUnits;
 
@@ -103,7 +104,7 @@ public class MeasurementUnitsListView extends AbstractListView implements Initia
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
           } else {
-            if (!(AlertHelper.SaveConfirm(
+            if (!(AlertHelper.saveConfirm(
                         getDetailView.getController().getMainStackPane().getScene().getWindow())
                     .get()
                 == ButtonType.OK)) {
@@ -139,7 +140,7 @@ public class MeasurementUnitsListView extends AbstractListView implements Initia
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
           } else {
-            if (!(AlertHelper.EditConfirm(
+            if (!(AlertHelper.editConfirm(
                         getDetailView.getController().getMainStackPane().getScene().getWindow())
                     .get()
                 == ButtonType.OK)) {
@@ -161,7 +162,7 @@ public class MeasurementUnitsListView extends AbstractListView implements Initia
     int row = measurementUnitsTable.getSelectionModel().getSelectedIndex();
     measurementUnitsTable.getSelectionModel().select(row);
     Optional<ButtonType> response =
-        AlertHelper.DeleteConfirm(
+        AlertHelper.deleteConfirm(
             measurementUnitsTable.getScene().getWindow(),
             "Είστε σιγουροι ότι θέλετε να διαγράψετε την Μονάδα Μέτρησης : "
                 + measurementUnitsTable.getSelectionModel().getSelectedItem().getDescription());
@@ -170,7 +171,15 @@ public class MeasurementUnitsListView extends AbstractListView implements Initia
       try {
         gdao.deleteEntity(measurementUnitsTable.getSelectionModel().getSelectedItem().getId());
       } catch (Exception e) {
-        e.printStackTrace();
+        AlertHelper.errorDialog(
+            measurementUnitsTable.getScene().getWindow(),
+            "Η μονάδα μέτρησης δεν μπορεί να διαγραφεί γιατί υπάρχουν άλλες εγγραφές που την χρησιμοποιούν\nΑποθηκεύτηκε σαν ανενεργή");
+        MeasurementUnitsEntity k =
+            (MeasurementUnitsEntity)
+                gdao.findEntity(
+                    measurementUnitsTable.getSelectionModel().getSelectedItem().getId());
+        k.setActive(false);
+        gdao.updateEntity(k);
       }
       selectWithService();
     }

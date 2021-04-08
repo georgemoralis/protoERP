@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 08/04/2021 (gmoralis) - Can't delete vat if it has reference elsewhere. Stored it as inactive
  * 06/04/2021 (gmoralis) - Fixed confirm after validation
  * 02/04/2021 (gmoralis) - Initial full implementation
  */
@@ -103,7 +104,7 @@ public class VatListView extends AbstractListView implements Initializable {
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
           } else {
-            if (!(AlertHelper.SaveConfirm(
+            if (!(AlertHelper.saveConfirm(
                         getDetailView.getController().getMainStackPane().getScene().getWindow())
                     .get()
                 == ButtonType.OK)) {
@@ -137,7 +138,7 @@ public class VatListView extends AbstractListView implements Initializable {
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
           } else {
-            if (!(AlertHelper.EditConfirm(
+            if (!(AlertHelper.editConfirm(
                         getDetailView.getController().getMainStackPane().getScene().getWindow())
                     .get()
                 == ButtonType.OK)) {
@@ -159,7 +160,7 @@ public class VatListView extends AbstractListView implements Initializable {
     int row = VatTable.getSelectionModel().getSelectedIndex();
     VatTable.getSelectionModel().select(row);
     Optional<ButtonType> response =
-        AlertHelper.DeleteConfirm(
+        AlertHelper.deleteConfirm(
             VatTable.getScene().getWindow(),
             "Είστε σιγουροι ότι θέλετε να διαγράψετε τον Συντελεστή Φ.Π.Α. : "
                 + VatTable.getSelectionModel().getSelectedItem().getDescription());
@@ -168,7 +169,13 @@ public class VatListView extends AbstractListView implements Initializable {
       try {
         gdao.deleteEntity(VatTable.getSelectionModel().getSelectedItem().getId());
       } catch (Exception e) {
-        e.printStackTrace();
+        AlertHelper.errorDialog(
+            VatTable.getScene().getWindow(),
+            "Η κατηγορία Φ.Π.Α. δεν μπορεί να διαγραφεί γιατί υπάρχουν άλλες εγγραφές που την χρησιμοποιούν\nΑποθηκεύτηκε σαν ανενεργή");
+        VatEntity k =
+            (VatEntity) gdao.findEntity(VatTable.getSelectionModel().getSelectedItem().getId());
+        k.setActive(false);
+        gdao.updateEntity(k);
       }
       selectWithService();
     }

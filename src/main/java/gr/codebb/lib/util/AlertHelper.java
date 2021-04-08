@@ -22,7 +22,7 @@ import javafx.stage.Window;
 /** @author George Moralis wrapper class around fxalert library for use with protoerp easily */
 public class AlertHelper {
 
-  public static Optional<ButtonType> SaveConfirm(Window window) {
+  public static Optional<ButtonType> saveConfirm(Window window) {
     Optional<ButtonType> result =
         FXAlert.confirm()
             .withButtonTypes(ButtonType.OK, ButtonType.CANCEL)
@@ -38,7 +38,7 @@ public class AlertHelper {
     return result;
   }
 
-  public static Optional<ButtonType> EditConfirm(Window window) {
+  public static Optional<ButtonType> editConfirm(Window window) {
     Optional<ButtonType> result =
         FXAlert.confirm()
             .withButtonTypes(ButtonType.OK, ButtonType.CANCEL)
@@ -54,7 +54,7 @@ public class AlertHelper {
     return result;
   }
 
-  public static Optional<ButtonType> DeleteConfirm(Window window, String message) {
+  public static Optional<ButtonType> deleteConfirm(Window window, String message) {
     Optional<ButtonType> result =
         FXAlert.confirm()
             .withButtonTypes(ButtonType.OK, ButtonType.CANCEL)
@@ -68,5 +68,18 @@ public class AlertHelper {
             .withStyle("-fx-background-color: white;")
             .showAndWait();
     return result;
+  }
+
+  public static void errorDialog(Window window, String message) {
+    FXAlert.error()
+        .withButtonTypes(ButtonType.OK)
+        .buttonModify(ButtonType.OK, "Εντάξει", "danger")
+        .withText(message)
+        .withInitOwner(window)
+        .withInitModality(Modality.APPLICATION_MODAL)
+        .withStylesheet("/styles/bootstrap3.css")
+        .withTitle("Πρόβλημα")
+        .withStyle("-fx-background-color: white;")
+        .showAndWait();
   }
 }

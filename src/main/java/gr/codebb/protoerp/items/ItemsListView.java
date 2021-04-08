@@ -137,7 +137,7 @@ public class ItemsListView extends AbstractListView implements Initializable {
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
           } else {
-            if (!(AlertHelper.SaveConfirm(
+            if (!(AlertHelper.saveConfirm(
                         getDetailView.getController().getMainStackPane().getScene().getWindow())
                     .get()
                 == ButtonType.OK)) {
@@ -171,7 +171,7 @@ public class ItemsListView extends AbstractListView implements Initializable {
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
           } else {
-            if (!(AlertHelper.EditConfirm(
+            if (!(AlertHelper.editConfirm(
                         getDetailView.getController().getMainStackPane().getScene().getWindow())
                     .get()
                 == ButtonType.OK)) {
@@ -193,7 +193,7 @@ public class ItemsListView extends AbstractListView implements Initializable {
     int row = itemsTable.getSelectionModel().getSelectedIndex();
     itemsTable.getSelectionModel().select(row);
     Optional<ButtonType> response =
-        AlertHelper.DeleteConfirm(
+        AlertHelper.deleteConfirm(
             itemsTable.getScene().getWindow(),
             "Είστε σιγουροι ότι θέλετε να διαγράψετε το Είδος : "
                 + itemsTable.getSelectionModel().getSelectedItem().getDescription());
