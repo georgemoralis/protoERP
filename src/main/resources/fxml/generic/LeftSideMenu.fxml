@@ -53,6 +53,11 @@
                      <content>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#invoicesAction" prefHeight="32.0" prefWidth="262.0" text="Παραστατικά">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fa-tasks" />
+                                 </graphic>
+                              </Button>
                               <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="15.0" mnemonicParsing="false" onAction="#myDataAction" prefHeight="32.0" prefWidth="262.0" text="MyData">
                                  <graphic>
                                     <FontIcon iconLiteral="fa-cubes" />

@@ -278,4 +278,7 @@ public class LeftSideMenuView implements Initializable {
     Node mydata = (Node) getMainView.getParent();
     showAsTab(mydata, "Είδη");
   }
+
+  @FXML
+  private void invoicesAction(ActionEvent event) {}
 }

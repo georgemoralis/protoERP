@@ -418,6 +418,11 @@ public class CompanyView implements Initializable {
           .showAndWait();
       return false;
     }
+    if (tablePlants.getItems().isEmpty()) {
+      AlertHelper.errorDialog(
+          doyCombo.getScene().getWindow(),
+          "Πρέπει να προσθέσετε τουλάχιστον μία εγκατάσταση στην δεύτερη καρτέλα");
+    }
     return true;
   }
 
