@@ -7,6 +7,8 @@
 /*
  * Changelog
  * =========
+ * 08/04/2021 (gmoralis) - Clear tabs if you change company or user
+ * 08/04/2021 (gmoralis) - Confirm before exiting
  * 02/04/2021 (gmoralis) - Προσθήκη GR locale
  * 29/03/2021 (gmoralis) - Μεταφορά μενού σε fxml στην MainMenuView class
  * 19/03/2021 (gmoralis) - Ολοκλήρωση mydata κωδικών αποθήκευσης
@@ -31,8 +33,10 @@ package gr.codebb.protoerp;
 import static gr.codebb.lib.util.ThreadUtil.runAndWait;
 import static javafx.geometry.Orientation.VERTICAL;
 
+import gr.codebb.ctl.CbbDetachableTabPane;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.PersistenceManager;
+import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.DialogExceptionHandler;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
@@ -54,12 +58,14 @@ import gr.codebb.util.database.Mysql;
 import gr.codebb.util.version.VersionUtil;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
@@ -277,7 +283,7 @@ public class App extends Application {
     borderPane.setCenter(masterDetailPane);
     borderPane.setBottom(statusBar);
 
-    generateStatusBar();
+    generateStatusBar(getMainView.getController().getMainDetachPane());
     final Scene scene = new Scene(borderPane);
 
     stage.setTitle(MainSettings.getInstance().getAppNameWithVersion());
@@ -290,6 +296,16 @@ public class App extends Application {
     stage.toFront();
 
     stage.setFullScreenExitHint("Πατήστε ESC για να βγείτε από την κατάσταση πλήρης οθόνης");
+
+    stage.setOnCloseRequest(
+        (WindowEvent we) -> {
+          Optional<ButtonType> response =
+              AlertHelper.exitConfirm(
+                  stage.getScene().getWindow(), "Θελετέ να τερματίσετε την εφαρμογή?");
+          if (response.get() == ButtonType.CANCEL) {
+            we.consume();
+          }
+        });
     stage.show();
   }
 
@@ -360,7 +376,7 @@ public class App extends Application {
     Application.launch(App.class, args);
   }
 
-  public void generateStatusBar() {
+  public void generateStatusBar(CbbDetachableTabPane mainDetachPane) {
     statusBar.setText("");
     Subject currentUser = SecurityUtils.getSubject();
     Session session = currentUser.getSession();
@@ -389,20 +405,31 @@ public class App extends Application {
           stagecompany
               .getScene()
               .getWindow()
-              .setOnCloseRequest(
-                  (WindowEvent we) -> {
-                    System.exit(0);
-                  });
-          stagecompany
-              .getScene()
-              .getWindow()
               .setOnHiding(
                   (WindowEvent we) -> {
                     Subject currentUser1 = SecurityUtils.getSubject();
                     Session session1 = currentUser1.getSession();
                     CompanyEntity selected1 = (CompanyEntity) session1.getAttribute("company");
-                    companyButton.setText(selected1.getName().substring(0, 10));
+                    String currentText = companyButton.getText();
+                    companyButton.setText(selected1.getName());
+                    if (!companyButton
+                        .getText()
+                        .equals(currentText)) // if we change company clear or tabs
+                    {
+                      mainDetachPane.getTabs().clear();
+                    }
                   });
+          stagecompany.setOnCloseRequest(
+              (WindowEvent we) -> {
+                Optional<ButtonType> response =
+                    AlertHelper.exitConfirm(
+                        stagecompany.getScene().getWindow(), "Θελετέ να τερματίσετε την εφαρμογή?");
+                if (response.get() == ButtonType.CANCEL) {
+                  we.consume();
+                } else {
+                  System.exit(0);
+                }
+              });
           stagecompany.showAndWait();
         });
     userButton.setOnAction(
@@ -422,19 +449,29 @@ public class App extends Application {
           loginstage
               .getScene()
               .getWindow()
-              .setOnCloseRequest(
-                  (WindowEvent we) -> {
-                    System.exit(0);
-                  });
-          loginstage
-              .getScene()
-              .getWindow()
               .setOnHiding(
                   (WindowEvent we) -> {
                     Subject currentUser1 = SecurityUtils.getSubject();
                     Session session1 = currentUser1.getSession();
+                    String currentBUser = userButton.getText();
                     userButton.setText((String) session1.getAttribute("username"));
+                    if (!currentBUser.equals(
+                        userButton.getText())) // if we change user clear all tabs
+                    {
+                      mainDetachPane.getTabs().clear();
+                    }
                   });
+          loginstage.setOnCloseRequest(
+              (WindowEvent we) -> {
+                Optional<ButtonType> response =
+                    AlertHelper.exitConfirm(
+                        loginstage.getScene().getWindow(), "Θελετέ να τερματίσετε την εφαρμογή?");
+                if (response.get() == ButtonType.CANCEL) {
+                  we.consume();
+                } else {
+                  System.exit(0);
+                }
+              });
           loginstage.showAndWait();
         });
   }
