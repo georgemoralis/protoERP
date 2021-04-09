@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 09/04/2021 (gmoralis) - Fixed mitroo crendentals
  * 08/04/2021 (gmoralis) - Used stored company's mitroo codes
  * 25/03/2021 (gmoralis) - Copied from company  with minimal changes
  */
@@ -24,7 +25,6 @@ import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
-import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.protoerp.settings.company.CompanyUtil;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
@@ -359,10 +359,10 @@ public class TraderDetailView implements Initializable {
             // call to web service
             ResponsedMitrooData returnValue =
                 sc.getData(
-                    SettingsHelper.loadStringSetting("mitroo_username"),
-                    SettingsHelper.loadStringSetting("mitroo_password"),
+                    CompanyUtil.getCurrentCompany().getMitroo_username(),
+                    CompanyUtil.getCurrentCompany().getMitroo_password(),
                     textVatNumber.getText(),
-                    SettingsHelper.loadStringSetting("mitroo_reprvat"),
+                    CompanyUtil.getCurrentCompany().getMitroo_vatRepresentant(),
                     new Date());
             if ((returnValue.getErrordescr() == null) || (returnValue.getErrordescr().isEmpty())) {
               textName.setText(returnValue.getName());
