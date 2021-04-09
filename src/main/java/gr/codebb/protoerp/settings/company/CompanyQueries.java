@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 09/04/2021 (gmoralis) - getCompanies can return active or not active as well
  * 08/04/2021 (gmoralis) - Added getCompaniesWithMitrooCodes function
  * 26/02/2021 (gmoralis) - Added getCompanies method
  */
@@ -20,10 +21,15 @@ import org.jinq.jpa.JinqJPAStreamProvider;
 
 public class CompanyQueries {
 
-  public static List<CompanyEntity> getCompanies() {
+  public static List<CompanyEntity> getCompanies(boolean activeonly) {
     JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
-    List<CompanyEntity> results = streams.streamAll(em, CompanyEntity.class).toList();
+    List<CompanyEntity> results;
+    if (activeonly) {
+      results = streams.streamAll(em, CompanyEntity.class).where(c -> c.getActive()).toList();
+    } else {
+      results = streams.streamAll(em, CompanyEntity.class).toList();
+    }
     em.close();
     return results;
   }

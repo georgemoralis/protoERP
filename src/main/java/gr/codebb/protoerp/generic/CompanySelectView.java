@@ -220,7 +220,7 @@ public class CompanySelectView implements Initializable {
           @Override
           protected String call() throws Exception {
             selectTable.setItems(null);
-            loadTable(CompanyQueries.getCompanies());
+            loadTable(CompanyQueries.getCompanies(true));
             return null;
           }
         };
