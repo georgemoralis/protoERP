@@ -422,6 +422,7 @@ public class CompanyView implements Initializable {
       AlertHelper.errorDialog(
           doyCombo.getScene().getWindow(),
           "Πρέπει να προσθέσετε τουλάχιστον μία εγκατάσταση στην δεύτερη καρτέλα");
+      return false;
     }
     return true;
   }
