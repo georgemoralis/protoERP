@@ -1,5 +1,5 @@
 /*
- * copyright 2013-2020
+ * copyright 2013-2021
  * codebb.gr
  * ProtoERP - Open source invocing program
  * info@codebb.gr
@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 13/04/2021 (gmoralis) - Added isPermitted without messagebox
  * 13/11/2020 (georgemoralis) - Initial
  */
 package gr.codebb.lib.util;
@@ -29,6 +30,14 @@ public class AuthUtil {
           .owner(owner)
           .modality(Modality.APPLICATION_MODAL)
           .showAndWait();
+      return false;
+    }
+    return true;
+  }
+
+  public static boolean isPermitted(String permission) {
+    Subject currentUser = SecurityUtils.getSubject();
+    if (!currentUser.isPermitted(permission)) {
       return false;
     }
     return true;

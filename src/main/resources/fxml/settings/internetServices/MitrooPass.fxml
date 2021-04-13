@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import gr.codebb.codebblib.fxcontrols.CbbPasswordField?>
 <?import gr.codebb.ctl.CbbClearableTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -46,8 +47,8 @@
                 <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="225.0" text="username:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <CbbClearableTextField fx:id="textusernamemitroou" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                 <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="218.0" text="password:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <CbbClearableTextField fx:id="textpasswordmitroou" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
             <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="235.0" text="ΑΦΜ εκπροσώπου:" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <CbbPasswordField fx:id="textpasswordmitroou" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4" />
             <CbbClearableTextField fx:id="texVatrepresentant" prefHeight="27.0" prefWidth="300.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5" />
             <Line endX="219.93359375" startX="-100.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
             <Hyperlink text="Οδηγίες απόκτησης κωδικών" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" />

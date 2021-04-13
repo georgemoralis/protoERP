@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 13/04/2021 (gmoralis) - Show passwords only if SHOW_PASSWORDS permission exists
  * 08/04/2021 (gmoralis) - Other way of saving / storing common passwords
  * 16/03/2021 (gmoralis) - Loading/saving specific username/passwords per company
  * 03/03/2021 (gmoralis) - Added load/saving of common passwords
@@ -14,11 +15,13 @@
  */
 package gr.codebb.protoerp.settings.internetSettings;
 
+import gr.codebb.codebblib.fxcontrols.CbbPasswordField;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
+import gr.codebb.lib.util.AuthUtil;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.company.CompanyQueries;
 import java.net.URL;
@@ -35,17 +38,19 @@ import org.controlsfx.control.SearchableComboBox;
 public class MitrooPassView implements Initializable {
 
   @FXML private CbbClearableTextField textusernamemitroou;
-  @FXML private CbbClearableTextField textpasswordmitroou;
+  @FXML private CbbPasswordField textpasswordmitroou;
   @FXML private CbbClearableTextField texVatrepresentant;
   @FXML private SearchableComboBox<CompanyEntity> companyCombo;
   @FXML private Button copyButton;
 
-  /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     new ComboboxService<>(CompanyQueries.getCompaniesWithMitrooCodes(true), companyCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(companyCombo);
     copyButton.disableProperty().bind(companyCombo.valueProperty().isNull());
+    if (!AuthUtil.isPermitted("SHOW_PASSWORDS")) {
+      textpasswordmitroou.disableRightButton();
+    }
   }
 
   public void companyLoad() {
