@@ -203,10 +203,10 @@ public class CompanyView implements Initializable {
     validation.registerValidator(
         textMobilePhone, false, Validators.onlyNumbersValidator(Severity.WARNING));
     validation.registerValidator(doyCombo, Validators.notEmptyValidator());
-    validation.registerValidator(
-        textEmail,
-        Validators.combine(
-            Validators.notEmptyValidator(), Validators.emailValidator(Severity.WARNING)));
+    /*validation.registerValidator(
+    textEmail,
+    Validators.combine(
+        Validators.notEmptyValidator(), Validators.emailValidator(Severity.WARNING)));*/
     validation.registerValidator(
         textVatNumber,
         Validators.combine(
@@ -463,8 +463,8 @@ public class CompanyView implements Initializable {
         });
     CompanyEntity saved = (CompanyEntity) gdao.createEntity(company);
     textId.setText(Long.toString(saved.getId()));
-    new CreateDefaultTables()
-        .createEntries(CompanyQueries.getCompanyById(saved.getId())); // create initial tables
+    // new CreateDefaultTables()
+    //    .createEntries(CompanyQueries.getCompanyById(saved.getId())); // create initial tables
   }
 
   public void SaveEditCompany() {

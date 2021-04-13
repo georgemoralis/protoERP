@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 13/03/2021 (gmoralis) - getCompanies doesn't include demo companies
  * 09/04/2021 (gmoralis) - getCompanies can return active or not active as well
  * 08/04/2021 (gmoralis) - Added getCompaniesWithMitrooCodes function
  * 26/02/2021 (gmoralis) - Added getCompanies method
@@ -26,9 +27,14 @@ public class CompanyQueries {
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
     List<CompanyEntity> results;
     if (activeonly) {
-      results = streams.streamAll(em, CompanyEntity.class).where(c -> c.getActive()).toList();
+      results =
+          streams
+              .streamAll(em, CompanyEntity.class)
+              .where(c -> c.getActive())
+              .where(c -> !c.getDemoCompany())
+              .toList();
     } else {
-      results = streams.streamAll(em, CompanyEntity.class).toList();
+      results = streams.streamAll(em, CompanyEntity.class).where(c -> !c.getDemoCompany()).toList();
     }
     em.close();
     return results;

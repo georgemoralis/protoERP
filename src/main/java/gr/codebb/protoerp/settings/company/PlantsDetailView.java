@@ -7,12 +7,14 @@
 /*
  * Changelog
  * =========
+ * 13/04/2021 (gmoralis) - validation with validatorfx
  * 09/03/2021 (georgemoralis) - Added controlsfx validation (todo change it with validatorFX sometime later)
  * 08/03/3021 (georgemoralis) - Added save/load/edit actions
  * 07/03/2021 (georgemoralis) - Initial
  */
 package gr.codebb.protoerp.settings.company;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.DetailCrud;
@@ -22,18 +24,14 @@ import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
-import gr.codebb.protoerp.util.validation.CustomValidationDecoration;
-import gr.codebb.protoerp.util.validation.Validators;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import org.controlsfx.control.SearchableComboBox;
-import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
 
 public class PlantsDetailView implements Initializable {
@@ -77,8 +75,8 @@ public class PlantsDetailView implements Initializable {
 
   private final DetailCrud<PlantsEntity> detailCrud = new DetailCrud<>(this);
   private ValidationSupport validation;
+  private Validator validator = new Validator();
 
-  /** Initializes the controller class. */
   public void setNewPlant(boolean empty) {
     if (empty) {
       textCode.setText("0");
@@ -89,23 +87,9 @@ public class PlantsDetailView implements Initializable {
         .select(CountriesQueries.getCountryByCode("GR")); // add greece by default
   }
 
-  private void registerValidators() {
-
-    validation.registerValidator(textDescription, Validators.notEmptyValidator());
-    validation.registerValidator(
-        textCode,
-        Validators.combine(
-            Validators.notEmptyValidator(), Validators.onlyNumbersValidator(Severity.ERROR)));
-    validation.registerValidator(textTk, Validators.notEmptyValidator());
-    validation.registerValidator(textCity, Validators.notEmptyValidator());
-    validation.registerValidator(
-        textPhone, false, Validators.onlyNumbersValidator(Severity.WARNING));
-    validation.registerValidator(textFax, false, Validators.onlyNumbersValidator(Severity.WARNING));
-  }
-
   public boolean validateControls() {
-    if (validation.isInvalid()) {
-      Validators.showValidationResult(validation);
+    validator.validate();
+    if (validator.containsErrors()) {
       AlertDlg.create()
           .type(AlertDlg.Type.ERROR)
           .message("Ελέξτε την φόρμα για λάθη")
@@ -122,15 +106,103 @@ public class PlantsDetailView implements Initializable {
   public void initialize(URL url, ResourceBundle rb) {
     new ComboboxService<>(CountriesQueries.getCountriesDatabase(true), CountryCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(CountryCombo);
-    Platform.runLater(
-        () -> {
-          this.validation = new ValidationSupport();
-          this.validation.setValidationDecorator(new CustomValidationDecoration());
-          Validators.createValidators();
-          registerValidators();
-        });
+
+    validator
+        .createCheck()
+        .dependsOn("description", textDescription.textProperty())
+        .withMethod(
+            c -> {
+              String description = c.get("description");
+              if (description.isEmpty()) {
+                c.error("Η περιγραφή δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(textDescription)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("code", textCode.textProperty())
+        .withMethod(
+            c -> {
+              String code = c.get("code");
+              if (code.isEmpty()) {
+                c.error("O Κωδικός εγκατάστασης δεν μπορεί να είναι κενός");
+              } else if (!code.matches("[0-9 -]+")) {
+                c.error("O Κωδικός εγκατάστασης πρέπει να είναι αριθμός");
+              }
+            })
+        .decorates(textCode)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("address", textAddress.textProperty())
+        .withMethod(
+            c -> {
+              String address = c.get("address");
+              if (address.isEmpty()) {
+                c.error("Η διεύθυνση δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(textAddress)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("tk", textTk.textProperty())
+        .withMethod(
+            c -> {
+              String tk = c.get("tk");
+              if (tk.isEmpty()) {
+                c.error("Ο ταχυδρομικός κώδικας δεν μπορεί να είναι κενός");
+              }
+            })
+        .decorates(textTk)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("city", textCity.textProperty())
+        .withMethod(
+            c -> {
+              String city = c.get("city");
+              if (city.isEmpty()) {
+                c.error("Η πόλη δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(textCity)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("phone", textPhone.textProperty())
+        .withMethod(
+            c -> {
+              String phone = c.get("phone");
+              if (!phone.matches("[0-9 -]+")) {
+                c.warn("Το Τηλέφωνο πρέπει να είναι αριθμός");
+              }
+            })
+        .decorates(textPhone)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("fax", textFax.textProperty())
+        .withMethod(
+            c -> {
+              String fax = c.get("fax");
+              if (!fax.matches("[0-9 -]+")) {
+                c.warn("Το Fax πρέπει να είναι αριθμός");
+              }
+            })
+        .decorates(textFax)
+        .immediate();
   }
 
+  /*private void registerValidators() {
+
+    validation.registerValidator(textTk, Validators.notEmptyValidator());
+    validation.registerValidator(textCity, Validators.notEmptyValidator());
+    validation.registerValidator(
+        textPhone, false, Validators.onlyNumbersValidator(Severity.WARNING));
+    validation.registerValidator(textFax, false, Validators.onlyNumbersValidator(Severity.WARNING));
+  }*/
   public void fillData(PlantsEntity e) {
     detailCrud.loadModel(e);
     if (e.getId() != null) {

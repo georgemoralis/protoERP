@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 13/04/2021 (gmoralis) - name,job are now TEXT in database
  * 13/04/2021 (gmoralis) - Προσθήκης ημερομηνίας έναρξης - διακοπης (αν υπάρχει)
  * 08/04/2021 (gmoralis) - Removed mitrooCommonPassEnabled will do it otherwise
  * 30/03/2021 (gmoralis) - Προσθήκη mitrooCommonPassEnabled για χρήση ή μη κοινων κωδικών μητρώου
@@ -25,6 +26,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -47,9 +49,18 @@ public class CompanyEntity implements Serializable, Displayable {
   @Setter
   private Long id;
 
-  @Getter @Setter private String name;
+  @Column(columnDefinition = "TEXT")
+  @Getter
+  @Setter
+  private String name;
+
   @Getter @Setter private String registeredName;
-  @Getter @Setter private String job;
+
+  @Column(columnDefinition = "TEXT")
+  @Getter
+  @Setter
+  private String job;
+
   @Getter @Setter private String vatNumber;
 
   @ManyToOne
@@ -64,6 +75,8 @@ public class CompanyEntity implements Serializable, Displayable {
 
   @Getter @Setter private LocalDate dateStarted;
   @Getter @Setter private LocalDate dateEnded;
+
+  @Getter @Setter private Boolean demoCompany;
 
   @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
   @Getter
@@ -95,6 +108,7 @@ public class CompanyEntity implements Serializable, Displayable {
   private void onCreate() {
     // Κενές τιμές κατα την δημιουργία της εταιριας (για να μην ειναι null στην βάση)
     demoMyDataEnabled = false;
+    demoCompany = false;
   }
 
   @Override
