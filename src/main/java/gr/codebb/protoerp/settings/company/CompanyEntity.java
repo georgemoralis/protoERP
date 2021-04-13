@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 13/04/2021 (gmoralis) - Προσθήκης ημερομηνίας έναρξης - διακοπης (αν υπάρχει)
  * 08/04/2021 (gmoralis) - Removed mitrooCommonPassEnabled will do it otherwise
  * 30/03/2021 (gmoralis) - Προσθήκη mitrooCommonPassEnabled για χρήση ή μη κοινων κωδικών μητρώου
  * 19/03/2021 (gmoralis) - Προσθήκη πεδίων για υπηρεσία mydata
@@ -20,6 +21,7 @@ package gr.codebb.protoerp.settings.company;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -59,6 +61,9 @@ public class CompanyEntity implements Serializable, Displayable {
   @Getter @Setter private String email;
   @Getter @Setter private String mobilePhone;
   @Getter @Setter private Boolean active;
+
+  @Getter @Setter private LocalDate dateStarted;
+  @Getter @Setter private LocalDate dateEnded;
 
   @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
   @Getter

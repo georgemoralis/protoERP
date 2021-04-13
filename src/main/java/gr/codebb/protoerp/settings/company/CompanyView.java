@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 13/04/2021 (gmoralis) - Προσθήκης ημερομηνίας έναρξης - διακοπης (αν υπάρχει)
  * 08/04/2021 (gmoralis) - Disable updating on existing company (for now)
  * 11/03/2021 (georgemoralis) - textRegisteredName wasn't setting in retrieve from taxis
  * 11/03/2021 (georgemoralis) - Fixed save of edited company
@@ -65,6 +66,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -133,6 +135,8 @@ public class CompanyView implements Initializable {
   @FXML private TableColumn<PlantsEntity, Boolean> columnActive;
   @FXML private TableColumn<PlantsEntity, Integer> columnCode;
   @FXML private TableColumn<PlantsEntity, String> columnDescription;
+  @FXML private DatePicker dateStarted;
+  @FXML private DatePicker dateEnded;
 
   private ObservableList<PlantsEntity> plantrow;
   CompanyEntity company;
@@ -336,6 +340,10 @@ public class CompanyView implements Initializable {
             if ((returnValue.getErrordescr() == null) || (returnValue.getErrordescr().isEmpty())) {
               textName.setText(returnValue.getName());
               textRegisteredName.setText(returnValue.getRegisteredTitle());
+              if (returnValue.getDateStarted() != null)
+                dateStarted.setValue(returnValue.getDateStarted());
+              if (returnValue.getDateEnded() != null)
+                dateEnded.setValue(returnValue.getDateEnded());
               Platform.runLater(
                   () -> {
                     doyCombo
@@ -432,6 +440,8 @@ public class CompanyView implements Initializable {
     detailCrud.loadModel(e);
     textId.setText(Long.toString(e.getId()));
     doyCombo.getSelectionModel().select(e.getDoy());
+    dateStarted.setValue(e.getDateStarted());
+    dateEnded.setValue(e.getDateEnded());
     for (PlantsEntity a : e.getPlantLines()) {
       plantrow.add(a);
     }
@@ -445,6 +455,8 @@ public class CompanyView implements Initializable {
     company.setMitroo_username(returndata[0]);
     company.setMitroo_password(returndata[1]);
     company.setMitroo_vatRepresentant(returndata[2]);
+    company.setDateStarted(dateStarted.getValue());
+    company.setDateEnded(dateEnded.getValue());
     plantrow.forEach(
         (plantpos) -> {
           company.addPlantLine(plantpos);
@@ -459,6 +471,9 @@ public class CompanyView implements Initializable {
     GenericDao gdao = new GenericDao(CompanyEntity.class, PersistenceManager.getEmf());
     detailCrud.saveModel((CompanyEntity) gdao.findEntity(Long.valueOf(textId.getText())));
     CompanyEntity cp = detailCrud.getModel();
+    cp.setDoy(doyCombo.getSelectionModel().getSelectedItem());
+    cp.setDateStarted(dateStarted.getValue());
+    cp.setDateEnded(dateEnded.getValue());
     cp.getPlantLines().clear();
     plantrow.forEach(
         (plantpos) -> {

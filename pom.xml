@@ -45,7 +45,7 @@
         <!-- own modules !-->
         <cobebbfxctl>15.0.12</cobebbfxctl>
         <codebbutil>15.0.7</codebbutil>
-        <codebbwebserv>15.0.8</codebbwebserv>
+        <codebbwebserv>15.0.9</codebbwebserv>
         <codebblib>15.0.3</codebblib>
         <jasperreports>6.16.0</jasperreports>
     </properties>
