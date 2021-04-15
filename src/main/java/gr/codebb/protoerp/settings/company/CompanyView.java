@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 15/04/2021 (gmoralis) - Προσθήκη ανάκτησης αν ανήκει σε κανονικό καθεστώς Φ.Π.Α.
  * 15/04/2021 (gmoralis) - validation for plants
  * 13/04/2021 (gmoralis) - Προσθήκης ημερομηνίας έναρξης - διακοπης (αν υπάρχει)
  * 08/04/2021 (gmoralis) - Disable updating on existing company (for now)
