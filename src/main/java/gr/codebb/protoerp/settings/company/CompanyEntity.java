@@ -28,6 +28,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -68,6 +70,11 @@ public class CompanyEntity implements Serializable, Displayable {
   @Getter
   @Setter
   private DoyEntity doy;
+
+  @Enumerated(EnumType.ORDINAL)
+  @Getter
+  @Setter
+  private VatStatus vatStatus;
 
   @Getter @Setter private String email;
   @Getter @Setter private String mobilePhone;

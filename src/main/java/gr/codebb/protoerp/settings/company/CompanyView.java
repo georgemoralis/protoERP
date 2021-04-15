@@ -67,6 +67,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -138,6 +139,7 @@ public class CompanyView implements Initializable {
   @FXML private TableColumn<PlantsEntity, String> columnDescription;
   @FXML private DatePicker dateStarted;
   @FXML private DatePicker dateEnded;
+  @FXML private ComboBox<VatStatus> comboVatStatus;
 
   private ObservableList<PlantsEntity> plantrow;
   CompanyEntity company;
@@ -341,10 +343,12 @@ public class CompanyView implements Initializable {
             if ((returnValue.getErrordescr() == null) || (returnValue.getErrordescr().isEmpty())) {
               textName.setText(returnValue.getName());
               textRegisteredName.setText(returnValue.getRegisteredTitle());
-              if (returnValue.getDateStarted() != null)
+              if (returnValue.getDateStarted() != null) {
                 dateStarted.setValue(returnValue.getDateStarted());
-              if (returnValue.getDateEnded() != null)
+              }
+              if (returnValue.getDateEnded() != null) {
                 dateEnded.setValue(returnValue.getDateEnded());
+              }
               Platform.runLater(
                   () -> {
                     doyCombo
