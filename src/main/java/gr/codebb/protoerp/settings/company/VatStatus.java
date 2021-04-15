@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 15/04/2021 - Added fromInteger function
  * 15/04/2021 - Initial
  */
 package gr.codebb.protoerp.settings.company;
@@ -27,8 +28,8 @@ public enum VatStatus implements Displayable {
 
   public static VatStatus[] getNames() {
     /*
-      return all the itemstype except for the placeholder one (used for combobox fill)
-    */
+    return all the itemstype except for the placeholder one (used for combobox fill)
+       */
     VatStatus[] names = new VatStatus[VatStatus.values().length - 1];
     for (int i = 0; i < names.length; i++) {
       names[i] = VatStatus.values()[i + 1];
@@ -39,5 +40,13 @@ public enum VatStatus implements Displayable {
   @Override
   public String getComboDisplayValue() {
     return name;
+  }
+
+  public static VatStatus fromInteger(int x) {
+    switch (x) {
+      case 1:
+        return NORMAL;
+    }
+    return null;
   }
 }

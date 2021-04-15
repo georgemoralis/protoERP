@@ -152,6 +152,8 @@ public class CompanyView implements Initializable {
     masker.setVisible(false);
     new ComboboxService<>(DoyQueries.getDoyDatabase(true), doyCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(doyCombo);
+    comboVatStatus.getItems().addAll(VatStatus.getNames());
+    DisplayableListCellFactory.setComboBoxCellFactory(comboVatStatus);
 
     // plants table
     columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -354,6 +356,9 @@ public class CompanyView implements Initializable {
                     doyCombo
                         .getSelectionModel()
                         .select(DoyQueries.getDoyByCode(returnValue.getDoyCode()));
+                    comboVatStatus
+                        .getSelectionModel()
+                        .select(VatStatus.fromInteger(returnValue.getNormalVat()));
                   });
               PlantsEntity p = new PlantsEntity();
               p.setCode(0);
@@ -445,6 +450,7 @@ public class CompanyView implements Initializable {
     detailCrud.loadModel(e);
     textId.setText(Long.toString(e.getId()));
     doyCombo.getSelectionModel().select(e.getDoy());
+    comboVatStatus.getSelectionModel().select(e.getVatStatus());
     dateStarted.setValue(e.getDateStarted());
     dateEnded.setValue(e.getDateEnded());
     for (PlantsEntity a : e.getPlantLines()) {
@@ -457,6 +463,7 @@ public class CompanyView implements Initializable {
     detailCrud.saveModel(new CompanyEntity());
     CompanyEntity company = detailCrud.getModel();
     company.setDoy(doyCombo.getSelectionModel().getSelectedItem());
+    company.setVatStatus(comboVatStatus.getSelectionModel().getSelectedItem());
     company.setMitroo_username(returndata[0]);
     company.setMitroo_password(returndata[1]);
     company.setMitroo_vatRepresentant(returndata[2]);
@@ -477,6 +484,7 @@ public class CompanyView implements Initializable {
     detailCrud.saveModel((CompanyEntity) gdao.findEntity(Long.valueOf(textId.getText())));
     CompanyEntity cp = detailCrud.getModel();
     cp.setDoy(doyCombo.getSelectionModel().getSelectedItem());
+    cp.setVatStatus(comboVatStatus.getSelectionModel().getSelectedItem());
     cp.setDateStarted(dateStarted.getValue());
     cp.setDateEnded(dateEnded.getValue());
     cp.getPlantLines().clear();
