@@ -7,6 +7,7 @@
 /*
  * changelog
  * =========
+ * 15/04/2021 (gmoralis) - getPlantByCode
  * 13/03/2021 (gmoralis) - getCompanies doesn't include demo companies
  * 09/04/2021 (gmoralis) - getCompanies can return active or not active as well
  * 08/04/2021 (gmoralis) - Added getCompaniesWithMitrooCodes function
@@ -73,6 +74,25 @@ public class CompanyQueries {
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
     Optional<CompanyEntity> result;
     result = streams.streamAll(em, CompanyEntity.class).where(p -> p.getId() == id).findFirst();
+    em.close();
+    if (result.isPresent()) {
+      return result.get();
+    } else {
+      return null;
+    }
+  }
+
+  public static PlantsEntity getPlantByCode(int code) {
+    CompanyEntity current = CompanyUtil.getCurrentCompany();
+    JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
+    EntityManager em = PersistenceManager.getEmf().createEntityManager();
+    Optional<PlantsEntity> result;
+    result =
+        streams
+            .streamAll(em, PlantsEntity.class)
+            .where(p -> p.getCode() == code)
+            .where(p -> p.getCompany().equals(current))
+            .findFirst();
     em.close();
     if (result.isPresent()) {
       return result.get();

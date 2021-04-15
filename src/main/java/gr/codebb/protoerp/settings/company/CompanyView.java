@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 15/04/2021 (gmoralis) - validation for plants
  * 13/04/2021 (gmoralis) - Προσθήκης ημερομηνίας έναρξης - διακοπης (αν υπάρχει)
  * 08/04/2021 (gmoralis) - Disable updating on existing company (for now)
  * 11/03/2021 (georgemoralis) - textRegisteredName wasn't setting in retrieve from taxis
@@ -497,6 +498,13 @@ public class CompanyView implements Initializable {
         (event1) -> {
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
+          } else {
+            if (!(AlertHelper.saveConfirm(
+                        getDetailView.getController().getTextId().getScene().getWindow())
+                    .get()
+                == ButtonType.OK)) {
+              event1.consume();
+            }
           }
         });
     if (plantrow.isEmpty()) { // if no rows create edra
@@ -530,6 +538,13 @@ public class CompanyView implements Initializable {
         (event1) -> {
           if (!getDetailView.getController().validateControls()) {
             event1.consume();
+          } else {
+            if (!(AlertHelper.editConfirm(
+                        getDetailView.getController().getTextId().getScene().getWindow())
+                    .get()
+                == ButtonType.OK)) {
+              event1.consume();
+            }
           }
         });
     Optional<ButtonType> result = alert.showAndWait();

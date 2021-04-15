@@ -7,10 +7,11 @@
 /*
  * Changelog
  * =========
+ * 15/04/2021 (gmoralis) - finished validation
  * 13/04/2021 (gmoralis) - validation with validatorfx
- * 09/03/2021 (georgemoralis) - Added controlsfx validation (todo change it with validatorFX sometime later)
- * 08/03/3021 (georgemoralis) - Added save/load/edit actions
- * 07/03/2021 (georgemoralis) - Initial
+ * 09/03/2021 (gmoralis) - Added controlsfx validation (todo change it with validatorFX sometime later)
+ * 08/03/3021 (gmoralis) - Added save/load/edit actions
+ * 07/03/2021 (gmoralis) - Initial
  */
 package gr.codebb.protoerp.settings.company;
 
@@ -31,12 +32,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
+import lombok.Getter;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.validation.ValidationSupport;
 
 public class PlantsDetailView implements Initializable {
 
-  @FXML private TextField textId;
+  @FXML @Getter private TextField textId;
   @FXML @CheckBoxProperty private CheckBox checkBoxActive;
 
   @FXML
@@ -193,16 +195,31 @@ public class PlantsDetailView implements Initializable {
             })
         .decorates(textFax)
         .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("code", textCode.textProperty())
+        .withMethod(
+            c -> {
+              String code = c.get("code");
+              if (code == null || code.isEmpty()) return;
+              PlantsEntity codef = CompanyQueries.getPlantByCode(Integer.parseInt(code));
+              if (codef != null) // if exists
+              {
+                if (!textId.getText().isEmpty()) { // if it is not a new entry
+                  if (codef.getId()
+                      != Long.parseLong(textId.getText())) // check if found id is the same
+                  {
+                    c.error("H εγκατάσταση με αριθμό " + code + " υπάρχει ήδη");
+                  }
+                } else {
+                  c.error("H εγκατάσταση με αριθμό " + code + " υπάρχει ήδη");
+                }
+              }
+            })
+        .decorates(textCode);
   }
 
-  /*private void registerValidators() {
-
-    validation.registerValidator(textTk, Validators.notEmptyValidator());
-    validation.registerValidator(textCity, Validators.notEmptyValidator());
-    validation.registerValidator(
-        textPhone, false, Validators.onlyNumbersValidator(Severity.WARNING));
-    validation.registerValidator(textFax, false, Validators.onlyNumbersValidator(Severity.WARNING));
-  }*/
   public void fillData(PlantsEntity e) {
     detailCrud.loadModel(e);
     if (e.getId() != null) {
