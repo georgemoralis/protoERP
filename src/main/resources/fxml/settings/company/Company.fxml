@@ -166,6 +166,60 @@
                            </children>
                         </StackPane>
                      </content></Tab>
+                  <Tab closable="false" text="Στοιχεία μητρώου">
+                     <content>
+                        <GridPane hgap="12.0" prefHeight="471.0" prefWidth="550.0" style="-fx-background-color: white;" vgap="12.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="115.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="47.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="111.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="45.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="217.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="134.0" text="Είδος Εταιρίας:" GridPane.rowIndex="1" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="124.0" text="Μορφή Εταιρίας:" GridPane.rowIndex="2" />
+                              <ComboBox fx:id="comboCompanyEidos" prefHeight="25.0" prefWidth="275.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="comboCompanyMorfi" prefHeight="25.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                              <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="5" GridPane.rowIndex="4" GridPane.rowSpan="9">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="Είδος" />
+                                  <TableColumn prefWidth="117.0" text="Κωδικός" />
+                                    <TableColumn prefWidth="341.0" text="Δραστηριότητα" />
+                                </columns>
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </TableView>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets right="5.0" top="10.0" />
+                           </padding>
+                        </GridPane>
+                     </content>
+                  </Tab>
                </tabs>
             </TabPane>
          </children>

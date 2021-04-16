@@ -141,6 +141,8 @@ public class CompanyView implements Initializable {
   @FXML private DatePicker dateStarted;
   @FXML private DatePicker dateEnded;
   @FXML private ComboBox<VatStatus> comboVatStatus;
+  @FXML private ComboBox<CompanyEidos> comboCompanyEidos;
+  @FXML private ComboBox<CompanyMorfi> comboCompanyMorfi;
 
   private ObservableList<PlantsEntity> plantrow;
   CompanyEntity company;
@@ -155,6 +157,10 @@ public class CompanyView implements Initializable {
     DisplayableListCellFactory.setComboBoxCellFactory(doyCombo);
     comboVatStatus.getItems().addAll(VatStatus.getNames());
     DisplayableListCellFactory.setComboBoxCellFactory(comboVatStatus);
+    comboCompanyEidos.getItems().addAll(CompanyEidos.getNames());
+    DisplayableListCellFactory.setComboBoxCellFactory(comboCompanyEidos);
+    comboCompanyMorfi.getItems().addAll(CompanyMorfi.getNames());
+    DisplayableListCellFactory.setComboBoxCellFactory(comboCompanyMorfi);
 
     // plants table
     columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -352,6 +358,7 @@ public class CompanyView implements Initializable {
               if (returnValue.getDateEnded() != null) {
                 dateEnded.setValue(returnValue.getDateEnded());
               }
+              System.out.println(returnValue.getNaturalPerson());
               Platform.runLater(
                   () -> {
                     doyCombo
@@ -360,6 +367,12 @@ public class CompanyView implements Initializable {
                     comboVatStatus
                         .getSelectionModel()
                         .select(VatStatus.fromInteger(returnValue.getNormalVat()));
+                    comboCompanyEidos
+                        .getSelectionModel()
+                        .select(CompanyEidos.fromInteger(returnValue.getNaturalPerson()));
+                    comboCompanyMorfi
+                        .getSelectionModel()
+                        .select(CompanyMorfi.fromInteger(returnValue.getLegalForm()));
                   });
               PlantsEntity p = new PlantsEntity();
               p.setCode(0);
@@ -452,6 +465,8 @@ public class CompanyView implements Initializable {
     textId.setText(Long.toString(e.getId()));
     doyCombo.getSelectionModel().select(e.getDoy());
     comboVatStatus.getSelectionModel().select(e.getVatStatus());
+    comboCompanyEidos.getSelectionModel().select(e.getCompanyEidos());
+    comboCompanyMorfi.getSelectionModel().select(e.getCompanyMorfi());
     dateStarted.setValue(e.getDateStarted());
     dateEnded.setValue(e.getDateEnded());
     for (PlantsEntity a : e.getPlantLines()) {
@@ -470,6 +485,8 @@ public class CompanyView implements Initializable {
     company.setMitroo_vatRepresentant(returndata[2]);
     company.setDateStarted(dateStarted.getValue());
     company.setDateEnded(dateEnded.getValue());
+    company.setCompanyEidos(comboCompanyEidos.getSelectionModel().getSelectedItem());
+    company.setCompanyMorfi(comboCompanyMorfi.getSelectionModel().getSelectedItem());
     plantrow.forEach(
         (plantpos) -> {
           company.addPlantLine(plantpos);
@@ -488,6 +505,8 @@ public class CompanyView implements Initializable {
     cp.setVatStatus(comboVatStatus.getSelectionModel().getSelectedItem());
     cp.setDateStarted(dateStarted.getValue());
     cp.setDateEnded(dateEnded.getValue());
+    cp.setCompanyEidos(comboCompanyEidos.getSelectionModel().getSelectedItem());
+    cp.setCompanyMorfi(comboCompanyMorfi.getSelectionModel().getSelectedItem());
     cp.getPlantLines().clear();
     plantrow.forEach(
         (plantpos) -> {

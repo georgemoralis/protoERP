@@ -76,6 +76,16 @@ public class CompanyEntity implements Serializable, Displayable {
   @Setter
   private VatStatus vatStatus;
 
+  @Enumerated(EnumType.ORDINAL)
+  @Getter
+  @Setter
+  private CompanyEidos companyEidos;
+
+  @Enumerated(EnumType.ORDINAL)
+  @Getter
+  @Setter
+  private CompanyMorfi companyMorfi;
+
   @Getter @Setter private String email;
   @Getter @Setter private String mobilePhone;
   @Getter @Setter private Boolean active;
