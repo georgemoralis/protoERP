@@ -143,6 +143,10 @@ public class CompanyView implements Initializable {
   @FXML private ComboBox<VatStatus> comboVatStatus;
   @FXML private ComboBox<CompanyEidos> comboCompanyEidos;
   @FXML private ComboBox<CompanyMorfi> comboCompanyMorfi;
+  @FXML private TableView<?> tableKad;
+  @FXML private TableColumn<?, ?> columnEidosKad;
+  @FXML private TableColumn<?, ?> columnCodeKad;
+  @FXML private TableColumn<?, ?> columnKadDescription;
 
   private ObservableList<PlantsEntity> plantrow;
   CompanyEntity company;

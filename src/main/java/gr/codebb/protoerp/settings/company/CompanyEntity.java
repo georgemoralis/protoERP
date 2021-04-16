@@ -109,6 +109,20 @@ public class CompanyEntity implements Serializable, Displayable {
     line.setCompany(null);
   }
 
+  @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+  @Getter
+  private List<CompanyKad> kadLines = new ArrayList<>();
+
+  public void addKadLine(CompanyKad line) {
+    kadLines.add(line);
+    line.setCompany(this);
+  }
+
+  public void removeKadLine(CompanyKad line) {
+    kadLines.remove(line);
+    line.setCompany(null);
+  }
+
   // κωδικοί υπηρεσίας μητρώου
   @Getter @Setter private String mitroo_username;
   @Getter @Setter private String mitroo_password;
