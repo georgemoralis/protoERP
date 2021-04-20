@@ -42,6 +42,9 @@ import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import gr.codebb.protoerp.settings.doy.DoyQueries;
 import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
+import gr.codebb.protoerp.settings.kad.KadEntity;
+import gr.codebb.protoerp.settings.kad.KadQueries;
+import gr.codebb.protoerp.settings.kad.KadType;
 import gr.codebb.protoerp.util.validation.CustomValidationDecoration;
 import gr.codebb.protoerp.util.validation.Validators;
 import gr.codebb.protoerp.util.validation.VatValidator;
@@ -143,12 +146,14 @@ public class CompanyView implements Initializable {
   @FXML private ComboBox<VatStatus> comboVatStatus;
   @FXML private ComboBox<CompanyEidos> comboCompanyEidos;
   @FXML private ComboBox<CompanyMorfi> comboCompanyMorfi;
-  @FXML private TableView<?> tableKad;
-  @FXML private TableColumn<?, ?> columnEidosKad;
-  @FXML private TableColumn<?, ?> columnCodeKad;
-  @FXML private TableColumn<?, ?> columnKadDescription;
+  @FXML private TableView<CompanyKadEntity> tableKad;
+  @FXML private TableColumn<CompanyKadEntity, String> columnEidosKad;
+  @FXML private TableColumn<CompanyKadEntity, String> columnCodeKad;
+  @FXML private TableColumn<CompanyKadEntity, String> columnKadDescription;
 
   private ObservableList<PlantsEntity> plantrow;
+  private ObservableList<CompanyKadEntity> kadrow;
+
   CompanyEntity company;
   String[] returndata = {null, null, null};
 
@@ -165,6 +170,11 @@ public class CompanyView implements Initializable {
     DisplayableListCellFactory.setComboBoxCellFactory(comboCompanyEidos);
     comboCompanyMorfi.getItems().addAll(CompanyMorfi.getNames());
     DisplayableListCellFactory.setComboBoxCellFactory(comboCompanyMorfi);
+
+    // kads table
+    columnEidosKad.setCellValueFactory(new PropertyValueFactory<>("kadTypeS"));
+    columnCodeKad.setCellValueFactory(new PropertyValueFactory<>("kadCodeS"));
+    columnKadDescription.setCellValueFactory(new PropertyValueFactory<>("kadDescriptionS"));
 
     // plants table
     columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -205,6 +215,18 @@ public class CompanyView implements Initializable {
             // System.out.println("Changed on " + c);//c.getFrom -> line that did the change
             if (c.next()) {
               tablePlants.setItems(plantrow);
+            }
+          }
+        });
+    kadrow = FXCollections.observableArrayList();
+    kadrow.addListener(
+        new ListChangeListener<CompanyKadEntity>() {
+          @Override
+          public void onChanged(
+              javafx.collections.ListChangeListener.Change<? extends CompanyKadEntity> c) {
+            // System.out.println("Changed on " + c);//c.getFrom -> line that did the change
+            if (c.next()) {
+              tableKad.setItems(kadrow);
             }
           }
         });
@@ -362,7 +384,6 @@ public class CompanyView implements Initializable {
               if (returnValue.getDateEnded() != null) {
                 dateEnded.setValue(returnValue.getDateEnded());
               }
-              System.out.println(returnValue.getNaturalPerson());
               Platform.runLater(
                   () -> {
                     doyCombo
@@ -389,13 +410,39 @@ public class CompanyView implements Initializable {
               p.setFax("");
               p.setPhone("");
               p.setCountry(CountriesQueries.getCountryByCode("GR"));
+              plantrow.add(p);
               // kirios kadi
               for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
                 if (kad.getEidosDescr().matches("ΚΥΡΙΑ")) {
                   textJob.setText(kad.getPerigrafi());
-                  plantrow.add(p);
                 }
               }
+              for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
+                KadEntity find = KadQueries.getKadByCode(kad.getKodikos().toString());
+                if (find != null) {
+                  CompanyKadEntity ckad = new CompanyKadEntity();
+                  ckad.setKad(find);
+                  if (kad.getEidosDescr().matches("ΚΥΡΙΑ")) {
+                    ckad.setKadType(KadType.MAIN);
+                  } else {
+                    ckad.setKadType(KadType.EXTRA);
+                  }
+                  kadrow.add(ckad);
+                }
+              }
+
+              // add to master table
+              /*for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
+                if (KadQueries.getKadByCode(kad.getEidos())==null) {
+                    System.out.println("is null");
+                 GenericDao gdao = new GenericDao(KadEntity.class, PersistenceManager.getEmf());
+                  KadEntity kadsave = new KadEntity();
+                  kadsave.setCode(kad.getEidos());
+                  kadsave.setDescription(kad.getEidosDescr());
+                  kadsave.setActive(true);
+                  KadEntity saved = (KadEntity)gdao.createEntity(kad);
+                }//can't save in javafx thread?
+              }*/
             } else {
               return returnValue.getErrorcode() + ":" + returnValue.getErrordescr();
             }
@@ -476,6 +523,9 @@ public class CompanyView implements Initializable {
     for (PlantsEntity a : e.getPlantLines()) {
       plantrow.add(a);
     }
+    for (CompanyKadEntity k : e.getKadLines()) {
+      kadrow.add(k);
+    }
   }
 
   public void SaveNewCompany() {
@@ -494,6 +544,10 @@ public class CompanyView implements Initializable {
     plantrow.forEach(
         (plantpos) -> {
           company.addPlantLine(plantpos);
+        });
+    kadrow.forEach(
+        (kadpos) -> {
+          company.addKadLine(kadpos);
         });
     CompanyEntity saved = (CompanyEntity) gdao.createEntity(company);
     textId.setText(Long.toString(saved.getId()));
@@ -515,6 +569,10 @@ public class CompanyView implements Initializable {
     plantrow.forEach(
         (plantpos) -> {
           cp.addPlantLine(plantpos);
+        });
+    kadrow.forEach(
+        (kadpos) -> {
+          cp.addKadLine(kadpos);
         });
     gdao.updateEntity(cp);
   }

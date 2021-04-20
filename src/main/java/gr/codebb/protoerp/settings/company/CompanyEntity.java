@@ -111,14 +111,14 @@ public class CompanyEntity implements Serializable, Displayable {
 
   @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
   @Getter
-  private List<CompanyKad> kadLines = new ArrayList<>();
+  private List<CompanyKadEntity> kadLines = new ArrayList<>();
 
-  public void addKadLine(CompanyKad line) {
+  public void addKadLine(CompanyKadEntity line) {
     kadLines.add(line);
     line.setCompany(this);
   }
 
-  public void removeKadLine(CompanyKad line) {
+  public void removeKadLine(CompanyKadEntity line) {
     kadLines.remove(line);
     line.setCompany(null);
   }

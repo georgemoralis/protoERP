@@ -4,6 +4,11 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
+/*
+ * changelog
+ * =========
+ * 20/04/2021 (gmoralis) - Initial
+ */
 package gr.codebb.protoerp.settings.company;
 
 import gr.codebb.protoerp.settings.kad.KadEntity;
@@ -18,12 +23,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Table(name = "protoerp_company_kad")
-public class CompanyKad {
+public class CompanyKadEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,4 +53,22 @@ public class CompanyKad {
   @Getter
   @Setter
   private CompanyEntity company;
+
+  /*
+  Used for easy access in tableview
+  */
+  @Transient
+  public String getKadTypeS() {
+    return kadType.getComboDisplayValue();
+  }
+
+  @Transient
+  public String getKadCodeS() {
+    return kad.getCode();
+  }
+
+  @Transient
+  public String getKadDescriptionS() {
+    return kad.getDescription();
+  }
 }
