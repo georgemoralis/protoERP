@@ -7,11 +7,14 @@
 package gr.codebb.protoerp.tables.InvoiceTypes;
 
 import gr.codebb.lib.crud.intf.Displayable;
+import gr.codebb.protoerp.settings.company.PlantsEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +35,12 @@ public class InvoiceTypesEntity implements Serializable, Displayable {
   @Getter @Setter private String seira;
   @Getter @Setter private Integer number;
   @Getter @Setter private Boolean active;
+
+  @ManyToOne
+  @JoinColumn(name = "company_plant_id")
+  @Getter
+  @Setter
+  private PlantsEntity companyplant;
 
   @Override
   public String getComboDisplayValue() {

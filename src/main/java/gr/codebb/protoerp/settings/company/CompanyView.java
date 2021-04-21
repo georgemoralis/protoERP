@@ -422,7 +422,6 @@ public class CompanyView implements Initializable {
                     // add to master table
                     for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
                       if (KadQueries.getKadByCode(kad.getKodikos().toString()) == null) {
-                        System.out.println("is null");
                         GenericDao gdao =
                             new GenericDao(KadEntity.class, PersistenceManager.getEmf());
                         KadEntity kadsave = new KadEntity();

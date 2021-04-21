@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 21/04/2021 (gmoralis) - Προσθήκη παραστατικών στο μενού
  * 05/04/2021 (gmoralis) - Προσθήκη Ειδών στο μενού
  * 13/11/2020 (gmoralis) - Added permission access to user management
  * 06/11/2020 (gmoralis) - Added usermanagement link
@@ -23,6 +24,7 @@ import gr.codebb.ctl.CbbDetachableTabPane;
 import gr.codebb.lib.util.AuthUtil;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.StageUtil;
+import gr.codebb.protoerp.invoices.InvoicesListView;
 import gr.codebb.protoerp.issues.GenericIssueView;
 import gr.codebb.protoerp.items.ItemsListView;
 import gr.codebb.protoerp.mydata.MyDataMainView;
@@ -280,5 +282,10 @@ public class LeftSideMenuView implements Initializable {
   }
 
   @FXML
-  private void invoicesAction(ActionEvent event) {}
+  private void invoicesAction(ActionEvent event) {
+    FxmlUtil.LoadResult<InvoicesListView> getMainView =
+        FxmlUtil.load("/fxml/invoices/InvoicesListView.fxml");
+    Node mydata = (Node) getMainView.getParent();
+    showAsTab(mydata, "Παραστατικά");
+  }
 }

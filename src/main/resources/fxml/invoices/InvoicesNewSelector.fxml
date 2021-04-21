@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import gr.codebb.ctl.CbbSearchableTextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="mainStackPane" prefHeight="358.0" prefWidth="778.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.invoices.InvoicesNewView">
+   <children>
+      <GridPane prefHeight="339.0" prefWidth="778.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.4000244140625" minWidth="6.7999958038330135" prefWidth="6.7999958038330135" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="736.800004196167" minWidth="10.0" prefWidth="736.800004196167" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="0.0" prefWidth="0.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="60.0" minHeight="5.600001430511476" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="310.3999985694885" minHeight="10.0" prefHeight="280.9999633789063" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="88.00002441406252" minHeight="5.599987792968761" prefHeight="17.000036621093727" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <TableView fx:id="selectTable" prefHeight="204.0" prefWidth="499.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Κωδικός" />
+                <TableColumn fx:id="shortColumn" prefWidth="78.39996337890625" text="Συντόμευση" />
+                  <TableColumn fx:id="nameColumn" prefWidth="372.7999572753906" text="Περιγραφή" />
+                  <TableColumn fx:id="lastNumColumn" prefWidth="89.60003662109375" text="Τελ.Αριθμός" />
+                  <TableColumn fx:id="plantColumn" prefWidth="93.60003662109375" text="Εγκατάσταση" />
+              </columns>
+            </TableView>
+            <CbbSearchableTextField fx:id="searchTextField" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+   </children>
+</StackPane>
