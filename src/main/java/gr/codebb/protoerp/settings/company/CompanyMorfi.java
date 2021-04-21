@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 21/04/2021 - Added MIKE
  * 16/04/2021 - Initial
  */
 package gr.codebb.protoerp.settings.company;
@@ -15,7 +16,8 @@ import gr.codebb.lib.crud.intf.Displayable;
 
 public enum CompanyMorfi implements Displayable {
   PLACEHOLDER_NO_USE(0, "NOUSE"),
-  AE(1, "A.E.");
+  AE(1, "A.E."),
+  MIKE(2, "Μονοπρ. Ι.Κ.Ε");
 
   private int id;
   private String name;
@@ -45,6 +47,8 @@ public enum CompanyMorfi implements Displayable {
     switch (x) {
       case 1:
         return AE;
+      case 2:
+        return MIKE;
     }
     return null;
   }

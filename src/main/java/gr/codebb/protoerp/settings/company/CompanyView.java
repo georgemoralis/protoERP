@@ -417,32 +417,37 @@ public class CompanyView implements Initializable {
                   textJob.setText(kad.getPerigrafi());
                 }
               }
-              for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
-                KadEntity find = KadQueries.getKadByCode(kad.getKodikos().toString());
-                if (find != null) {
-                  CompanyKadEntity ckad = new CompanyKadEntity();
-                  ckad.setKad(find);
-                  if (kad.getEidosDescr().matches("ΚΥΡΙΑ")) {
-                    ckad.setKadType(KadType.MAIN);
-                  } else {
-                    ckad.setKadType(KadType.EXTRA);
-                  }
-                  kadrow.add(ckad);
-                }
-              }
+              Platform.runLater(
+                  () -> {
+                    // add to master table
+                    for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
+                      if (KadQueries.getKadByCode(kad.getKodikos().toString()) == null) {
+                        System.out.println("is null");
+                        GenericDao gdao =
+                            new GenericDao(KadEntity.class, PersistenceManager.getEmf());
+                        KadEntity kadsave = new KadEntity();
+                        kadsave.setCode(kad.getKodikos().toString());
+                        kadsave.setDescription(kad.getPerigrafi());
+                        kadsave.setActive(true);
+                        KadEntity saved = (KadEntity) gdao.createEntity(kadsave);
+                      } // can't save in javafx thread?
+                    }
 
-              // add to master table
-              /*for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
-                if (KadQueries.getKadByCode(kad.getEidos())==null) {
-                    System.out.println("is null");
-                 GenericDao gdao = new GenericDao(KadEntity.class, PersistenceManager.getEmf());
-                  KadEntity kadsave = new KadEntity();
-                  kadsave.setCode(kad.getEidos());
-                  kadsave.setDescription(kad.getEidosDescr());
-                  kadsave.setActive(true);
-                  KadEntity saved = (KadEntity)gdao.createEntity(kad);
-                }//can't save in javafx thread?
-              }*/
+                    for (ResponsedCompanyKad kad : returnValue.getDrastir()) {
+                      KadEntity find = KadQueries.getKadByCode(kad.getKodikos().toString());
+                      if (find != null) {
+                        CompanyKadEntity ckad = new CompanyKadEntity();
+                        ckad.setKad(find);
+                        if (kad.getEidosDescr().matches("ΚΥΡΙΑ")) {
+                          ckad.setKadType(KadType.MAIN);
+                        } else {
+                          ckad.setKadType(KadType.EXTRA);
+                        }
+                        kadrow.add(ckad);
+                      }
+                    }
+                  });
+
             } else {
               return returnValue.getErrorcode() + ":" + returnValue.getErrordescr();
             }
