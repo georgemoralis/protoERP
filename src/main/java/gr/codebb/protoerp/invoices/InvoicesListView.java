@@ -50,10 +50,7 @@ public class InvoicesListView implements Initializable {
 
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
-      if (getDetailView.getController() != null) {
-        // getDetailView.getController().save();
-        // selectWithService();
-      }
+      if (getDetailView.getController() != null) {}
     }
   }
 
