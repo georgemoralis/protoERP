@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 
 <MenuBar fx:id="menuBar" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.generic.MainMenuView">
   <menus>
@@ -12,6 +13,8 @@
             <MenuItem mnemonicParsing="false" onAction="#onMeasureUnits" text="Μονάδες Μέτρησης" />
             <MenuItem mnemonicParsing="false" onAction="#onVat" text="Συντελεστές Φ.Π.Α." />
             <MenuItem mnemonicParsing="false" onAction="#onInvoiceSeries" text="Σειρές Παραστατικών" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#onInitTables" text="Αρχικοποιήση πινάκων" />
          </items></Menu>
     <Menu mnemonicParsing="false" text="Συντήρηση">
       <items>

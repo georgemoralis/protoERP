@@ -120,4 +120,7 @@ public class MainMenuView implements Initializable {
 
   @FXML
   private void onInvoiceSeries(ActionEvent event) {}
+
+  @FXML
+  private void onInitTables(ActionEvent event) {}
 }
