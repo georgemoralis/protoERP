@@ -26,9 +26,10 @@
               <columns>
                 <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Κωδικός" />
                 <TableColumn fx:id="shortColumn" prefWidth="78.39996337890625" text="Συντόμευση" />
-                  <TableColumn fx:id="nameColumn" prefWidth="372.7999572753906" text="Περιγραφή" />
-                  <TableColumn fx:id="lastNumColumn" prefWidth="89.60003662109375" text="Τελ.Αριθμός" />
-                  <TableColumn fx:id="plantColumn" prefWidth="93.60003662109375" text="Εγκατάσταση" />
+                  <TableColumn fx:id="nameColumn" prefWidth="274.0" text="Περιγραφή" />
+                  <TableColumn fx:id="seiraColumn" prefWidth="73.0" text="Σειρά" />
+                  <TableColumn fx:id="lastNumColumn" prefWidth="84.0" text="Τελ.Αριθμός" />
+                  <TableColumn fx:id="plantColumn" prefWidth="148.0" text="Εγκατάσταση" />
               </columns>
             </TableView>
             <CbbSearchableTextField fx:id="searchTextField" GridPane.columnIndex="1" />

@@ -4,6 +4,11 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
+/*
+ * changelog
+ * =========
+ * 22/04/2020 (gmoralis) - Initial
+ */
 package gr.codebb.protoerp.tables.InvoiceTypes;
 
 import gr.codebb.lib.crud.intf.Displayable;
@@ -49,5 +54,9 @@ public class InvoiceTypesEntity implements Serializable, Displayable {
     } else {
       return shortName + " - " + name + " (ΣΕΙΡΑ : " + seira + " )";
     }
+  }
+
+  public String getPlantS() {
+    return companyplant.getComboDisplayValue();
   }
 }
