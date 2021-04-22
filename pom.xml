@@ -29,7 +29,7 @@
         <lombok>1.18.20</lombok>
         <jfoenix>9.0.10</jfoenix>
         <controlsfx>11.1.0</controlsfx>
-        <javafx>17-ea+6</javafx>
+        <javafx>17-ea+7</javafx>
         <ikonli-fontawesome-pack>12.2.0</ikonli-fontawesome-pack>
         <ikonli-materialdesign-pack>12.2.0</ikonli-materialdesign-pack>
         <ikonli-material-pack>12.2.0</ikonli-material-pack>
