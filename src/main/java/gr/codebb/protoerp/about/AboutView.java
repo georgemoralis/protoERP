@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 22/04/2021 (gmoralis) - Updated to 2021
  * 11/10/2020 (georgemoralis) - Initial
  */
 package gr.codebb.protoerp.about;
@@ -37,7 +38,7 @@ public class AboutView implements Initializable {
             .append(getBuildInfoParagraph())
             .append(getJavaParagraph())
             .append(getOsParagraph())
-            .append("Copyright (c) 2013-2020, codebb")
+            .append("Copyright (c) 2013-2021, codebb")
             .append(
                 "\n\nΓια πληροφορίες,ενημερώσεις,αναβαθμίσεις εγγραφείτε στο forum της codebb\n")
             .append("http://codebb.gr/forum/");
