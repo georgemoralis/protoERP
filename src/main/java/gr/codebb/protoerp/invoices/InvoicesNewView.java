@@ -127,4 +127,8 @@ public class InvoicesNewView implements Initializable {
     sortedData.comparatorProperty().bind(selectTable.comparatorProperty());
     selectTable.setItems(sortedData);
   }
+
+  public TableView getTableView() {
+    return selectTable;
+  }
 }

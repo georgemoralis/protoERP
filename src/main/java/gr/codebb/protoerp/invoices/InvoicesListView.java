@@ -9,9 +9,11 @@ package gr.codebb.protoerp.invoices;
 import gr.codebb.ctl.cbbTableView.CbbTableView;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
+import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,6 +30,7 @@ public class InvoicesListView implements Initializable {
   @FXML private Button openButton;
   @FXML private Button deleteButton;
   @FXML private CbbTableView<?> invoiceTable;
+
   /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -47,10 +50,32 @@ public class InvoicesListView implements Initializable {
             getDetailView.getParent(),
             mainStackPane.getScene().getWindow());
     Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
-
+    okbutton.setDisable(true);
+    okbutton
+        .disableProperty()
+        .bind(
+            Bindings.isEmpty(
+                getDetailView
+                    .getController()
+                    .getTableView()
+                    .getSelectionModel()
+                    .getSelectedItems()));
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
-      if (getDetailView.getController() != null) {}
+      InvoiceTypesEntity type =
+          (InvoiceTypesEntity)
+              getDetailView.getController().getTableView().getSelectionModel().getSelectedItem();
+      if (getDetailView.getController() != null) {
+        FxmlUtil.LoadResult<Invoice1DetailView> getDetailView1 =
+            FxmlUtil.load("/fxml/invoices/Invoice1DetailView.fxml");
+        Alert alert1 =
+            AlertDlgHelper.saveDialog(
+                "Δημιουργία παραστατικού",
+                getDetailView1.getParent(),
+                mainStackPane.getScene().getWindow());
+        getDetailView1.getController().setInvoiceType(type);
+        Optional<ButtonType> result1 = alert1.showAndWait();
+      }
     }
   }
 
