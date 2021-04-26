@@ -73,7 +73,7 @@ public class InvoicesListView implements Initializable {
                 "Δημιουργία παραστατικού",
                 getDetailView1.getParent(),
                 mainStackPane.getScene().getWindow());
-        getDetailView1.getController().setInvoiceType(type);
+        getDetailView1.getController().newInvoice(type);
         Optional<ButtonType> result1 = alert1.showAndWait();
       }
     }

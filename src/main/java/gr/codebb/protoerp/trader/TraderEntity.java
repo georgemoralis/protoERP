@@ -11,6 +11,7 @@
  */
 package gr.codebb.protoerp.trader;
 
+import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "traders")
-public class TraderEntity {
+public class TraderEntity implements Displayable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,5 +71,10 @@ public class TraderEntity {
   public void removePlantLine(TraderPlantsEntity line) {
     plantLines.remove(line);
     line.setTrader(null);
+  }
+
+  @Override
+  public String getComboDisplayValue() {
+    return String.format("%9s - %s", vatNumber, name);
   }
 }
