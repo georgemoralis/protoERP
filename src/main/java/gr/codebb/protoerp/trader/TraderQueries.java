@@ -33,4 +33,16 @@ public class TraderQueries {
     em.close();
     return results;
   }
+
+  public static List<TraderPlantsEntity> getTraderPlants(TraderEntity trader) {
+    JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
+    EntityManager em = PersistenceManager.getEmf().createEntityManager();
+    List<TraderPlantsEntity> results =
+        streams
+            .streamAll(em, TraderPlantsEntity.class)
+            .where(p -> p.getTrader().equals(trader))
+            .toList();
+    em.close();
+    return results;
+  }
 }

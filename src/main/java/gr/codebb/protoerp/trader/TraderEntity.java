@@ -14,6 +14,7 @@ package gr.codebb.protoerp.trader;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -30,7 +31,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "traders")
-public class TraderEntity implements Displayable {
+public class TraderEntity implements Serializable, Displayable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
