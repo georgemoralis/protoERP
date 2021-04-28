@@ -1,123 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import gr.codebb.ctl.CbbBigDecimalLabel?>
 <?import gr.codebb.ctl.cbbDateTimePicker.CbbDateTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="814.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.invoices.Invoice1DetailView">
-  <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="17.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="111.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="229.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="90.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="59.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="153.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="79.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="287.0" minHeight="8.0" prefHeight="50.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="314.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="259.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="277.0" minHeight="10.0" prefHeight="273.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Label fx:id="invoiceTypeLabel" prefHeight="17.0" prefWidth="490.0" textFill="#5100ff" GridPane.columnIndex="1" GridPane.columnSpan="3">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Label>
-      <Label text="Εγκατάσταση: " GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label fx:id="plantLabel" prefHeight="17.0" prefWidth="316.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <CbbDateTimePicker fx:id="dateTimePicker" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-      <Label prefHeight="17.0" prefWidth="138.0" text="Ημερομηνία:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <Label text="Συναλλασσόμενος: " GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Button mnemonicParsing="false" styleClass="primary" GridPane.columnIndex="4" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets left="5.0" />
-         </GridPane.margin>
-         <graphic>
-            <FontIcon iconLiteral="fa-search" />
-         </graphic>
-      </Button>
-      <SearchableComboBox fx:id="traderCombo" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-      <Label prefHeight="17.0" prefWidth="144.0" text="Εγκατάσταση: " GridPane.columnIndex="5" GridPane.rowIndex="2" />
-      <ComboBox fx:id="traderPlantCombo" prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="4">
-          <children>
-                              <ToolBar prefHeight="40.0" prefWidth="501.0">
-                                 <items>
-                                    <Button fx:id="invoiceLinesNewButton" mnemonicParsing="false" onAction="#invoiceLinesNewAction" prefHeight="29.0" prefWidth="30.0" styleClass="info">
-                                       <tooltip>
-                                          <Tooltip text="Προσθήκη γραμμής">
-                                             <font>
-                                                <Font name="Segoe UI Semilight" size="12.0" />
-                                             </font>
-                                          </Tooltip>
-                                       </tooltip>
-                     <graphic>
-                        <FontIcon iconLiteral="gmi-add" iconSize="16" />
-                     </graphic>
-
-                                    </Button>
-                                    <Button fx:id="invoiceLinesEditButton" mnemonicParsing="false" onAction="#invoiceLinesEditAction" prefHeight="29.0" prefWidth="30.0" styleClass="warning">
-                                       <tooltip>
-                                          <Tooltip text="Επεξεργασία γραμμής">
-                                             <font>
-                                                <Font name="Segoe UI Semilight" size="12.0" />
-                                             </font>
-                                          </Tooltip>
-                                       </tooltip>
-                     <graphic>
-                        <FontIcon iconLiteral="mdi-file-document" iconSize="16" />
-                     </graphic>
-                                    </Button>
-                                    <Button fx:id="invoiceLinesDeleteButton" mnemonicParsing="false" onAction="#invoiceLinesDeleteAction" prefHeight="29.0" prefWidth="30.0" styleClass="danger">
-                                       <tooltip>
-                                          <Tooltip text="Διαγραφή γραμμής">
-                                             <font>
-                                                <Font name="Segoe UI Semilight" size="12.0" />
-                                             </font>
-                                          </Tooltip>
-                                       </tooltip>
-                     <graphic>
-                        <FontIcon iconLiteral="gmi-delete" iconSize="16" />
-                     </graphic>
-                                    </Button>
-                                 </items>
-                              </ToolBar>
-                              <TableView fx:id="invoiceLinesTable" VBox.vgrow="ALWAYS">
-                                 <columns>
-                                    <TableColumn fx:id="linesCodeCol" prefWidth="75.0" text="Κωδικός" />
-                                    <TableColumn fx:id="linesBarcodeCol" prefWidth="75.0" text="Barcode" />
-                                    <TableColumn fx:id="linesEidosCol" prefWidth="75.0" text="Είδος" />
-                                    <TableColumn fx:id="linesFPACol" prefWidth="75.0" text="Φ.Π.Α." />
-                                    <TableColumn fx:id="linesSeiraEmCol" prefWidth="75.0" text="Σειρά Εμφάνισης" />
-                                    <TableColumn fx:id="linesMonCol" prefWidth="75.0" text="Μονάδα Μέτρησης" />
-                                    <TableColumn fx:id="linesPosotCol" prefWidth="75.0" text="Ποσότητα" />
-                                    <TableColumn fx:id="linesTimMonCol" prefWidth="75.0" text="Τιμή Μονάδας" />
-                                    <TableColumn fx:id="linesValueBeforeDiscCol" prefWidth="75.0" text="Αξία Προ Έκπτωσης" />
-                                    <TableColumn fx:id="linesDiscPerCol" prefWidth="75.0" text="\% Έκπτωσης" />
-                                    <TableColumn fx:id="linesDiscValueCol" prefWidth="75.0" text="Ποσό έκπτωσης" />
-                                    <TableColumn fx:id="linesValueCol" prefWidth="75.0" text="Αξία μετά έκπτωσης" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </VBox>
-   </children>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="17.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="144.20003051757814" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="190.59996948242184" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="90.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="59.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="153.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="79.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="287.0" minHeight="8.0" prefHeight="50.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="314.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="259.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="277.0" minHeight="10.0" prefHeight="273.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label fx:id="invoiceTypeLabel" prefHeight="17.0" prefWidth="490.0" textFill="#5100ff" GridPane.columnIndex="1" GridPane.columnSpan="3">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="152.0" text="Εγκατάσταση: " GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label fx:id="plantLabel" prefHeight="17.0" prefWidth="316.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <CbbDateTimePicker fx:id="dateTimePicker" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="138.0" text="Ημερομηνία:" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+        <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="146.0" text="Συναλλασσόμενος: " GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Button mnemonicParsing="false" styleClass="primary" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="5.0" />
+            </GridPane.margin>
+            <graphic>
+                <FontIcon iconLiteral="fa-search" />
+            </graphic>
+        </Button>
+        <SearchableComboBox fx:id="traderCombo" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+        <Label prefHeight="17.0" prefWidth="144.0" text="Εγκατάσταση: " GridPane.columnIndex="5" GridPane.rowIndex="2" />
+        <ComboBox fx:id="traderPlantCombo" prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="4">
+            <children>
+                <TabPane VBox.vgrow="ALWAYS">
+                    <tabs>
+                        <Tab closable="false" text="Γραμμές Παραστατικόυ">
+                            <content>
+                                <VBox>
+                                    <children>
+                                        <ToolBar prefHeight="40.0" prefWidth="501.0">
+                                            <items>
+                                                <Button fx:id="invoiceLinesNewButton" mnemonicParsing="false" onAction="#invoiceLinesNewAction" prefHeight="29.0" prefWidth="30.0" styleClass="info">
+                                                    <tooltip>
+                                                        <Tooltip text="Προσθήκη γραμμής">
+                                                            <font>
+                                                                <Font name="Segoe UI Semilight" size="12.0" />
+                                                            </font>
+                                                        </Tooltip>
+                                                    </tooltip>
+                                                    <graphic>
+                                                        <FontIcon iconLiteral="gmi-add" iconSize="16" />
+                                                    </graphic>
+                  
+                                                </Button>
+                                                <Button fx:id="invoiceLinesEditButton" mnemonicParsing="false" onAction="#invoiceLinesEditAction" prefHeight="29.0" prefWidth="30.0" styleClass="warning">
+                                                    <tooltip>
+                                                        <Tooltip text="Επεξεργασία γραμμής">
+                                                            <font>
+                                                                <Font name="Segoe UI Semilight" size="12.0" />
+                                                            </font>
+                                                        </Tooltip>
+                                                    </tooltip>
+                                                    <graphic>
+                                                        <FontIcon iconLiteral="mdi-file-document" iconSize="16" />
+                                                    </graphic>
+                                                </Button>
+                                                <Button fx:id="invoiceLinesDeleteButton" mnemonicParsing="false" onAction="#invoiceLinesDeleteAction" prefHeight="29.0" prefWidth="30.0" styleClass="danger">
+                                                    <tooltip>
+                                                        <Tooltip text="Διαγραφή γραμμής">
+                                                            <font>
+                                                                <Font name="Segoe UI Semilight" size="12.0" />
+                                                            </font>
+                                                        </Tooltip>
+                                                    </tooltip>
+                                                    <graphic>
+                                                        <FontIcon iconLiteral="gmi-delete" iconSize="16" />
+                                                    </graphic>
+                                                </Button>
+                                            </items>
+                                        </ToolBar>
+                                        <TableView fx:id="invoiceLinesTable" prefHeight="197.0" prefWidth="738.0">
+                                            <columns>
+                                                <TableColumn fx:id="linesCodeCol" prefWidth="75.0" text="Κωδικός" />
+                                                <TableColumn fx:id="linesBarcodeCol" prefWidth="75.0" text="Barcode" />
+                                                <TableColumn fx:id="linesEidosCol" prefWidth="75.0" text="Είδος" />
+                                                <TableColumn fx:id="linesFPACol" prefWidth="75.0" text="Φ.Π.Α." />
+                                                <TableColumn fx:id="linesSeiraEmCol" prefWidth="75.0" text="Σειρά Εμφάνισης" />
+                                                <TableColumn fx:id="linesMonCol" prefWidth="75.0" text="Μονάδα Μέτρησης" />
+                                                <TableColumn fx:id="linesPosotCol" prefWidth="75.0" text="Ποσότητα" />
+                                                <TableColumn fx:id="linesTimMonCol" prefWidth="75.0" text="Τιμή Μονάδας" />
+                                                <TableColumn fx:id="linesValueBeforeDiscCol" prefWidth="75.0" text="Αξία Προ Έκπτωσης" />
+                                                <TableColumn fx:id="linesDiscPerCol" prefWidth="75.0" text="\% Έκπτωσης" />
+                                                <TableColumn fx:id="linesDiscValueCol" prefWidth="75.0" text="Ποσό έκπτωσης" />
+                                                <TableColumn fx:id="linesValueCol" prefWidth="75.0" text="Αξία μετά έκπτωσης" />
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </VBox>
+        <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="103.0" text="Αριθμός:" GridPane.columnIndex="5" />
+        <TextField disable="true" GridPane.columnIndex="6" />
+        <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="140.0" text="Σχετικά Παραστατικά:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+        <RadioButton mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" text="Μετρητοίς" GridPane.columnIndex="5" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets left="5.0" />
+            </GridPane.margin>
+         <toggleGroup>
+            <ToggleGroup fx:id="payway" />
+         </toggleGroup>
+        </RadioButton>
+        <RadioButton mnemonicParsing="false" prefHeight="20.0" prefWidth="166.0" selected="true" text="Επι πιστώσει" toggleGroup="$payway" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                    <GridPane prefHeight="42.0" prefWidth="38.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="5" VBox.vgrow="NEVER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <CbbBigDecimalLabel fx:id="total_no_disc" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="130.0" style="-fx-border-radius: 0;" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="total_disc" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="132.0" style="-fx-border-radius: 0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="total_no_vat" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="132.0" style="-fx-border-radius: 0;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="vat" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="149.0" style="-fx-border-radius: 0;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="total_with_vat" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="131.0" style="-fx-border-radius: 0;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="pliroteo" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="215.0" style="-fx-border-radius: 0;" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <StackPane style="-fx-background-color: #5bc0de;" GridPane.columnIndex="2">
+                     <children>
+                        <Label alignment="CENTER" text="Καθαρή Αξία">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane style="-fx-background-color: #5bc0de;" GridPane.columnIndex="3">
+                     <children>
+                        <Label alignment="CENTER" text="Αξία Φ.Π.Α.">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane style="-fx-background-color: #5bc0de;" GridPane.columnIndex="4">
+                     <children>
+                        <Label alignment="CENTER" text="Τελική Αξία">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane style="-fx-background-color: #5bc0de;" GridPane.columnIndex="5">
+                     <children>
+                        <Label alignment="CENTER" text="Πληρωτέο">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane style="-fx-background-color: #5bc0de;">
+                     <children>
+                        <Label alignment="CENTER" text="Συνολική Αξία">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+                  <StackPane style="-fx-background-color: #5bc0de;" GridPane.columnIndex="1">
+                     <children>
+                        <Label alignment="CENTER" text="Συνολική Έκπτωση">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </GridPane>
+    </children>
 </GridPane>

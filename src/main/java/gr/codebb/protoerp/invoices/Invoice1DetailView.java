@@ -6,14 +6,18 @@
  */
 package gr.codebb.protoerp.invoices;
 
+import gr.codebb.ctl.CbbBigDecimalLabel;
 import gr.codebb.ctl.cbbDateTimePicker.CbbDateTimePicker;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
+import gr.codebb.lib.util.DecimalDigits;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import gr.codebb.protoerp.trader.TraderEntity;
 import gr.codebb.protoerp.trader.TraderPlantsEntity;
 import gr.codebb.protoerp.trader.TraderQueries;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -52,11 +56,36 @@ public class Invoice1DetailView implements Initializable {
   @FXML private TableColumn<?, ?> linesDiscPerCol;
   @FXML private TableColumn<?, ?> linesDiscValueCol;
   @FXML private TableColumn<?, ?> linesValueCol;
+  @FXML private CbbBigDecimalLabel total_no_disc;
+  @FXML private CbbBigDecimalLabel total_disc;
+  @FXML private CbbBigDecimalLabel total_no_vat;
+  @FXML private CbbBigDecimalLabel vat;
+  @FXML private CbbBigDecimalLabel total_with_vat;
+  @FXML private CbbBigDecimalLabel pliroteo;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     new ComboboxService<>(TraderQueries.getTradersPerCompany(), traderCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(traderCombo);
+
+    total_no_disc.initBigDecimal(
+        BigDecimal.ZERO,
+        new DecimalFormat(DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName())));
+    total_disc.initBigDecimal(
+        BigDecimal.ZERO,
+        new DecimalFormat(DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName())));
+    total_no_vat.initBigDecimal(
+        BigDecimal.ZERO,
+        new DecimalFormat(DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName())));
+    vat.initBigDecimal(
+        BigDecimal.ZERO,
+        new DecimalFormat(DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName())));
+    total_with_vat.initBigDecimal(
+        BigDecimal.ZERO,
+        new DecimalFormat(DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName())));
+    pliroteo.initBigDecimal(
+        BigDecimal.ZERO,
+        new DecimalFormat(DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName())));
 
     traderCombo
         .getSelectionModel()
