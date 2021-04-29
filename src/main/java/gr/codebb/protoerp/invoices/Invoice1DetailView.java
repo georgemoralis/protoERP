@@ -10,7 +10,9 @@ import gr.codebb.ctl.CbbBigDecimalLabel;
 import gr.codebb.ctl.cbbDateTimePicker.CbbDateTimePicker;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
+import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.DecimalDigits;
+import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import gr.codebb.protoerp.trader.TraderEntity;
 import gr.codebb.protoerp.trader.TraderPlantsEntity;
@@ -20,11 +22,14 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -126,7 +131,35 @@ public class Invoice1DetailView implements Initializable {
   }
 
   @FXML
-  private void invoiceLinesNewAction(ActionEvent event) {}
+  private void invoiceLinesNewAction(ActionEvent event) {
+    FxmlUtil.LoadResult<InvoiceLinesView> getDetailView =
+        FxmlUtil.load("/fxml/invoices/InvoiceLinesView.fxml");
+    Alert alert =
+        AlertDlgHelper.saveDialog(
+            "Προσθήκη Γραμμής Παραστατικού",
+            getDetailView.getParent(),
+            invoiceTypeLabel.getScene().getWindow());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          /*if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          } else {
+            if (!(AlertHelper.saveConfirm(
+                        getDetailView.getController().getTextId().getScene().getWindow())
+                    .get()
+                == ButtonType.OK)) {
+              event1.consume();
+            }
+          }*/
+        });
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {}
+    }
+  }
 
   @FXML
   private void invoiceLinesEditAction(ActionEvent event) {}

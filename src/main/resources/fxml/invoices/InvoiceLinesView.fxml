@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import gr.codebb.ctl.CbbBigDecimal?>
+<?import gr.codebb.ctl.CbbBigDecimalLabel?>
+<?import gr.codebb.ctl.CbbClearableTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<GridPane prefHeight="557.0" prefWidth="607.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.invoices.InvoiceLinesView">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="198.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="127.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="61.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="10.0" prefWidth="126.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <Label alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="81.0" text="Κωδικός:" />
+      <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2">
+         <children>
+            <CbbClearableTextField fx:id="textCode" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" />
+            <SearchableComboBox maxHeight="30.0" minHeight="30.0" prefHeight="30.0" prefWidth="259.0">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </SearchableComboBox>
+         </children>
+      </HBox>
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="216.0" text="ή Barcode:" GridPane.columnIndex="3" />
+      <CbbClearableTextField fx:id="textBarcode" prefHeight="27.0" prefWidth="240.0" GridPane.columnIndex="4" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="81.0" text="Περιγραφή:" GridPane.rowIndex="1" />
+      <TextArea fx:id="textDescription" prefHeight="81.0" prefWidth="393.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="442.0" text="Συντελεστής Φ.Π.Α.:" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="343.0" text="Μονάδα Μέτρησης:" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="388.0" text="Ποσότητα:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="334.0" text="Τιμή μονάδος:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="353.0" text="Τιμή μονάδος με Φ.Π.Α.:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="347.0" text="Αξία Προ έκπτωσης χωρίς Φ.Π.Α." GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="396.0" text="Αξία Προ έκπτωσης με Φ.Π.Α.:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="406.0" text="Ποσοστό έκπτωσης(%):" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="11" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="401.0" text="Ποσό έκπτωσης:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="12" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="390.0" text="Αξία μετά έκπτωσης χωρίς Φ.Π.Α.:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="13" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="426.0" text="Σειρά εμφάνισης στο παραστατικό:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="15" />
+      <ComboBox fx:id="fpaCategoryCombo" prefHeight="27.0" prefWidth="383.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <ComboBox fx:id="monMetrisisCombo" prefHeight="27.0" prefWidth="367.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+      <CbbBigDecimal fx:id="quantField" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="247.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+      <CbbBigDecimal fx:id="priceOneField" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="241.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="7" />
+      <CbbBigDecimal fx:id="priceOneWithVAT" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="235.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="8" />
+      <CbbBigDecimalLabel fx:id="totalField" alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="290.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+      <CbbBigDecimalLabel fx:id="totalWithVatField" alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="280.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="10" />
+      <CbbBigDecimal fx:id="discountPercentField" alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="11" />
+      <CbbBigDecimalLabel fx:id="discountPriceField" alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="292.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="12" />
+      <CbbBigDecimalLabel fx:id="totalDiscField" alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="306.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="13" />
+      <CbbBigDecimalLabel fx:id="totalDiscWithVatField" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="286.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="14" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="412.0" text="Αξία μετά έκπτωσης με Φ.Π.Α." GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="14" />
+      <Spinner fx:id="posSpinner" prefHeight="25.0" prefWidth="192.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="15" />
+      <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="442.0" text="Αιτία εξαίρεσης Φ.Π.Α.:" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <SearchableComboBox maxHeight="27.0" minHeight="27.0" prefHeight="27.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+   </children>
+   <padding>
+      <Insets right="10.0" />
+   </padding>
+</GridPane>
