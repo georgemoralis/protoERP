@@ -4,13 +4,20 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
+/*
+ * Changelog
+ * =========
+ * 29/04/2021 - Initial
+ */
 package gr.codebb.protoerp.invoices;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbBigDecimal;
 import gr.codebb.ctl.CbbBigDecimalLabel;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
+import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.DecimalDigits;
 import gr.codebb.lib.util.NumberUtil;
 import gr.codebb.protoerp.items.ItemsEntity;
@@ -34,11 +41,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import lombok.Getter;
 import org.controlsfx.control.SearchableComboBox;
 
 public class InvoiceLinesView implements Initializable {
 
-  @FXML private CbbClearableTextField textCode;
+  @FXML @Getter private CbbClearableTextField textCode;
   @FXML private CbbClearableTextField textBarcode;
   @FXML private TextArea textDescription;
   @FXML private ComboBox<VatEntity> fpaCategoryCombo;
@@ -55,6 +65,7 @@ public class InvoiceLinesView implements Initializable {
   @FXML private Spinner<Integer> posSpinner;
   @FXML private SearchableComboBox<ItemsEntity> itemCombo;
   @FXML private SearchableComboBox<VatmdExemptionEntity> excludeVatCombo;
+  private Validator validator = new Validator();
 
   /** Initializes the controller class. */
   @Override
@@ -80,6 +91,25 @@ public class InvoiceLinesView implements Initializable {
     DisplayableListCellFactory.setComboBoxCellFactory(excludeVatCombo);
     new ComboboxService<>(ItemsQueries.getItemsDatabase(true), itemCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(itemCombo);
+
+    // enable/disable vatexemption if vat is zero or anthing else
+    fpaCategoryCombo
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (options, oldValue, newValue) -> {
+              if (newValue != null) {
+                if (newValue.getVatRate().compareTo(BigDecimal.ZERO) == 0) // activate vatexmp
+                {
+                  excludeVatCombo.setDisable(false);
+                  System.out.println("active");
+                } else {
+                  excludeVatCombo.setDisable(true);
+                  excludeVatCombo.getSelectionModel().select(null);
+                  System.out.println("dsactive");
+                }
+              }
+            });
 
     discountPercentField
         .focusedProperty()
@@ -149,6 +179,123 @@ public class InvoiceLinesView implements Initializable {
                 apoforologisi();
               }
             });
+    fpaCategoryCombo
+        .valueProperty()
+        .addListener(
+            (ObservableValue<? extends VatEntity> observable,
+                VatEntity oldValue,
+                VatEntity newValue) -> {
+              if (newValue != null) {
+                if (!priceOneField.getNumber().equals(BigDecimal.ZERO)) {
+                  forologisi();
+                } else {
+                  apoforologisi();
+                }
+              }
+            });
+    textBarcode.setOnKeyPressed(
+        (KeyEvent keyEvent) -> {
+          if (keyEvent.getCode() == KeyCode.ENTER) {
+            String barcode = textBarcode.getText();
+            if (barcode.length() > 0) {
+              ItemsEntity result = ItemsQueries.getItemByBarcode(barcode);
+              if (result != null) {
+                itemCombo.getSelectionModel().select(result);
+              } else {
+                AlertHelper.errorDialog(
+                    textDescription.getScene().getWindow(),
+                    "Το Είδος Δεν βρέθηκε\nΒεβαιωθείτε ότι το barcode υπάρχει στα είδη\n");
+                itemCombo.getSelectionModel().select(null);
+              }
+            }
+            keyEvent.consume();
+          }
+        });
+    textCode.setOnKeyPressed(
+        (KeyEvent keyEvent) -> {
+          if (keyEvent.getCode() == KeyCode.ENTER) {
+            String code = textCode.getText();
+            if (code.length() > 0) {
+              ItemsEntity result = ItemsQueries.getItemByCode(code);
+              if (result != null) {
+                itemCombo.getSelectionModel().select(result);
+              } else {
+                AlertHelper.errorDialog(
+                    textDescription.getScene().getWindow(),
+                    "Το Είδος Δεν βρέθηκε\nΒεβαιωθείτε ότι το barcode υπάρχει στα είδη\n");
+                itemCombo.getSelectionModel().select(null);
+              }
+            }
+            keyEvent.consume();
+          }
+        });
+    validator
+        .createCheck()
+        .dependsOn("vatexemp", excludeVatCombo.disabledProperty())
+        .withMethod(
+            c -> {
+              boolean vatex = c.get("vatexemp");
+              System.out.println(vatex);
+              if (!vatex) {
+                if (excludeVatCombo.getSelectionModel().getSelectedItem() == null) {
+                  c.error("Η Αιτία εξαίρεσης ειναι υποχρεωτικη");
+                }
+              }
+            })
+        .decorates(excludeVatCombo)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("vat", fpaCategoryCombo.valueProperty())
+        .withMethod(
+            c -> {
+              VatEntity vat = c.get("vat");
+              if (vat == null) {
+                c.error("Η κατηγορία φ.π.α. είναι υποχρεωτική");
+              }
+            })
+        .decorates(fpaCategoryCombo)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("measureunit", monMetrisisCombo.valueProperty())
+        .withMethod(
+            c -> {
+              MeasurementUnitsEntity measure = c.get("measureunit");
+              if (measure == null) {
+                c.error("Η μονάδα μέτρησης είναι υποχρεωτική");
+              }
+            })
+        .decorates(monMetrisisCombo)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("item", itemCombo.valueProperty())
+        .withMethod(
+            c -> {
+              ItemsEntity item = c.get("item");
+              if (item == null) {
+                c.error("Το είδος είναι υποχρεωτικό");
+              }
+            })
+        .decorates(itemCombo)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("description", textDescription.textProperty())
+        .withMethod(
+            c -> {
+              String description = c.get("description");
+              if (description.isEmpty()) {
+                c.error("Η περιγραφή δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(textDescription)
+        .immediate();
   }
 
   /** This will initialize Big Decimal Fields using DecimalFormat configuration from Settings */
@@ -244,6 +391,69 @@ public class InvoiceLinesView implements Initializable {
     }
   }
 
+  /**
+   * Set new value to spinner control
+   *
+   * @param value
+   */
+  public void setPos(int value) {
+    posSpinner.getValueFactory().setValue(value);
+  }
+
   @FXML
   private void searchItemAction(ActionEvent event) {}
+
+  public InvoiceLinesEntity saveNewLine() {
+    InvoiceLinesEntity line = new InvoiceLinesEntity();
+    line.setItem(itemCombo.getSelectionModel().getSelectedItem());
+    line.setCode(textCode.getText());
+    line.setBarcode(textBarcode.getText());
+    line.setDescription(textDescription.getText());
+    line.setQuantity(quantField.getNumber());
+    line.setUnitPrice(priceOneField.getNumber());
+    line.setTotalNoDisc(totalField.getNumber());
+
+    line.setPercentDisc(discountPercentField.getNumber());
+
+    line.setDiscount(discountPriceField.getNumber());
+    line.setTotal(totalDiscField.getNumber());
+
+    line.setVat(fpaCategoryCombo.getSelectionModel().getSelectedItem());
+    line.setVatRate(fpaCategoryCombo.getSelectionModel().getSelectedItem().getVatRate());
+    line.setVatExemp(excludeVatCombo.getSelectionModel().getSelectedItem());
+
+    line.setMeasureUnit(monMetrisisCombo.getSelectionModel().getSelectedItem());
+    line.setMeasureShortName(monMetrisisCombo.getSelectionModel().getSelectedItem().getShortName());
+
+    line.setPosIndex(posSpinner.getValue());
+    return line;
+  }
+
+  public void editLine(InvoiceLinesEntity line) {
+    itemCombo.getSelectionModel().select(line.getItem());
+    textBarcode.setText(line.getBarcode());
+    textCode.setText(line.getCode());
+    textDescription.setText(line.getDescription());
+    quantField.setNumber(line.getQuantity());
+    priceOneField.setNumber(line.getUnitPrice());
+    totalField.setNumber(line.getTotalNoDisc());
+    discountPercentField.setNumber(line.getPercentDisc());
+    discountPriceField.setNumber(line.getDiscount());
+    totalDiscField.setNumber(line.getTotal());
+    posSpinner.getValueFactory().setValue(line.getPosIndex());
+    fpaCategoryCombo.getSelectionModel().select(line.getVat());
+    monMetrisisCombo.getSelectionModel().select(line.getMeasureUnit());
+    excludeVatCombo.getSelectionModel().select(line.getVatExemp());
+    forologisi();
+    CalcTotalValue();
+  }
+
+  public boolean validateControls() {
+    validator.validate();
+    if (validator.containsErrors()) {
+      AlertHelper.errorDialog(textDescription.getScene().getWindow(), "Ελέξτε την φόρμα για λάθη");
+      return false;
+    }
+    return true;
+  }
 }

@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 29/04/2021 (gmoralis) - Fixed vat exclusion validation (can be done better)
  * 06/04/2021 (gmoralis) - Finished exist validation
  * 06/04/2021 (gmoralis) - Validation for vatexempion
  * 06/04/2021 (gmoralis) - Work on validation
@@ -209,7 +210,9 @@ public class ItemsDetailView implements Initializable {
             c -> {
               boolean vatex = c.get("vatexemp");
               if (!vatex) {
-                c.error("Η Αιτία εξαίρεσης ειναι υποχρεωτικη");
+                if (comboVatExemp.getSelectionModel().getSelectedItem() == null) {
+                  c.error("Η Αιτία εξαίρεσης ειναι υποχρεωτικη");
+                }
               }
             })
         .decorates(comboVatExemp)

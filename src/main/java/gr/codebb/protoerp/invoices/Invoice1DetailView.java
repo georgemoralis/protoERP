@@ -11,6 +11,7 @@ import gr.codebb.ctl.cbbDateTimePicker.CbbDateTimePicker;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.lib.util.AlertDlgHelper;
+import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.DecimalDigits;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
@@ -143,16 +144,16 @@ public class Invoice1DetailView implements Initializable {
     okbutton.addEventFilter(
         ActionEvent.ACTION,
         (event1) -> {
-          /*if (!getDetailView.getController().validateControls()) {
+          if (!getDetailView.getController().validateControls()) {
             event1.consume();
           } else {
             if (!(AlertHelper.saveConfirm(
-                        getDetailView.getController().getTextId().getScene().getWindow())
+                        getDetailView.getController().getTextCode().getScene().getWindow())
                     .get()
                 == ButtonType.OK)) {
               event1.consume();
             }
-          }*/
+          }
         });
 
     Optional<ButtonType> result = alert.showAndWait();
