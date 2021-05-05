@@ -232,8 +232,8 @@ public class InvoiceLinesView implements Initializable {
             }
             keyEvent.consume();
           }
-        });    
-        validator
+        });
+    validator
         .createCheck()
         .dependsOn("vatexemp", excludeVatCombo.disabledProperty())
         .dependsOn("vatexemp2", excludeVatCombo.valueProperty())
