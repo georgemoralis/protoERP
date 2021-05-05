@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 05/05/2021 - Spinner alignment to right
  * 29/04/2021 - Initial
  */
 package gr.codebb.protoerp.invoices;
@@ -37,6 +38,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -75,6 +77,7 @@ public class InvoiceLinesView implements Initializable {
     SpinnerValueFactory<Integer> valueFactory =
         new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 10);
     posSpinner.setValueFactory(valueFactory);
+    posSpinner.editorProperty().get().setAlignment(Pos.CENTER_RIGHT);
 
     // init bigdecimalfields
     intitializeBiDecimalFields();
