@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 05/05/2021 - Fixed exclude vat validator (better)
  * 05/05/2021 - Spinner alignment to right
  * 29/04/2021 - Initial
  */
@@ -231,16 +232,17 @@ public class InvoiceLinesView implements Initializable {
             }
             keyEvent.consume();
           }
-        });
-    validator
+        });    
+        validator
         .createCheck()
         .dependsOn("vatexemp", excludeVatCombo.disabledProperty())
+        .dependsOn("vatexemp2", excludeVatCombo.valueProperty())
         .withMethod(
             c -> {
               boolean vatex = c.get("vatexemp");
-              System.out.println(vatex);
               if (!vatex) {
-                if (excludeVatCombo.getSelectionModel().getSelectedItem() == null) {
+                VatmdExemptionEntity exp = c.get("vatexemp2");
+                if (exp == null) {
                   c.error("Η Αιτία εξαίρεσης ειναι υποχρεωτικη");
                 }
               }
