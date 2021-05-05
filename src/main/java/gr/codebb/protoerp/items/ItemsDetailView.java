@@ -7,6 +7,8 @@
 /*
  * Changelog
  * =========
+ * 05/05/2021 (gmoralis) - barcode can be null so exclude it from matching validation (more than 1 product can have null barcode)
+ * 05/05/2021 (gmoralis) - Fixed vat exclusion validation
  * 29/04/2021 (gmoralis) - Fixed vat exclusion validation (can be done better)
  * 06/04/2021 (gmoralis) - Finished exist validation
  * 06/04/2021 (gmoralis) - Validation for vatexempion
@@ -206,11 +208,13 @@ public class ItemsDetailView implements Initializable {
     validator
         .createCheck()
         .dependsOn("vatexemp", comboVatExemp.disabledProperty())
+        .dependsOn("vatexemp2", comboVatExemp.valueProperty())
         .withMethod(
             c -> {
               boolean vatex = c.get("vatexemp");
               if (!vatex) {
-                if (comboVatExemp.getSelectionModel().getSelectedItem() == null) {
+                VatmdExemptionEntity exp = c.get("vatexemp2");
+                if (exp == null) {
                   c.error("Η Αιτία εξαίρεσης ειναι υποχρεωτικη");
                 }
               }
@@ -247,7 +251,8 @@ public class ItemsDetailView implements Initializable {
             c -> {
               String barcode = c.get("barcode");
               ItemsEntity barf = ItemsQueries.getItemByBarcode(barcode);
-              if (barf != null) // if exists
+              if (barf != null
+                  && !barf.getBarcode().isEmpty()) // if exists or if there isn't a barcode
               {
                 if (!textId.getText().isEmpty()) { // if it is not a new entry
                   if (barf.getId()
