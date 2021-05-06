@@ -166,11 +166,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <CbbBigDecimalLabel fx:id="total_no_disc" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="130.0" style="-fx-border-radius: 0;" GridPane.rowIndex="1" />
-                  <CbbBigDecimalLabel fx:id="total_disc" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="132.0" style="-fx-border-radius: 0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <CbbBigDecimalLabel fx:id="total_no_vat" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="132.0" style="-fx-border-radius: 0;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <CbbBigDecimalLabel fx:id="vat" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="149.0" style="-fx-border-radius: 0;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <CbbBigDecimalLabel fx:id="total_with_vat" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="131.0" style="-fx-border-radius: 0;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="total_no_disc" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="297.0" style="-fx-border-radius: 0;" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="total_disc" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="235.0" style="-fx-border-radius: 0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="total_no_vat" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="262.0" style="-fx-border-radius: 0;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="vat" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="298.0" style="-fx-border-radius: 0;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <CbbBigDecimalLabel fx:id="total_with_vat" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="275.0" style="-fx-border-radius: 0;" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                   <CbbBigDecimalLabel fx:id="pliroteo" alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="215.0" style="-fx-border-radius: 0;" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                   <StackPane style="-fx-background-color: #5bc0de;" GridPane.columnIndex="2">
                      <children>
