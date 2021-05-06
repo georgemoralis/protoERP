@@ -24,16 +24,17 @@
 <?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="814.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.invoices.Invoice1DetailView">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1242.0" style="-fx-background-color: white;" stylesheets="@../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.invoices.Invoice1DetailView">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="17.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="144.20003051757814" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="190.59996948242184" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="90.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="59.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="153.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="79.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="138.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="104.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="278.0" minWidth="10.0" prefWidth="106.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="0.0" prefWidth="262.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.0" minWidth="10.0" prefWidth="33.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="95.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
@@ -63,9 +64,9 @@
             </graphic>
         </Button>
         <SearchableComboBox fx:id="traderCombo" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-        <Label prefHeight="17.0" prefWidth="144.0" text="Εγκατάσταση: " GridPane.columnIndex="5" GridPane.rowIndex="2" />
+        <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="144.0" text="Εγκατάσταση: " GridPane.columnIndex="5" GridPane.rowIndex="2" />
         <ComboBox fx:id="traderPlantCombo" prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="4">
+        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.columnSpan="7" GridPane.rowIndex="4">
             <children>
                 <TabPane VBox.vgrow="ALWAYS">
                     <tabs>
@@ -151,7 +152,7 @@
          </toggleGroup>
         </RadioButton>
         <RadioButton mnemonicParsing="false" prefHeight="20.0" prefWidth="166.0" selected="true" text="Επι πιστώσει" toggleGroup="$payway" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-                    <GridPane prefHeight="42.0" prefWidth="38.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="5" VBox.vgrow="NEVER">
+                    <GridPane prefHeight="42.0" prefWidth="38.0" GridPane.columnIndex="1" GridPane.columnSpan="7" GridPane.rowIndex="5" VBox.vgrow="NEVER">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

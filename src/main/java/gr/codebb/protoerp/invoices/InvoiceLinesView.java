@@ -106,11 +106,9 @@ public class InvoiceLinesView implements Initializable {
                 if (newValue.getVatRate().compareTo(BigDecimal.ZERO) == 0) // activate vatexmp
                 {
                   excludeVatCombo.setDisable(false);
-                  System.out.println("active");
                 } else {
                   excludeVatCombo.setDisable(true);
                   excludeVatCombo.getSelectionModel().select(null);
-                  System.out.println("dsactive");
                 }
               }
             });
