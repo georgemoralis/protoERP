@@ -30,8 +30,8 @@
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.0" minWidth="10.0" prefWidth="144.20003051757814" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="331.0" minWidth="10.0" prefWidth="190.59996948242184" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.0" minWidth="10.0" prefWidth="90.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="138.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="104.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.0" minWidth="10.0" prefWidth="163.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="113.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="278.0" minWidth="10.0" prefWidth="106.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="0.0" prefWidth="262.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="184.0" minWidth="10.0" prefWidth="33.0" />
@@ -140,7 +140,7 @@
             </children>
         </VBox>
         <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="103.0" text="Αριθμός:" GridPane.columnIndex="5" />
-        <TextField fx:id="textInvoiceNumber" disable="true" GridPane.columnIndex="6" />
+        <TextField fx:id="textInvoiceNumber" alignment="CENTER_RIGHT" disable="true" GridPane.columnIndex="6" />
         <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="140.0" text="Σχετικά Παραστατικά:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <TextField fx:id="textRelativeInvoices" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" />
         <RadioButton fx:id="radioCash" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" text="Μετρητοίς" GridPane.columnIndex="5" GridPane.rowIndex="3">
@@ -231,5 +231,20 @@
                   <Insets top="5.0" />
                </padding>
             </GridPane>
+      <GridPane GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="17.0" prefWidth="241.0" text="Κατάσταση παραστατικού: " />
+            <Label fx:id="invoiceStatusLabel" prefHeight="17.0" prefWidth="197.0" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
     </children>
 </GridPane>

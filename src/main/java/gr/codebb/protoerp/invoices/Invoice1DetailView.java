@@ -6,8 +6,10 @@
  */
 package gr.codebb.protoerp.invoices;
 
+import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbBigDecimalLabel;
 import gr.codebb.ctl.cbbDateTimePicker.CbbDateTimePicker;
+import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.cellFactory.BigDecimalFactory;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
@@ -20,6 +22,7 @@ import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.NumberUtil;
 import gr.codebb.lib.util.TableViewUtil;
 import gr.codebb.protoerp.settings.SettingsHelper;
+import gr.codebb.protoerp.settings.company.CompanyUtil;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import gr.codebb.protoerp.trader.TraderEntity;
 import gr.codebb.protoerp.trader.TraderPlantsEntity;
@@ -51,11 +54,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import lombok.Getter;
 import org.controlsfx.control.SearchableComboBox;
 
 public class Invoice1DetailView implements Initializable {
 
-  @FXML private Label invoiceTypeLabel;
+  @FXML @Getter private Label invoiceTypeLabel;
   @FXML private Label plantLabel;
   @FXML private SearchableComboBox<TraderEntity> traderCombo;
   @FXML private CbbDateTimePicker dateTimePicker;
@@ -91,6 +96,9 @@ public class Invoice1DetailView implements Initializable {
   @FXML private RadioButton radioCredit;
   @FXML private TextField textRelativeInvoices;
   @FXML private TextField textInvoiceNumber;
+  @FXML private Label invoiceStatusLabel;
+
+  private Validator validator = new Validator();
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -376,6 +384,26 @@ public class Invoice1DetailView implements Initializable {
     pliroteo.setNumber(pliroteocal);
   }
 
+  public boolean validateControls() {
+    validator.validate();
+    if (validator.containsErrors()) {
+      AlertDlg.create()
+          .type(AlertDlg.Type.ERROR)
+          .message("Ελέξτε την φόρμα για λάθη")
+          .title("Πρόβλημα")
+          .owner(traderPlantCombo.getScene().getWindow())
+          .modality(Modality.APPLICATION_MODAL)
+          .showAndWait();
+      return false;
+    }
+    if (invoicerow.isEmpty()) {
+      AlertHelper.errorDialog(
+          traderPlantCombo.getScene().getWindow(), "Το παραστατικό δεν έχει γραμμές");
+      return false;
+    }
+    return true;
+  }
+
   public void saveNewInvoice() {
     GenericDao gdao = new GenericDao(InvoicesEntity.class, PersistenceManager.getEmf());
     InvoicesEntity invoice = new InvoicesEntity();
@@ -405,8 +433,10 @@ public class Invoice1DetailView implements Initializable {
     textInvoiceNumber.setText(invoice.getInvoiceNumber().toString());
     // invoice is temp
     invoice.setInvoiceStatus(InvoiceStatus.TEMP);
+    invoiceStatusLabel.setText(invoice.getInvoiceStatus().toString());
 
     invoice.setRelativeInvoices(textRelativeInvoices.getText());
+    invoice.setCompany(CompanyUtil.getCurrentCompany());
 
     invoicerow.forEach(
         (invoicepos) -> {

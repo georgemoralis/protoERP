@@ -6,6 +6,7 @@
  */
 package gr.codebb.protoerp.invoices;
 
+import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import gr.codebb.protoerp.trader.TraderPlantsEntity;
 import java.io.Serializable;
@@ -24,6 +25,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -65,7 +67,11 @@ public class InvoicesEntity implements Serializable {
   @Setter
   private InvoiceStatus invoiceStatus;
 
-  @Getter @Setter private Boolean active;
+  @ManyToOne
+  @JoinColumn(name = "company_id")
+  @Getter
+  @Setter
+  private CompanyEntity company;
 
   @Getter @Setter private BigDecimal totalNoVatValue;
   @Getter @Setter private BigDecimal totalDiscount;
@@ -85,5 +91,24 @@ public class InvoicesEntity implements Serializable {
   public void removeInvoiceLine(InvoiceLinesEntity line) {
     invoiceLines.remove(line);
     line.setInvoice(null);
+  }
+  
+  @Transient
+  public String getTypeShortNameS() {
+    return invoiceType.getShortName();
+  }
+  @Transient
+  public String getSeiraS()
+  {
+      return invoiceType.getSeira();
+  }
+  @Transient
+  public String getSynalName()
+  {
+      return traderPlant.getTrader().getName();
+  }
+  public String getSynalVatNumber()
+  {
+      return traderPlant.getTrader().getVatNumber();
   }
 }
