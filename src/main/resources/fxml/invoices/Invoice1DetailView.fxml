@@ -140,10 +140,10 @@
             </children>
         </VBox>
         <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="103.0" text="Αριθμός:" GridPane.columnIndex="5" />
-        <TextField disable="true" GridPane.columnIndex="6" />
+        <TextField fx:id="textInvoiceNumber" disable="true" GridPane.columnIndex="6" />
         <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="140.0" text="Σχετικά Παραστατικά:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <TextField GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-        <RadioButton mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" text="Μετρητοίς" GridPane.columnIndex="5" GridPane.rowIndex="3">
+        <TextField fx:id="textRelativeInvoices" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+        <RadioButton fx:id="radioCash" mnemonicParsing="false" prefHeight="20.0" prefWidth="98.0" text="Μετρητοίς" GridPane.columnIndex="5" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets left="5.0" />
             </GridPane.margin>
@@ -151,7 +151,7 @@
             <ToggleGroup fx:id="payway" />
          </toggleGroup>
         </RadioButton>
-        <RadioButton mnemonicParsing="false" prefHeight="20.0" prefWidth="166.0" selected="true" text="Επι πιστώσει" toggleGroup="$payway" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+        <RadioButton fx:id="radioCredit" mnemonicParsing="false" prefHeight="20.0" prefWidth="166.0" selected="true" text="Επι πιστώσει" toggleGroup="$payway" GridPane.columnIndex="6" GridPane.rowIndex="3" />
                     <GridPane prefHeight="42.0" prefWidth="38.0" GridPane.columnIndex="1" GridPane.columnSpan="7" GridPane.rowIndex="5" VBox.vgrow="NEVER">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

@@ -74,7 +74,28 @@ public class InvoicesListView implements Initializable {
                 getDetailView1.getParent(),
                 mainStackPane.getScene().getWindow());
         getDetailView1.getController().newInvoice(type);
+        Button okbutton1 = (Button) alert1.getDialogPane().lookupButton(ButtonType.OK);
+        /*okbutton1.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          } else {
+            if (!(AlertHelper.editConfirm(
+                        getDetailView.getController().getMainStackPane().getScene().getWindow())
+                    .get()
+                == ButtonType.OK)) {
+              event1.consume();
+            }
+          }
+        });*/
         Optional<ButtonType> result1 = alert1.showAndWait();
+        if (result1.get() == ButtonType.OK) {
+          if (getDetailView1.getController() != null) {
+            getDetailView1.getController().saveNewInvoice();
+            // selectWithService();
+          }
+        }
       }
     }
   }

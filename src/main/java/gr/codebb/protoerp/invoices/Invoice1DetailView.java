@@ -11,6 +11,8 @@ import gr.codebb.ctl.cbbDateTimePicker.CbbDateTimePicker;
 import gr.codebb.lib.crud.cellFactory.BigDecimalFactory;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
+import gr.codebb.lib.database.GenericDao;
+import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.DecimalDigits;
@@ -43,8 +45,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.controlsfx.control.SearchableComboBox;
 
@@ -81,6 +86,11 @@ public class Invoice1DetailView implements Initializable {
   @FXML private CbbBigDecimalLabel pliroteo;
 
   private ObservableList<InvoiceLinesEntity> invoicerow;
+  @FXML private RadioButton radioCash;
+  @FXML private ToggleGroup payway;
+  @FXML private RadioButton radioCredit;
+  @FXML private TextField textRelativeInvoices;
+  @FXML private TextField textInvoiceNumber;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -152,6 +162,7 @@ public class Invoice1DetailView implements Initializable {
     this.invoiceType = invoiceType;
     if (invoiceType.getSeira() == null) {
       invoiceTypeLabel.setText(invoiceType.getShortName() + " - " + invoiceType.getName());
+      invoiceTypeLabel.setUserData(invoiceType);
     } else {
       invoiceTypeLabel.setText(
           invoiceType.getShortName()
@@ -160,6 +171,7 @@ public class Invoice1DetailView implements Initializable {
               + " (ΣΕΙΡΑ : "
               + invoiceType.getSeira()
               + " )");
+      invoiceTypeLabel.setUserData(invoiceType);
     }
     plantLabel.setText(invoiceType.getPlantS());
   }
@@ -362,5 +374,44 @@ public class Invoice1DetailView implements Initializable {
 
     pliroteocal = finaltotal;
     pliroteo.setNumber(pliroteocal);
+  }
+
+  public void saveNewInvoice() {
+    GenericDao gdao = new GenericDao(InvoicesEntity.class, PersistenceManager.getEmf());
+    InvoicesEntity invoice = new InvoicesEntity();
+    invoice.setDateCreated(
+        LocalDateTime.now()); // save the creation time the time that user press save
+    dateTimePicker.setDateTimeValue(
+        invoice.getDateCreated()); // and reload with the control with the new time
+    invoice.setInvoiceType((InvoiceTypesEntity) invoiceTypeLabel.getUserData());
+    invoice.setTraderPlant(traderPlantCombo.getSelectionModel().getSelectedItem());
+
+    // save totals
+    invoice.setTotalNoVatValue(total_no_disc.getNumber());
+    invoice.setTotalDiscount(total_disc.getNumber());
+    invoice.setTotalNoVatAfterDiscValue(total_no_vat.getNumber());
+    invoice.setTotalVatValue(vat.getNumber());
+    invoice.setTotalValue(total_with_vat.getNumber());
+    invoice.setTotalPayValue(pliroteo.getNumber());
+    // pay method
+    if (radioCash.isSelected()) {
+      invoice.setPayWayMethod(PayWay.CASH);
+    } else {
+      invoice.setPayWayMethod(PayWay.CREDIT);
+    }
+
+    // invoice number is set to 0
+    invoice.setInvoiceNumber(0);
+    textInvoiceNumber.setText(invoice.getInvoiceNumber().toString());
+    // invoice is temp
+    invoice.setInvoiceStatus(InvoiceStatus.TEMP);
+
+    invoice.setRelativeInvoices(textRelativeInvoices.getText());
+
+    invoicerow.forEach(
+        (invoicepos) -> {
+          invoice.addInvoiceLine(invoicepos);
+        });
+    InvoicesEntity saved = (InvoicesEntity) gdao.createEntity(invoice);
   }
 }
