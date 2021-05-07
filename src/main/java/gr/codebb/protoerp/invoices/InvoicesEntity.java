@@ -92,23 +92,23 @@ public class InvoicesEntity implements Serializable {
     invoiceLines.remove(line);
     line.setInvoice(null);
   }
-  
+
   @Transient
   public String getTypeShortNameS() {
     return invoiceType.getShortName();
   }
+
   @Transient
-  public String getSeiraS()
-  {
-      return invoiceType.getSeira();
+  public String getSeiraS() {
+    return invoiceType.getSeira();
   }
+
   @Transient
-  public String getSynalName()
-  {
-      return traderPlant.getTrader().getName();
+  public String getSynalName() {
+    return traderPlant.getTrader().getName();
   }
-  public String getSynalVatNumber()
-  {
-      return traderPlant.getTrader().getVatNumber();
+
+  public String getSynalVatNumber() {
+    return traderPlant.getTrader().getVatNumber();
   }
 }

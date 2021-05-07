@@ -40,70 +40,95 @@ public class InvoicesListView extends AbstractListView implements Initializable 
   @FXML private Button newButton;
   @FXML private Button openButton;
   @FXML private Button deleteButton;
-  
-  //@ColumnProperty(prefWidth = "150.0d", cf = ColumnProperty.CF.DATE, df = ColumnProperty.DF.GREEK)
-    //private TableColumn<InvoicesEntity, LocalDateTime> columnDateCreated;
-    @ColumnProperty(prefWidth = "90.0d", align = ColumnProperty.Align.RIGHT)
-    private CbbTableColumn<InvoicesEntity, String> columnTypeShortNameS;
-    @ColumnProperty(prefWidth = "90.0d", align = ColumnProperty.Align.RIGHT)
-    private CbbTableColumn<InvoicesEntity, String> columnSeiraS;
-    @ColumnProperty(prefWidth = "90.0d", align = ColumnProperty.Align.RIGHT)
-    private CbbTableColumn<InvoicesEntity, Integer> columnInvoiceNumber;
-    @ColumnProperty(prefWidth = "280.0d")
-    private CbbTableColumn<InvoicesEntity, String> columnSynalName;
-    @ColumnProperty(prefWidth = "90.0d")
-    private CbbTableColumn<InvoicesEntity, String> columnSynalVatNumber;
-    @ColumnProperty(prefWidth = "80.0d")
-    private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalNoVatValue;
-    @ColumnProperty(prefWidth = "80.0d")
-    private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalDiscount;
-    @ColumnProperty(prefWidth = "80.0d")
-    private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalNoVatAfterDiscValue;
-    @ColumnProperty(prefWidth = "80.0d")
-    private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalVatValue;
-    @ColumnProperty(prefWidth = "80.0d")
-    private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalValue;
-    
+
+  // @ColumnProperty(prefWidth = "150.0d", cf = ColumnProperty.CF.DATE, df =
+  // ColumnProperty.DF.GREEK)
+  // private TableColumn<InvoicesEntity, LocalDateTime> columnDateCreated;
+  @ColumnProperty(prefWidth = "90.0d", align = ColumnProperty.Align.RIGHT)
+  private CbbTableColumn<InvoicesEntity, String> columnTypeShortNameS;
+
+  @ColumnProperty(prefWidth = "90.0d", align = ColumnProperty.Align.RIGHT)
+  private CbbTableColumn<InvoicesEntity, String> columnSeiraS;
+
+  @ColumnProperty(prefWidth = "90.0d", align = ColumnProperty.Align.RIGHT)
+  private CbbTableColumn<InvoicesEntity, Integer> columnInvoiceNumber;
+
+  @ColumnProperty(prefWidth = "280.0d")
+  private CbbTableColumn<InvoicesEntity, String> columnSynalName;
+
+  @ColumnProperty(prefWidth = "90.0d")
+  private CbbTableColumn<InvoicesEntity, String> columnSynalVatNumber;
+
+  @ColumnProperty(prefWidth = "80.0d")
+  private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalNoVatValue;
+
+  @ColumnProperty(prefWidth = "80.0d")
+  private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalDiscount;
+
+  @ColumnProperty(prefWidth = "80.0d")
+  private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalNoVatAfterDiscValue;
+
+  @ColumnProperty(prefWidth = "80.0d")
+  private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalVatValue;
+
+  @ColumnProperty(prefWidth = "80.0d")
+  private CbbTableColumn<InvoicesEntity, BigDecimal> columnTotalValue;
+
   @FXML private CbbTableView<InvoicesEntity> invoiceTable;
 
   /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-   columnTypeShortNameS = new CbbStringTableColumn<>("Τύπος");
-   columnTypeShortNameS.setCellValueFactory(new PropertyValueFactory<>("typeShortNameS"));
-   columnSeiraS = new CbbStringTableColumn<>("Σειρά");
-   columnSeiraS.setCellValueFactory(new PropertyValueFactory<>("seiraS"));
-   columnInvoiceNumber = new CbbIntegerTableColumn<>("Αριθμός");
-   columnInvoiceNumber.setCellValueFactory(new PropertyValueFactory<>("invoiceNumber"));
-   columnSynalVatNumber = new CbbStringTableColumn<>("Α.Φ.Μ."); 
-   columnSynalVatNumber.setCellValueFactory(new PropertyValueFactory<>("synalVatNumber"));
-   columnSynalName = new CbbStringTableColumn<>("Συναλλασσόμενος"); 
-   columnSynalName.setCellValueFactory(new PropertyValueFactory<>("synalVatNumber"));
-   columnTotalNoVatValue = new CbbBigDecimalTableColumn<>(
+    columnTypeShortNameS = new CbbStringTableColumn<>("Τύπος");
+    columnTypeShortNameS.setCellValueFactory(new PropertyValueFactory<>("typeShortNameS"));
+    columnSeiraS = new CbbStringTableColumn<>("Σειρά");
+    columnSeiraS.setCellValueFactory(new PropertyValueFactory<>("seiraS"));
+    columnInvoiceNumber = new CbbIntegerTableColumn<>("Αριθμός");
+    columnInvoiceNumber.setCellValueFactory(new PropertyValueFactory<>("invoiceNumber"));
+    columnSynalVatNumber = new CbbStringTableColumn<>("Α.Φ.Μ.");
+    columnSynalVatNumber.setCellValueFactory(new PropertyValueFactory<>("synalVatNumber"));
+    columnSynalName = new CbbStringTableColumn<>("Συναλλασσόμενος");
+    columnSynalName.setCellValueFactory(new PropertyValueFactory<>("synalVatNumber"));
+    columnTotalNoVatValue =
+        new CbbBigDecimalTableColumn<>(
             "Συν. Αξία", DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName()));
-   columnTotalNoVatValue.setCellValueFactory(new PropertyValueFactory<>("totalNoVatValue"));
-   
-   columnTotalDiscount = new CbbBigDecimalTableColumn<>(
+    columnTotalNoVatValue.setCellValueFactory(new PropertyValueFactory<>("totalNoVatValue"));
+
+    columnTotalDiscount =
+        new CbbBigDecimalTableColumn<>(
             "Συν. Έκπτωση", DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName()));
-   columnTotalDiscount.setCellValueFactory(new PropertyValueFactory<>("totalDiscount"));
-   
-   columnTotalNoVatAfterDiscValue = new CbbBigDecimalTableColumn<>(
+    columnTotalDiscount.setCellValueFactory(new PropertyValueFactory<>("totalDiscount"));
+
+    columnTotalNoVatAfterDiscValue =
+        new CbbBigDecimalTableColumn<>(
             "Καθ. Αξία", DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName()));
-   columnTotalNoVatAfterDiscValue.setCellValueFactory(new PropertyValueFactory<>("totalNoVatAfterDiscValue"));
-   
-   columnTotalVatValue = new CbbBigDecimalTableColumn<>(
+    columnTotalNoVatAfterDiscValue.setCellValueFactory(
+        new PropertyValueFactory<>("totalNoVatAfterDiscValue"));
+
+    columnTotalVatValue =
+        new CbbBigDecimalTableColumn<>(
             "Αξία Φ.Π.Α.", DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName()));
-   columnTotalVatValue.setCellValueFactory(new PropertyValueFactory<>("totalVatValue"));
-   
-   columnTotalValue = new CbbBigDecimalTableColumn<>(
+    columnTotalVatValue.setCellValueFactory(new PropertyValueFactory<>("totalVatValue"));
+
+    columnTotalValue =
+        new CbbBigDecimalTableColumn<>(
             "Τελ. Αξία", DecimalDigits.getDecimalFormat(DecimalDigits.VALUES.getSettingName()));
-   columnTotalValue.setCellValueFactory(new PropertyValueFactory<>("τotalValue"));
-   
-   invoiceTable
+    columnTotalValue.setCellValueFactory(new PropertyValueFactory<>("τotalValue"));
+
+    invoiceTable
         .getColumns()
-        .addAll(columnTypeShortNameS,columnSeiraS,columnInvoiceNumber,columnSynalVatNumber,columnSynalName,columnTotalNoVatValue,
-                columnTotalDiscount,columnTotalNoVatAfterDiscValue,columnTotalVatValue,columnTotalValue);
-                
+        .addAll(
+            columnTypeShortNameS,
+            columnSeiraS,
+            columnInvoiceNumber,
+            columnSynalVatNumber,
+            columnSynalName,
+            columnTotalNoVatValue,
+            columnTotalDiscount,
+            columnTotalNoVatAfterDiscValue,
+            columnTotalVatValue,
+            columnTotalValue);
+
     init(this);
     selectWithService();
   }
@@ -175,6 +200,8 @@ public class InvoicesListView extends AbstractListView implements Initializable 
           if (getDetailView1.getController() != null) {
             selectWithService();
           }
+        } else {
+          selectWithService();
         }
       }
     }
