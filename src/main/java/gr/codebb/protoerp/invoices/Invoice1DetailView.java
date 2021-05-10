@@ -129,9 +129,10 @@ public class Invoice1DetailView implements Initializable {
         .selectedItemProperty()
         .addListener(
             (options, oldValue, newValue) -> {
+              traderPlantCombo.getSelectionModel().clearSelection();
+              List<TraderPlantsEntity> tplants = TraderQueries.getTraderPlants(newValue);
               Platform.runLater(
                   () -> {
-                    List<TraderPlantsEntity> tplants = TraderQueries.getTraderPlants(newValue);
                     if (newValue != null) {
                       new ComboboxService<>(tplants, traderPlantCombo).start();
                       DisplayableListCellFactory.setComboBoxCellFactory(traderPlantCombo);
