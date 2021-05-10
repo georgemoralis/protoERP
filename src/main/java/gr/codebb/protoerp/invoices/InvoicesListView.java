@@ -196,6 +196,7 @@ public class InvoicesListView extends AbstractListView implements Initializable 
                 } else // save but not close the window
                 {
                   getDetailView1.getController().saveNewInvoice();
+                  okbutton1.setDisable(true);
                   event1.consume();
                 }
               }
