@@ -9,6 +9,7 @@ package gr.codebb.protoerp.invoices;
 import gr.codebb.ctl.cbbTableView.CbbTableView;
 import gr.codebb.ctl.cbbTableView.columns.CbbBigDecimalTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbIntegerTableColumn;
+import gr.codebb.ctl.cbbTableView.columns.CbbLocalDateTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbStringTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbTableColumn;
 import gr.codebb.lib.crud.AbstractListView;
@@ -20,6 +21,7 @@ import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -41,9 +43,9 @@ public class InvoicesListView extends AbstractListView implements Initializable 
   @FXML private Button openButton;
   @FXML private Button deleteButton;
 
-  // @ColumnProperty(prefWidth = "150.0d", cf = ColumnProperty.CF.DATE, df =
-  // ColumnProperty.DF.GREEK)
-  // private TableColumn<InvoicesEntity, LocalDateTime> columnDateCreated;
+  @ColumnProperty(prefWidth = "160.0d")
+  private CbbTableColumn<InvoicesEntity, LocalDate> columnDateOnly;
+
   @ColumnProperty(prefWidth = "90.0d", align = ColumnProperty.Align.RIGHT)
   private CbbTableColumn<InvoicesEntity, String> columnTypeShortNameS;
 
@@ -79,6 +81,8 @@ public class InvoicesListView extends AbstractListView implements Initializable 
   /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
+    columnDateOnly = new CbbLocalDateTableColumn<>("Ημερομηνία");
+    columnDateOnly.setCellValueFactory(new PropertyValueFactory<>("dateOnly"));
     columnTypeShortNameS = new CbbStringTableColumn<>("Τύπος");
     columnTypeShortNameS.setCellValueFactory(new PropertyValueFactory<>("typeShortNameS"));
     columnSeiraS = new CbbStringTableColumn<>("Σειρά");
@@ -118,6 +122,7 @@ public class InvoicesListView extends AbstractListView implements Initializable 
     invoiceTable
         .getColumns()
         .addAll(
+            columnDateOnly,
             columnTypeShortNameS,
             columnSeiraS,
             columnInvoiceNumber,

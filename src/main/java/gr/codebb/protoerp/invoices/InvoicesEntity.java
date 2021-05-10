@@ -11,6 +11,7 @@ import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import gr.codebb.protoerp.trader.TraderPlantsEntity;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +109,13 @@ public class InvoicesEntity implements Serializable {
     return traderPlant.getTrader().getName();
   }
 
+  @Transient
   public String getSynalVatNumber() {
     return traderPlant.getTrader().getVatNumber();
+  }
+
+  @Transient
+  public LocalDate getDateOnly() {
+    return dateCreated.toLocalDate();
   }
 }
