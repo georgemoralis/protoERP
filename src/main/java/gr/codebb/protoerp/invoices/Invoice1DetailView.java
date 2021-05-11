@@ -30,6 +30,7 @@ import gr.codebb.protoerp.trader.TraderQueries;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -160,6 +161,42 @@ public class Invoice1DetailView implements Initializable {
             }
           }
         });
+   /* validator
+        .createCheck()
+        .dependsOn("date", dateTimePicker.valueProperty())
+        .withMethod(
+            c -> {
+              LocalDate date = c.get("date");
+              if (date == null) {
+                c.error("Η ημερομηνία δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(dateTimePicker)
+        .immediate();*/
+    validator
+        .createCheck()
+        .dependsOn("trader", traderCombo.valueProperty())
+        .withMethod(
+            c -> {
+              TraderEntity trader = c.get("trader");
+              if (trader == null) {
+                c.error("Ο Συναλλασσόμενος δεν μπορεί να είναι κενός");
+              }
+            })
+        .decorates(traderCombo)
+        .immediate();
+    validator
+        .createCheck()
+        .dependsOn("traderplant", traderPlantCombo.valueProperty())
+        .withMethod(
+            c -> {
+              TraderPlantsEntity traderplant = c.get("traderplant");
+              if (traderplant == null) {
+                c.error("Η εγκατάσταση δεν μπορεί να είναι κενή");
+              }
+            })
+        .decorates(traderPlantCombo)
+        .immediate();
   }
 
   public void newInvoice(InvoiceTypesEntity invoiceType) {
