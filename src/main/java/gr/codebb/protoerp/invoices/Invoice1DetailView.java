@@ -95,6 +95,7 @@ public class Invoice1DetailView implements Initializable {
   @FXML private TextField textRelativeInvoices;
   @FXML private TextField textInvoiceNumber;
   @FXML private Label invoiceStatusLabel;
+  @FXML @Getter private Button printButton;
 
   private Validator validator = new Validator();
 
@@ -458,10 +459,11 @@ public class Invoice1DetailView implements Initializable {
   public void saveNewInvoice() {
     GenericDao gdao = new GenericDao(InvoicesEntity.class, PersistenceManager.getEmf());
     InvoicesEntity invoice = new InvoicesEntity();
-    invoice.setDateCreated(
-        LocalDateTime.now()); // save the creation time the time that user press save
-    dateTimePicker.setDateTimeValue(
-        invoice.getDateCreated()); // and reload with the control with the new time
+    // invoice.setDateCreated(
+    //    LocalDateTime.now()); // save the creation time the time that user press save
+    // dateTimePicker.setDateTimeValue(
+    //    invoice.getDateCreated()); // and reload with the control with the new time
+    invoice.setDateCreated(dateTimePicker.getDateTimeValue());
     invoice.setInvoiceType((InvoiceTypesEntity) invoiceTypeLabel.getUserData());
     invoice.setTraderPlant(traderPlantCombo.getSelectionModel().getSelectedItem());
 

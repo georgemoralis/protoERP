@@ -237,5 +237,19 @@
       </GridPane>
       <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="144.0" text="Τρόπος πληρωμής:" GridPane.columnIndex="5" GridPane.rowIndex="3" />
       <SearchableComboBox fx:id="paymentCombo" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="320.0" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+      <GridPane GridPane.columnIndex="7">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.199951171875" minWidth="10.0" prefWidth="33.20001983642578" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="242.79998016357422" minWidth="10.0" prefWidth="242.79998016357422" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="22.600004577636717" minHeight="10.0" prefHeight="15.399999999999999" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="38.599995422363286" minHeight="10.0" prefHeight="37.800000000000004" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="18.59999694824218" minHeight="10.0" prefHeight="18.59999694824218" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="printButton" disable="true" mnemonicParsing="false" styleClass="primary" text="Εκτύπωση" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
     </children>
 </GridPane>

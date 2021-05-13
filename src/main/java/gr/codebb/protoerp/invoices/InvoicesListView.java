@@ -205,6 +205,10 @@ public class InvoicesListView extends AbstractListView implements Initializable 
                 {
                   getDetailView1.getController().saveNewInvoice();
                   okbutton1.setDisable(true);
+                  getDetailView1
+                      .getController()
+                      .getPrintButton()
+                      .setDisable(false); // enable print button
                   event1.consume();
                 }
               }
