@@ -6,6 +6,7 @@
  */
 package gr.codebb.protoerp.invoices;
 
+import gr.codebb.protoerp.paymentMethods.PaymentMethodsEntity;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import gr.codebb.protoerp.trader.TraderPlantsEntity;
@@ -58,10 +59,11 @@ public class InvoicesEntity implements Serializable {
   @Setter
   private TraderPlantsEntity traderPlant;
 
-  @Enumerated(EnumType.ORDINAL)
+  @ManyToOne
+  @JoinColumn(name = "paymethod_id")
   @Getter
   @Setter
-  private PayWay payWayMethod;
+  private PaymentMethodsEntity payMethod;
 
   @Enumerated(EnumType.ORDINAL)
   @Getter

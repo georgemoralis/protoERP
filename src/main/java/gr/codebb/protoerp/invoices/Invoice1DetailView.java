@@ -21,6 +21,8 @@ import gr.codebb.lib.util.DecimalDigits;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.lib.util.NumberUtil;
 import gr.codebb.lib.util.TableViewUtil;
+import gr.codebb.protoerp.paymentMethods.PaymentMethodsEntity;
+import gr.codebb.protoerp.paymentMethods.PaymentMethodsQueries;
 import gr.codebb.protoerp.settings.SettingsHelper;
 import gr.codebb.protoerp.settings.company.CompanyUtil;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
@@ -48,11 +50,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import lombok.Getter;
@@ -89,11 +89,9 @@ public class Invoice1DetailView implements Initializable {
   @FXML private CbbBigDecimalLabel vat;
   @FXML private CbbBigDecimalLabel total_with_vat;
   @FXML private CbbBigDecimalLabel pliroteo;
+  @FXML private SearchableComboBox<PaymentMethodsEntity> paymentCombo;
 
   private ObservableList<InvoiceLinesEntity> invoicerow;
-  @FXML private RadioButton radioCash;
-  @FXML private ToggleGroup payway;
-  @FXML private RadioButton radioCredit;
   @FXML private TextField textRelativeInvoices;
   @FXML private TextField textInvoiceNumber;
   @FXML private Label invoiceStatusLabel;
@@ -104,6 +102,9 @@ public class Invoice1DetailView implements Initializable {
   public void initialize(URL url, ResourceBundle rb) {
     new ComboboxService<>(TraderQueries.getTradersPerCompany(), traderCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(traderCombo);
+    new ComboboxService<>(PaymentMethodsQueries.getPaymentMethodsDatabase(true), paymentCombo)
+        .start();
+    DisplayableListCellFactory.setComboBoxCellFactory(paymentCombo);
 
     total_no_disc.initBigDecimal(
         BigDecimal.ZERO,
@@ -195,6 +196,19 @@ public class Invoice1DetailView implements Initializable {
               }
             })
         .decorates(traderPlantCombo)
+        .immediate();
+
+    validator
+        .createCheck()
+        .dependsOn("payment", paymentCombo.valueProperty())
+        .withMethod(
+            c -> {
+              PaymentMethodsEntity payment = c.get("payment");
+              if (payment == null) {
+                c.error("Ο τρόπος πληρωμής είναι υποχρεωτικός");
+              }
+            })
+        .decorates(paymentCombo)
         .immediate();
   }
 
@@ -459,11 +473,7 @@ public class Invoice1DetailView implements Initializable {
     invoice.setTotalValue(total_with_vat.getNumber());
     invoice.setTotalPayValue(pliroteo.getNumber());
     // pay method
-    if (radioCash.isSelected()) {
-      invoice.setPayWayMethod(PayWay.CASH);
-    } else {
-      invoice.setPayWayMethod(PayWay.CREDIT);
-    }
+    invoice.setPayMethod(paymentCombo.getSelectionModel().getSelectedItem());
 
     // invoice number is set to 0
     invoice.setInvoiceNumber(0);
