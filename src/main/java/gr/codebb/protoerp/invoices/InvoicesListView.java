@@ -48,6 +48,9 @@ public class InvoicesListView extends AbstractListView implements Initializable 
   @ColumnProperty(prefWidth = "160.0d")
   private CbbTableColumn<InvoicesEntity, LocalDate> columnDateOnly;
 
+  @ColumnProperty(prefWidth = "90.0d")
+  private CbbTableColumn<InvoicesEntity, String> columnInvoiceStatusS;
+
   @ColumnProperty(prefWidth = "90.0d", align = ColumnProperty.Align.RIGHT)
   private CbbTableColumn<InvoicesEntity, String> columnTypeShortNameS;
 
@@ -85,6 +88,8 @@ public class InvoicesListView extends AbstractListView implements Initializable 
   public void initialize(URL url, ResourceBundle rb) {
     columnDateOnly = new CbbLocalDateTableColumn<>("Ημερομηνία");
     columnDateOnly.setCellValueFactory(new PropertyValueFactory<>("dateOnly"));
+    columnInvoiceStatusS = new CbbStringTableColumn<>("Κατάσταση");
+    columnInvoiceStatusS.setCellValueFactory(new PropertyValueFactory<>("invoiceStatusS"));
     columnTypeShortNameS = new CbbStringTableColumn<>("Τύπος");
     columnTypeShortNameS.setCellValueFactory(new PropertyValueFactory<>("typeShortNameS"));
     columnSeiraS = new CbbStringTableColumn<>("Σειρά");
@@ -125,6 +130,7 @@ public class InvoicesListView extends AbstractListView implements Initializable 
         .getColumns()
         .addAll(
             columnDateOnly,
+            columnInvoiceStatusS,
             columnTypeShortNameS,
             columnSeiraS,
             columnInvoiceNumber,

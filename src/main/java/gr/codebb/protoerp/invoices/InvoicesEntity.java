@@ -118,4 +118,9 @@ public class InvoicesEntity implements Serializable {
   public LocalDate getDateOnly() {
     return dateCreated.toLocalDate();
   }
+
+  @Transient
+  public String getInvoiceStatusS() {
+    return invoiceStatus.toString();
+  }
 }
