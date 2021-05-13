@@ -7,11 +7,13 @@
 /*
  * changelog
  * =========
- * 22/04/2020 (gmoralis) - Initial
+ * 13/05/2021 (gmoralis) - Added invoiceType for mydata
+ * 22/04/2021 (gmoralis) - Initial
  */
 package gr.codebb.protoerp.tables.InvoiceTypes;
 
 import gr.codebb.lib.crud.intf.Displayable;
+import gr.codebb.protoerp.mydata.masterdata.InvoiceTypemdEntity;
 import gr.codebb.protoerp.settings.company.PlantsEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -46,6 +48,12 @@ public class InvoiceTypesEntity implements Serializable, Displayable {
   @Getter
   @Setter
   private PlantsEntity companyplant;
+
+  @ManyToOne
+  @JoinColumn(name = "mydata_invoiceType_id")
+  @Getter
+  @Setter
+  private InvoiceTypemdEntity mydata_invoiceType;
 
   @Override
   public String getComboDisplayValue() {
