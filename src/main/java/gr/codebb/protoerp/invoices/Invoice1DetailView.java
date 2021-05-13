@@ -218,6 +218,28 @@ public class Invoice1DetailView implements Initializable {
     dateTimePicker.setDateTimeValue(LocalDateTime.now());
   }
 
+  public void fillData(InvoicesEntity invoice) {
+    printButton.setDisable(false); // button is enabled on edit mode
+    invoiceStatusLabel.setText(invoice.getInvoiceStatusS());
+    setInvoiceType(invoice.getInvoiceType());
+    dateTimePicker.setDateTimeValue(invoice.getDateCreated());
+    textInvoiceNumber.setText(invoice.getInvoiceNumber().toString());
+    traderCombo.getSelectionModel().select(invoice.getTraderPlant().getTrader());
+    traderPlantCombo.getSelectionModel().select(invoice.getTraderPlant());
+    textRelativeInvoices.setText(invoice.getRelativeInvoices());
+    paymentCombo.getSelectionModel().select(invoice.getPayMethod());
+    // get totals
+    total_no_disc.setNumber(invoice.getTotalNoVatValue());
+    total_disc.setNumber(invoice.getTotalDiscount());
+    total_no_vat.setNumber(invoice.getTotalNoVatAfterDiscValue());
+    vat.setNumber(invoice.getTotalVatValue());
+    total_with_vat.setNumber(invoice.getTotalValue());
+    pliroteo.setNumber(invoice.getTotalPayValue());
+    for (InvoiceLinesEntity a : invoice.getInvoiceLines()) {
+      invoicerow.add(a);
+    }
+  }
+
   public void setInvoiceType(InvoiceTypesEntity invoiceType) {
     this.invoiceType = invoiceType;
     if (invoiceType.getSeira() == null) {
@@ -492,5 +514,45 @@ public class Invoice1DetailView implements Initializable {
           invoice.addInvoiceLine(invoicepos);
         });
     InvoicesEntity saved = (InvoicesEntity) gdao.createEntity(invoice);
+  }
+
+  public void editInvoice(InvoicesEntity invoice) {
+    if (invoice.getInvoiceStatus()
+        == InvoiceStatus.COMPLETE) { // don't allow to edit on complete invoice
+      AlertHelper.errorDialog(
+          traderPlantCombo.getScene().getWindow(),
+          "Το παραστατικό έχει οριστικοποιηθεί δεν επιτρέπονται αλλαγές");
+      return;
+    }
+    invoice.setDateCreated(dateTimePicker.getDateTimeValue());
+    invoice.setInvoiceType((InvoiceTypesEntity) invoiceTypeLabel.getUserData());
+    invoice.setTraderPlant(traderPlantCombo.getSelectionModel().getSelectedItem());
+
+    // save totals
+    invoice.setTotalNoVatValue(total_no_disc.getNumber());
+    invoice.setTotalDiscount(total_disc.getNumber());
+    invoice.setTotalNoVatAfterDiscValue(total_no_vat.getNumber());
+    invoice.setTotalVatValue(vat.getNumber());
+    invoice.setTotalValue(total_with_vat.getNumber());
+    invoice.setTotalPayValue(pliroteo.getNumber());
+    // pay method
+    invoice.setPayMethod(paymentCombo.getSelectionModel().getSelectedItem());
+
+    // invoice number is set to 0
+    invoice.setInvoiceNumber(0);
+    textInvoiceNumber.setText(invoice.getInvoiceNumber().toString());
+    // invoice is temp
+    invoice.setInvoiceStatus(InvoiceStatus.TEMP);
+    invoiceStatusLabel.setText(invoice.getInvoiceStatus().toString());
+
+    invoice.setRelativeInvoices(textRelativeInvoices.getText());
+    invoice.setCompany(CompanyUtil.getCurrentCompany());
+    invoice.getInvoiceLines().clear();
+    invoicerow.forEach(
+        (invoicepos) -> {
+          invoice.addInvoiceLine(invoicepos);
+        });
+    GenericDao gdao = new GenericDao(InvoicesEntity.class, PersistenceManager.getEmf());
+    gdao.updateEntity(invoice);
   }
 }

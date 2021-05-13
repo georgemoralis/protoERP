@@ -84,6 +84,7 @@ public class InvoicesEntity implements Serializable {
   @Getter @Setter private BigDecimal totalPayValue;
 
   @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+  @Getter
   private List<InvoiceLinesEntity> invoiceLines = new ArrayList<>();
 
   public void addInvoiceLine(InvoiceLinesEntity line) {

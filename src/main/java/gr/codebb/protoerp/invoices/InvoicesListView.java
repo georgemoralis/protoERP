@@ -235,7 +235,55 @@ public class InvoicesListView extends AbstractListView implements Initializable 
   }
 
   @FXML
-  protected void openAction(ActionEvent event) {}
+  protected void openAction(ActionEvent event) {
+    FxmlUtil.LoadResult<Invoice1DetailView> getDetailView1 =
+        FxmlUtil.load("/fxml/invoices/Invoice1DetailView.fxml");
+    Alert alert1 =
+        AlertDlgHelper.editDialog(
+            "Επεξεργασία παραστατικού",
+            getDetailView1.getParent(),
+            mainStackPane.getScene().getWindow());
+    getDetailView1.getController().fillData(invoiceTable.getSelectionModel().getSelectedItem());
+    Button okbutton1 = (Button) alert1.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton1.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView1.getController().validateControls()) {
+            event1.consume();
+          } else {
+            if (!(AlertHelper.editConfirm(
+                        getDetailView1.getController().getInvoiceTypeLabel().getScene().getWindow())
+                    .get()
+                == ButtonType.OK)) {
+              event1.consume();
+            } else // save but not close the window
+            {
+              getDetailView1
+                  .getController()
+                  .editInvoice(invoiceTable.getSelectionModel().getSelectedItem());
+              okbutton1.setDisable(true);
+              event1.consume();
+            }
+          }
+        });
+    alert1
+        .getDialogPane()
+        .addEventHandler(
+            KeyEvent.KEY_PRESSED,
+            event1 -> {
+              if (event1.getCode() == KeyCode.ENTER) { // disable default enter press
+                event1.consume();
+              }
+            });
+    Optional<ButtonType> result1 = alert1.showAndWait();
+    if (result1.get() == ButtonType.OK) {
+      if (getDetailView1.getController() != null) {
+        selectWithService();
+      }
+    } else {
+      selectWithService();
+    }
+  }
 
   @FXML
   private void deleteAction(ActionEvent event) {}

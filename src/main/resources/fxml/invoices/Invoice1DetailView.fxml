@@ -122,11 +122,11 @@
                                                 <TableColumn fx:id="linesSeiraEmCol" prefWidth="75.0" text="Σειρά Εμφάνισης" />
                                                 <TableColumn fx:id="linesMonCol" prefWidth="75.0" text="Μονάδα Μέτρησης" />
                                                 <TableColumn fx:id="linesPosotCol" prefWidth="75.0" text="Ποσότητα" />
-                                                <TableColumn fx:id="linesTimMonCol" prefWidth="75.0" text="Τιμή Μονάδας" />
-                                                <TableColumn fx:id="linesValueBeforeDiscCol" prefWidth="75.0" text="Αξία Προ Έκπτωσης" />
-                                                <TableColumn fx:id="linesDiscPerCol" prefWidth="75.0" text="\% Έκπτωσης" />
-                                                <TableColumn fx:id="linesDiscValueCol" prefWidth="75.0" text="Ποσό έκπτωσης" />
-                                                <TableColumn fx:id="linesValueCol" prefWidth="75.0" text="Αξία μετά έκπτωσης" />
+                                                <TableColumn fx:id="linesTimMonCol" prefWidth="126.39996337890625" text="Τιμή Μονάδας" />
+                                                <TableColumn fx:id="linesValueBeforeDiscCol" prefWidth="122.4000244140625" text="Αξία Προ Έκπτωσης" />
+                                                <TableColumn fx:id="linesDiscPerCol" prefWidth="90.39996337890625" text="\% Έκπτωσης" />
+                                                <TableColumn fx:id="linesDiscValueCol" prefWidth="106.4000244140625" text="Ποσό έκπτωσης" />
+                                                <TableColumn fx:id="linesValueCol" prefWidth="149.5999755859375" text="Αξία μετά έκπτωσης" />
                                             </columns>
                                         </TableView>
                                     </children>
