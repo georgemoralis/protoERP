@@ -298,10 +298,11 @@ public class Invoice1DetailView implements Initializable {
         FxmlUtil.load("/fxml/invoices/InvoiceLinesView.fxml");
     Alert alert =
         AlertDlgHelper.editDialog(
-            "Προσθήκη Γραμμής Παραστατικού",
+            "Μεταβολή Γραμμής Παραστατικού",
             getDetailView.getParent(),
             invoiceTypeLabel.getScene().getWindow());
-    getDetailView.getController().editLine(invoiceLinesTable.getSelectionModel().getSelectedItem());
+    InvoiceLinesEntity line = invoiceLinesTable.getSelectionModel().getSelectedItem();
+    getDetailView.getController().editLine(line);
     Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
     okbutton.addEventFilter(
         ActionEvent.ACTION,
@@ -320,10 +321,8 @@ public class Invoice1DetailView implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {}
-      int row = invoiceLinesTable.getSelectionModel().getSelectedIndex();
-      InvoiceLinesEntity selected = invoiceLinesTable.getSelectionModel().getSelectedItem();
-      InvoiceLinesEntity p = getDetailView.getController().saveEdit(invoicerow.get(row));
-      invoicerow.remove(selected);
+      InvoiceLinesEntity p = getDetailView.getController().saveEdit(line);
+      invoicerow.remove(line);
       invoicerow.add(p);
       Platform.runLater(() -> invoiceLinesTable.scrollTo(invoiceLinesTable.getItems().size() - 1));
     }
