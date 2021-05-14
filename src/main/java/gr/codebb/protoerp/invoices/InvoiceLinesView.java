@@ -451,6 +451,31 @@ public class InvoiceLinesView implements Initializable {
     CalcTotalValue();
   }
 
+  public InvoiceLinesEntity saveEdit(InvoiceLinesEntity line) {
+    line.setItem(itemCombo.getSelectionModel().getSelectedItem());
+    line.setCode(textCode.getText());
+    line.setBarcode(textBarcode.getText());
+    line.setDescription(textDescription.getText());
+    line.setQuantity(quantField.getNumber());
+    line.setUnitPrice(priceOneField.getNumber());
+    line.setTotalNoDisc(totalField.getNumber());
+
+    line.setPercentDisc(discountPercentField.getNumber());
+
+    line.setDiscount(discountPriceField.getNumber());
+    line.setTotal(totalDiscField.getNumber());
+
+    line.setVat(fpaCategoryCombo.getSelectionModel().getSelectedItem());
+    line.setVatRate(fpaCategoryCombo.getSelectionModel().getSelectedItem().getVatRate());
+    line.setVatExemp(excludeVatCombo.getSelectionModel().getSelectedItem());
+
+    line.setMeasureUnit(monMetrisisCombo.getSelectionModel().getSelectedItem());
+    line.setMeasureShortName(monMetrisisCombo.getSelectionModel().getSelectedItem().getShortName());
+
+    line.setPosIndex(posSpinner.getValue());
+    return line;
+  }
+
   public boolean validateControls() {
     validator.validate();
     if (validator.containsErrors()) {

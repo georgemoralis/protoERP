@@ -293,7 +293,41 @@ public class Invoice1DetailView implements Initializable {
   }
 
   @FXML
-  private void invoiceLinesEditAction(ActionEvent event) {}
+  private void invoiceLinesEditAction(ActionEvent event) {
+    FxmlUtil.LoadResult<InvoiceLinesView> getDetailView =
+        FxmlUtil.load("/fxml/invoices/InvoiceLinesView.fxml");
+    Alert alert =
+        AlertDlgHelper.editDialog(
+            "Προσθήκη Γραμμής Παραστατικού",
+            getDetailView.getParent(),
+            invoiceTypeLabel.getScene().getWindow());
+    getDetailView.getController().editLine(invoiceLinesTable.getSelectionModel().getSelectedItem());
+    Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+    okbutton.addEventFilter(
+        ActionEvent.ACTION,
+        (event1) -> {
+          if (!getDetailView.getController().validateControls()) {
+            event1.consume();
+          } else {
+            if (!(AlertHelper.editConfirm(
+                        getDetailView.getController().getTextCode().getScene().getWindow())
+                    .get()
+                == ButtonType.OK)) {
+              event1.consume();
+            }
+          }
+        });
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (getDetailView.getController() != null) {}
+      int row = invoiceLinesTable.getSelectionModel().getSelectedIndex();
+      InvoiceLinesEntity selected = invoiceLinesTable.getSelectionModel().getSelectedItem();
+      InvoiceLinesEntity p = getDetailView.getController().saveEdit(invoicerow.get(row));
+      invoicerow.remove(selected);
+      invoicerow.add(p);
+      Platform.runLater(() -> invoiceLinesTable.scrollTo(invoiceLinesTable.getItems().size() - 1));
+    }
+  }
 
   @FXML
   private void invoiceLinesDeleteAction(ActionEvent event) {}
@@ -517,8 +551,7 @@ public class Invoice1DetailView implements Initializable {
   }
 
   public void editInvoice(InvoicesEntity invoice) {
-    if (invoice.getInvoiceStatus()
-        == InvoiceStatus.COMPLETE) { // don't allow to edit on complete invoice
+    if (invoice.getInvoiceStatus() != InvoiceStatus.TEMP) { // only temp can be modified
       AlertHelper.errorDialog(
           traderPlantCombo.getScene().getWindow(),
           "Το παραστατικό έχει οριστικοποιηθεί δεν επιτρέπονται αλλαγές");
