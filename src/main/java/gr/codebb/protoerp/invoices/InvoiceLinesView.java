@@ -36,6 +36,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -406,7 +407,7 @@ public class InvoiceLinesView implements Initializable {
   @FXML
   private void searchItemAction(ActionEvent event) {}
 
-  public InvoiceLinesEntity saveNewLine() {
+  public InvoiceLinesEntity getResult() {
     InvoiceLinesEntity line = new InvoiceLinesEntity();
     line.setItem(itemCombo.getSelectionModel().getSelectedItem());
     line.setCode(textCode.getText());
@@ -432,26 +433,25 @@ public class InvoiceLinesView implements Initializable {
     return line;
   }
 
-  public void editLine(InvoiceLinesEntity line) {
-    itemCombo.getSelectionModel().select(line.getItem());
-    textBarcode.setText(line.getBarcode());
-    textCode.setText(line.getCode());
-    textDescription.setText(line.getDescription());
-    quantField.setNumber(line.getQuantity());
-    priceOneField.setNumber(line.getUnitPrice());
-    totalField.setNumber(line.getTotalNoDisc());
-    discountPercentField.setNumber(line.getPercentDisc());
-    discountPriceField.setNumber(line.getDiscount());
-    totalDiscField.setNumber(line.getTotal());
-    posSpinner.getValueFactory().setValue(line.getPosIndex());
-    fpaCategoryCombo.getSelectionModel().select(line.getVat());
-    monMetrisisCombo.getSelectionModel().select(line.getMeasureUnit());
-    excludeVatCombo.getSelectionModel().select(line.getVatExemp());
+  public void EditRecord(ObservableList<InvoiceLinesEntity> list, int row) {
+    itemCombo.getSelectionModel().select(list.get(row).getItem());
+    textBarcode.setText(list.get(row).getBarcode());
+    textCode.setText(list.get(row).getCode());
+    textDescription.setText(list.get(row).getDescription());
+    quantField.setNumber(list.get(row).getQuantity());
+    priceOneField.setNumber(list.get(row).getUnitPrice());
+    totalField.setNumber(list.get(row).getTotalNoDisc());
+    discountPercentField.setNumber(list.get(row).getPercentDisc());
+    discountPriceField.setNumber(list.get(row).getDiscount());
+    totalDiscField.setNumber(list.get(row).getTotal());
+    posSpinner.getValueFactory().setValue(list.get(row).getPosIndex());
+    fpaCategoryCombo.getSelectionModel().select(list.get(row).getVat());
+    monMetrisisCombo.getSelectionModel().select(list.get(row).getMeasureUnit());
+    excludeVatCombo.getSelectionModel().select(list.get(row).getVatExemp());
     forologisi();
     CalcTotalValue();
   }
-
-  public InvoiceLinesEntity saveEdit(InvoiceLinesEntity line) {
+  public InvoiceLinesEntity saveEdited(InvoiceLinesEntity line) {
     line.setItem(itemCombo.getSelectionModel().getSelectedItem());
     line.setCode(textCode.getText());
     line.setBarcode(textBarcode.getText());

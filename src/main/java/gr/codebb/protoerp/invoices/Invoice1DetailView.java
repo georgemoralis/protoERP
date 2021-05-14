@@ -33,7 +33,6 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -153,15 +152,34 @@ public class Invoice1DetailView implements Initializable {
     invoicerow.addListener(
         new ListChangeListener<InvoiceLinesEntity>() {
           @Override
-          public void onChanged(
-              javafx.collections.ListChangeListener.Change<? extends InvoiceLinesEntity> c) {
-            // System.out.println("Changed on " + c);//c.getFrom -> line that did the change
-            if (c.next()) {
-              invoiceLinesTable.setItems(invoicerow);
-              CalculateTotals();
-            }
+          public void onChanged(Change<? extends InvoiceLinesEntity> c) {
+             //c.getFrom -> line that did the change
+            /*if (c.next()) {
+                 System.out.println("Changed on " + c.getFrom());
+              invoiceLinesTable.getItems().add(c.getFrom(),invoicerow.get(c.getFrom()));
+              c.g          
+            }*/
+            while (c.next()) {
+            if (c.wasPermutated()) {
+                     for (int i = c.getFrom(); i < c.getTo(); ++i) {
+                          System.out.println("permuted");
+                     }
+                 } else if (c.wasUpdated()) {
+                          System.out.println("updated");
+                 } else {
+                     for (InvoiceLinesEntity remitem : c.getRemoved()) {
+                         invoiceLinesTable.getItems().remove(remitem);
+                         CalculateTotals();
+                     }
+                     for (InvoiceLinesEntity additem : c.getAddedSubList()) {
+                         invoiceLinesTable.getItems().add(additem);
+                         CalculateTotals();
+                     }
+                 }
+             }
           }
         });
+    
     /* validator
     .createCheck()
     .dependsOn("date", dateTimePicker.valueProperty())
@@ -219,6 +237,7 @@ public class Invoice1DetailView implements Initializable {
   }
 
   public void fillData(InvoicesEntity invoice) {
+    invoicerow.clear();
     printButton.setDisable(false); // button is enabled on edit mode
     invoiceStatusLabel.setText(invoice.getInvoiceStatusS());
     setInvoiceType(invoice.getInvoiceType());
@@ -287,13 +306,14 @@ public class Invoice1DetailView implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {}
-      invoicerow.add((getDetailView.getController().saveNewLine()));
+      invoicerow.add((getDetailView.getController().getResult()));
       Platform.runLater(() -> invoiceLinesTable.scrollTo(invoiceLinesTable.getItems().size() - 1));
     }
   }
 
   @FXML
   private void invoiceLinesEditAction(ActionEvent event) {
+    int selected = invoiceLinesTable.getSelectionModel().getSelectedIndex();
     FxmlUtil.LoadResult<InvoiceLinesView> getDetailView =
         FxmlUtil.load("/fxml/invoices/InvoiceLinesView.fxml");
     Alert alert =
@@ -302,7 +322,7 @@ public class Invoice1DetailView implements Initializable {
             getDetailView.getParent(),
             invoiceTypeLabel.getScene().getWindow());
     InvoiceLinesEntity line = invoiceLinesTable.getSelectionModel().getSelectedItem();
-    getDetailView.getController().editLine(line);
+    getDetailView.getController().EditRecord(invoicerow, selected);
     Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
     okbutton.addEventFilter(
         ActionEvent.ACTION,
@@ -320,16 +340,30 @@ public class Invoice1DetailView implements Initializable {
         });
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
-      if (getDetailView.getController() != null) {}
-      InvoiceLinesEntity p = getDetailView.getController().saveEdit(line);
-      invoicerow.remove(line);
-      invoicerow.add(p);
+      if (getDetailView.getController() != null) {
+      invoicerow.remove(selected);
+      invoicerow.add(getDetailView.getController().saveEdited(line));
       Platform.runLater(() -> invoiceLinesTable.scrollTo(invoiceLinesTable.getItems().size() - 1));
+      }
     }
   }
 
   @FXML
-  private void invoiceLinesDeleteAction(ActionEvent event) {}
+  private void invoiceLinesDeleteAction(ActionEvent event) {
+    ButtonType response =
+        AlertDlg.create()
+            .message(
+                "Είστε σιγουροι ότι θέλετε να διαγράψετε την γραμμή : \n"
+                    + invoiceLinesTable.getSelectionModel().getSelectedItem().getDescription())
+            .title("Διαγραφή")
+            .modality(Modality.APPLICATION_MODAL)
+            .owner(invoiceLinesTable.getScene().getWindow())
+            .showAndWaitConfirm();
+    if (response == ButtonType.OK) {
+      InvoiceLinesEntity selected = invoiceLinesTable.getSelectionModel().getSelectedItem();
+      invoicerow.remove(selected);
+    }
+  }
 
   private void intializeInvoiceLineTableHeader() {
     linesCodeCol.setPrefWidth(80.0d);
@@ -421,15 +455,15 @@ public class Invoice1DetailView implements Initializable {
                   .cellFactory);
         });
     // lines are sorted by position that appears in invoice
-    invoiceLinesTable
-        .sortPolicyProperty()
-        .set(
-            t -> {
-              Comparator<InvoiceLinesEntity> comparator =
-                  (r1, r2) -> r1.getPosIndex().compareTo(r2.getPosIndex());
-              FXCollections.sort(invoiceLinesTable.getItems(), comparator);
-              return true;
-            });
+    /*   invoiceLinesTable
+    .sortPolicyProperty()
+    .set(
+        t -> {
+          Comparator<InvoiceLinesEntity> comparator =
+              (r1, r2) -> r1.getPosIndex().compareTo(r2.getPosIndex());
+          FXCollections.sort(invoiceLinesTable.getItems(), comparator);
+          return true;
+        });*/
   }
 
   private void initialazeTotalFields() {
