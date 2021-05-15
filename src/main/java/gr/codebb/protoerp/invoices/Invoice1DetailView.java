@@ -153,33 +153,33 @@ public class Invoice1DetailView implements Initializable {
         new ListChangeListener<InvoiceLinesEntity>() {
           @Override
           public void onChanged(Change<? extends InvoiceLinesEntity> c) {
-             //c.getFrom -> line that did the change
+            // c.getFrom -> line that did the change
             /*if (c.next()) {
                  System.out.println("Changed on " + c.getFrom());
               invoiceLinesTable.getItems().add(c.getFrom(),invoicerow.get(c.getFrom()));
-              c.g          
+              c.g
             }*/
             while (c.next()) {
-            if (c.wasPermutated()) {
-                     for (int i = c.getFrom(); i < c.getTo(); ++i) {
-                          System.out.println("permuted");
-                     }
-                 } else if (c.wasUpdated()) {
-                          System.out.println("updated");
-                 } else {
-                     for (InvoiceLinesEntity remitem : c.getRemoved()) {
-                         invoiceLinesTable.getItems().remove(remitem);
-                         CalculateTotals();
-                     }
-                     for (InvoiceLinesEntity additem : c.getAddedSubList()) {
-                         invoiceLinesTable.getItems().add(additem);
-                         CalculateTotals();
-                     }
-                 }
-             }
+              if (c.wasPermutated()) {
+                for (int i = c.getFrom(); i < c.getTo(); ++i) {
+                  System.out.println("permuted");
+                }
+              } else if (c.wasUpdated()) {
+                System.out.println("updated");
+              } else {
+                for (InvoiceLinesEntity remitem : c.getRemoved()) {
+                  invoiceLinesTable.getItems().remove(remitem);
+                  CalculateTotals();
+                }
+                for (InvoiceLinesEntity additem : c.getAddedSubList()) {
+                  invoiceLinesTable.getItems().add(additem);
+                  CalculateTotals();
+                }
+              }
+            }
           }
         });
-    
+
     /* validator
     .createCheck()
     .dependsOn("date", dateTimePicker.valueProperty())
@@ -341,9 +341,10 @@ public class Invoice1DetailView implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
-      invoicerow.remove(selected);
-      invoicerow.add(getDetailView.getController().saveEdited(line));
-      Platform.runLater(() -> invoiceLinesTable.scrollTo(invoiceLinesTable.getItems().size() - 1));
+        invoicerow.remove(selected);
+        invoicerow.add(getDetailView.getController().saveEdited(line));
+        Platform.runLater(
+            () -> invoiceLinesTable.scrollTo(invoiceLinesTable.getItems().size() - 1));
       }
     }
   }

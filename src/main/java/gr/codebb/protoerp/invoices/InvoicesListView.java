@@ -32,6 +32,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -144,6 +145,21 @@ public class InvoicesListView extends AbstractListView implements Initializable 
 
     init(this);
     selectWithService();
+
+    invoiceTable.setRowFactory(
+        tv -> {
+          return new TableRow<InvoicesEntity>() {
+            @Override
+            protected void updateItem(InvoicesEntity row, boolean empty) {
+              super.updateItem(row, empty);
+              if (row != null && row.getInvoiceStatus() == InvoiceStatus.TEMP) {
+                setStyle("-fx-background-color: red;");
+              } else {
+                setStyle("");
+              }
+            }
+          };
+        });
   }
 
   @FXML

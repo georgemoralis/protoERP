@@ -451,6 +451,7 @@ public class InvoiceLinesView implements Initializable {
     forologisi();
     CalcTotalValue();
   }
+
   public InvoiceLinesEntity saveEdited(InvoiceLinesEntity line) {
     line.setItem(itemCombo.getSelectionModel().getSelectedItem());
     line.setCode(textCode.getText());
