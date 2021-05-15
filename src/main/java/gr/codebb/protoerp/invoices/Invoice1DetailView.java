@@ -33,6 +33,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -313,7 +314,6 @@ public class Invoice1DetailView implements Initializable {
 
   @FXML
   private void invoiceLinesEditAction(ActionEvent event) {
-    int selected = invoiceLinesTable.getSelectionModel().getSelectedIndex();
     FxmlUtil.LoadResult<InvoiceLinesView> getDetailView =
         FxmlUtil.load("/fxml/invoices/InvoiceLinesView.fxml");
     Alert alert =
@@ -321,8 +321,9 @@ public class Invoice1DetailView implements Initializable {
             "Μεταβολή Γραμμής Παραστατικού",
             getDetailView.getParent(),
             invoiceTypeLabel.getScene().getWindow());
-    InvoiceLinesEntity line = invoiceLinesTable.getSelectionModel().getSelectedItem();
-    getDetailView.getController().EditRecord(invoicerow, selected);
+    getDetailView
+        .getController()
+        .EditRecord(invoicerow, invoiceLinesTable.getSelectionModel().getSelectedIndex());
     Button okbutton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
     okbutton.addEventFilter(
         ActionEvent.ACTION,
@@ -341,10 +342,15 @@ public class Invoice1DetailView implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
-        invoicerow.remove(selected);
-        invoicerow.add(getDetailView.getController().saveEdited(line));
-        Platform.runLater(
-            () -> invoiceLinesTable.scrollTo(invoiceLinesTable.getItems().size() - 1));
+        InvoiceLinesEntity line = invoiceLinesTable.getSelectionModel().getSelectedItem();
+        // invoicerow.remove(invoiceLinesTable.getSelectionModel().getSelectedIndex());
+        // invoicerow.add(getDetailView.getController().saveEdited(line));
+        invoicerow.set(
+            invoiceLinesTable.getSelectionModel().getSelectedIndex(),
+            getDetailView.getController().saveEdited(line));
+        invoiceLinesTable.sort();
+        invoiceLinesTable.refresh();
+        // invoiceLinesTable.scrollTo();
       }
     }
   }
@@ -456,15 +462,15 @@ public class Invoice1DetailView implements Initializable {
                   .cellFactory);
         });
     // lines are sorted by position that appears in invoice
-    /*   invoiceLinesTable
-    .sortPolicyProperty()
-    .set(
-        t -> {
-          Comparator<InvoiceLinesEntity> comparator =
-              (r1, r2) -> r1.getPosIndex().compareTo(r2.getPosIndex());
-          FXCollections.sort(invoiceLinesTable.getItems(), comparator);
-          return true;
-        });*/
+    invoiceLinesTable
+        .sortPolicyProperty()
+        .set(
+            t -> {
+              Comparator<InvoiceLinesEntity> comparator =
+                  (r1, r2) -> r1.getPosIndex().compareTo(r2.getPosIndex());
+              FXCollections.sort(invoiceLinesTable.getItems(), comparator);
+              return true;
+            });
   }
 
   private void initialazeTotalFields() {
