@@ -343,8 +343,6 @@ public class Invoice1DetailView implements Initializable {
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
         InvoiceLinesEntity line = invoiceLinesTable.getSelectionModel().getSelectedItem();
-        // invoicerow.remove(invoiceLinesTable.getSelectionModel().getSelectedIndex());
-        // invoicerow.add(getDetailView.getController().saveEdited(line));
         invoicerow.set(
             invoiceLinesTable.getSelectionModel().getSelectedIndex(),
             getDetailView.getController().saveEdited(line));

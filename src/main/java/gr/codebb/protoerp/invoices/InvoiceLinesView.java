@@ -178,6 +178,9 @@ public class InvoiceLinesView implements Initializable {
                 priceOneField.setNumber(newValue.getSellPrice());
                 fpaCategoryCombo.getSelectionModel().select(newValue.getVatSell());
                 monMetrisisCombo.getSelectionModel().select(newValue.getMeasureUnit());
+                if (newValue.getVatExemp() != null) {
+                  excludeVatCombo.getSelectionModel().select(newValue.getVatExemp());
+                }
                 CalcTotalValue();
                 apoforologisi();
               }

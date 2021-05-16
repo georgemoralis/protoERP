@@ -7,6 +7,7 @@
 /*
  * Changelog
  * =========
+ * 16/05/2021 (gmoralis) - Vatexpection combo wasn't save
  * 05/05/2021 (gmoralis) - barcode can be null so exclude it from matching validation (more than 1 product can have null barcode)
  * 05/05/2021 (gmoralis) - Fixed vat exclusion validation
  * 29/04/2021 (gmoralis) - Fixed vat exclusion validation (can be done better)
@@ -331,6 +332,7 @@ public class ItemsDetailView implements Initializable {
     // non-support on detailCrud
     item.setMeasureUnit(comboMeasureUnit.getSelectionModel().getSelectedItem());
     item.setVatSell(comboVatSell.getSelectionModel().getSelectedItem());
+    item.setVatExemp(comboVatExemp.getSelectionModel().getSelectedItem());
     item.setItemType(comboItemType.getSelectionModel().getSelectedItem());
     item.setSellPrice(bdecSellPrice.getNumber());
     item.setCompany(CompanyUtil.getCurrentCompany());
@@ -345,6 +347,7 @@ public class ItemsDetailView implements Initializable {
     // non-support on detailCrud
     item.setMeasureUnit(comboMeasureUnit.getSelectionModel().getSelectedItem());
     item.setVatSell(comboVatSell.getSelectionModel().getSelectedItem());
+    item.setVatExemp(comboVatExemp.getSelectionModel().getSelectedItem());
     item.setItemType(comboItemType.getSelectionModel().getSelectedItem());
     item.setSellPrice(bdecSellPrice.getNumber());
     item.setCompany(CompanyUtil.getCurrentCompany());
