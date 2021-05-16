@@ -220,8 +220,7 @@ public class ItemsDetailView implements Initializable {
                 }
               }
             })
-        .decorates(comboVatExemp)
-        .immediate();
+        .decorates(comboVatExemp); // can't do immediate throws exception on edit
 
     validator
         .createCheck()

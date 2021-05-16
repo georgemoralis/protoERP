@@ -249,8 +249,8 @@ public class InvoiceLinesView implements Initializable {
                 }
               }
             })
-        .decorates(excludeVatCombo)
-        .immediate();
+        .decorates(excludeVatCombo);
+    // .immediate();//can't do immediate throws an exception on edit
 
     validator
         .createCheck()
