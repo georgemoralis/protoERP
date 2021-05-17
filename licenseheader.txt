@@ -1,10 +1,10 @@
 <#if licenseFirst??>
 ${licenseFirst}
 </#if>
-${licensePrefix}copyright 2013-2021
-${licensePrefix}codebb.gr
+${licensePrefix}copyright 2021
+${licensePrefix}taxofficer.eu
 ${licensePrefix}ProtoERP - Open source invocing program
-${licensePrefix}info@codebb.gr
+${licensePrefix}protoERP@taxofficer.eu
 <#if licenseLast??>
 ${licenseLast}
 </#if>
