@@ -260,6 +260,9 @@ public class InvoicesListView extends AbstractListView implements Initializable 
             getDetailView1.getParent(),
             mainStackPane.getScene().getWindow());
     getDetailView1.getController().fillData(invoiceTable.getSelectionModel().getSelectedItem());
+    getDetailView1
+        .getController()
+        .setCurrentInvoice(invoiceTable.getSelectionModel().getSelectedItem());
     Button okbutton1 = (Button) alert1.getDialogPane().lookupButton(ButtonType.OK);
     okbutton1.addEventFilter(
         ActionEvent.ACTION,

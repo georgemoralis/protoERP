@@ -248,7 +248,7 @@
           <RowConstraints maxHeight="18.59999694824218" minHeight="10.0" prefHeight="18.59999694824218" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="printButton" disable="true" mnemonicParsing="false" styleClass="primary" text="Εκτύπωση" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="printButton" disable="true" mnemonicParsing="false" onAction="#printAction" styleClass="primary" text="Εκτύπωση" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
     </children>

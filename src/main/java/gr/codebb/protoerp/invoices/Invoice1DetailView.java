@@ -98,6 +98,7 @@ public class Invoice1DetailView implements Initializable {
   @FXML @Getter private Button printButton;
 
   private Validator validator = new Validator();
+  private InvoicesEntity currentInvoice = null;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
@@ -235,6 +236,10 @@ public class Invoice1DetailView implements Initializable {
   public void newInvoice(InvoiceTypesEntity invoiceType) {
     setInvoiceType(invoiceType);
     dateTimePicker.setDateTimeValue(LocalDateTime.now());
+  }
+
+  public void setCurrentInvoice(InvoicesEntity invoice) {
+    this.currentInvoice = invoice;
   }
 
   public void fillData(InvoicesEntity invoice) {
@@ -626,4 +631,7 @@ public class Invoice1DetailView implements Initializable {
     GenericDao gdao = new GenericDao(InvoicesEntity.class, PersistenceManager.getEmf());
     gdao.updateEntity(invoice);
   }
+
+  @FXML
+  private void PrintAction(ActionEvent event) {}
 }
