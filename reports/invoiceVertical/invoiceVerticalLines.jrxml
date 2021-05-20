@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoiceHor_Lines_template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0047e355-bc34-4729-9fbc-5a18cb6fddd1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="code" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantity" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unitPrice" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="vatRate" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="measureShortName" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="percentDisc" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="discount" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalNoDisc" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="article39a" class="java.lang.Boolean"/>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<image scaleImage="FillFrame">
+				<reportElement key="" x="-18" y="0" width="552" height="30" uuid="48dcd263-50bc-453e-9318-670280601f20">
+					<printWhenExpression><![CDATA[($V{REPORT_COUNT}.intValue() % 2) == 0]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA["reports/invoiceVertical/bg.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="-18" y="0" width="552" height="30" backcolor="rgba(250, 246, 245, 0.7490196)" uuid="9de72d77-190c-4c79-8338-28518b85de5f">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[($V{REPORT_COUNT}.intValue() % 2) == 0]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="220" y="1" width="45" height="18" uuid="9044896b-5248-4552-a234-66cd41a96598">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{measureShortName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="505" y="0" width="29" height="20" uuid="9667b59a-19b1-44be-8872-2a5df0c80d49">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{vatRate}.floatValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-15" y="0" width="63" height="20" uuid="8bd93236-32cb-4e10-80d7-0d5043e0ab32">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="0" width="55" height="20" uuid="026b267d-e314-4ad2-858c-c10f9a5e15b5">
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{total}.floatValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="305" y="0" width="50" height="20" uuid="1a6aacd4-586e-42cf-b4c6-8a8227cd747d">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{unitPrice}.floatValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="48" y="0" width="170" height="20" uuid="5b379d6c-28a3-4265-8af7-f173d2fc1e54">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="267" y="0" width="40" height="20" uuid="2f3954b6-3156-4fe3-9235-2374d24b6bf6">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{quantity}.floatValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="50" height="20" uuid="671709d5-fa66-43d4-9cfc-a4e175cfc486">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{totalNoDisc}.floatValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="0" width="23" height="20" uuid="9613f78f-bcd8-42a7-b990-0897ce08a170">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{percentDisc}.floatValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="0" width="30" height="20" uuid="fd22b615-19ff-48ac-b1d1-be4aa6f32523">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{discount}.floatValue())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="48" y="20" width="359" height="10" uuid="21570622-950f-4914-9d3e-8af32e4e4e84">
+					<printWhenExpression><![CDATA[$F{article39a}==true]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[*Άρθρο 39α-Υπόχρεος για την καταβολή του φόρου έιναι ο αγοραστής]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

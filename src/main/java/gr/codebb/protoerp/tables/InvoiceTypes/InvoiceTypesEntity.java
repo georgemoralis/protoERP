@@ -67,4 +67,6 @@ public class InvoiceTypesEntity implements Serializable, Displayable {
   public String getPlantS() {
     return companyplant.getComboDisplayValue();
   }
+
+  @Getter @Setter private String printFormVer;
 }

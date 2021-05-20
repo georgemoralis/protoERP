@@ -1,6 +1,7 @@
 module codebb.protoerp {
   requires transitive javafx.controls;
   requires transitive javafx.fxml;
+  requires javafx.swing;
   requires javafx.web;
   requires java.base;
   requires java.desktop;

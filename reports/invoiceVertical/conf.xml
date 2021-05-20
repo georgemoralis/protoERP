@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<reports>
+    <report>
+        <reportname>Τιμολόγιο Κάθετη εκτύπωση</reportname>
+        <reportpath>reports/invoiceVertical/invoiceVertical.jasper</reportpath>
+		<worksWith>1001,1002,2001</worksWith>
+		<orientation>Vertical</orientation>
+    </report>
+</reports>
