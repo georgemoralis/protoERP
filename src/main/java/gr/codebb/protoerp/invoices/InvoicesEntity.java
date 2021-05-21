@@ -126,4 +126,38 @@ public class InvoicesEntity implements Serializable {
   public String getInvoiceStatusS() {
     return invoiceStatus.toString();
   }
+
+  // for printing
+  @Transient
+  public String getClientName() {
+    return traderPlant.getTrader().getName();
+  }
+
+  @Transient
+  public String getClientVat() {
+    return traderPlant.getTrader().getVatNumber();
+  }
+
+  @Transient
+  public String getClientOccupation() {
+    return traderPlant.getTrader().getJob();
+  }
+
+  @Transient
+  public String getClientAddress() {
+    return traderPlant.getAddress();
+  }
+
+  @Transient
+  public String getClientCity() {
+    return traderPlant.getCity();
+  }
+
+  @Transient
+  public String getClientDoy() {
+    return traderPlant
+        .getTrader()
+        .getDoy()
+        .getName(); // fix me! each plant might have different doy
+  }
 }

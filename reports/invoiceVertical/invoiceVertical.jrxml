@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoiceHor_template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="10" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1aa964b1-7eb4-4e44-9fdb-3e89938641c0">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<queryString>
@@ -8,10 +8,10 @@
 	<field name="invoiceType" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="num" class="java.lang.Integer">
+	<field name="invoiceNumber" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="seira" class="java.lang.String">
+	<field name="seiraS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="clientName" class="java.lang.String"/>
@@ -252,14 +252,14 @@
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{num}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invoiceNumber}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="328" y="120" width="50" height="20" uuid="30256ac3-2471-4abd-80ad-27cd09ffda03"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{seira}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{seiraS}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="378" y="120" width="90" height="20" uuid="8d1b635d-fde4-4e47-98e8-341bf0d8cb65"/>
@@ -297,35 +297,28 @@
 				<text><![CDATA[ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="78" y="170" width="280" height="19" uuid="378fbfd1-8fec-4cb2-b70f-f69487da107e"/>
+				<reportElement x="78" y="170" width="476" height="19" uuid="378fbfd1-8fec-4cb2-b70f-f69487da107e"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{clientName}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="78" y="225" width="130" height="17" uuid="99e6c73f-3edb-483d-b478-006bf7ab14fe"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{clientPhone}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="78" y="190" width="280" height="17" uuid="f38a8744-5060-4f93-b738-893f69058249"/>
+				<reportElement x="78" y="190" width="470" height="17" uuid="f38a8744-5060-4f93-b738-893f69058249"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{clientOccupation}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="408" y="225" width="140" height="17" uuid="f69f3085-bd27-41e3-9512-e8598ecb44fe"/>
+				<reportElement x="240" y="225" width="102" height="17" uuid="f69f3085-bd27-41e3-9512-e8598ecb44fe"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{clientDoy}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="78" y="207" width="280" height="17" uuid="1aa6d980-0a47-47cb-a51d-d7031721e956"/>
+				<reportElement x="78" y="207" width="264" height="17" uuid="1aa6d980-0a47-47cb-a51d-d7031721e956"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
@@ -339,7 +332,7 @@
 				<textFieldExpression><![CDATA[$F{clientCity}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="408" y="190" width="140" height="17" uuid="04bb48a1-9a8a-4700-be6c-a47f9f31c06c"/>
+				<reportElement x="342" y="207" width="66" height="17" uuid="04bb48a1-9a8a-4700-be6c-a47f9f31c06c"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
@@ -379,38 +372,7 @@
 				<text><![CDATA[ΔΙΕΥΘΥΝΣΗ:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="225" width="78" height="17" uuid="9d2540cd-404d-407b-8aaf-ac10db771759">
-					<property name="local_mesure_unitx" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[ΤΗΛΕΦΩΝΟ:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="358" y="190" width="50" height="17" uuid="7014794e-c956-4ba9-a664-dcf483335cea">
-					<property name="local_mesure_unitx" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[TK:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="358" y="207" width="50" height="17" uuid="4f374255-1df4-4929-9b53-58939fab777b">
-					<property name="local_mesure_unitx" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[ΠΟΛΗ:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="358" y="225" width="50" height="17" uuid="91ccc0bd-a989-4b4a-a167-79507e7d6dba">
+				<reportElement x="190" y="225" width="50" height="17" uuid="91ccc0bd-a989-4b4a-a167-79507e7d6dba">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -420,7 +382,7 @@
 				<text><![CDATA[ΔΟΥ:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="358" y="170" width="50" height="17" uuid="6b7d4763-bbbe-4861-8f9c-768f1f7a1666">
+				<reportElement x="2" y="224" width="50" height="17" uuid="6b7d4763-bbbe-4861-8f9c-768f1f7a1666">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -430,18 +392,11 @@
 				<text><![CDATA[ΑΦΜ:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="408" y="170" width="140" height="17" uuid="0d327a9b-8527-44b0-a239-7b122a411a20"/>
+				<reportElement x="50" y="224" width="140" height="17" uuid="0d327a9b-8527-44b0-a239-7b122a411a20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{clientVat}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="212" y="225" width="130" height="17" uuid="3e504b37-10b1-4d7b-8e6d-758af37a8877"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{clientMobilePhone}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
