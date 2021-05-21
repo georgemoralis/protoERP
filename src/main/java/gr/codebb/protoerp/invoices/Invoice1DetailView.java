@@ -6,6 +6,7 @@
  */
 package gr.codebb.protoerp.invoices;
 
+import eu.taxofficer.lib.jasper.viewer.JRFXPrintPreview;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbBigDecimalLabel;
 import gr.codebb.ctl.cbbDateTimePicker.CbbDateTimePicker;
@@ -29,12 +30,16 @@ import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import gr.codebb.protoerp.trader.TraderEntity;
 import gr.codebb.protoerp.trader.TraderPlantsEntity;
 import gr.codebb.protoerp.trader.TraderQueries;
+import java.io.File;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -56,6 +61,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import lombok.Getter;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperReportsContext;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.controlsfx.control.SearchableComboBox;
 
 public class Invoice1DetailView implements Initializable {
@@ -633,5 +646,35 @@ public class Invoice1DetailView implements Initializable {
   }
 
   @FXML
-  private void PrintAction(ActionEvent event) {}
+  private void printAction(ActionEvent event) {
+    String formaektiposis = currentInvoice.getInvoiceType().getPrintFormVer();
+    HashMap<String, Object> params = new HashMap<>();
+    params.put(JRParameter.REPORT_LOCALE, new Locale("el", "GR"));
+    JasperReportsContext jasperReportsContext = DefaultJasperReportsContext.getInstance();
+    jasperReportsContext.setProperty(
+        "net.sf.jasperreports.default.pdf.font.name", "reports/sansserif.ttf");
+    jasperReportsContext.setProperty("net.sf.jasperreports.default.pdf.encoding", "Identity-H");
+    jasperReportsContext.setProperty("net.sf.jasperreports.default.pdf.embedded", "true");
+    JasperReport jasperReport;
+    JasperPrint jp = null;
+    try {
+      List<JasperPrint> list = new ArrayList<>();
+      List<InvoicesEntity> listp = new ArrayList<>();
+      listp.add(currentInvoice);
+      jasperReport = (JasperReport) JRLoader.loadObject(new File(formaektiposis));
+      JRBeanCollectionDataSource beanCollectionDataSource =
+          new JRBeanCollectionDataSource(listp, false);
+
+      JasperPrint jasperPrint1 =
+          JasperFillManager.fillReport(jasperReport, params, beanCollectionDataSource);
+      list.add(jasperPrint1);
+
+      JRFXPrintPreview printPreview = null;
+      printPreview = new JRFXPrintPreview(list, null);
+
+      printPreview.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 }
