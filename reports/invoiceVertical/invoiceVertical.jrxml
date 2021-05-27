@@ -30,25 +30,25 @@
 	<field name="clientCity" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="clientPost_code" class="java.lang.String">
+	<field name="clientPostCode" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="invoiceLinesSortedList" class="java.util.List">
+	<field name="invoiceLines" class="java.util.List">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="pay_method" class="java.lang.String">
+	<field name="payMethodS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="comments" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total_no_vat" class="java.math.BigDecimal">
+	<field name="totalNoVatValue" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="vat" class="java.math.BigDecimal">
+	<field name="totalVatValue" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total_with_vat" class="java.math.BigDecimal">
+	<field name="totalValue" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="dateCreated" class="java.time.LocalDateTime">
@@ -58,13 +58,7 @@
 	<field name="mainLogo" class="java.lang.Object">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="hasFEE" class="java.lang.Boolean">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="foros_eleuth_epaggelmation" class="java.math.BigDecimal">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pliroteo" class="java.math.BigDecimal">
+	<field name="totalPayValue" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="fpaAnalysis" class="java.util.List">
@@ -79,17 +73,13 @@
 	<field name="noupolipa" class="java.lang.Boolean">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="clientPhone" class="java.lang.String"/>
-	<field name="clientMobilePhone" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="notroposplir" class="java.lang.Boolean">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total_disc" class="java.math.BigDecimal">
+	<field name="totalDiscount" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="total_no_disc" class="java.math.BigDecimal">
+	<field name="totalNoVatAfterDiscValue" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="printFooter" class="java.lang.String">
@@ -336,7 +326,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{clientPost_code}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{clientPostCode}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="170" width="78" height="20" uuid="1b013368-374f-4605-9d93-2de2203b8fe3">
@@ -625,7 +615,7 @@
 				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="-1" y="-20" width="555" height="285" uuid="108c2b01-a568-4828-81f9-45f34396b4a4">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{invoiceLinesSortedList},false)]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{invoiceLines},false)]]></dataSourceExpression>
 				<subreportExpression><![CDATA["reports/invoiceVertical/invoiceVerticalLines.jasper"]]></subreportExpression>
 			</subreport>
 			<line>
@@ -810,7 +800,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? String.format("%.02f",$F{total_no_disc}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? String.format("%.02f",$F{totalNoVatAfterDiscValue}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master">
 				<reportElement x="486" y="80" width="65" height="23" uuid="943cbb90-e1b7-4bce-94f7-28ba96aa4a72">
@@ -821,7 +811,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{vat}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{totalVatValue}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master">
 				<reportElement x="486" y="103" width="65" height="23" uuid="1fb6955a-438a-4de9-ad24-da21e4888db5">
@@ -831,7 +821,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{total_with_vat}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{totalValue}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="380" y="190" width="71" height="21" uuid="ee006b9a-bf75-4371-ad62-53b237e75353"/>
@@ -848,20 +838,6 @@
 				<text><![CDATA[Ο ΠΑΡΑΛΑΒΩΝ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="377" y="126" width="108" height="23" uuid="402f767a-6ded-4ebc-af4a-8092a3f691e8">
-					<property name="local_mesure_unitx" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					<property name="local_mesure_unitwidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-					<printWhenExpression><![CDATA[$F{hasFEE}==true]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[ΠΑΡΑΚΡΑΤΗΣΗ 20%:]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="377" y="149" width="108" height="23" uuid="1fea099d-131e-4e9d-a72b-8b12e23e6544">
 					<property name="local_mesure_unitx" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -874,18 +850,6 @@
 				<text><![CDATA[ΠΛΗΡΩΤΕΟ:]]></text>
 			</staticText>
 			<textField evaluationTime="Master">
-				<reportElement x="486" y="126" width="65" height="23" uuid="ceb011d1-f294-4796-9b81-53f2921447f5">
-					<property name="local_mesure_unitwidth" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
-					<printWhenExpression><![CDATA[$F{hasFEE}==true]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? String.format("%.02f",$F{foros_eleuth_epaggelmation}.floatValue()) : ""]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Master">
 				<reportElement key="" x="486" y="149" width="65" height="23" uuid="b8e2ed82-d731-4c5f-8845-169727a0503b">
 					<property name="local_mesure_unitwidth" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -895,7 +859,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{pliroteo}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{totalPayValue}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<rectangle radius="0">
 				<reportElement key="" x="-1" y="50" width="180" height="53" uuid="eb0309b4-2c89-4036-832e-f4cce5e9e1f4">
@@ -1071,7 +1035,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? $F{pay_method} : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? $F{payMethodS} : ""]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement key="" x="377" y="34" width="108" height="23" uuid="9213e2bf-d4da-4d3c-85b1-301e8d3939b2">
@@ -1108,7 +1072,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{total_disc}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{totalDiscount}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master">
 				<reportElement x="486" y="56" width="65" height="23" uuid="0a044860-924c-4c14-8aaa-e8b1764dc1b5">
@@ -1118,7 +1082,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{total_no_vat}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{totalNoVatValue}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="263" y="30" width="1" height="73" uuid="330fbc3b-7bd1-40d9-9668-966342f5fa33"/>
@@ -1146,15 +1110,6 @@
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  $F{printFooter} : ""]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Master">
-				<reportElement x="80" y="215" width="290" height="20" uuid="51a13f77-595e-420f-86a9-59e3f1f70bcb">
-					<printWhenExpression><![CDATA[$F{hasFEE}==true]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="8" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? "ΠΡΟΣΟΧΗ: ΠΕΡΙΕΧΕΙ ΠΑΡΑΚΡΑΤΗΣΗ ΦΟΡΟΥ 20% ="+String.format("%.02f",$F{foros_eleuth_epaggelmation}.floatValue())+ " ΕΥΡΩ" : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="490" y="215" width="30" height="20" uuid="4fd4cddd-315b-4d06-8ec9-86fde6b25ae2"/>

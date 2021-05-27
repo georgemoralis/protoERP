@@ -160,4 +160,24 @@ public class InvoicesEntity implements Serializable {
         .getDoy()
         .getName(); // fix me! each plant might have different doy
   }
+
+  @Transient
+  public String getClientPostCode() {
+    return traderPlant.getTk();
+  }
+
+  @Transient
+  public String getPayMethodS() {
+    return payMethod.getDescription();
+  }
+
+  @Transient
+  public String getComments() {
+    return ""; // TODO;
+  }
+
+  @Transient
+  public String getPrintType() {
+    return "";
+  }
 }
