@@ -604,7 +604,7 @@ public class Invoice1DetailView implements Initializable {
           invoice.addInvoiceLine(invoicepos);
         });
     InvoicesEntity saved = (InvoicesEntity) gdao.createEntity(invoice);
-    setCurrentInvoice(saved);//to be able to print
+    setCurrentInvoice(saved); // to be able to print
   }
 
   public void editInvoice(InvoicesEntity invoice) {
