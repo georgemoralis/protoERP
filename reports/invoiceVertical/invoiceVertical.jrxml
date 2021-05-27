@@ -5,7 +5,7 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="invoiceType" class="java.lang.String">
+	<field name="invoiceTypeS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="invoiceNumber" class="java.lang.Integer">
@@ -64,10 +64,10 @@
 	<field name="fpaAnalysis" class="java.util.List">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="proigoumeno_ypoloipo" class="java.math.BigDecimal">
+	<field name="previousBalance" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="neo_ypoloipo" class="java.math.BigDecimal">
+	<field name="newBalance" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="noupolipa" class="java.lang.Boolean">
@@ -184,7 +184,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{invoiceType}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{invoiceTypeS}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="2" y="100" width="208" height="20" uuid="236860c0-078b-4f36-b03e-4f9c3c470dda">
@@ -990,7 +990,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{proigoumeno_ypoloipo}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{previousBalance}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master">
 				<reportElement x="110" y="73" width="65" height="23" uuid="53b80c9c-9f27-4ca9-bdc1-73a6dd4b0bce">
@@ -1003,7 +1003,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? String.format("%.02f",$F{neo_ypoloipo}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? String.format("%.02f",$F{newBalance}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<rectangle radius="0">
 				<reportElement x="-1" y="10" width="180" height="23" uuid="8eb88eec-1c24-4c68-97e9-2bc5dbca315e">

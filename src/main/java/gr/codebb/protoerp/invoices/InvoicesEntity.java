@@ -6,6 +6,7 @@
  */
 package gr.codebb.protoerp.invoices;
 
+import eu.taxofficer.protoerp.invoices.VatCalculation;
 import gr.codebb.protoerp.paymentMethods.PaymentMethodsEntity;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
@@ -172,12 +173,72 @@ public class InvoicesEntity implements Serializable {
   }
 
   @Transient
+  public BigDecimal getTotalQuantity() {
+    BigDecimal d = BigDecimal.ZERO;
+    for (InvoiceLinesEntity ipe : invoiceLines) {
+      d = d.add(ipe.getQuantity());
+    }
+    return d;
+  }
+
+  @Transient
+  public String getInvoiceTypeS() {
+    return invoiceType.getName();
+  }
+
+  @Transient
   public String getComments() {
     return ""; // TODO;
   }
 
   @Transient
   public String getPrintType() {
-    return "";
+    return ""; // TODO
+  }
+
+  @Transient
+  public Object getMainLogo() {
+    return null; // TODO
+  }
+
+  @Transient
+  public Object getWatermark() {
+    return null; // todo
+  }
+
+  @Transient
+  public List<VatCalculation> getFpaAnalysis() {
+    ArrayList<VatCalculation> cal = new ArrayList<>();
+    return cal; // TODO
+  }
+
+  @Transient
+  public BigDecimal getPreviousBalance() {
+    return BigDecimal.ZERO; // TODO;
+  }
+
+  @Transient
+  public BigDecimal getNewBalance() {
+    return BigDecimal.ZERO; // TODO;
+  }
+
+  @Transient
+  public String getEditorText() {
+    return ""; // TODO
+  }
+
+  @Transient
+  public String getPrintFooter() {
+    return ""; // TODO
+  }
+
+  @Transient
+  public Boolean getNotroposplir() {
+    return true; // TODO
+  }
+
+  @Transient
+  public Boolean getNoupolipa() {
+    return true; // TODO
   }
 }

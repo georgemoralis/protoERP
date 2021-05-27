@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-05-16T14:00:51 -->
+<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.17.0-6d93193241dd8cc42629e188b94f9e0bc5722efd  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FpaAnaylisis_Lines_template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0047e355-bc34-4729-9fbc-5a18cb6fddd1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="kathariaksia" class="java.math.BigDecimal">
+	<field name="valueNoVat" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="fpacategory" class="java.math.BigDecimal">
+	<field name="vatCategory" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="fpa_sum" class="java.math.BigDecimal">
+	<field name="vatSum" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<detail>
@@ -25,7 +24,7 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[String.format("%.02f",$F{kathariaksia}.floatValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{valueNoVat}.floatValue())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="72" y="1" width="40" height="19" uuid="8ce7840e-7f56-4e63-b5e0-a338f22c32d8">
@@ -35,7 +34,7 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[String.format("%.02f",$F{fpacategory}.floatValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{vatCategory}.floatValue())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="120" y="0" width="40" height="20" uuid="056d7eba-a682-4882-96f5-0f96abf8d628">
@@ -45,7 +44,7 @@
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[String.format("%.02f",$F{fpa_sum}.floatValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA[String.format("%.02f",$F{vatSum}.floatValue())]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
