@@ -42,7 +42,7 @@
 	<field name="comments" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="totalNoVatValue" class="java.math.BigDecimal">
+	<field name="totalNoVatAfterDiscValue" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="totalVatValue" class="java.math.BigDecimal">
@@ -79,7 +79,7 @@
 	<field name="totalDiscount" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="totalNoVatAfterDiscValue" class="java.math.BigDecimal">
+	<field name="totalNoVatValue" class="java.math.BigDecimal">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="printFooter" class="java.lang.String">
@@ -800,7 +800,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? String.format("%.02f",$F{totalNoVatAfterDiscValue}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ? String.format("%.02f",$F{totalNoVatValue}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Master">
 				<reportElement x="486" y="80" width="65" height="23" uuid="943cbb90-e1b7-4bce-94f7-28ba96aa4a72">
@@ -1082,7 +1082,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{totalNoVatValue}.floatValue()) : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{MASTER_CURRENT_PAGE}==$V{MASTER_TOTAL_PAGES} ?  String.format("%.02f",$F{totalNoVatAfterDiscValue}.floatValue()) : ""]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="263" y="30" width="1" height="73" uuid="330fbc3b-7bd1-40d9-9668-966342f5fa33"/>
