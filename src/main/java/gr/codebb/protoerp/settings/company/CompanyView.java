@@ -26,6 +26,7 @@
 package gr.codebb.protoerp.settings.company;
 
 import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
+import eu.taxofficer.protoerp.company.views.CompanyPlantsDetailView;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.DetailCrud;
@@ -584,8 +585,8 @@ public class CompanyView implements Initializable {
 
   @FXML
   private void newPlantAction(ActionEvent event) {
-    FxmlUtil.LoadResult<PlantsDetailView> getDetailView =
-        FxmlUtil.load("/fxml/settings/company/PlantsDetailView.fxml");
+    FxmlUtil.LoadResult<CompanyPlantsDetailView> getDetailView =
+        FxmlUtil.load("/fxml/company/CompanyPlantsDetailView.fxml");
     Alert alert =
         AlertDlgHelper.saveDialog(
             "Προσθήκη Κεντρικόυ-υποκαταστήματος",
@@ -623,8 +624,8 @@ public class CompanyView implements Initializable {
 
   @FXML
   private void openPlantAction(ActionEvent event) {
-    FxmlUtil.LoadResult<PlantsDetailView> getDetailView =
-        FxmlUtil.load("/fxml/settings/company/PlantsDetailView.fxml");
+    FxmlUtil.LoadResult<CompanyPlantsDetailView> getDetailView =
+        FxmlUtil.load("/fxml/company/CompanyPlantsDetailView.fxml");
     Alert alert =
         AlertDlgHelper.editDialog(
             "Άνοιγμα/Επεξεργασία Κεντρικόυ-υποκαταστήματος",

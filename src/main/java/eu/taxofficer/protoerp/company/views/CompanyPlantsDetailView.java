@@ -1,16 +1,16 @@
 /*
- * copyright 2013-2021
- * codebb.gr
+ * copyright 2021
+ * taxofficer.eu
  * ProtoERP - Open source invocing program
- * info@codebb.gr
+ * protoERP@taxofficer.eu
  */
 
 /**
- * Να γίνουν 1)Ελεγχεται αν ο αριθμός εγκατάστασης υπάρχει σε άλλη εγγραφη. Συμφωνα με τις οδηγίες
- * για τα mydata αν δεν ξέρουμε το αριθμό εγκαταστασης βάζουμε 0. Αρα θα πρέπει να επιτρέπεται
- * διπλοεγγραφή
+ * Να γίνουν -----------------------------------------------------------------------------------
+ * 1)Ελεγχεται αν ο αριθμός εγκατάστασης υπάρχει σε άλλη εγγραφη. Συμφωνα με τις οδηγίες για τα
+ * mydata αν δεν ξέρουμε το αριθμό εγκαταστασης βάζουμε 0. Αρα θα πρέπει να επιτρέπεται διπλοεγγραφή
  */
-package gr.codebb.protoerp.settings.company;
+package eu.taxofficer.protoerp.company.views;
 
 import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import gr.codebb.codebblib.validatorfx.Validator;
@@ -21,6 +21,7 @@ import gr.codebb.lib.crud.annotation.CheckBoxProperty;
 import gr.codebb.lib.crud.annotation.TextFieldProperty;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
+import gr.codebb.protoerp.settings.company.CompanyQueries;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
@@ -36,7 +37,7 @@ import lombok.Getter;
 import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.validation.ValidationSupport;
 
-public class PlantsDetailView implements Initializable {
+public class CompanyPlantsDetailView implements Initializable {
 
   @FXML @Getter private TextField textId;
   @FXML @CheckBoxProperty private CheckBox checkBoxActive;

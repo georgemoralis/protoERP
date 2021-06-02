@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<VBox style="-fx-background-color: white;" stylesheets="@../../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.settings.company.PlantsDetailView">
+<VBox style="-fx-background-color: white;" stylesheets="@../../../styles/bootstrap3.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eu.taxofficer.protoerp.company.views.CompanyPlantsDetailView">
     <children>
         <GridPane hgap="12.0" style="-fx-background-color: white;" vgap="12.0">
             <columnConstraints>
