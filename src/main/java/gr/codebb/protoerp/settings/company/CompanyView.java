@@ -208,7 +208,8 @@ public class CompanyView implements Initializable {
           registerValidators();
         });
     plantrow = FXCollections.observableArrayList();
-    plantrow.addListener(new ListChangeListener<CompanyPlantsEntity>() {
+    plantrow.addListener(
+        new ListChangeListener<CompanyPlantsEntity>() {
           @Override
           public void onChanged(
               javafx.collections.ListChangeListener.Change<? extends CompanyPlantsEntity> c) {

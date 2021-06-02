@@ -4,14 +4,11 @@
  * ProtoERP - Open source invocing program
  * info@codebb.gr
  */
-/*
- * Changelog
- * =========
- * 15/04/2021 (gmoralis) - finished validation
- * 13/04/2021 (gmoralis) - validation with validatorfx
- * 09/03/2021 (gmoralis) - Added controlsfx validation (todo change it with validatorFX sometime later)
- * 08/03/3021 (gmoralis) - Added save/load/edit actions
- * 07/03/2021 (gmoralis) - Initial
+
+/**
+ * Να γίνουν 1)Ελεγχεται αν ο αριθμός εγκατάστασης υπάρχει σε άλλη εγγραφη. Συμφωνα με τις οδηγίες
+ * για τα mydata αν δεν ξέρουμε το αριθμό εγκαταστασης βάζουμε 0. Αρα θα πρέπει να επιτρέπεται
+ * διπλοεγγραφή
  */
 package gr.codebb.protoerp.settings.company;
 
@@ -26,6 +23,8 @@ import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
+import gr.codebb.protoerp.settings.doy.DoyEntity;
+import gr.codebb.protoerp.settings.doy.DoyQueries;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -76,6 +75,8 @@ public class PlantsDetailView implements Initializable {
   @TextFieldProperty(type = TextFieldProperty.Type.STRING)
   private CbbClearableTextField textFax;
 
+  @FXML private SearchableComboBox<DoyEntity> doyCombo;
+
   private final DetailCrud<CompanyPlantsEntity> detailCrud = new DetailCrud<>(this);
   private ValidationSupport validation;
   private Validator validator = new Validator();
@@ -109,7 +110,8 @@ public class PlantsDetailView implements Initializable {
   public void initialize(URL url, ResourceBundle rb) {
     new ComboboxService<>(CountriesQueries.getCountriesDatabase(true), CountryCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(CountryCombo);
-
+    new ComboboxService<>(DoyQueries.getDoyDatabase(true), doyCombo).start();
+    DisplayableListCellFactory.setComboBoxCellFactory(doyCombo);
     validator
         .createCheck()
         .dependsOn("description", textDescription.textProperty())
@@ -199,10 +201,26 @@ public class PlantsDetailView implements Initializable {
 
     validator
         .createCheck()
+        .dependsOn("doy", doyCombo.valueProperty())
+        .withMethod(
+            c -> {
+              DoyEntity doy = c.get("doy");
+              if (doy == null) {
+                c.error("Η ΔΟΥ είναι υποχρεωτική");
+              }
+            })
+        .decorates(doyCombo)
+        .immediate();
+
+    validator
+        .createCheck()
         .dependsOn("code", textCode.textProperty())
-        .withMethod(c -> {
+        .withMethod(
+            c -> {
               String code = c.get("code");
-              if (code == null || code.isEmpty()) return;
+              if (code == null || code.isEmpty()) {
+                return;
+              }
               CompanyPlantsEntity codef = CompanyQueries.getPlantByCode(Integer.parseInt(code));
               if (codef != null) // if exists
               {
@@ -226,6 +244,7 @@ public class PlantsDetailView implements Initializable {
       textId.setText(e.getId().toString());
     }
     CountryCombo.getSelectionModel().select(e.getCountry());
+    doyCombo.getSelectionModel().select(e.getDoy());
   }
 
   public CompanyPlantsEntity saveNewPlant() {
@@ -233,6 +252,7 @@ public class PlantsDetailView implements Initializable {
     CompanyPlantsEntity plant = detailCrud.getModel();
     // non-support on detailCrud
     plant.setCountry(CountryCombo.getSelectionModel().getSelectedItem());
+    plant.setDoy(doyCombo.getSelectionModel().getSelectedItem());
     return plant;
   }
 
@@ -241,6 +261,7 @@ public class PlantsDetailView implements Initializable {
     CompanyPlantsEntity plant = detailCrud.getModel();
     // non-support on detailCrud
     plant.setCountry(CountryCombo.getSelectionModel().getSelectedItem());
+    plant.setDoy(doyCombo.getSelectionModel().getSelectedItem());
     return plant;
   }
 }
