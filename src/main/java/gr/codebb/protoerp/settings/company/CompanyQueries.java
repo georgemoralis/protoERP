@@ -15,7 +15,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
-import eu.taxofficer.protoerp.company.PlantsEntity;
+import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import gr.codebb.lib.database.PersistenceManager;
 import java.util.List;
 import java.util.Optional;
@@ -83,14 +83,14 @@ public class CompanyQueries {
     }
   }
 
-  public static PlantsEntity getPlantByCode(int code) {
+  public static CompanyPlantsEntity getPlantByCode(int code) {
     CompanyEntity current = CompanyUtil.getCurrentCompany();
     JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
-    Optional<PlantsEntity> result;
+    Optional<CompanyPlantsEntity> result;
     result =
         streams
-            .streamAll(em, PlantsEntity.class)
+            .streamAll(em, CompanyPlantsEntity.class)
             .where(p -> p.getCode() == code)
             .where(p -> p.getCompany().equals(current))
             .findFirst();

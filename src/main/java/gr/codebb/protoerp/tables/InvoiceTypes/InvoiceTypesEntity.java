@@ -12,7 +12,7 @@
  */
 package gr.codebb.protoerp.tables.InvoiceTypes;
 
-import eu.taxofficer.protoerp.company.PlantsEntity;
+import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.mydata.masterdata.InvoiceTypemdEntity;
 import java.io.Serializable;
@@ -47,7 +47,7 @@ public class InvoiceTypesEntity implements Serializable, Displayable {
   @JoinColumn(name = "company_plant_id")
   @Getter
   @Setter
-  private PlantsEntity companyplant;
+  private CompanyPlantsEntity companyplant;
 
   @ManyToOne
   @JoinColumn(name = "mydata_invoiceType_id")

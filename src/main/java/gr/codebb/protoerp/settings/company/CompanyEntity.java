@@ -19,7 +19,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
-import eu.taxofficer.protoerp.company.PlantsEntity;
+import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;
@@ -98,14 +98,14 @@ public class CompanyEntity implements Serializable, Displayable {
 
   @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
   @Getter
-  private List<PlantsEntity> plantLines = new ArrayList<>();
+  private List<CompanyPlantsEntity> plantLines = new ArrayList<>();
 
-  public void addPlantLine(PlantsEntity line) {
+  public void addPlantLine(CompanyPlantsEntity line) {
     plantLines.add(line);
     line.setCompany(this);
   }
 
-  public void removePlantLine(PlantsEntity line) {
+  public void removePlantLine(CompanyPlantsEntity line) {
     plantLines.remove(line);
     line.setCompany(null);
   }

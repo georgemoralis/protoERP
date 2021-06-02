@@ -15,7 +15,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
-import eu.taxofficer.protoerp.company.PlantsEntity;
+import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
@@ -76,7 +76,7 @@ public class PlantsDetailView implements Initializable {
   @TextFieldProperty(type = TextFieldProperty.Type.STRING)
   private CbbClearableTextField textFax;
 
-  private final DetailCrud<PlantsEntity> detailCrud = new DetailCrud<>(this);
+  private final DetailCrud<CompanyPlantsEntity> detailCrud = new DetailCrud<>(this);
   private ValidationSupport validation;
   private Validator validator = new Validator();
 
@@ -200,11 +200,10 @@ public class PlantsDetailView implements Initializable {
     validator
         .createCheck()
         .dependsOn("code", textCode.textProperty())
-        .withMethod(
-            c -> {
+        .withMethod(c -> {
               String code = c.get("code");
               if (code == null || code.isEmpty()) return;
-              PlantsEntity codef = CompanyQueries.getPlantByCode(Integer.parseInt(code));
+              CompanyPlantsEntity codef = CompanyQueries.getPlantByCode(Integer.parseInt(code));
               if (codef != null) // if exists
               {
                 if (!textId.getText().isEmpty()) { // if it is not a new entry
@@ -221,7 +220,7 @@ public class PlantsDetailView implements Initializable {
         .decorates(textCode);
   }
 
-  public void fillData(PlantsEntity e) {
+  public void fillData(CompanyPlantsEntity e) {
     detailCrud.loadModel(e);
     if (e.getId() != null) {
       textId.setText(e.getId().toString());
@@ -229,17 +228,17 @@ public class PlantsDetailView implements Initializable {
     CountryCombo.getSelectionModel().select(e.getCountry());
   }
 
-  public PlantsEntity saveNewPlant() {
-    detailCrud.saveModel(new PlantsEntity());
-    PlantsEntity plant = detailCrud.getModel();
+  public CompanyPlantsEntity saveNewPlant() {
+    detailCrud.saveModel(new CompanyPlantsEntity());
+    CompanyPlantsEntity plant = detailCrud.getModel();
     // non-support on detailCrud
     plant.setCountry(CountryCombo.getSelectionModel().getSelectedItem());
     return plant;
   }
 
-  public PlantsEntity saveEdit(PlantsEntity splant) {
+  public CompanyPlantsEntity saveEdit(CompanyPlantsEntity splant) {
     detailCrud.saveModel(splant);
-    PlantsEntity plant = detailCrud.getModel();
+    CompanyPlantsEntity plant = detailCrud.getModel();
     // non-support on detailCrud
     plant.setCountry(CountryCombo.getSelectionModel().getSelectedItem());
     return plant;

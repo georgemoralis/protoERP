@@ -25,7 +25,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
-import eu.taxofficer.protoerp.company.PlantsEntity;
+import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.DetailCrud;
@@ -137,11 +137,11 @@ public class CompanyView implements Initializable {
   @FXML private Button newPlantButton;
   @FXML private Button openPlantButton;
   @FXML private Button deletePlantButton;
-  @FXML private TableView<PlantsEntity> tablePlants;
-  @FXML private TableColumn<PlantsEntity, Long> columnId;
-  @FXML private TableColumn<PlantsEntity, Boolean> columnActive;
-  @FXML private TableColumn<PlantsEntity, Integer> columnCode;
-  @FXML private TableColumn<PlantsEntity, String> columnDescription;
+  @FXML private TableView<CompanyPlantsEntity> tablePlants;
+  @FXML private TableColumn<CompanyPlantsEntity, Long> columnId;
+  @FXML private TableColumn<CompanyPlantsEntity, Boolean> columnActive;
+  @FXML private TableColumn<CompanyPlantsEntity, Integer> columnCode;
+  @FXML private TableColumn<CompanyPlantsEntity, String> columnDescription;
   @FXML private DatePicker dateStarted;
   @FXML private DatePicker dateEnded;
   @FXML private ComboBox<VatStatus> comboVatStatus;
@@ -152,7 +152,7 @@ public class CompanyView implements Initializable {
   @FXML private TableColumn<CompanyKadEntity, String> columnCodeKad;
   @FXML private TableColumn<CompanyKadEntity, String> columnKadDescription;
 
-  private ObservableList<PlantsEntity> plantrow;
+  private ObservableList<CompanyPlantsEntity> plantrow;
   private ObservableList<CompanyKadEntity> kadrow;
 
   CompanyEntity company;
@@ -182,7 +182,7 @@ public class CompanyView implements Initializable {
     columnCode.setCellValueFactory(new PropertyValueFactory<>("code"));
     columnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
     columnActive.setCellValueFactory(new PropertyValueFactory<>("active"));
-    columnActive.setCellFactory(new CheckBoxFactory<PlantsEntity>().cellFactory);
+    columnActive.setCellFactory(new CheckBoxFactory<CompanyPlantsEntity>().cellFactory);
     openPlantButton
         .disableProperty()
         .bind(Bindings.isEmpty(tablePlants.getSelectionModel().getSelectedItems()));
@@ -208,11 +208,10 @@ public class CompanyView implements Initializable {
           registerValidators();
         });
     plantrow = FXCollections.observableArrayList();
-    plantrow.addListener(
-        new ListChangeListener<PlantsEntity>() {
+    plantrow.addListener(new ListChangeListener<CompanyPlantsEntity>() {
           @Override
           public void onChanged(
-              javafx.collections.ListChangeListener.Change<? extends PlantsEntity> c) {
+              javafx.collections.ListChangeListener.Change<? extends CompanyPlantsEntity> c) {
             // System.out.println("Changed on " + c);//c.getFrom -> line that did the change
             if (c.next()) {
               tablePlants.setItems(plantrow);
@@ -400,7 +399,7 @@ public class CompanyView implements Initializable {
                         .getSelectionModel()
                         .select(CompanyMorfi.fromInteger(returnValue.getLegalForm()));
                   });
-              PlantsEntity p = new PlantsEntity();
+              CompanyPlantsEntity p = new CompanyPlantsEntity();
               p.setCode(0);
               p.setDescription("Ἐδρα");
               p.setAddress(returnValue.getAddress());
@@ -525,7 +524,7 @@ public class CompanyView implements Initializable {
     comboCompanyMorfi.getSelectionModel().select(e.getCompanyMorfi());
     dateStarted.setValue(e.getDateStarted());
     dateEnded.setValue(e.getDateEnded());
-    for (PlantsEntity a : e.getPlantLines()) {
+    for (CompanyPlantsEntity a : e.getPlantLines()) {
       plantrow.add(a);
     }
     for (CompanyKadEntity k : e.getKadLines()) {
@@ -615,7 +614,7 @@ public class CompanyView implements Initializable {
     Optional<ButtonType> result = alert.showAndWait();
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
-        PlantsEntity p = getDetailView.getController().saveNewPlant();
+        CompanyPlantsEntity p = getDetailView.getController().saveNewPlant();
         plantrow.add(p);
       }
     }
@@ -650,8 +649,8 @@ public class CompanyView implements Initializable {
     if (result.get() == ButtonType.OK) {
       if (getDetailView.getController() != null) {
         int row = tablePlants.getSelectionModel().getSelectedIndex();
-        PlantsEntity selected = tablePlants.getSelectionModel().getSelectedItem();
-        PlantsEntity p = getDetailView.getController().saveEdit(plantrow.get(row));
+        CompanyPlantsEntity selected = tablePlants.getSelectionModel().getSelectedItem();
+        CompanyPlantsEntity p = getDetailView.getController().saveEdit(plantrow.get(row));
         plantrow.remove(selected);
         plantrow.add(p);
       }
@@ -670,7 +669,7 @@ public class CompanyView implements Initializable {
             .owner(tablePlants.getScene().getWindow())
             .showAndWaitConfirm();
     if (response == ButtonType.OK) {
-      PlantsEntity selected = tablePlants.getSelectionModel().getSelectedItem();
+      CompanyPlantsEntity selected = tablePlants.getSelectionModel().getSelectedItem();
       plantrow.remove(selected);
     }
   }

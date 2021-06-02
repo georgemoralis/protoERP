@@ -4,7 +4,7 @@
  * ProtoERP - Open source invocing program
  * protoERP@taxofficer.eu
  */
-package eu.taxofficer.protoerp.company;
+package eu.taxofficer.protoerp.company.entities;
 
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
@@ -24,7 +24,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "company_plants")
-public class PlantsEntity implements Serializable, Displayable {
+public class CompanyPlantsEntity implements Serializable, Displayable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
