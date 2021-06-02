@@ -1,20 +1,13 @@
 /*
- * copyright 2013-2021
- * codebb.gr
+ * copyright 2021
+ * taxofficer.eu
  * ProtoERP - Open source invocing program
- * info@codebb.gr
+ * protoERP@taxofficer.eu
  */
-/*
- * changelog
- * =========
- * 04/02/2020 (gmoralis) - Fixed company reference
- * 09/01/2020 (gmoralis) - Added company reference
- * 09/01/2020 (gmoralis) - Εγκαταστάσεις εταιρείας
- * 25/12/2019 (gmoralis) - Initial
- */
-package gr.codebb.protoerp.settings.company;
+package eu.taxofficer.protoerp.company;
 
 import gr.codebb.lib.crud.intf.Displayable;
+import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;

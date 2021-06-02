@@ -19,6 +19,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
+import eu.taxofficer.protoerp.company.PlantsEntity;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;

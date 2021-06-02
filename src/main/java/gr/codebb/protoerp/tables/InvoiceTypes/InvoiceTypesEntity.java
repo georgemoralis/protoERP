@@ -12,9 +12,9 @@
  */
 package gr.codebb.protoerp.tables.InvoiceTypes;
 
+import eu.taxofficer.protoerp.company.PlantsEntity;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.mydata.masterdata.InvoiceTypemdEntity;
-import gr.codebb.protoerp.settings.company.PlantsEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

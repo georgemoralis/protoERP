@@ -15,6 +15,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
+import eu.taxofficer.protoerp.company.PlantsEntity;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;

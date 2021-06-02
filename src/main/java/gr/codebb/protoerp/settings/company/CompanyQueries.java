@@ -15,6 +15,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
+import eu.taxofficer.protoerp.company.PlantsEntity;
 import gr.codebb.lib.database.PersistenceManager;
 import java.util.List;
 import java.util.Optional;
