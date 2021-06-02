@@ -9,6 +9,7 @@ package eu.taxofficer.protoerp.company;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
+import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -53,6 +54,12 @@ public class PlantsEntity implements Serializable, Displayable {
   @Getter
   @Setter
   private CompanyEntity company;
+
+  @ManyToOne
+  @JoinColumn(name = "doy_id")
+  @Getter
+  @Setter
+  private DoyEntity doy;
 
   @Getter @Setter private Boolean active;
 
