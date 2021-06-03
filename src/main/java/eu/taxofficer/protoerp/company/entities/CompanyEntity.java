@@ -8,7 +8,6 @@ package eu.taxofficer.protoerp.company.entities;
 
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.company.CompanyEidos;
-import gr.codebb.protoerp.settings.company.CompanyKadEntity;
 import gr.codebb.protoerp.settings.company.CompanyMorfi;
 import gr.codebb.protoerp.settings.company.VatStatus;
 import java.io.Serializable;
@@ -30,7 +29,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "company")
+@Table(name = "protoerp_company")
 public class CompanyEntity implements Serializable, Displayable {
 
   @Id

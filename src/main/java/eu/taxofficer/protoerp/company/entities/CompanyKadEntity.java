@@ -1,17 +1,11 @@
 /*
- * copyright 2013-2021
- * codebb.gr
+ * copyright 2021
+ * taxofficer.eu
  * ProtoERP - Open source invocing program
- * info@codebb.gr
+ * protoERP@taxofficer.eu
  */
-/*
- * changelog
- * =========
- * 20/04/2021 (gmoralis) - Initial
- */
-package gr.codebb.protoerp.settings.company;
+package eu.taxofficer.protoerp.company.entities;
 
-import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.protoerp.settings.kad.KadEntity;
 import gr.codebb.protoerp.settings.kad.KadType;
 import javax.persistence.Entity;
