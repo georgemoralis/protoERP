@@ -4,6 +4,7 @@
  * ProtoERP - Open source invocing program
  * protoERP@taxofficer.eu
  */
+
 package eu.taxofficer.protoerp.invoices;
 
 import java.math.BigDecimal;

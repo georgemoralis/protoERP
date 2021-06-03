@@ -6,10 +6,10 @@
  */
 package eu.taxofficer.protoerp.company.entities;
 
+import eu.taxofficer.protoerp.company.enums.CompanyEidos;
+import eu.taxofficer.protoerp.company.enums.CompanyMorfi;
+import eu.taxofficer.protoerp.company.enums.VatStatus;
 import gr.codebb.lib.crud.intf.Displayable;
-import gr.codebb.protoerp.settings.company.CompanyEidos;
-import gr.codebb.protoerp.settings.company.CompanyMorfi;
-import gr.codebb.protoerp.settings.company.VatStatus;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;

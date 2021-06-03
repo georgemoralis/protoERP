@@ -1,15 +1,11 @@
 /*
- * copyright 2013-2021
- * codebb.gr
+ * copyright 2021
+ * taxofficer.eu
  * ProtoERP - Open source invocing program
- * info@codebb.gr
+ * protoERP@taxofficer.eu
  */
-/*
- * Changelog
- * =========
- * 16/04/2021 - Initial
- */
-package gr.codebb.protoerp.settings.company;
+
+package eu.taxofficer.protoerp.company.enums;
 
 import gr.codebb.lib.crud.intf.Displayable;
 
