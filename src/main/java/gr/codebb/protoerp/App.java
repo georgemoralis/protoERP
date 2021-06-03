@@ -33,6 +33,7 @@ package gr.codebb.protoerp;
 import static gr.codebb.lib.util.ThreadUtil.runAndWait;
 import static javafx.geometry.Orientation.VERTICAL;
 
+import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.ctl.CbbDetachableTabPane;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.PersistenceManager;
@@ -48,7 +49,6 @@ import gr.codebb.protoerp.generic.MainMenuView;
 import gr.codebb.protoerp.generic.NewVersionView;
 import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
-import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
 import gr.codebb.protoerp.userManagement.LoginView;
 import gr.codebb.util.database.DatabaseDefaultFile;

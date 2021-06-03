@@ -1,26 +1,16 @@
 /*
- * copyright 2013-2021
- * codebb.gr
+ * copyright 2021
+ * taxofficer.eu
  * ProtoERP - Open source invocing program
- * info@codebb.gr
+ * protoERP@taxofficer.eu
  */
-/*
- * changelog
- * =========
- * 13/04/2021 (gmoralis) - name,job are now TEXT in database
- * 13/04/2021 (gmoralis) - Προσθήκης ημερομηνίας έναρξης - διακοπης (αν υπάρχει)
- * 08/04/2021 (gmoralis) - Removed mitrooCommonPassEnabled will do it otherwise
- * 30/03/2021 (gmoralis) - Προσθήκη mitrooCommonPassEnabled για χρήση ή μη κοινων κωδικών μητρώου
- * 19/03/2021 (gmoralis) - Προσθήκη πεδίων για υπηρεσία mydata
- * 16/03/2021 (gmoralis) - Προσθήκη κωδικών μητρώου για εταιρία
- * 04/03/2021 (gmoralis) - Added company plants
- * 04/03/2021 (gmoralis) - Added extra fields
- * 25/02/2021 (gmoralis) - Initial
- */
-package gr.codebb.protoerp.settings.company;
+package eu.taxofficer.protoerp.company.entities;
 
-import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import gr.codebb.lib.crud.intf.Displayable;
+import gr.codebb.protoerp.settings.company.CompanyEidos;
+import gr.codebb.protoerp.settings.company.CompanyKadEntity;
+import gr.codebb.protoerp.settings.company.CompanyMorfi;
+import gr.codebb.protoerp.settings.company.VatStatus;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;

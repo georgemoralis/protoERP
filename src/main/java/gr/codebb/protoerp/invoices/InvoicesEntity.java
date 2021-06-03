@@ -6,9 +6,9 @@
  */
 package gr.codebb.protoerp.invoices;
 
+import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import eu.taxofficer.protoerp.invoices.VatCalculation;
 import gr.codebb.protoerp.paymentMethods.PaymentMethodsEntity;
-import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.tables.InvoiceTypes.InvoiceTypesEntity;
 import gr.codebb.protoerp.trader.TraderPlantsEntity;
 import java.io.Serializable;

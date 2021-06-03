@@ -6,6 +6,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
+import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.protoerp.mydata.masterdata.MasterDataQueries;

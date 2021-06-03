@@ -11,9 +11,9 @@
  */
 package gr.codebb.protoerp.tables.measurementUnits;
 
+import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.mydata.masterdata.MeasureUnitmdEntity;
-import gr.codebb.protoerp.settings.company.CompanyEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

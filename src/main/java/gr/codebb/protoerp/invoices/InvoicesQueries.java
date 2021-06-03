@@ -11,8 +11,8 @@
  */
 package gr.codebb.protoerp.invoices;
 
+import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.lib.database.PersistenceManager;
-import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.company.CompanyUtil;
 import java.util.List;
 import javax.persistence.EntityManager;

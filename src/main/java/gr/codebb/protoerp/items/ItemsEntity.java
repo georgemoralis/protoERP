@@ -13,9 +13,9 @@
  */
 package gr.codebb.protoerp.items;
 
+import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.mydata.masterdata.VatmdExemptionEntity;
-import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.tables.measurementUnits.MeasurementUnitsEntity;
 import gr.codebb.protoerp.tables.vat.VatEntity;
 import java.io.Serializable;

@@ -11,6 +11,7 @@
  */
 package gr.codebb.protoerp.settings.company;
 
+import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.protoerp.settings.kad.KadEntity;
 import gr.codebb.protoerp.settings.kad.KadType;
 import javax.persistence.Entity;

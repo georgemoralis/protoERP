@@ -12,12 +12,12 @@
  */
 package gr.codebb.protoerp.settings.internetSettings;
 
+import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.lib.crud.DetailCrud;
 import gr.codebb.lib.crud.annotation.TextFieldProperty;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
-import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.company.CompanyUtil;
 import java.net.URL;
 import java.util.ResourceBundle;

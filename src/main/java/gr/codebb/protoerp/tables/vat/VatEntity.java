@@ -12,9 +12,9 @@
  */
 package gr.codebb.protoerp.tables.vat;
 
+import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.mydata.masterdata.VatmdEntity;
-import gr.codebb.protoerp.settings.company.CompanyEntity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Entity;

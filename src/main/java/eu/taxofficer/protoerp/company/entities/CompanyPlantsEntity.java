@@ -7,7 +7,6 @@
 package eu.taxofficer.protoerp.company.entities;
 
 import gr.codebb.lib.crud.intf.Displayable;
-import gr.codebb.protoerp.settings.company.CompanyEntity;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
 import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;
