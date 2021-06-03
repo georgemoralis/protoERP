@@ -34,14 +34,12 @@ import gr.codebb.lib.crud.annotation.CheckBoxProperty;
 import gr.codebb.lib.crud.annotation.TextFieldProperty;
 import gr.codebb.lib.crud.cellFactory.CheckBoxFactory;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
-import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
-import gr.codebb.protoerp.settings.doy.DoyEntity;
 import gr.codebb.protoerp.settings.doy.DoyQueries;
 import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
 import gr.codebb.protoerp.settings.kad.KadEntity;
@@ -90,7 +88,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.controlsfx.control.MaskerPane;
-import org.controlsfx.control.SearchableComboBox;
 import org.controlsfx.validation.Severity;
 import org.controlsfx.validation.ValidationSupport;
 
@@ -129,7 +126,6 @@ public class CompanyView implements Initializable {
   private CbbClearableTextField textRegisteredName;
 
   private MaskerPane masker = new MaskerPane();
-  @FXML private SearchableComboBox<DoyEntity> doyCombo;
 
   private ValidationSupport validation;
   private final DetailCrud<CompanyEntity> detailCrud = new DetailCrud<>(this);
@@ -164,8 +160,6 @@ public class CompanyView implements Initializable {
   public void initialize(URL url, ResourceBundle rb) {
     mainStackPane.getChildren().add(masker);
     masker.setVisible(false);
-    new ComboboxService<>(DoyQueries.getDoyDatabase(true), doyCombo).start();
-    DisplayableListCellFactory.setComboBoxCellFactory(doyCombo);
     comboVatStatus.getItems().addAll(VatStatus.getNames());
     DisplayableListCellFactory.setComboBoxCellFactory(comboVatStatus);
     comboCompanyEidos.getItems().addAll(CompanyEidos.getNames());
@@ -242,7 +236,6 @@ public class CompanyView implements Initializable {
     validation.registerValidator(textJob, false, Validators.onlyLettersValidator(Severity.WARNING));
     validation.registerValidator(
         textMobilePhone, false, Validators.onlyNumbersValidator(Severity.WARNING));
-    validation.registerValidator(doyCombo, Validators.notEmptyValidator());
     /*validation.registerValidator(
     textEmail,
     Validators.combine(
@@ -388,9 +381,6 @@ public class CompanyView implements Initializable {
               }
               Platform.runLater(
                   () -> {
-                    doyCombo
-                        .getSelectionModel()
-                        .select(DoyQueries.getDoyByCode(returnValue.getDoyCode()));
                     comboVatStatus
                         .getSelectionModel()
                         .select(VatStatus.fromInteger(returnValue.getNormalVat()));
@@ -411,6 +401,7 @@ public class CompanyView implements Initializable {
               p.setArea("");
               p.setFax("");
               p.setPhone("");
+              p.setDoy(DoyQueries.getDoyByCode(returnValue.getDoyCode()));
               p.setCountry(CountriesQueries.getCountryByCode("GR"));
               plantrow.add(p);
               // kirios kadi
@@ -502,14 +493,14 @@ public class CompanyView implements Initializable {
           .type(AlertDlg.Type.ERROR)
           .message("Ελέξτε την φόρμα για λάθη")
           .title("Πρόβλημα")
-          .owner(doyCombo.getScene().getWindow())
+          .owner(masker.getScene().getWindow())
           .modality(Modality.APPLICATION_MODAL)
           .showAndWait();
       return false;
     }
     if (tablePlants.getItems().isEmpty()) {
       AlertHelper.errorDialog(
-          doyCombo.getScene().getWindow(),
+          masker.getScene().getWindow(),
           "Πρέπει να προσθέσετε τουλάχιστον μία εγκατάσταση στην δεύτερη καρτέλα");
       return false;
     }
@@ -520,7 +511,6 @@ public class CompanyView implements Initializable {
 
     detailCrud.loadModel(e);
     textId.setText(Long.toString(e.getId()));
-    doyCombo.getSelectionModel().select(e.getDoy());
     comboVatStatus.getSelectionModel().select(e.getVatStatus());
     comboCompanyEidos.getSelectionModel().select(e.getCompanyEidos());
     comboCompanyMorfi.getSelectionModel().select(e.getCompanyMorfi());
@@ -538,7 +528,6 @@ public class CompanyView implements Initializable {
     GenericDao gdao = new GenericDao(CompanyEntity.class, PersistenceManager.getEmf());
     detailCrud.saveModel(new CompanyEntity());
     CompanyEntity company = detailCrud.getModel();
-    company.setDoy(doyCombo.getSelectionModel().getSelectedItem());
     company.setVatStatus(comboVatStatus.getSelectionModel().getSelectedItem());
     company.setMitroo_username(returndata[0]);
     company.setMitroo_password(returndata[1]);
@@ -565,7 +554,6 @@ public class CompanyView implements Initializable {
     GenericDao gdao = new GenericDao(CompanyEntity.class, PersistenceManager.getEmf());
     detailCrud.saveModel((CompanyEntity) gdao.findEntity(Long.valueOf(textId.getText())));
     CompanyEntity cp = detailCrud.getModel();
-    cp.setDoy(doyCombo.getSelectionModel().getSelectedItem());
     cp.setVatStatus(comboVatStatus.getSelectionModel().getSelectedItem());
     cp.setDateStarted(dateStarted.getValue());
     cp.setDateEnded(dateEnded.getValue());

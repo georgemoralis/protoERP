@@ -21,7 +21,6 @@ package gr.codebb.protoerp.settings.company;
 
 import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import gr.codebb.lib.crud.intf.Displayable;
-import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,8 +33,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -65,12 +62,6 @@ public class CompanyEntity implements Serializable, Displayable {
   private String job;
 
   @Getter @Setter private String vatNumber;
-
-  @ManyToOne
-  @JoinColumn(name = "doy_id")
-  @Getter
-  @Setter
-  private DoyEntity doy;
 
   @Enumerated(EnumType.ORDINAL)
   @Getter

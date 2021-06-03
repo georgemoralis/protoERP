@@ -23,7 +23,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import org.controlsfx.control.SearchableComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.codebb.protoerp.settings.company.CompanyView">
@@ -58,7 +57,6 @@
                             <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
@@ -77,25 +75,23 @@
                                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="98.0" text="Επάγγελμα:" GridPane.rowIndex="4" />
                                         <CbbClearableTextField fx:id="textVatNumber" prefHeight="27.0" prefWidth="122.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="98.0" text="ΑΦΜ:" GridPane.rowIndex="1" />
-                                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="134.0" text="ΔΟΥ:" GridPane.rowIndex="5" />
-                                        <CbbClearableTextField fx:id="textEmail" prefHeight="27.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="114.0" text="E-mail:" GridPane.rowIndex="6" />
-                              <CbbClearableTextField fx:id="textMobilePhone" prefHeight="27.0" prefWidth="126.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="134.0" text="Κινητό: " GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                                        <CbbClearableTextField fx:id="textEmail" prefHeight="27.0" prefWidth="207.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="114.0" text="E-mail:" GridPane.rowIndex="5" />
+                              <CbbClearableTextField fx:id="textMobilePhone" prefHeight="27.0" prefWidth="126.0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="134.0" text="Κινητό: " GridPane.columnIndex="2" GridPane.rowIndex="5" />
                               <Button mnemonicParsing="false" onAction="#onTaxisUpdate" styleClass="primary" text="Ανάκτηση από gsis" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                               <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="139.0" text="Διακρ.Τίτλος:" GridPane.rowIndex="3" />
                               <CbbClearableTextField fx:id="textRegisteredName" prefHeight="27.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                              <SearchableComboBox fx:id="doyCombo" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
                               <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="324.0" text="ID:" textFill="#b22121" />
                               <TextField fx:id="textId" disable="true" editable="false" prefHeight="27.0" prefWidth="300.0" promptText="Αυτόματο" GridPane.columnIndex="1" />
                               <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="355.0" text="Ενεργή:" GridPane.columnIndex="2" />
                               <CheckBox fx:id="checkBoxActive" mnemonicParsing="false" prefHeight="68.0" prefWidth="18.0" GridPane.columnIndex="3" />
-                              <DatePicker fx:id="dateStarted" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                              <DatePicker fx:id="dateEnded" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="114.0" text="Ημ/νία Έναρξης: " GridPane.rowIndex="7" />
-                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="114.0" text="Ημ/νία Διακοπής: " GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                              <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="124.0" text="Καθεστώς Φ.Π.Α: " GridPane.rowIndex="8" />
-                              <ComboBox fx:id="comboVatStatus" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                              <DatePicker fx:id="dateStarted" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <DatePicker fx:id="dateEnded" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="114.0" text="Ημ/νία Έναρξης: " GridPane.rowIndex="6" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="114.0" text="Ημ/νία Διακοπής: " GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                              <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="124.0" text="Καθεστώς Φ.Π.Α: " GridPane.rowIndex="7" />
+                              <ComboBox fx:id="comboVatStatus" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                            </children>
                            <opaqueInsets>
                               <Insets />
