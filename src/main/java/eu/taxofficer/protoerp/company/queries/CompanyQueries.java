@@ -1,23 +1,16 @@
 /*
- * copyright 2013-2021
- * codebb.gr
+ * copyright 2021
+ * taxofficer.eu
  * ProtoERP - Open source invocing program
- * info@codebb.gr
+ * protoERP@taxofficer.eu
  */
-/*
- * changelog
- * =========
- * 15/04/2021 (gmoralis) - getPlantByCode
- * 13/03/2021 (gmoralis) - getCompanies doesn't include demo companies
- * 09/04/2021 (gmoralis) - getCompanies can return active or not active as well
- * 08/04/2021 (gmoralis) - Added getCompaniesWithMitrooCodes function
- * 26/02/2021 (gmoralis) - Added getCompanies method
- */
-package gr.codebb.protoerp.settings.company;
+
+package eu.taxofficer.protoerp.company.queries;
 
 import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import gr.codebb.lib.database.PersistenceManager;
+import gr.codebb.protoerp.settings.company.CompanyUtil;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;

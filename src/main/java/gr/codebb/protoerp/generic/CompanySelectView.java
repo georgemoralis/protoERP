@@ -23,7 +23,7 @@ import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
-import gr.codebb.protoerp.settings.company.CompanyQueries;
+import eu.taxofficer.protoerp.company.queries.CompanyQueries;
 import gr.codebb.protoerp.settings.company.CompanyView;
 import java.net.URL;
 import java.util.List;

@@ -648,6 +648,7 @@ public class CompanyView implements Initializable {
         CompanyPlantsEntity p = getDetailView.getController().saveEdit(plantrow.get(row));
         plantrow.remove(selected);
         plantrow.add(p);
+        tablePlants.refresh();
       }
     }
   }

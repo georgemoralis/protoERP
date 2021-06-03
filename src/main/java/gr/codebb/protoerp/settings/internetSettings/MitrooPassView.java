@@ -23,7 +23,7 @@ import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AuthUtil;
-import gr.codebb.protoerp.settings.company.CompanyQueries;
+import eu.taxofficer.protoerp.company.queries.CompanyQueries;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
