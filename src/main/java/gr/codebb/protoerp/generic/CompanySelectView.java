@@ -17,13 +17,13 @@
 package gr.codebb.protoerp.generic;
 
 import eu.taxofficer.protoerp.company.entities.CompanyEntity;
+import eu.taxofficer.protoerp.company.queries.CompanyQueries;
 import gr.codebb.ctl.CbbSearchableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
-import eu.taxofficer.protoerp.company.queries.CompanyQueries;
 import gr.codebb.protoerp.settings.company.CompanyView;
 import java.net.URL;
 import java.util.List;

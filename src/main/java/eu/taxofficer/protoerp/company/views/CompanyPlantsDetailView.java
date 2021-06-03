@@ -13,6 +13,7 @@
 package eu.taxofficer.protoerp.company.views;
 
 import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
+import eu.taxofficer.protoerp.company.queries.CompanyQueries;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
@@ -21,7 +22,6 @@ import gr.codebb.lib.crud.annotation.CheckBoxProperty;
 import gr.codebb.lib.crud.annotation.TextFieldProperty;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
-import eu.taxofficer.protoerp.company.queries.CompanyQueries;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
 import gr.codebb.protoerp.settings.doy.DoyEntity;

@@ -16,6 +16,7 @@
 package gr.codebb.protoerp.settings.internetSettings;
 
 import eu.taxofficer.protoerp.company.entities.CompanyEntity;
+import eu.taxofficer.protoerp.company.queries.CompanyQueries;
 import gr.codebb.codebblib.fxcontrols.CbbPasswordField;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
@@ -23,7 +24,6 @@ import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AuthUtil;
-import eu.taxofficer.protoerp.company.queries.CompanyQueries;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
