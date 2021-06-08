@@ -6,9 +6,9 @@
  */
 package eu.taxofficer.protoerp.company.entities;
 
+import eu.taxofficer.protoerp.tables.entities.DoyEntity;
 import gr.codebb.lib.crud.intf.Displayable;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
-import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

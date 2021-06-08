@@ -12,8 +12,8 @@
 package gr.codebb.protoerp.trader;
 
 import eu.taxofficer.protoerp.company.entities.CompanyEntity;
+import eu.taxofficer.protoerp.tables.entities.DoyEntity;
 import gr.codebb.lib.crud.intf.Displayable;
-import gr.codebb.protoerp.settings.doy.DoyEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "traders")
+@Table(name = "protoerp_traders")
 public class TraderEntity implements Serializable, Displayable {
 
   @Id

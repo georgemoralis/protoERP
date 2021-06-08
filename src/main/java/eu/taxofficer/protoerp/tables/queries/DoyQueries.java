@@ -1,16 +1,12 @@
 /*
- * copyright 2013-2021
- * codebb.gr
+ * copyright 2021
+ * taxofficer.eu
  * ProtoERP - Open source invocing program
- * info@codebb.gr
+ * protoERP@taxofficer.eu
  */
-/*
- * changelog
- * =========
- * 02/03/2021 (gmoralis) - Added getDoyByCode,getDoyDatabase method
- */
-package gr.codebb.protoerp.settings.doy;
+package eu.taxofficer.protoerp.tables.queries;
 
+import eu.taxofficer.protoerp.tables.entities.DoyEntity;
 import gr.codebb.lib.database.PersistenceManager;
 import java.util.List;
 import java.util.Optional;

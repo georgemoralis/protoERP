@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tableSettings")
+@Table(name = "protoerp_tableSettings")
 public class TableSettingsEntity implements Serializable {
 
   @Id

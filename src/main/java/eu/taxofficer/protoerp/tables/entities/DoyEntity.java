@@ -1,15 +1,10 @@
 /*
- * copyright 2013-2021
- * codebb.gr
+ * copyright 2021
+ * taxofficer.eu
  * ProtoERP - Open source invocing program
- * info@codebb.gr
+ * protoERP@taxofficer.eu
  */
-/*
- * changelog
- * =========
- * 25/02/2021 (gmoralis) - Initial commit
- */
-package gr.codebb.protoerp.settings.doy;
+package eu.taxofficer.protoerp.tables.entities;
 
 import gr.codebb.lib.crud.intf.Displayable;
 import java.io.Serializable;
@@ -22,7 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "doy")
+@Table(name = "protoerp_doy")
 public class DoyEntity implements Serializable, Displayable {
 
   @Id

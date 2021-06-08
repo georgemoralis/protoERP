@@ -54,7 +54,7 @@ public class InstallDatabaseUpdates {
     if (!MysqlUtil.checkDatabaseConnection(database)) {
       return false;
     }
-    if (!MysqlUtil.checkIfTableExists(database, "settings")) {
+    if (!MysqlUtil.checkIfTableExists(database, "protoerp_settings")) {
       EntityManager em = PersistenceManager.getEmf().createEntityManager();
       Connection connection = em.unwrap(SessionImpl.class).connection();
       d.install_initial_database(connection);

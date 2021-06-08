@@ -31,7 +31,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "protoerp_roles")
 public class RolesEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +43,7 @@ public class RolesEntity implements Serializable {
 
   @ManyToMany
   @JoinTable(
-      name = "role_permission",
+      name = "protoerp_role_permission",
       joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
   private List<PermissionsEntity> permissionList = new ArrayList<>();

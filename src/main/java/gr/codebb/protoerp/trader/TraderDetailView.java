@@ -13,6 +13,8 @@
  */
 package gr.codebb.protoerp.trader;
 
+import eu.taxofficer.protoerp.tables.entities.DoyEntity;
+import eu.taxofficer.protoerp.tables.queries.DoyQueries;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.DetailCrud;
@@ -27,8 +29,6 @@ import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import gr.codebb.protoerp.settings.company.CompanyUtil;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
-import gr.codebb.protoerp.settings.doy.DoyEntity;
-import gr.codebb.protoerp.settings.doy.DoyQueries;
 import gr.codebb.protoerp.settings.internetSettings.MitrooPassView;
 import gr.codebb.protoerp.util.validation.CustomValidationDecoration;
 import gr.codebb.protoerp.util.validation.Validators;

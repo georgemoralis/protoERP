@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "permissions")
+@Table(name = "protoerp_permissions")
 public class PermissionsEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

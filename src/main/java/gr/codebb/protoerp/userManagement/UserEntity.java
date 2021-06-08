@@ -34,7 +34,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
+@Table(name = "protoerp_users")
 public class UserEntity implements Serializable, Displayable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +51,7 @@ public class UserEntity implements Serializable, Displayable {
       cascade = {CascadeType.PERSIST, CascadeType.MERGE},
       fetch = FetchType.EAGER)
   @JoinTable(
-      name = "user_role",
+      name = "protoerp_user_role",
       joinColumns = {@JoinColumn(name = "user_id")},
       inverseJoinColumns = {@JoinColumn(name = "role_id")})
   private List<RolesEntity> roleList = new ArrayList<>();

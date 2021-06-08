@@ -27,7 +27,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "trader_plants")
+@Table(name = "protoerp_trader_plants")
 public class TraderPlantsEntity implements Serializable, Displayable {
 
   @Id

@@ -14,6 +14,8 @@ package eu.taxofficer.protoerp.company.views;
 
 import eu.taxofficer.protoerp.company.entities.CompanyPlantsEntity;
 import eu.taxofficer.protoerp.company.queries.CompanyQueries;
+import eu.taxofficer.protoerp.tables.entities.DoyEntity;
+import eu.taxofficer.protoerp.tables.queries.DoyQueries;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
@@ -24,8 +26,6 @@ import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
 import gr.codebb.lib.crud.services.ComboboxService;
 import gr.codebb.protoerp.settings.countries.CountriesEntity;
 import gr.codebb.protoerp.settings.countries.CountriesQueries;
-import gr.codebb.protoerp.settings.doy.DoyEntity;
-import gr.codebb.protoerp.settings.doy.DoyQueries;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
