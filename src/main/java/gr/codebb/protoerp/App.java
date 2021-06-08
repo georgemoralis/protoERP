@@ -371,6 +371,9 @@ public class App extends Application {
   }
 
   public static void main(String[] args) {
+    System.setProperty("liquibase.databaseChangeLogTableName", "protoerp_databasechangelog");
+    System.setProperty(
+        "liquibase.databaseChangeLogLockTableName", "protoerp_databasechangeloglock");
     Thread.setDefaultUncaughtExceptionHandler(new DialogExceptionHandler());
     System.setProperty("javafx.preloader", PrototypePreloader.class.getCanonicalName());
     Application.launch(App.class, args);

@@ -42,7 +42,7 @@
         <liquibase-core>4.3.5</liquibase-core>
         <shiro-core>1.7.1</shiro-core>
         <log4j2>2.14.1</log4j2>
-                <jasperreports>6.17.0</jasperreports>
+        <jasperreports>6.17.0</jasperreports>
         <!-- own modules !-->
         <cobebbfxctl>15.0.13</cobebbfxctl>
         <codebbutil>15.0.7</codebbutil>
