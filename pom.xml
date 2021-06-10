@@ -23,7 +23,7 @@
         <spotbugs-maven-plugin>4.2.3</spotbugs-maven-plugin>
         <fmt-maven-plugin>2.10</fmt-maven-plugin>
         <maven-checkstyle-plugin>3.1.2</maven-checkstyle-plugin>
-        <git-commit-id-plugin>4.0.4</git-commit-id-plugin>
+        <git-commit-id-plugin>4.0.5</git-commit-id-plugin>
         <maven-dependency-plugin>3.1.2</maven-dependency-plugin>
         <!--depedencies !-->
         <lombok>1.18.20</lombok>
