@@ -565,6 +565,7 @@ public class CompanyView implements Initializable {
     cp.setCompanyEidos(comboCompanyEidos.getSelectionModel().getSelectedItem());
     cp.setCompanyMorfi(comboCompanyMorfi.getSelectionModel().getSelectedItem());
     cp.getPlantLines().clear();
+    cp.getKadLines().clear();
     plantrow.forEach(
         (plantpos) -> {
           cp.addPlantLine(plantpos);
