@@ -15,6 +15,8 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.entities.UserEntity;
+import eu.taxofficer.protoerp.auth.queries.UserQueries;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.dlg.AlertDlg;
 import gr.codebb.lib.crud.cellFactory.DisplayableListCellFactory;
@@ -41,7 +43,7 @@ import org.controlsfx.control.SearchableComboBox;
 
 public class LoginView implements Initializable {
 
-  @FXML private SearchableComboBox<UsersEntity> userCombo;
+  @FXML private SearchableComboBox<UserEntity> userCombo;
   @FXML private PasswordField passText;
 
   private Validator validator = new Validator();
@@ -50,7 +52,7 @@ public class LoginView implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     // fill userCombo
-    List<UsersEntity> users = UserQueries.getUsers();
+    List<UserEntity> users = UserQueries.getUsers();
     new ComboboxService<>(users, userCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(userCombo);
     if (users.size() == 1) {

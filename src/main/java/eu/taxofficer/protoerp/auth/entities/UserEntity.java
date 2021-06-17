@@ -6,6 +6,7 @@
  */
 package eu.taxofficer.protoerp.auth.entities;
 
+import gr.codebb.lib.crud.intf.Displayable;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import lombok.Setter;
 /** @author George Moralis */
 @Entity
 @Table(name = "users")
-public class UserEntity implements Serializable {
+public class UserEntity implements Serializable, Displayable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +35,9 @@ public class UserEntity implements Serializable {
   @Getter @Setter private String name;
 
   @ManyToMany @Getter @Setter private Set<RoleEntity> roles;
+
+  @Override
+  public String getComboDisplayValue() {
+    return username;
+  }
 }

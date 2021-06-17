@@ -33,6 +33,7 @@ package gr.codebb.protoerp;
 import static gr.codebb.lib.util.ThreadUtil.runAndWait;
 import static javafx.geometry.Orientation.VERTICAL;
 
+import eu.taxofficer.protoerp.auth.util.CustomAuthorizingRealm;
 import eu.taxofficer.protoerp.company.entities.CompanyEntity;
 import gr.codebb.ctl.CbbDetachableTabPane;
 import gr.codebb.dlg.AlertDlg;
@@ -49,7 +50,6 @@ import gr.codebb.protoerp.generic.MainMenuView;
 import gr.codebb.protoerp.generic.NewVersionView;
 import gr.codebb.protoerp.preloader.PrototypePreloader;
 import gr.codebb.protoerp.settings.SettingsHelper;
-import gr.codebb.protoerp.userManagement.CustomSecurityRealm;
 import gr.codebb.protoerp.userManagement.LoginView;
 import gr.codebb.util.database.DatabaseDefaultFile;
 import gr.codebb.util.database.DatabasesFileCont;
@@ -206,7 +206,7 @@ public class App extends Application {
   public void start(Stage stage) throws Exception {
     /** load apache shiro */
     DefaultSecurityManager securityManager = new DefaultSecurityManager();
-    securityManager.setRealm(new CustomSecurityRealm());
+    securityManager.setRealm(new CustomAuthorizingRealm());
     SecurityUtils.setSecurityManager(securityManager);
 
     FxmlUtil.LoadResult<LoginView> loginWindow = FxmlUtil.load("/fxml/userManagement/Login.fxml");

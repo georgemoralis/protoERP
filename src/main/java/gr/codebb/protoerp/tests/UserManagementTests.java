@@ -15,9 +15,7 @@ import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.protoerp.userManagement.PermissionsEntity;
 import gr.codebb.protoerp.userManagement.RolesEntity;
-import gr.codebb.protoerp.userManagement.UserQueries;
 import gr.codebb.protoerp.userManagement.UsersEntity;
-import java.util.Iterator;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 
 public class UserManagementTests {
@@ -51,13 +49,13 @@ public class UserManagementTests {
   }
 
   public void testPermissions() {
-    UsersEntity user = UserQueries.findUserByUsername("admin");
+    /*    UsersEntity user = UserQueries.findUserByUsername("admin");
     System.out.println("roles " + user.getRoleList().toString());
     for (RolesEntity role : user.getRoleList()) {
       for (Iterator iterator = role.getPermissionList().iterator(); iterator.hasNext(); ) {
         PermissionsEntity permission = (PermissionsEntity) iterator.next();
         System.out.println(permission.getPermissionName());
       }
-    }
+    }*/
   }
 }

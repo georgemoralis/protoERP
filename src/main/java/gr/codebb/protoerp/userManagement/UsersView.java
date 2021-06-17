@@ -15,6 +15,7 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.queries.UserQueries;
 import gr.codebb.ctl.cbbTableView.CbbTableView;
 import gr.codebb.ctl.cbbTableView.columns.CbbBooleanTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbLongTableColumn;

@@ -15,6 +15,8 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.entities.UserEntity;
+import eu.taxofficer.protoerp.auth.queries.UserQueries;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
@@ -102,7 +104,7 @@ public class UsersDetailView implements Initializable {
         .withMethod(
             c -> {
               String username = c.get("username");
-              UsersEntity user = UserQueries.findUserByUsername(username);
+              UserEntity user = UserQueries.findUserByUsername(username);
               if (user != null) // if exists
               {
                 if (!textId.getText().isEmpty()) { // if it is not a new entry

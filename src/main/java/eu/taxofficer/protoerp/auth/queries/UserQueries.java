@@ -8,6 +8,7 @@ package eu.taxofficer.protoerp.auth.queries;
 
 import eu.taxofficer.protoerp.auth.entities.UserEntity;
 import gr.codebb.lib.database.PersistenceManager;
+import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import org.jinq.jpa.JinqJPAStreamProvider;
@@ -31,5 +32,14 @@ public class UserQueries {
     } else {
       return null;
     }
+  }
+
+  public static List<UserEntity> getUsers() {
+    JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
+    EntityManager em = PersistenceManager.getEmf().createEntityManager();
+    List<UserEntity> results = streams.streamAll(em, UserEntity.class).toList();
+
+    em.close();
+    return results;
   }
 }
