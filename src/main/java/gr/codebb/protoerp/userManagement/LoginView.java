@@ -41,7 +41,7 @@ import org.controlsfx.control.SearchableComboBox;
 
 public class LoginView implements Initializable {
 
-  @FXML private SearchableComboBox<UserEntity> userCombo;
+  @FXML private SearchableComboBox<UsersEntity> userCombo;
   @FXML private PasswordField passText;
 
   private Validator validator = new Validator();
@@ -50,7 +50,7 @@ public class LoginView implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     // fill userCombo
-    List<UserEntity> users = UserQueries.getUsers();
+    List<UsersEntity> users = UserQueries.getUsers();
     new ComboboxService<>(users, userCombo).start();
     DisplayableListCellFactory.setComboBoxCellFactory(userCombo);
     if (users.size() == 1) {
@@ -65,7 +65,7 @@ public class LoginView implements Initializable {
         .dependsOn("username", userCombo.valueProperty())
         .withMethod(
             c -> {
-              UserEntity username = c.get("username");
+              UsersEntity username = c.get("username");
               if (username == null) {
                 c.error("Το όνομα χρήστη δεν μπορεί να είναι κενό");
               }

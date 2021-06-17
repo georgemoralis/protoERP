@@ -46,8 +46,8 @@ public class CustomSecurityRealm extends AuthorizingRealm {
     Set roles = new HashSet<>();
     Set permissions = new HashSet<>();
 
-    Collection<UserEntity> principalsList = principals.byType(UserEntity.class);
-    for (UserEntity user : principalsList) {
+    Collection<UsersEntity> principalsList = principals.byType(UsersEntity.class);
+    for (UsersEntity user : principalsList) {
       roles.addAll(user.getRolesName());
       for (RolesEntity role : user.getRoleList()) {
         for (Iterator iterator = role.getPermissionList().iterator(); iterator.hasNext(); ) {
@@ -68,7 +68,7 @@ public class CustomSecurityRealm extends AuthorizingRealm {
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
       throws AuthenticationException {
     UsernamePasswordToken upat = (UsernamePasswordToken) token;
-    UserEntity user = UserQueries.findUserByUsername(upat.getUsername());
+    UsersEntity user = UserQueries.findUserByUsername(upat.getUsername());
     if (user != null && passwordService.passwordsMatch(upat.getPassword(), user.getPassword())) {
       return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
     } else {

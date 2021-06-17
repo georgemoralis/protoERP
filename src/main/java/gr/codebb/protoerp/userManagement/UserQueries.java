@@ -26,13 +26,13 @@ public class UserQueries {
    * @param username
    * @return userentity
    */
-  public static UserEntity findUserByUsername(String username) {
+  public static UsersEntity findUserByUsername(String username) {
     JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
-    Optional<UserEntity> result;
+    Optional<UsersEntity> result;
     result =
         streams
-            .streamAll(em, UserEntity.class)
+            .streamAll(em, UsersEntity.class)
             .where(p -> p.getUsername().equals(username))
             .findFirst();
 
@@ -44,10 +44,10 @@ public class UserQueries {
     }
   }
 
-  public static List<UserEntity> getUsers() {
+  public static List<UsersEntity> getUsers() {
     JinqJPAStreamProvider streams = new JinqJPAStreamProvider(PersistenceManager.getEmf());
     EntityManager em = PersistenceManager.getEmf().createEntityManager();
-    List<UserEntity> results = streams.streamAll(em, UserEntity.class).toList();
+    List<UsersEntity> results = streams.streamAll(em, UsersEntity.class).toList();
 
     em.close();
     return results;

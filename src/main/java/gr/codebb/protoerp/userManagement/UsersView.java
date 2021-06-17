@@ -48,19 +48,19 @@ public class UsersView extends AbstractListView implements Initializable {
   @FXML private Button newButton;
   @FXML private Button openButton;
   @FXML private Button deleteButton;
-  @FXML private CbbTableView<UserEntity> usersTable;
+  @FXML private CbbTableView<UsersEntity> usersTable;
 
   @ColumnProperty(prefWidth = "100.0d")
-  CbbTableColumn<UserEntity, Long> columnId;
+  CbbTableColumn<UsersEntity, Long> columnId;
 
   @ColumnProperty(prefWidth = "100.0d")
-  CbbTableColumn<UserEntity, Boolean> columnActive;
+  CbbTableColumn<UsersEntity, Boolean> columnActive;
 
   @ColumnProperty(prefWidth = "180.0d")
-  CbbTableColumn<UserEntity, String> columnName;
+  CbbTableColumn<UsersEntity, String> columnName;
 
   @ColumnProperty(prefWidth = "120.0d")
-  CbbTableColumn<UserEntity, String> columnUsername;
+  CbbTableColumn<UsersEntity, String> columnUsername;
 
   /** Initializes the controller class. */
   @Override
@@ -151,7 +151,7 @@ public class UsersView extends AbstractListView implements Initializable {
             .owner(usersTable.getScene().getWindow())
             .showAndWaitConfirm();
     if (response == ButtonType.OK) {
-      GenericDao gdao = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
+      GenericDao gdao = new GenericDao(UsersEntity.class, PersistenceManager.getEmf());
       try {
         gdao.deleteEntity(usersTable.getSelectionModel().getSelectedItem().getId());
       } catch (Exception e) {

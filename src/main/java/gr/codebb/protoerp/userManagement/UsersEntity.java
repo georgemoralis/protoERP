@@ -35,7 +35,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "protoerp_users")
-public class UserEntity implements Serializable, Displayable {
+public class UsersEntity implements Serializable, Displayable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter

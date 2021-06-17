@@ -102,7 +102,7 @@ public class UsersDetailView implements Initializable {
         .withMethod(
             c -> {
               String username = c.get("username");
-              UserEntity user = UserQueries.findUserByUsername(username);
+              UsersEntity user = UserQueries.findUserByUsername(username);
               if (user != null) // if exists
               {
                 if (!textId.getText().isEmpty()) { // if it is not a new entry
@@ -142,7 +142,7 @@ public class UsersDetailView implements Initializable {
             });
   }
 
-  public void fillData(UserEntity user) {
+  public void fillData(UsersEntity user) {
     textId.setText(user.getId().toString());
     textName.setText(user.getName());
     textUsername.setText(user.getUsername());
@@ -164,8 +164,8 @@ public class UsersDetailView implements Initializable {
   }
 
   public boolean save() {
-    GenericDao gdao = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
-    UserEntity user = new UserEntity();
+    GenericDao gdao = new GenericDao(UsersEntity.class, PersistenceManager.getEmf());
+    UsersEntity user = new UsersEntity();
     user.setActive(checkActive.isSelected());
     user.setName(textName.getText());
     user.setUsername(textUsername.getText());
@@ -188,8 +188,8 @@ public class UsersDetailView implements Initializable {
   }
 
   public boolean saveEdit() {
-    GenericDao gdao = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
-    UserEntity user = (UserEntity) gdao.findEntity(Long.valueOf(textId.getText()));
+    GenericDao gdao = new GenericDao(UsersEntity.class, PersistenceManager.getEmf());
+    UsersEntity user = (UsersEntity) gdao.findEntity(Long.valueOf(textId.getText()));
     user.setActive(checkActive.isSelected());
     user.setName(textName.getText());
     user.setUsername(textUsername.getText());

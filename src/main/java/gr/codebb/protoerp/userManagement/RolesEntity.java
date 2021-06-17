@@ -51,7 +51,7 @@ public class RolesEntity implements Serializable {
   @ManyToMany(
       cascade = {CascadeType.PERSIST, CascadeType.MERGE},
       mappedBy = "roleList")
-  private List<UserEntity> userList = new ArrayList<>();
+  private List<UsersEntity> userList = new ArrayList<>();
 
   @Transient private Set<String> permissionsName;
 
@@ -72,11 +72,11 @@ public class RolesEntity implements Serializable {
     this.permissionList = permissionList;
   }
 
-  public List<UserEntity> getUserList() {
+  public List<UsersEntity> getUserList() {
     return userList;
   }
 
-  public void setUserList(List<UserEntity> userList) {
+  public void setUserList(List<UsersEntity> userList) {
     this.userList = userList;
   }
 }
