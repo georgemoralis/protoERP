@@ -18,6 +18,7 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.entities.RoleEntity;
 import eu.taxofficer.protoerp.auth.queries.RoleQueries;
 import gr.codebb.ctl.cbbTableView.CbbTableView;
 import gr.codebb.ctl.cbbTableView.columns.CbbLongTableColumn;
@@ -51,20 +52,20 @@ public class RolesView extends AbstractListView implements Initializable {
   @FXML private Button newButton;
   @FXML private Button openButton;
   @FXML private Button deleteButton;
-  @FXML private CbbTableView<RolesEntity> rolesTable;
+  @FXML private CbbTableView<RoleEntity> rolesTable;
 
   @ColumnProperty(prefWidth = "100.0d")
-  CbbTableColumn<RolesEntity, Long> columnId;
+  CbbTableColumn<RoleEntity, Long> columnId;
 
   @ColumnProperty(prefWidth = "150.0d")
-  CbbTableColumn<RolesEntity, String> columnRoleName;
+  CbbTableColumn<RoleEntity, String> columnRoleName;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     columnId = new CbbLongTableColumn<>("Id");
     columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
     columnRoleName = new CbbStringTableColumn<>("Ρόλος");
-    columnRoleName.setCellValueFactory(new PropertyValueFactory<>("roleName"));
+    columnRoleName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     rolesTable.getColumns().addAll(columnId, columnRoleName);
 
@@ -81,13 +82,13 @@ public class RolesView extends AbstractListView implements Initializable {
         AlertDlg.create()
             .message(
                 "Είστε σιγουροι ότι θέλετε να διαγράψετε τον ρόλο : "
-                    + rolesTable.getSelectionModel().getSelectedItem().getRoleName())
+                    + rolesTable.getSelectionModel().getSelectedItem().getName())
             .title("Διαγραφή")
             .modality(Modality.APPLICATION_MODAL)
             .owner(rolesTable.getScene().getWindow())
             .showAndWaitConfirm();
     if (response == ButtonType.OK) {
-      GenericDao gdao = new GenericDao(RolesEntity.class, PersistenceManager.getEmf());
+      GenericDao gdao = new GenericDao(depr_RolesEntity.class, PersistenceManager.getEmf());
       try {
         gdao.deleteEntity(rolesTable.getSelectionModel().getSelectedItem().getId());
       } catch (Exception e) {

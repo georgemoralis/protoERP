@@ -32,7 +32,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "protoerp_roles")
-public class RolesEntity implements Serializable {
+public class depr_RolesEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
@@ -46,37 +46,37 @@ public class RolesEntity implements Serializable {
       name = "protoerp_role_permission",
       joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
-  private List<PermissionsEntity> permissionList = new ArrayList<>();
+  private List<depr_PermissionsEntity> permissionList = new ArrayList<>();
 
   @ManyToMany(
       cascade = {CascadeType.PERSIST, CascadeType.MERGE},
       mappedBy = "roleList")
-  private List<UsersEntity> userList = new ArrayList<>();
+  private List<depr_UsersEntity> userList = new ArrayList<>();
 
   @Transient private Set<String> permissionsName;
 
   public Set<String> getPermissionsName() {
     permissionsName = new HashSet<>();
-    List<PermissionsEntity> perlist = getPermissionList();
-    for (PermissionsEntity per : perlist) {
+    List<depr_PermissionsEntity> perlist = getPermissionList();
+    for (depr_PermissionsEntity per : perlist) {
       permissionsName.add(per.getPermissionName());
     }
     return permissionsName;
   }
 
-  public List<PermissionsEntity> getPermissionList() {
+  public List<depr_PermissionsEntity> getPermissionList() {
     return permissionList;
   }
 
-  public void setPermissionList(List<PermissionsEntity> permissionList) {
+  public void setPermissionList(List<depr_PermissionsEntity> permissionList) {
     this.permissionList = permissionList;
   }
 
-  public List<UsersEntity> getUserList() {
+  public List<depr_UsersEntity> getUserList() {
     return userList;
   }
 
-  public void setUserList(List<UsersEntity> userList) {
+  public void setUserList(List<depr_UsersEntity> userList) {
     this.userList = userList;
   }
 }

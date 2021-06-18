@@ -15,7 +15,9 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.entities.PermissionEntity;
 import eu.taxofficer.protoerp.auth.entities.RoleEntity;
+import eu.taxofficer.protoerp.auth.queries.PermissionQueries;
 import eu.taxofficer.protoerp.auth.queries.RoleQueries;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
@@ -37,26 +39,26 @@ public class RolesDetailView implements Initializable {
 
   @FXML private TextField textId;
   @FXML private CbbClearableTextField textRoleΝame;
-  @FXML private CheckListView<PermissionsEntity> permCheckList;
+  @FXML private CheckListView<PermissionEntity> permCheckList;
 
   private Validator validator = new Validator();
 
   /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    permCheckList.getItems().addAll(PersimssionsQueries.getPermissions());
+    permCheckList.getItems().addAll(PermissionQueries.getPermissions());
     permCheckList.setCellFactory(
-        (ListView<PermissionsEntity> listView) ->
-            new CheckBoxListCell<PermissionsEntity>(
+        (ListView<PermissionEntity> listView) ->
+            new CheckBoxListCell<PermissionEntity>(
                 item -> permCheckList.getItemBooleanProperty(item),
-                new StringConverter<PermissionsEntity>() {
+                new StringConverter<PermissionEntity>() {
                   @Override
-                  public PermissionsEntity fromString(String arg0) {
+                  public PermissionEntity fromString(String arg0) {
                     return null;
                   }
 
                   @Override
-                  public String toString(PermissionsEntity per) {
+                  public String toString(PermissionEntity per) {
                     return per.getPermissionDisplayName();
                   }
                 }));
@@ -117,11 +119,11 @@ public class RolesDetailView implements Initializable {
         });*/
   }
 
-  public void fillData(RolesEntity role) {
+  public void fillData(RoleEntity role) {
     textId.setText(role.getId().toString());
-    textRoleΝame.setText(role.getRoleName());
-    for (PermissionsEntity perm : permCheckList.getItems()) {
-      for (PermissionsEntity permExist : role.getPermissionList()) {
+    textRoleΝame.setText(role.getName());
+    for (PermissionEntity perm : permCheckList.getItems()) {
+      for (PermissionEntity permExist : role.getPermissions()) {
         if (permExist.getPermissionName().matches(perm.getPermissionName())) {
           permCheckList.getCheckModel().check(perm);
         }
@@ -130,11 +132,11 @@ public class RolesDetailView implements Initializable {
   }
 
   public boolean save() {
-    GenericDao gdao = new GenericDao(RolesEntity.class, PersistenceManager.getEmf());
-    RolesEntity role = new RolesEntity();
-    role.setRoleName(textRoleΝame.getText());
-    for (PermissionsEntity perm : permCheckList.getCheckModel().getCheckedItems()) {
-      role.getPermissionList().add(perm);
+    GenericDao gdao = new GenericDao(depr_RolesEntity.class, PersistenceManager.getEmf());
+    RoleEntity role = new RoleEntity();
+    role.setName(textRoleΝame.getText());
+    for (PermissionEntity perm : permCheckList.getCheckModel().getCheckedItems()) {
+      role.getPermissions().add(perm);
     }
     gdao.createEntity(role);
     return true;
@@ -156,12 +158,12 @@ public class RolesDetailView implements Initializable {
   }
 
   public boolean saveEdit() {
-    GenericDao gdao = new GenericDao(RolesEntity.class, PersistenceManager.getEmf());
-    RolesEntity role = (RolesEntity) gdao.findEntity(Long.valueOf(textId.getText()));
-    role.setRoleName(textRoleΝame.getText());
-    role.getPermissionList().clear();
-    for (PermissionsEntity perm : permCheckList.getCheckModel().getCheckedItems()) {
-      role.getPermissionList().add(perm);
+    GenericDao gdao = new GenericDao(depr_RolesEntity.class, PersistenceManager.getEmf());
+    RoleEntity role = (RoleEntity) gdao.findEntity(Long.valueOf(textId.getText()));
+    role.setName(textRoleΝame.getText());
+    role.getPermissions().clear();
+    for (PermissionEntity perm : permCheckList.getCheckModel().getCheckedItems()) {
+      role.getPermissions().add(perm);
     }
     gdao.updateEntity(role);
     return true;

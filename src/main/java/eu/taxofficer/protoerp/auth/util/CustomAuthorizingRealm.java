@@ -40,7 +40,8 @@ public class CustomAuthorizingRealm extends AuthorizingRealm {
 
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-    UserEntity user = UserQueries.findUserByUsername(principals.getPrimaryPrincipal().toString());
+    UserEntity current = (UserEntity) (principals.getPrimaryPrincipal());
+    UserEntity user = UserQueries.findUserByUsername(current.getUsername());
     if (user == null) {
       return null;
     }

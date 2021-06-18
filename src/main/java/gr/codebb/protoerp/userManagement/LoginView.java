@@ -67,7 +67,7 @@ public class LoginView implements Initializable {
         .dependsOn("username", userCombo.valueProperty())
         .withMethod(
             c -> {
-              UsersEntity username = c.get("username");
+              UserEntity username = c.get("username");
               if (username == null) {
                 c.error("Το όνομα χρήστη δεν μπορεί να είναι κενό");
               }

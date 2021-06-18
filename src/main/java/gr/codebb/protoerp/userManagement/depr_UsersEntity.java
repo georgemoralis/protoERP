@@ -35,7 +35,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "protoerp_users")
-public class UsersEntity implements Serializable, Displayable {
+public class depr_UsersEntity implements Serializable, Displayable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Getter
@@ -54,24 +54,24 @@ public class UsersEntity implements Serializable, Displayable {
       name = "protoerp_user_role",
       joinColumns = {@JoinColumn(name = "user_id")},
       inverseJoinColumns = {@JoinColumn(name = "role_id")})
-  private List<RolesEntity> roleList = new ArrayList<>();
+  private List<depr_RolesEntity> roleList = new ArrayList<>();
 
   @Transient private Set<String> rolesName;
 
   public Set<String> getRolesName() {
-    List<RolesEntity> roles = getRoleList();
+    List<depr_RolesEntity> roles = getRoleList();
     rolesName = new HashSet<>();
-    for (RolesEntity role : roles) {
+    for (depr_RolesEntity role : roles) {
       rolesName.add(role.getRoleName());
     }
     return rolesName;
   }
 
-  public List<RolesEntity> getRoleList() {
+  public List<depr_RolesEntity> getRoleList() {
     return roleList;
   }
 
-  public void setRoleList(List<RolesEntity> roleList) {
+  public void setRoleList(List<depr_RolesEntity> roleList) {
     this.roleList = roleList;
   }
 
