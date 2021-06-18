@@ -58,16 +58,16 @@ public class RolesView extends AbstractListView implements Initializable {
   CbbTableColumn<RoleEntity, Long> columnId;
 
   @ColumnProperty(prefWidth = "150.0d")
-  CbbTableColumn<RoleEntity, String> columnRoleName;
+  CbbTableColumn<RoleEntity, String> columnName;
 
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     columnId = new CbbLongTableColumn<>("Id");
     columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-    columnRoleName = new CbbStringTableColumn<>("Ρόλος");
-    columnRoleName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    columnName = new CbbStringTableColumn<>("Ρόλος");
+    columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-    rolesTable.getColumns().addAll(columnId, columnRoleName);
+    rolesTable.getColumns().addAll(columnId, columnName);
 
     init(this);
     selectWithService();
@@ -88,7 +88,7 @@ public class RolesView extends AbstractListView implements Initializable {
             .owner(rolesTable.getScene().getWindow())
             .showAndWaitConfirm();
     if (response == ButtonType.OK) {
-      GenericDao gdao = new GenericDao(depr_RolesEntity.class, PersistenceManager.getEmf());
+      GenericDao gdao = new GenericDao(RoleEntity.class, PersistenceManager.getEmf());
       try {
         gdao.deleteEntity(rolesTable.getSelectionModel().getSelectedItem().getId());
       } catch (Exception e) {

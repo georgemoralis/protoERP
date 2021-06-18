@@ -132,7 +132,7 @@ public class RolesDetailView implements Initializable {
   }
 
   public boolean save() {
-    GenericDao gdao = new GenericDao(depr_RolesEntity.class, PersistenceManager.getEmf());
+    GenericDao gdao = new GenericDao(RoleEntity.class, PersistenceManager.getEmf());
     RoleEntity role = new RoleEntity();
     role.setName(textRoleΝame.getText());
     for (PermissionEntity perm : permCheckList.getCheckModel().getCheckedItems()) {
@@ -158,7 +158,7 @@ public class RolesDetailView implements Initializable {
   }
 
   public boolean saveEdit() {
-    GenericDao gdao = new GenericDao(depr_RolesEntity.class, PersistenceManager.getEmf());
+    GenericDao gdao = new GenericDao(RoleEntity.class, PersistenceManager.getEmf());
     RoleEntity role = (RoleEntity) gdao.findEntity(Long.valueOf(textId.getText()));
     role.setName(textRoleΝame.getText());
     role.getPermissions().clear();

@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -20,7 +22,7 @@ import lombok.Setter;
 
 /** @author George Moralis */
 @Entity
-@Table(name = "users")
+@Table(name = "protoerp_users")
 public class UserEntity implements Serializable, Displayable {
 
   @Id
@@ -34,7 +36,14 @@ public class UserEntity implements Serializable, Displayable {
   @Getter @Setter private Boolean active;
   @Getter @Setter private String name;
 
-  @ManyToMany @Getter @Setter private Set<RoleEntity> roles;
+  @ManyToMany
+  @JoinTable(
+      name = "protoerp_user_role",
+      joinColumns = {@JoinColumn(name = "user_id")},
+      inverseJoinColumns = {@JoinColumn(name = "role_id")})
+  @Getter
+  @Setter
+  private Set<RoleEntity> roles;
 
   @Override
   public String getComboDisplayValue() {

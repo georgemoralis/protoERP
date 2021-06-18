@@ -17,7 +17,7 @@ import lombok.Setter;
 
 /** @author George Moralis */
 @Entity
-@Table(name = "permissions")
+@Table(name = "protoerp_permissions")
 public class PermissionEntity implements Serializable {
 
   @Id
