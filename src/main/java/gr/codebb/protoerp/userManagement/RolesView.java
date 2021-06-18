@@ -18,6 +18,7 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.queries.RoleQueries;
 import gr.codebb.ctl.cbbTableView.CbbTableView;
 import gr.codebb.ctl.cbbTableView.columns.CbbLongTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbStringTableColumn;
@@ -161,7 +162,7 @@ public class RolesView extends AbstractListView implements Initializable {
 
   @Override
   protected List getMainQuery() {
-    return RolesQueries.getRoles();
+    return RoleQueries.getRoles();
   }
 
   @Override

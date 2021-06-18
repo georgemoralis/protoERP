@@ -15,6 +15,7 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.entities.UserEntity;
 import eu.taxofficer.protoerp.auth.queries.UserQueries;
 import gr.codebb.ctl.cbbTableView.CbbTableView;
 import gr.codebb.ctl.cbbTableView.columns.CbbBooleanTableColumn;
@@ -49,19 +50,19 @@ public class UsersView extends AbstractListView implements Initializable {
   @FXML private Button newButton;
   @FXML private Button openButton;
   @FXML private Button deleteButton;
-  @FXML private CbbTableView<UsersEntity> usersTable;
+  @FXML private CbbTableView<UserEntity> usersTable;
 
   @ColumnProperty(prefWidth = "100.0d")
-  CbbTableColumn<UsersEntity, Long> columnId;
+  CbbTableColumn<UserEntity, Long> columnId;
 
   @ColumnProperty(prefWidth = "100.0d")
-  CbbTableColumn<UsersEntity, Boolean> columnActive;
+  CbbTableColumn<UserEntity, Boolean> columnActive;
 
   @ColumnProperty(prefWidth = "180.0d")
-  CbbTableColumn<UsersEntity, String> columnName;
+  CbbTableColumn<UserEntity, String> columnName;
 
   @ColumnProperty(prefWidth = "120.0d")
-  CbbTableColumn<UsersEntity, String> columnUsername;
+  CbbTableColumn<UserEntity, String> columnUsername;
 
   /** Initializes the controller class. */
   @Override
@@ -152,7 +153,7 @@ public class UsersView extends AbstractListView implements Initializable {
             .owner(usersTable.getScene().getWindow())
             .showAndWaitConfirm();
     if (response == ButtonType.OK) {
-      GenericDao gdao = new GenericDao(UsersEntity.class, PersistenceManager.getEmf());
+      GenericDao gdao = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
       try {
         gdao.deleteEntity(usersTable.getSelectionModel().getSelectedItem().getId());
       } catch (Exception e) {

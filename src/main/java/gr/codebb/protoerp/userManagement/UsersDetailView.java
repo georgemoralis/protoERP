@@ -15,7 +15,9 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.entities.RoleEntity;
 import eu.taxofficer.protoerp.auth.entities.UserEntity;
+import eu.taxofficer.protoerp.auth.queries.RoleQueries;
 import eu.taxofficer.protoerp.auth.queries.UserQueries;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
@@ -46,7 +48,7 @@ public class UsersDetailView implements Initializable {
   @FXML private CbbClearableTextField textUsername;
   @FXML private PasswordField textPassword;
   @FXML private PasswordField textRepeatPassword;
-  @FXML private CheckListView<RolesEntity> roleCheckList;
+  @FXML private CheckListView<RoleEntity> roleCheckList;
   @FXML private CheckBox checkNoPass;
 
   private Validator validator = new Validator();
@@ -54,20 +56,20 @@ public class UsersDetailView implements Initializable {
   /** Initializes the controller class. */
   @Override
   public void initialize(URL url, ResourceBundle rb) {
-    roleCheckList.getItems().addAll(RolesQueries.getRoles());
+    roleCheckList.getItems().addAll(RoleQueries.getRoles());
     roleCheckList.setCellFactory(
-        (ListView<RolesEntity> listView) ->
-            new CheckBoxListCell<RolesEntity>(
+        (ListView<RoleEntity> listView) ->
+            new CheckBoxListCell<RoleEntity>(
                 item -> roleCheckList.getItemBooleanProperty(item),
-                new StringConverter<RolesEntity>() {
+                new StringConverter<RoleEntity>() {
                   @Override
-                  public RolesEntity fromString(String arg0) {
+                  public RoleEntity fromString(String arg0) {
                     return null;
                   }
 
                   @Override
-                  public String toString(RolesEntity rol) {
-                    return rol.getRoleName();
+                  public String toString(RoleEntity rol) {
+                    return rol.getName();
                   }
                 }));
     checkActive.setSelected(true); // user is active by default on new entry
@@ -144,15 +146,15 @@ public class UsersDetailView implements Initializable {
             });
   }
 
-  public void fillData(UsersEntity user) {
+  public void fillData(UserEntity user) {
     textId.setText(user.getId().toString());
     textName.setText(user.getName());
     textUsername.setText(user.getUsername());
     // we don't copy password they are encrypted anyway
     checkActive.setSelected(user.getActive());
-    for (RolesEntity rol : roleCheckList.getItems()) {
-      for (RolesEntity roleExist : user.getRoleList()) {
-        if (roleExist.getRoleName().matches(rol.getRoleName())) {
+    for (RoleEntity rol : roleCheckList.getItems()) {
+      for (RoleEntity roleExist : user.getRoles()) {
+        if (roleExist.getName().matches(rol.getName())) {
           roleCheckList.getCheckModel().check(rol);
         }
       }
@@ -166,8 +168,8 @@ public class UsersDetailView implements Initializable {
   }
 
   public boolean save() {
-    GenericDao gdao = new GenericDao(UsersEntity.class, PersistenceManager.getEmf());
-    UsersEntity user = new UsersEntity();
+    GenericDao gdao = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
+    UserEntity user = new UserEntity();
     user.setActive(checkActive.isSelected());
     user.setName(textName.getText());
     user.setUsername(textUsername.getText());
@@ -182,16 +184,16 @@ public class UsersDetailView implements Initializable {
       }
     }
 
-    for (RolesEntity role : roleCheckList.getCheckModel().getCheckedItems()) {
-      user.getRoleList().add(role);
+    for (RoleEntity role : roleCheckList.getCheckModel().getCheckedItems()) {
+      user.getRoles().add(role);
     }
     gdao.createEntity(user);
     return true;
   }
 
   public boolean saveEdit() {
-    GenericDao gdao = new GenericDao(UsersEntity.class, PersistenceManager.getEmf());
-    UsersEntity user = (UsersEntity) gdao.findEntity(Long.valueOf(textId.getText()));
+    GenericDao gdao = new GenericDao(UserEntity.class, PersistenceManager.getEmf());
+    UserEntity user = (UserEntity) gdao.findEntity(Long.valueOf(textId.getText()));
     user.setActive(checkActive.isSelected());
     user.setName(textName.getText());
     user.setUsername(textUsername.getText());
@@ -206,10 +208,15 @@ public class UsersDetailView implements Initializable {
         }
       }
     }
-    user.getRoleList().clear();
-    for (RolesEntity role : roleCheckList.getCheckModel().getCheckedItems()) {
-      user.getRoleList().add(role);
-    }
+
+    user.getRoles().clear();
+    roleCheckList
+        .getCheckModel()
+        .getCheckedItems()
+        .forEach(
+            role -> {
+              user.getRoles().add(role);
+            });
     gdao.updateEntity(user);
     return true;
   }

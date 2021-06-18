@@ -15,6 +15,8 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.entities.RoleEntity;
+import eu.taxofficer.protoerp.auth.queries.RoleQueries;
 import gr.codebb.codebblib.validatorfx.Validator;
 import gr.codebb.ctl.CbbClearableTextField;
 import gr.codebb.dlg.AlertDlg;
@@ -77,7 +79,7 @@ public class RolesDetailView implements Initializable {
         .withMethod(
             c -> {
               String rolename = c.get("rolename");
-              RolesEntity rolef = RolesQueries.findRoleName(rolename);
+              RoleEntity rolef = RoleQueries.findRoleName(rolename);
               if (rolef != null) // if exists
               {
                 if (!textId.getText().isEmpty()) { // if it is not a new entry
