@@ -11,6 +11,7 @@
  */
 package gr.codebb.protoerp.userManagement;
 
+import eu.taxofficer.protoerp.auth.views.RolesListView;
 import gr.codebb.lib.util.TreeCategoryModel;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,7 +36,7 @@ public class UserManagementMainView implements Initializable {
         new TreeCategoryModel("Χρήστες", UsersView.class, "/fxml/userManagement/Users.fxml");
     TreeCategoryModel roles =
         new TreeCategoryModel(
-            "Ρόλοι & δικαιώματα", RolesView.class, "/fxml/userManagement/Roles.fxml");
+            "Ρόλοι & δικαιώματα", RolesListView.class, "/fxml/userManagement/RolesList.fxml");
 
     TreeItem<TreeCategoryModel> root_item = new TreeItem<>(root);
 

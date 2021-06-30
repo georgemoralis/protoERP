@@ -1,22 +1,10 @@
 /*
- * copyright 2013-2020
- * codebb.gr
+ * copyright 2021
+ * taxofficer.eu
  * ProtoERP - Open source invocing program
- * info@codebb.gr
+ * protoERP@taxofficer.eu
  */
-/*
- * Changelog
- * =========
- * 19/02/2021 (georgemoralis) - Added userData for use with saveTableSettings
- * 17/11/2020 (georgemoralis) - Added delete action
- * 17/11/2020 (georgemoralis) - Validation works
- * 16/11/2020 (georgemoralis) - More in saving
- * 15/11/2020 (georgemoralis) - Added edit action
- * 12/11/2020 (georgemoralis) - Initial work in Add detail view
- * 09/11/2020 (georgemoralis) - More work on listview
- * 06/11/2020 (georgemoralis) - Initial
- */
-package gr.codebb.protoerp.userManagement;
+package eu.taxofficer.protoerp.auth.views;
 
 import eu.taxofficer.protoerp.auth.entities.RoleEntity;
 import eu.taxofficer.protoerp.auth.queries.RoleQueries;
@@ -33,6 +21,7 @@ import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.FxmlUtil;
+import gr.codebb.protoerp.userManagement.RolesDetailView;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +36,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 
-public class RolesView extends AbstractListView implements Initializable {
+public class RolesListView extends AbstractListView implements Initializable {
 
   @FXML private StackPane mainStackPane;
   @FXML private Button refreshButton;
