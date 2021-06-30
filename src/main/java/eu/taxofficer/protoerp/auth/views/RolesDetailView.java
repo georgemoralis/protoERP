@@ -13,7 +13,7 @@
  * 15/11/2020 (georgemoralis) - Progress in loading/saving form
  * 12/11/2020 (georgemoralis) - Initial work
  */
-package gr.codebb.protoerp.userManagement;
+package eu.taxofficer.protoerp.auth.views;
 
 import eu.taxofficer.protoerp.auth.entities.PermissionEntity;
 import eu.taxofficer.protoerp.auth.entities.RoleEntity;

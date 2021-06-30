@@ -21,7 +21,6 @@ import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
 import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.FxmlUtil;
-import gr.codebb.protoerp.userManagement.RolesDetailView;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
