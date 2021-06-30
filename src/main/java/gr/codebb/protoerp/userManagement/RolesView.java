@@ -21,6 +21,7 @@ package gr.codebb.protoerp.userManagement;
 import eu.taxofficer.protoerp.auth.entities.RoleEntity;
 import eu.taxofficer.protoerp.auth.queries.RoleQueries;
 import gr.codebb.ctl.cbbTableView.CbbTableView;
+import gr.codebb.ctl.cbbTableView.columns.CbbBooleanTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbLongTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbStringTableColumn;
 import gr.codebb.ctl.cbbTableView.columns.CbbTableColumn;
@@ -30,6 +31,7 @@ import gr.codebb.lib.crud.annotation.ColumnProperty;
 import gr.codebb.lib.database.GenericDao;
 import gr.codebb.lib.database.PersistenceManager;
 import gr.codebb.lib.util.AlertDlgHelper;
+import gr.codebb.lib.util.AlertHelper;
 import gr.codebb.lib.util.FxmlUtil;
 import java.net.URL;
 import java.util.List;
@@ -57,6 +59,9 @@ public class RolesView extends AbstractListView implements Initializable {
   @ColumnProperty(prefWidth = "100.0d")
   CbbTableColumn<RoleEntity, Long> columnId;
 
+  @ColumnProperty(prefWidth = "100.0d")
+  CbbTableColumn<RoleEntity, Boolean> columnActive;
+
   @ColumnProperty(prefWidth = "150.0d")
   CbbTableColumn<RoleEntity, String> columnName;
 
@@ -66,8 +71,10 @@ public class RolesView extends AbstractListView implements Initializable {
     columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
     columnName = new CbbStringTableColumn<>("Ρόλος");
     columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    columnActive = new CbbBooleanTableColumn<>("Ενεργός");
+    columnActive.setCellValueFactory(new PropertyValueFactory<>("active"));
 
-    rolesTable.getColumns().addAll(columnId, columnName);
+    rolesTable.getColumns().addAll(columnId, columnActive, columnName);
 
     init(this);
     selectWithService();
@@ -92,7 +99,12 @@ public class RolesView extends AbstractListView implements Initializable {
       try {
         gdao.deleteEntity(rolesTable.getSelectionModel().getSelectedItem().getId());
       } catch (Exception e) {
-        e.printStackTrace();
+        AlertHelper.errorDialog(
+            rolesTable.getScene().getWindow(),
+            "Ο ρόλος δεν μπορεί να διαγραφεί γιατί υπάρχουν χρήστες που τον χρησιμοποιούν\nΑποθηκεύτηκε σαν ανενεργός");
+        RoleEntity r = rolesTable.getSelectionModel().getSelectedItem();
+        r.setActive(false);
+        gdao.updateEntity(r);
       }
       selectWithService();
     }
