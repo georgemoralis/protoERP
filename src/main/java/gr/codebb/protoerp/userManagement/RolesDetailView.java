@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
@@ -40,7 +41,7 @@ public class RolesDetailView implements Initializable {
   @FXML private TextField textId;
   @FXML private CbbClearableTextField textRoleΝame;
   @FXML private CheckListView<PermissionEntity> permCheckList;
-
+  @FXML private CheckBox checkActive;
   private Validator validator = new Validator();
 
   /** Initializes the controller class. */
@@ -117,11 +118,13 @@ public class RolesDetailView implements Initializable {
             }
           }
         });*/
+    checkActive.setSelected(true);
   }
 
   public void fillData(RoleEntity role) {
     textId.setText(role.getId().toString());
     textRoleΝame.setText(role.getName());
+    checkActive.setSelected(role.getActive());
     for (PermissionEntity perm : permCheckList.getItems()) {
       for (PermissionEntity permExist : role.getPermissions()) {
         if (permExist.getPermissionName().matches(perm.getPermissionName())) {
@@ -135,6 +138,7 @@ public class RolesDetailView implements Initializable {
     GenericDao gdao = new GenericDao(RoleEntity.class, PersistenceManager.getEmf());
     RoleEntity role = new RoleEntity();
     role.setName(textRoleΝame.getText());
+    role.setActive(checkActive.isSelected());
     for (PermissionEntity perm : permCheckList.getCheckModel().getCheckedItems()) {
       role.getPermissions().add(perm);
     }
@@ -161,6 +165,7 @@ public class RolesDetailView implements Initializable {
     GenericDao gdao = new GenericDao(RoleEntity.class, PersistenceManager.getEmf());
     RoleEntity role = (RoleEntity) gdao.findEntity(Long.valueOf(textId.getText()));
     role.setName(textRoleΝame.getText());
+    role.setActive(checkActive.isSelected());
     role.getPermissions().clear();
     for (PermissionEntity perm : permCheckList.getCheckModel().getCheckedItems()) {
       role.getPermissions().add(perm);
