@@ -31,7 +31,7 @@
         <controlsfx>11.1.1</controlsfx>
         <javafx>17-ea+13</javafx>
         <ikonli-fontawesome-pack>12.2.0</ikonli-fontawesome-pack>
-        <ikonli-materialdesign-pack>12.2.0</ikonli-materialdesign-pack>
+        <ikonli-materialdesign-pack>12.3.0</ikonli-materialdesign-pack>
         <ikonli-material-pack>12.2.0</ikonli-material-pack>
         <mysql-connector-java>8.0.27</mysql-connector-java>
         <hibernate-hikaricp>5.6.3.Final</hibernate-hikaricp>
