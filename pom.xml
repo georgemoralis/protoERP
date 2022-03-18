@@ -39,7 +39,7 @@
         <logback-classic>1.3.0-alpha12</logback-classic>
         <commons-lang3>3.12.0</commons-lang3>
         <jinq-jpa>1.8.34</jinq-jpa>
-        <liquibase-core>4.6.2</liquibase-core>
+        <liquibase-core>4.9.0</liquibase-core>
         <shiro-core>1.8.0</shiro-core>
         <log4j2>2.17.1</log4j2>
         <jasperreports>6.18.1</jasperreports>
