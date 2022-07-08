@@ -16,7 +16,7 @@
         <!--plugins versions !-->
         <exec.maven.plugin.version>3.0.0</exec.maven.plugin.version>
         <versions-maven-plugin>2.8.1</versions-maven-plugin>
-        <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
+        <maven-compiler-plugin>3.10.1</maven-compiler-plugin>
         <javafx-maven-plugin>0.0.8</javafx-maven-plugin>
         <maven-site-plugin>3.10.0</maven-site-plugin>
         <maven-project-info-reports-plugin>3.1.2</maven-project-info-reports-plugin>
@@ -24,14 +24,14 @@
         <fmt-maven-plugin>2.13</fmt-maven-plugin>
         <maven-checkstyle-plugin>3.1.2</maven-checkstyle-plugin>
         <git-commit-id-plugin>4.9.10</git-commit-id-plugin>
-        <maven-dependency-plugin>3.2.0</maven-dependency-plugin>
+        <maven-dependency-plugin>3.3.0</maven-dependency-plugin>
         <!--depedencies !-->
         <lombok>1.18.22</lombok>
         <jfoenix>9.0.10</jfoenix>
         <controlsfx>11.1.1</controlsfx>
         <javafx>17-ea+13</javafx>
         <ikonli-fontawesome-pack>12.2.0</ikonli-fontawesome-pack>
-        <ikonli-materialdesign-pack>12.2.0</ikonli-materialdesign-pack>
+        <ikonli-materialdesign-pack>12.3.1</ikonli-materialdesign-pack>
         <ikonli-material-pack>12.2.0</ikonli-material-pack>
         <mysql-connector-java>8.0.27</mysql-connector-java>
         <hibernate-hikaricp>5.6.3.Final</hibernate-hikaricp>
