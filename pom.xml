@@ -28,7 +28,7 @@
         <!--depedencies !-->
         <lombok>1.18.26</lombok>
         <jfoenix>9.0.10</jfoenix>
-        <controlsfx>11.1.1</controlsfx>
+        <controlsfx>11.1.2</controlsfx>
         <javafx>17-ea+13</javafx>
         <ikonli-fontawesome-pack>12.3.1</ikonli-fontawesome-pack>
         <ikonli-materialdesign-pack>12.3.1</ikonli-materialdesign-pack>
