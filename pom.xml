@@ -35,7 +35,7 @@
         <ikonli-material-pack>12.3.1</ikonli-material-pack>
         <mysql-connector-java>8.0.30</mysql-connector-java>
         <hibernate-hikaricp>5.6.10.Final</hibernate-hikaricp>
-        <slf4j-api>2.0.0-alpha7</slf4j-api>
+        <slf4j-api>2.0.7</slf4j-api>
         <logback-classic>1.4.5</logback-classic>
         <commons-lang3>3.12.0</commons-lang3>
         <jinq-jpa>2.0.0</jinq-jpa>
