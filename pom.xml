@@ -20,7 +20,7 @@
         <javafx-maven-plugin>0.0.8</javafx-maven-plugin>
         <maven-site-plugin>3.12.1</maven-site-plugin>
         <maven-project-info-reports-plugin>3.4.2</maven-project-info-reports-plugin>
-        <spotbugs-maven-plugin>4.7.3.0</spotbugs-maven-plugin>
+        <spotbugs-maven-plugin>4.7.3.3</spotbugs-maven-plugin>
         <fmt-maven-plugin>2.13</fmt-maven-plugin>
         <maven-checkstyle-plugin>3.2.1</maven-checkstyle-plugin>
         <git-commit-id-plugin>4.9.10</git-commit-id-plugin>
